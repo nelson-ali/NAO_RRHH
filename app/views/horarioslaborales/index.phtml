@@ -1,0 +1,835 @@
+<h2 style="padding-top: 0px; width: 100%;"><b>Gesti&oacute;n Horarios Laborales</b></h2>
+<div id='jqxTabsHorarios'>
+    <ul>
+        <li id="liList">Listado</li>
+        <li id="liNew">Nuevo</li>
+        <li id="liEdit">Modificaci&oacute;n</li>
+        <li id="liView">Vista</li>
+    </ul>
+    <br>
+
+    <div style="height: 710px;" class="row section" id="divList">
+        <div class="col-md-10">
+            <div class="block">
+                <div class="block-title">
+                    <div id='jqxWidget'>
+                        <div id="jqxgridhorarios"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-2">
+            <div class="block">
+                <div class="block-title">
+                    <h2>Mostrar</h2>
+                    <br>
+                    <input type="checkbox" id="chkAllCols"> Todas / Ninguna
+                </div>
+                <div id="jqxlistbox"></div>
+            </div>
+        </div>
+    </div>
+    <div style="display: none;" class="section" id="divNew">
+        <br>
+        <h6><b>NOTAS: </b>
+            <ul>
+                <li>1) Los datos precedidos de asterisco son requerido de manera obligatoria (*).</li>
+                <li>2) El horario de Salida no puede ser igual a '00:00'.</li>
+            </ul>
+        </h6>
+        <div class="form-horizontal col-sm-12">
+            <fieldset>
+                <legend><i class="fa fa-angle-right"></i> Datos de Identificaci&oacute;n del Horario</legend>
+                <div class="row">
+                    <div class="div-calendario-laboral" id="divNombreHorario">
+                        <label class="col-md-2 control-label" for="txtNombreHorario">Nombre Horario *:</label>
+
+                        <div class="col-md-2">
+                            <input type="text" id="txtNombreHorario" class="form-control" readonly>
+                            <span class="help-block" id="helpErrorNombreHorario"></span>
+                        </div>
+                    </div>
+                    <div class="div-calendario-laboral" id="divNombreAlternativoHorario">
+                        <label class="col-md-2 control-label" for="txtNombreAlternativoHorario">Nombre
+                            Alternativo:</label>
+
+                        <div class="col-md-2" form-group>
+                            <input type="text" id="txtNombreAlternativoHorario" class="form-control">
+                            <span class="help-block" id="helpErrorNombreAlternativoHorario"></span>
+                        </div>
+                    </div>
+                    <div class="div-calendario-laboral" id="divColorHorario">
+                        <label class="col-md-2 control-label" for="txtColorHorario">Color *:</label>
+
+                        <div class="col-md-2">
+                            <div class="input-group">
+                                <input type="text" id="txtColorHorario" value="#FFFFFF"
+                                       class="kolorPicker form-control">
+                            </div>
+                            <span class="help-block" id="helpErrorColorHorario"></span>
+
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+            <fieldset>
+                <legend><i class="fa fa-angle-right"></i> Horario Entrada / Salida</legend>
+                <div class="row">
+                    <div class="div-calendario-laboral" id="divHoraEntHorario">
+                        <label class="col-md-2 control-label" for="txtHoraEntHorario">Entrada *:</label>
+
+                        <div class="col-md-2">
+                            <div class="input-group clockpicker">
+                                <input type="text" id="txtHoraEntHorario" class="form-control hora-entrada-salida">
+                <span class="input-group-btn" id="spanHoraEntrada">
+                <a id="aHoraEntrada" class="btn btn-success"><i class="fa fa-clock-o"></i></a>
+                </span>
+                            </div>
+                            <span class="help-block" id="helpErrorHoraEntHorario"></span>
+                        </div>
+                    </div>
+                    <div class="div-calendario-laboral" id="divHoraSalHorario">
+                        <label class="col-sm-2 control-label" for="txtHoraSalHorario">Salida *:</label>
+
+                        <div class="col-md-2">
+                            <div class="input-group clockpicker">
+                                <input type="text" id="txtHoraSalHorario" class="form-control hora-entrada-salida">
+                <span class="input-group-btn" id="spanHoraSalida">
+                <a id="aHoraSalida" class="btn btn-success"><i class="fa fa-clock-o"></i></a>
+                </span>
+                            </div>
+                            <span class="help-block" id="helpErrorHoraSalHorario"></span>
+                        </div>
+                    </div>
+
+                    <div class="div-calendario-laboral" id="divHorasLaborales">
+                        <label class="col-md-2 control-label" for="txtHorasLaborales">Horas Laborales:</label>
+
+                        <div class="col-md-2">
+                            <input type="text" id="txtHorasLaborales" class="form-control"
+                                   placeholder="Horas Laborales." readonly>
+                            <span class="help-block" id="helpErrorHorasLaborales"></span>
+                        </div>
+                    </div>
+                </div>
+
+            </fieldset>
+            <fieldset>
+                <legend><i class="fa fa-angle-right"></i> Rango Control Marcaciones</legend>
+                <div class="form-group">
+                    <div class="div-calendario-laboral" id="divHoraInicioRangoEnt">
+                        <label class="col-md-2 control-label" for="txtHoraInicioRangoEnt">Inicio Entrada *:</label>
+
+                        <div class="col-md-2">
+                            <div class="input-group bootstrap-timepicker">
+                                <div class="bootstrap-timepicker-widget dropdown-menu">
+                                    <table>
+                                        <tbody>
+                                        <tr>
+                                            <td><a href="#" data-action="incrementHour"><i class="fa fa-chevron-up"></i></a>
+                                            </td>
+                                            <td class="separator">&nbsp;</td>
+                                            <td><a href="#" data-action="incrementMinute"><i
+                                                        class="fa fa-chevron-up"></i></a>
+                                            </td>
+                                            <td class="separator">&nbsp;</td>
+                                            <td><a href="#" data-action="incrementSecond"><i
+                                                        class="fa fa-chevron-up"></i></a>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td><input class="form-control bootstrap-timepicker-hour" maxlength="2"
+                                                       type="text">
+                                            </td>
+                                            <td class="separator">:</td>
+                                            <td><input class="form-control bootstrap-timepicker-minute" maxlength="2"
+                                                       type="text"></td>
+                                            <td class="separator">:</td>
+                                            <td><input class="form-control bootstrap-timepicker-second" maxlength="2"
+                                                       type="text"></td>
+                                        </tr>
+                                        <tr>
+                                            <td><a href="#" data-action="decrementHour"><i
+                                                        class="fa fa-chevron-down"></i></a>
+                                            </td>
+                                            <td class="separator"></td>
+                                            <td><a href="#" data-action="decrementMinute"><i
+                                                        class="fa fa-chevron-down"></i></a>
+                                            </td>
+                                            <td class="separator">&nbsp;</td>
+                                            <td><a href="#" data-action="decrementSecond"><i
+                                                        class="fa fa-chevron-down"></i></a>
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <input id="txtHoraInicioRangoEnt" name="txtHoraInicioRangoEnt"
+                                       placeholder="Hora de inicio entrada."
+                                       class="form-control input-timepicker24" type="text">
+                                    <span class="input-group-btn">
+                                        <a href="javascript:void(0)" class="btn btn-success"><i
+                                                class="fa fa-clock-o"></i></a>
+                                    </span>
+                            </div>
+                            <span class="help-block" id="helpErrorHoraInicioRangoEnt"></span>
+                        </div>
+                    </div>
+                    <div class="div-calendario-laboral" id="divHoraFinalizacionRangoEnt">
+                        <label class="col-md-2 control-label" for="txtHoraFinalizacionRangoEnt">Fin Entrada *:</label>
+
+                        <div class="col-md-2">
+                            <div class="input-group bootstrap-timepicker">
+                                <div class="bootstrap-timepicker-widget dropdown-menu">
+                                    <table>
+                                        <tbody>
+                                        <tr>
+                                            <td><a href="#" data-action="incrementHour"><i class="fa fa-chevron-up"></i></a>
+                                            </td>
+                                            <td class="separator">&nbsp;</td>
+                                            <td><a href="#" data-action="incrementMinute"><i
+                                                        class="fa fa-chevron-up"></i></a>
+                                            </td>
+                                            <td class="separator">&nbsp;</td>
+                                            <td><a href="#" data-action="incrementSecond"><i
+                                                        class="fa fa-chevron-up"></i></a>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td><input class="form-control bootstrap-timepicker-hour" maxlength="2"
+                                                       type="text">
+                                            </td>
+                                            <td class="separator">:</td>
+                                            <td><input class="form-control bootstrap-timepicker-minute" maxlength="2"
+                                                       type="text"></td>
+                                            <td class="separator">:</td>
+                                            <td><input class="form-control bootstrap-timepicker-second" maxlength="2"
+                                                       type="text"></td>
+                                        </tr>
+                                        <tr>
+                                            <td><a href="#" data-action="decrementHour"><i
+                                                        class="fa fa-chevron-down"></i></a>
+                                            </td>
+                                            <td class="separator"></td>
+                                            <td><a href="#" data-action="decrementMinute"><i
+                                                        class="fa fa-chevron-down"></i></a>
+                                            </td>
+                                            <td class="separator">&nbsp;</td>
+                                            <td><a href="#" data-action="decrementSecond"><i
+                                                        class="fa fa-chevron-down"></i></a>
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <input id="txtHoraFinalizacionRangoEnt" name="txtHoraFinalizacionRangoEnt"
+                                       placeholder="Hora de finalizaci&oacute;n de entrada."
+                                       class="form-control input-timepicker24" type="text">
+                                    <span class="input-group-btn">
+                                        <a href="javascript:void(0)" class="btn btn-success"><i
+                                                class="fa fa-clock-o"></i></a>
+                                    </span>
+                            </div>
+                            <span class="help-block" id="helpErrorHoraFinalizacionRangoEnt"></span>
+                        </div>
+                        <div class="div-calendario-laboral" id="divControlCruce">
+                            <label class="col-md-2 control-label" for="chkPermitirCruce">¿Permitir Cruce? *:</label>
+                            <div class="col-md-2">
+                                <input type="checkbox" name="chkPermitirCruce" id="chkPermitirCruce" data-on-text="SI"
+                                       data-off-text="NO" data-on-color="success" data-off-color="danger" >
+                                <span class="help-block" id="helpErrorControlCruce"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="div-calendario-laboral" id="divHoraInicioRangoSal">
+                        <label class="col-md-2 control-label" for="txtHoraInicioRangoSal">Inicio Salida *:</label>
+                        <div class="col-md-2">
+                            <div class="input-group bootstrap-timepicker">
+                                <div class="bootstrap-timepicker-widget dropdown-menu">
+                                    <table>
+                                        <tbody>
+                                        <tr>
+                                            <td><a href="#" data-action="incrementHour"><i class="fa fa-chevron-up"></i></a>
+                                            </td>
+                                            <td class="separator">&nbsp;</td>
+                                            <td><a href="#" data-action="incrementMinute"><i
+                                                        class="fa fa-chevron-up"></i></a>
+                                            </td>
+                                            <td class="separator">&nbsp;</td>
+                                            <td><a href="#" data-action="incrementSecond"><i
+                                                        class="fa fa-chevron-up"></i></a>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td><input class="form-control bootstrap-timepicker-hour" maxlength="2"
+                                                       type="text">
+                                            </td>
+                                            <td class="separator">:</td>
+                                            <td><input class="form-control bootstrap-timepicker-minute" maxlength="2"
+                                                       type="text"></td>
+                                            <td class="separator">:</td>
+                                            <td><input class="form-control bootstrap-timepicker-second" maxlength="2"
+                                                       type="text"></td>
+                                        </tr>
+                                        <tr>
+                                            <td><a href="#" data-action="decrementHour"><i
+                                                        class="fa fa-chevron-down"></i></a>
+                                            </td>
+                                            <td class="separator"></td>
+                                            <td><a href="#" data-action="decrementMinute"><i
+                                                        class="fa fa-chevron-down"></i></a>
+                                            </td>
+                                            <td class="separator">&nbsp;</td>
+                                            <td><a href="#" data-action="decrementSecond"><i
+                                                        class="fa fa-chevron-down"></i></a>
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <input id="txtHoraInicioRangoSal" name="txtHoraInicioRangoSal"
+                                       placeholder="Hora de inicio de salida."
+                                       class="form-control input-timepicker24" type="text">
+                                    <span class="input-group-btn">
+                                        <a href="javascript:void(0)" class="btn btn-success"><i
+                                                class="fa fa-clock-o"></i></a>
+                                    </span>
+                            </div>
+                            <span class="help-block" id="helpErrorHoraInicioRangoSal"></span>
+                        </div>
+                    </div>
+                    <div class="div-calendario-laboral" id="divHoraFinalizacionRangoSal">
+                        <label class="col-md-2 control-label" for="txtHoraFinalizacionRangoSal">Fin Salida *:</label>
+
+                        <div class="col-md-2">
+                            <div class="input-group bootstrap-timepicker">
+                                <div class="bootstrap-timepicker-widget dropdown-menu">
+                                    <table>
+                                        <tbody>
+                                        <tr>
+                                            <td><a href="#" data-action="incrementHour"><i class="fa fa-chevron-up"></i></a>
+                                            </td>
+                                            <td class="separator">&nbsp;</td>
+                                            <td><a href="#" data-action="incrementMinute"><i
+                                                        class="fa fa-chevron-up"></i></a>
+                                            </td>
+                                            <td class="separator">&nbsp;</td>
+                                            <td><a href="#" data-action="incrementSecond"><i
+                                                        class="fa fa-chevron-up"></i></a>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td><input class="form-control bootstrap-timepicker-hour" maxlength="2"
+                                                       type="text">
+                                            </td>
+                                            <td class="separator">:</td>
+                                            <td><input class="form-control bootstrap-timepicker-minute" maxlength="2"
+                                                       type="text"></td>
+                                            <td class="separator">:</td>
+                                            <td><input class="form-control bootstrap-timepicker-second" maxlength="2"
+                                                       type="text"></td>
+                                        </tr>
+                                        <tr>
+                                            <td><a href="#" data-action="decrementHour"><i
+                                                        class="fa fa-chevron-down"></i></a>
+                                            </td>
+                                            <td class="separator"></td>
+                                            <td><a href="#" data-action="decrementMinute"><i
+                                                        class="fa fa-chevron-down"></i></a>
+                                            </td>
+                                            <td class="separator">&nbsp;</td>
+                                            <td><a href="#" data-action="decrementSecond"><i
+                                                        class="fa fa-chevron-down"></i></a>
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <input id="txtHoraFinalizacionRangoSal" name="txtHoraFinalizacionRangoSal"
+                                       placeholder="Hora de finalizaci&oacute;n de salida."
+                                       class="form-control input-timepicker24" type="text">
+                                    <span class="input-group-btn">
+                                        <a href="javascript:void(0)" class="btn btn-success"><i
+                                                class="fa fa-clock-o"></i></a>
+                                    </span>
+                            </div>
+                            <span class="help-block" id="helpErrorHoraFinalizacionRangoSal"></span>
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+            <fieldset>
+                <legend><i class="fa fa-angle-right"></i> Disponibilidad</legend>
+                <div class="form-group">
+                    <div class="row input-daterange">
+                        <div class="div-calendario-laboral" id="divFechaIni">
+                            <label class="col-md-2 control-label" for="txtFechaIni">Fecha Inicio <span
+                                    class="text-danger">*</span>:</label>
+
+                            <div class="col-md-2">
+                                <input type="text" id="txtFechaIni" name="txtFechaIni"
+                                       class="form-control input-datepicker-close" placeholder="dd-mm-yyyy"
+                                       data-date-format="dd-mm-yyyy" type="text">
+                                <span class="help-block" id="helpErrorFechaIni"></span>
+                            </div>
+                        </div>
+                        <div class="div-calendario-laboral" id="divFechaFin">
+                            <label class="col-md-2 control-label" for="txtFechaFin">Fecha Final <span
+                                    class="text-danger">*</span>:</label>
+
+                            <div class="col-md-2">
+                                <input type="text" id="txtFechaFin" name="txtFechaFin"
+                                       class="form-control  input-datepicker-close" placeholder="dd-mm-yyy"
+                                       data-date-format="dd-mm-yyyy" type="text">
+                                <span class="help-block" id="helpErrorFechaFin"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+            <fieldset>
+                <div class="form-group div-move-relab" id="divObservacion">
+                    <label class="col-md-2 control-label" for="txtObservacion">Observaciones:</label>
+
+                    <div class="col-md-6">
+                        <textarea id="txtObservacion" name="txtObservacion" class="form-control"
+                                  placeholder="Observaciones.."></textarea>
+                    </div>
+                    <span class="help-block" id="helpErrorObservacion"></span>
+                </div>
+                <input id="hdnIdHorarioLaboral" type="hidden" value="0">
+
+                <div class="form-group form-actions">
+                    <div class="col-md-8 col-md-offset-4">
+                        <button id="btnGuardarHorarioNuevo" class="btn btn-sm btn-info" type="button">
+                            <i class="fa fa-floppy-o"></i>
+                            Guardar
+                        </button>
+                        <button id="btnCancelarHorarioNuevo" class="btn btn-sm btn-default" type="button">
+                            <i class="fa fa-repeat"></i>
+                            Cancelar
+                        </button>
+                    </div>
+                </div>
+            </fieldset>
+        </div>
+    </div>
+    <div style="display: none;" class="section" id="divEdit">
+        <br>
+        <h6><b>NOTAS: </b>
+            <ul>
+                <li>1) Los datos precedidos de asterisco son requerido de manera obligatoria (*).</li>
+                <li>2) El horario de Salida no puede ser igual a '00:00'.</li>
+            </ul>
+        </h6>
+        <div class="form-horizontal col-sm-12">
+            <fieldset>
+                <legend><i class="fa fa-angle-right"></i> Datos de Identificaci&oacute;n del Horario</legend>
+                <div class="row">
+                    <div class="div-calendario-laboral" id="divNombreHorarioEditar">
+                        <label class="col-md-2 control-label" for="txtNombreHorarioEditar">Nombre Horario *:</label>
+
+                        <div class="col-md-2">
+                            <input type="text" id="txtNombreHorarioEditar" class="form-control" readonly>
+                            <span class="help-block" id="helpErrorNombreHorarioEditar"></span>
+                        </div>
+                    </div>
+                    <div class="div-calendario-laboral" id="divNombreAlternativoHorarioEditar">
+                        <label class="col-md-2 control-label" for="txtNombreAlternativoHorarioEditar">Nombre
+                            Alternativo:</label>
+
+                        <div class="col-md-2" form-group>
+                            <input type="text" id="txtNombreAlternativoHorarioEditar" class="form-control">
+                            <span class="help-block" id="helpErrorNombreAlternativoHorarioEditar"></span>
+                        </div>
+                    </div>
+                    <div class="div-calendario-laboral" id="divColorHorarioEditar">
+                        <label class="col-md-2 control-label" for="txtColorHorarioEditar">Color *:</label>
+
+                        <div class="col-md-2">
+                            <div class="input-group">
+                                <input type="text" id="txtColorHorarioEditar" value="#FFFFFF"
+                                       class="kolorPicker form-control">
+                                <!--<span class="input-group-btn">
+                                <button type="button" id="btnKolorPicker" class="btn btn-success"><i class="gi gi-brush"></i></button>
+                                </span>-->
+                            </div>
+                            <span class="help-block" id="helpErrorColorHorarioEditar"></span>
+
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+            <fieldset>
+                <legend><i class="fa fa-angle-right"></i> Horario Entrada / Salida</legend>
+                <div class="row">
+                    <div class="div-calendario-laboral" id="divHoraEntHorarioEditar">
+                        <label class="col-md-2 control-label" for="txtHoraEntHorarioEditar">Entrada *:</label>
+
+                        <div class="col-md-2">
+                            <div class="input-group clockpicker">
+                                <input type="text" id="txtHoraEntHorarioEditar"
+                                       class="form-control hora-entrada-salida-editar">
+                <span class="input-group-btn" id="spanHoraEntradaEditar">
+                <a id="aHoraEntradaEditar" class="btn btn-success"><i class="fa fa-clock-o"></i></a>
+                </span>
+                            </div>
+                            <span class="help-block" id="helpErrorHoraEntHorarioEditar"></span>
+                        </div>
+
+                    </div>
+                    <div class="div-calendario-laboral" id="divHoraSalHorarioEditar">
+                        <label class="col-md-2 control-label" for="txtHoraSalHorarioEditar">Salida *:</label>
+
+                        <div class="col-md-2">
+                            <div class="input-group clockpicker">
+                                <input type="text" id="txtHoraSalHorarioEditar"
+                                       class="form-control hora-entrada-salida-editar">
+                <span class="input-group-btn" id="spanHoraSalidaEditar">
+                <a id="aHoraSalidaEditar" class="btn btn-success"><i class="fa fa-clock-o"></i></a>
+                </span>
+                            </div>
+                            <span class="help-block" id="helpErrorHoraSalHorarioEditar"></span>
+                        </div>
+                    </div>
+                    <div class="div-calendario-laboral" id="divHorasLaboralesEditar">
+                        <label class="col-md-2 control-label" for="txtHorasLaboralesEditar">Horas Laborales:</label>
+                        <div class="col-md-2">
+                            <input id="txtHorasLaboralesEditar" name="txtHorasLaboralesEditar"
+                                   placeholder="Horas Laborales." type="text" class="form-control" readonly>
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+            <fieldset>
+                <legend><i class="fa fa-angle-right"></i> Rango Control Marcaciones</legend>
+                <div class="row">
+                    <div class="div-calendario-laboral" id="divHoraInicioRangoEntEditar">
+                        <label class="col-md-2 control-label" for="txtHoraInicioRangoEntEditar">Inicio Entrada
+                            *:</label>
+
+                        <div class="col-md-2">
+                            <div class="input-group bootstrap-timepicker">
+                                <div class="bootstrap-timepicker-widget dropdown-menu">
+                                    <table>
+                                        <tbody>
+                                        <tr>
+                                            <td><a href="#" data-action="incrementHour"><i class="fa fa-chevron-up"></i></a>
+                                            </td>
+                                            <td class="separator">&nbsp;</td>
+                                            <td><a href="#" data-action="incrementMinute"><i
+                                                        class="fa fa-chevron-up"></i></a>
+                                            </td>
+                                            <td class="separator">&nbsp;</td>
+                                            <td><a href="#" data-action="incrementSecond"><i
+                                                        class="fa fa-chevron-up"></i></a>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td><input class="form-control bootstrap-timepicker-hour" maxlength="2"
+                                                       type="text">
+                                            </td>
+                                            <td class="separator">:</td>
+                                            <td><input class="form-control bootstrap-timepicker-minute" maxlength="2"
+                                                       type="text"></td>
+                                            <td class="separator">:</td>
+                                            <td><input class="form-control bootstrap-timepicker-second" maxlength="2"
+                                                       type="text"></td>
+                                        </tr>
+                                        <tr>
+                                            <td><a href="#" data-action="decrementHour"><i
+                                                        class="fa fa-chevron-down"></i></a>
+                                            </td>
+                                            <td class="separator"></td>
+                                            <td><a href="#" data-action="decrementMinute"><i
+                                                        class="fa fa-chevron-down"></i></a>
+                                            </td>
+                                            <td class="separator">&nbsp;</td>
+                                            <td><a href="#" data-action="decrementSecond"><i
+                                                        class="fa fa-chevron-down"></i></a>
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <input id="txtHoraInicioRangoEntEditar" name="txtHoraInicioRangoEntEditar"
+                                       placeholder="Hora de inicio entrada."
+                                       class="form-control input-timepicker24" type="text">
+                                    <span class="input-group-btn">
+                                        <a href="javascript:void(0)" class="btn btn-success"><i
+                                                class="fa fa-clock-o"></i></a>
+                                    </span>
+                            </div>
+                            <span class="help-block" id="helpErrorHoraInicioRangoEntEditar"></span>
+                        </div>
+                    </div>
+                    <div class="div-calendario-laboral" id="divHoraFinalizacionRangoEnt">
+                        <label class="col-md-2 control-label" for="txtHoraFinalizacionRangoEntEditar">Fin Entrada
+                            *:</label>
+
+                        <div class="col-md-2">
+                            <div class="input-group bootstrap-timepicker">
+                                <div class="bootstrap-timepicker-widget dropdown-menu">
+                                    <table>
+                                        <tbody>
+                                        <tr>
+                                            <td><a href="#" data-action="incrementHour"><i class="fa fa-chevron-up"></i></a>
+                                            </td>
+                                            <td class="separator">&nbsp;</td>
+                                            <td><a href="#" data-action="incrementMinute"><i
+                                                        class="fa fa-chevron-up"></i></a>
+                                            </td>
+                                            <td class="separator">&nbsp;</td>
+                                            <td><a href="#" data-action="incrementSecond"><i
+                                                        class="fa fa-chevron-up"></i></a>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td><input class="form-control bootstrap-timepicker-hour" maxlength="2"
+                                                       type="text">
+                                            </td>
+                                            <td class="separator">:</td>
+                                            <td><input class="form-control bootstrap-timepicker-minute" maxlength="2"
+                                                       type="text"></td>
+                                            <td class="separator">:</td>
+                                            <td><input class="form-control bootstrap-timepicker-second" maxlength="2"
+                                                       type="text"></td>
+                                        </tr>
+                                        <tr>
+                                            <td><a href="#" data-action="decrementHour"><i
+                                                        class="fa fa-chevron-down"></i></a>
+                                            </td>
+                                            <td class="separator"></td>
+                                            <td><a href="#" data-action="decrementMinute"><i
+                                                        class="fa fa-chevron-down"></i></a>
+                                            </td>
+                                            <td class="separator">&nbsp;</td>
+                                            <td><a href="#" data-action="decrementSecond"><i
+                                                        class="fa fa-chevron-down"></i></a>
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <input id="txtHoraFinalizacionRangoEntEditar" name="txtHoraFinalizacionRangoEntEditar"
+                                       placeholder="Hora de finalizaci&oacute;n de entrada."
+                                       class="form-control input-timepicker24" type="text">
+                                    <span class="input-group-btn">
+                                        <a href="javascript:void(0)" class="btn btn-success"><i
+                                                class="fa fa-clock-o"></i></a>
+                                    </span>
+                            </div>
+                            <span class="help-block" id="helpErrorHoraFinalizacionRangoEntEditar"></span>
+                        </div>
+                    </div>
+                    <div class="div-calendario-laboral" id="divControlCruceEditar">
+                        <label class="col-md-2 control-label" for="chkPermitirCruceEditar">¿Permitir Cruce? *:</label>
+                        <div class="col-md-2">
+                            <input type="checkbox" name="chkPermitirCruceEditar" id="chkPermitirCruceEditar" data-on-text="SI"
+                                   data-off-text="NO" data-on-color="success" data-off-color="danger" >
+                            <span class="help-block" id="helpErrorControlCruceEditar"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="div-calendario-laboral" id="divHoraInicioRangoSalEditar">
+                        <label class="col-md-2 control-label" for="txtHoraInicioRangoSal">Inicio Salida *:</label>
+
+                        <div class="col-md-2">
+                            <div class="input-group bootstrap-timepicker">
+                                <div class="bootstrap-timepicker-widget dropdown-menu">
+                                    <table>
+                                        <tbody>
+                                        <tr>
+                                            <td><a href="#" data-action="incrementHour"><i class="fa fa-chevron-up"></i></a>
+                                            </td>
+                                            <td class="separator">&nbsp;</td>
+                                            <td><a href="#" data-action="incrementMinute"><i
+                                                        class="fa fa-chevron-up"></i></a>
+                                            </td>
+                                            <td class="separator">&nbsp;</td>
+                                            <td><a href="#" data-action="incrementSecond"><i
+                                                        class="fa fa-chevron-up"></i></a>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td><input class="form-control bootstrap-timepicker-hour" maxlength="2"
+                                                       type="text">
+                                            </td>
+                                            <td class="separator">:</td>
+                                            <td><input class="form-control bootstrap-timepicker-minute" maxlength="2"
+                                                       type="text"></td>
+                                            <td class="separator">:</td>
+                                            <td><input class="form-control bootstrap-timepicker-second" maxlength="2"
+                                                       type="text"></td>
+                                        </tr>
+                                        <tr>
+                                            <td><a href="#" data-action="decrementHour"><i
+                                                        class="fa fa-chevron-down"></i></a>
+                                            </td>
+                                            <td class="separator"></td>
+                                            <td><a href="#" data-action="decrementMinute"><i
+                                                        class="fa fa-chevron-down"></i></a>
+                                            </td>
+                                            <td class="separator">&nbsp;</td>
+                                            <td><a href="#" data-action="decrementSecond"><i
+                                                        class="fa fa-chevron-down"></i></a>
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <input id="txtHoraInicioRangoSalEditar" name="txtHoraInicioRangoSalEditar"
+                                       placeholder="Hora de inicio de salida."
+                                       class="form-control input-timepicker24" type="text">
+                                    <span class="input-group-btn">
+                                        <a href="javascript:void(0)" class="btn btn-success"><i
+                                                class="fa fa-clock-o"></i></a>
+                                    </span>
+                            </div>
+                            <span class="help-block" id="helpErrorHoraInicioRangoSalEditar"></span>
+                        </div>
+                    </div>
+                    <div class="div-calendario-laboral" id="divHoraFinalizacionRangoSalEditar">
+                        <label class="col-md-2 control-label" for="txtHoraFinalizacionRangoSal">Fin Salida *:</label>
+
+                        <div class="col-md-2">
+                            <div class="input-group bootstrap-timepicker">
+                                <div class="bootstrap-timepicker-widget dropdown-menu">
+                                    <table>
+                                        <tbody>
+                                        <tr>
+                                            <td><a href="#" data-action="incrementHour"><i class="fa fa-chevron-up"></i></a>
+                                            </td>
+                                            <td class="separator">&nbsp;</td>
+                                            <td><a href="#" data-action="incrementMinute"><i
+                                                        class="fa fa-chevron-up"></i></a>
+                                            </td>
+                                            <td class="separator">&nbsp;</td>
+                                            <td><a href="#" data-action="incrementSecond"><i
+                                                        class="fa fa-chevron-up"></i></a>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td><input class="form-control bootstrap-timepicker-hour" maxlength="2"
+                                                       type="text">
+                                            </td>
+                                            <td class="separator">:</td>
+                                            <td><input class="form-control bootstrap-timepicker-minute" maxlength="2"
+                                                       type="text"></td>
+                                            <td class="separator">:</td>
+                                            <td><input class="form-control bootstrap-timepicker-second" maxlength="2"
+                                                       type="text"></td>
+                                        </tr>
+                                        <tr>
+                                            <td><a href="#" data-action="decrementHour"><i
+                                                        class="fa fa-chevron-down"></i></a>
+                                            </td>
+                                            <td class="separator"></td>
+                                            <td><a href="#" data-action="decrementMinute"><i
+                                                        class="fa fa-chevron-down"></i></a>
+                                            </td>
+                                            <td class="separator">&nbsp;</td>
+                                            <td><a href="#" data-action="decrementSecond"><i
+                                                        class="fa fa-chevron-down"></i></a>
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <input id="txtHoraFinalizacionRangoSalEditar" name="txtHoraFinalizacionRangoSalEditar"
+                                       placeholder="Hora de finalizaci&oacute;n de salida."
+                                       class="form-control input-timepicker24" type="text">
+                                    <span class="input-group-btn">
+                                        <a href="javascript:void(0)" class="btn btn-success"><i
+                                                class="fa fa-clock-o"></i></a>
+                                    </span>
+                            </div>
+                            <span class="help-block" id="helpErrorHoraFinalizacionRangoSalEditar"></span>
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+            <fieldset>
+                <legend><i class="fa fa-angle-right"></i> Disponibilidad</legend>
+                <div class="form-group">
+                    <div class="row input-daterange">
+                        <div class="div-calendario-laboral" id="divFechaIniEditar">
+                            <label class="col-md-2 control-label" for="txtFechaIniEditar">Fecha Inicio <span
+                                    class="text-danger">*</span>:</label>
+
+                            <div class="col-md-2">
+                                <input type="text" id="txtFechaIniEditar" name="txtFechaIniEditar"
+                                       class="form-control input-datepicker-close" placeholder="dd-mm-aaaa"
+                                       data-date-format="dd-mm-yyyy" type="text">
+                                <span class="help-block" id="helpErrorFechaIniEditar"></span>
+                            </div>
+                        </div>
+                        <div class="div-calendario-laboral" id="divFechaFinEditar">
+                            <label class="col-md-2 control-label" for="txtFechaFinEditar">Fecha Final <span
+                                    class="text-danger">*</span>:</label>
+
+                            <div class="col-md-2">
+                                <input type="text" id="txtFechaFinEditar" name="txtFechaFinEditar"
+                                       class="form-control  input-datepicker-close" placeholder="dd-mm-aaaa"
+                                       data-date-format="dd-mm-yyyy" type="text">
+                                <span class="help-block" id="helpErrorFechaFinEditar"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </fieldset>
+            <fieldset>
+                <div class="form-group div-move-relab" id="divObservacionEditar">
+                    <label class="col-md-2 control-label" for="txtObservacionEditar">Observaciones:</label>
+
+                    <div class="col-md-6">
+                        <textarea id="txtObservacionEditar" name="txtObservacionEditar" class="form-control"
+                                  placeholder="Observaciones.."></textarea>
+                    </div>
+                    <span class="help-block" id="helpErrorObservacion"></span>
+                </div>
+                <input id="hdnIdHorarioLaboralEditar" type="hidden" value="0">
+
+                <div class="form-group form-actions">
+                    <div class="col-md-8 col-md-offset-4">
+                        <button id="btnGuardarHorarioEditar" class="btn btn-sm btn-success" type="button">
+                            <i class="fa fa-floppy-o"></i>
+                            Modificar
+                        </button>
+                        <button id="btnCancelarHorarioEditar" class="btn btn-sm btn-default" type="button">
+                            <i class="fa fa-repeat"></i>
+                            Cancelar
+                        </button>
+                    </div>
+                </div>
+            </fieldset>
+        </div>
+        <!--</form>-->
+    </div>
+    <div style="display: none;" class="section" id="divView">
+
+    </div>
+</div>
+<!--</form></div>-->
+</body>
+<div id="divMsjeNotificacionError">
+    <div id="divMsjePorError">
+    </div>
+</div>
+<div id="divMsjeNotificacionWarning">
+    <div id="divMsjePorWarning">
+    </div>
+</div>
+<div id="divMsjeNotificacionSuccess">
+    <div id="divMsjePorSuccess">
+    </div>
+</div>
+<style type="text/css">
+    .evo-pop {
+        z-index: 1151 !important;
+    }
+</style>

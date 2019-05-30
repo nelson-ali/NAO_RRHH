@@ -1,0 +1,373 @@
+</head>
+<body>
+<div id='jqxTabs'>
+    <ul>
+        <li style="margin-left: 30px;">Listado</li>
+        <li>Nuevo</li>
+        <li>Modificaci&oacute;n</li>
+        <li>Historial</li>
+    </ul>
+    <div class="section">
+        <div class="form-horizontal">
+            <h2>Listado General</h2>
+        </div>
+        <div class="form-horizontal col-sm-6">
+            <div id="jqxgrid"></div>
+        </div>
+        <!--<div id="form">
+            <div class="inputContainer">
+                Username:
+                <input class="formInput" type="text" id="usernameInput" /></div>
+            <div class="inputContainer">
+                Password:
+                <input class="formInput" type="password" id="passwordInput" /></div>
+        </div>
+        <div id="hintWrapper">
+            <div id="hintSection" class="hint">
+            </div>
+        </div>
+        <div id="checkBoxWrapper">
+            <div id="acceptCheckBox">
+                I accept the terms and conditions</div>
+        </div>
+        <div id="sectionButtonsWrapper">
+            <input type="button" value="Next" class="nextButton" id="nextButtonInfo" />
+        </div>-->
+    </div>
+    <div class="section">
+        <form class="navbar-form" id="formNuevo">
+            <h6><b>NOTA: </b>Los datos precedidos de asterisco son requerido de manera obligatoria(*). Para habilitar su registro debe buscar y seleccionar el cargo correspondiente.</h6>
+            <div id="divMsjeError" hidden="hidden">
+                <button class="close" aria-hidden="true" data-dismiss="alert" type="button">×</button>
+                <h4>
+                    <i class="fa fa-times-circle"></i>
+                    Error
+                </h4>
+                Solicitud Inv&aacute;lida!
+                <a class="alert-link" href="javascript:void(0)" id="aMsjeError"></a>
+                !
+            </div>
+            <div class="form-horizontal">
+                <h2>Nombre: <strong><span id="NombreParaNuevoRegistro"></span></strong></h2>
+            </div>
+
+            <div id="divGrillaCargoSeleccionado" class="tabla-incrementable">
+                <table>
+                    <tr><td><button class="btn btn-primary" type="button" id="btnBuscarCargo"><i
+                                    class="fa fa-search"></i> Buscar
+                            </button></td>
+                        <td>&Iacute;tem/C&oacute;digo</td>
+                        <!--<td>Fuente</td>-->
+                        <td>
+                            Condici&oacute;n
+                        </td>
+                        <td>
+                            Gerencia
+                        </td>
+                        <td>
+                            Departamento
+                        </td>
+                        <td>
+                            Nivel Salarial
+                        </td>
+                        <td>
+                            Cargo
+                        </td>
+                        <td>
+                            Haber
+                        </td>
+                    </tr>
+                    <tr id="tr_cargo_seleccionado">
+                    <tr/>
+                </table>
+                <input type="hidden" id="hdnIdPersonaSeleccionada" value="0">
+                <input type="hidden" id="hdnIdCargoNuevoSeleccionado" value="0">
+                <input type="hidden" id="hdnIdCondicionNuevaSeleccionada" value="0">
+                <input type="hidden" id="hdnIdOrganigramaSeleccionado" value="0">
+            </div>
+            <br>
+            <div class="form-horizontal col-sm-6" id="detallesDependencia">
+                <!--<div class="row div-new-relab" id="divItems">
+                    <label class="col-sm-3 control-label" for="txtItem">&Iacute;tem *:</label>
+            <div class="col-sm-6">
+                <input type="text" id="txtItem" class="new-relab numeral">
+                <span class="help-block" id="helpErrorItems"></span>
+            </div>
+        </div>-->
+                <div class="row div-new-relab" id="divNumContratos">
+                    <label class="col-sm-3 control-label" for="txtNumContrato">N&uacute;mero de Contrato *:</label>
+                    <div class="col-sm-6">
+                        <input type="text" id="txtNumContrato" class="new-relab">
+                        <span class="help-block" id="helpErrorNumContratos"></span>
+                    </div>
+                </div>
+                <div class="row div-new-relab" id="divUbicaciones">
+                    <label class="col-sm-3 control-label" for="lstUbicaciones">Ubicaci&oacute;n *:</label>
+                    <div class="col-sm-6">
+                        <?php echo $ubicaciones ?>
+                        <span class="help-block" id="helpErrorUbicaciones"></span>
+                    </div>
+                </div>
+                <!--<div class="row">
+                    <label class="col-sm-3 control-label" for="area">Area:</label>
+
+                    <div class="col-sm-6">
+                        <div style="margin-top: 5px;" id="area" on></div>
+                    </div>
+                </div>
+                <div class="row">
+                    <label class="col-sm-3 control-label" for="departamento">Departamento *:</label>
+
+                    <div class="col-sm-6">
+                        <div style="margin-top: 5px;" id="departamento" on></div>
+                    </div>
+                </div>-->
+                <div class="row div-new-relab" id="divProcesos">
+                    <label class="col-sm-3 control-label" for="lstProcesos">Proceso *:</label>
+                    <div class="col-sm-6">
+                        <?php echo $procesos ?>
+                        <span class="help-block" id="helpErrorProcesos"></span>
+                    </div>
+                </div>
+                <!--<div class="row div-new-relab" id="divCategorias">
+                    <label class="col-sm-3 control-label" for="lstCategorias">Categor&iacute;a *:</label>
+            <div class="col-sm-6">
+                <?php /*echo $categorias */?>
+                <span class="help-block" id="helpErrorCategorias"></span>
+            </div>
+        </div>-->
+                <div class="row div-new-relab" id="divFechasIni">
+                    <label class="col-sm-3 control-label" for="FechaIni">Fecha Inicio *: </label>
+                    <div class="col-sm-6">
+                        <div style="margin-top: 5px;" id="FechaIni" on></div>
+                        <span class="help-block" id="helpErrorFechasIni"></span>
+                    </div>
+                </div>
+                <div class="row div-new-relab" id="divFechasIncor">
+                    <label class="col-sm-3 control-label" for="FechaIncor">Fecha Incorporaci&oacute;n *: </label>
+
+                    <div class="col-sm-6">
+                        <div style="margin-top: 5px;" id="FechaIncor" on></div>
+                        <span class="help-block" id="helpErrorFechasIncor"></span>
+                    </div>
+                </div>
+                <div class="row div-new-relab" id="divFechasFin">
+                    <label class="col-sm-3 control-label" for="FechaFin">Fecha Fin *: </label>
+                    <div class="col-sm-6">
+                        <div style="margin-top: 5px;" id="FechaFin" on></div>
+                        <span class="help-block" id="helpErrorFechasFin"></span>
+                    </div>
+                </div>
+                <div class="row" id="divObservacion">
+                    <label class="col-sm-3 control-label" for="observaciones">Observaciones :</label>
+
+                    <div class="col-sm-6">
+                        <textarea placeholder="Observaciones" id="observacion" name="observacion" cols="50"></textarea>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-9 col-sm-offset-3">
+                <button class="btn btn-sm btn-primary" type="button" id="btnGuardarNuevo">
+                    <i class="fa fa-floppy-o"></i>
+                    Guardar
+                </button>
+                <button class="btn btn-sm btn-warning" type="button" id="btnCancelarNuevo">
+                    <i class="fa fa-repeat"></i>
+                    Cancelar
+                </button>
+            </div>
+
+        </form>
+        <!--<div id="products">
+        </div>
+        <div class="hint" id="hintBasket">
+        </div>
+        <div id="basketButtonsWrapper">
+            <input type="button" value="Back" class="backButton" id="backButtonBasket" />
+            <input type="button" value="Next" class="nextButton" id="nextButtonBasket" />
+        </div>-->
+    </div>
+    <div class="section">
+        <!--<div style="border: none;" id='dataTable'></div>-->
+        <!--<form class="navbar-form" id="form">-->
+        <div class="form-horizontal col-sm-6">
+            <div class="form-horizontal">
+                <h2>Datos de Contacto Personal:</h2>
+            </div>
+            <div class="row">
+                <label class="col-sm-3 control-label" for="direccion">Direcci&oacute;n :</label>
+
+                <div class="col-sm-6">
+                    <input placeholder="Direcci&oacute;n" id="direccion" name="direccion" value=""/>
+                </div>
+            </div>
+            <div class="row">
+                <label class="col-sm-3 control-label" for="telefono">Tel&eacute;fono :</label>
+
+                <div class="col-sm-6">
+                    <input placeholder="N&uacute;mero de Tel&eacute;fono" id="telefono" name="telefono" value=""/>
+                </div>
+            </div>
+            <div class="row">
+                <label class="col-sm-3 control-label" for="celular">Celular :</label>
+
+                <div class="col-sm-6">
+                    <input placeholder="N&uacute;mero de Celular" id="celular" name="celular" value=""/>
+                </div>
+            </div>
+            <div class="row">
+                <label class="col-sm-3 control-label" for="email_p">E-mail Personal:</label>
+
+                <div class="col-sm-6">
+                    <input placeholder="Correo electr&oacute;nico" id="email_p" name="email_p" value=""/>
+                </div>
+            </div>
+        </div>
+        <div class="form-horizontal col-sm-6">
+            <div class="form-horizontal">
+                <h2>Datos de Contacto Institucional:</h2>
+            </div>
+            <div class="row">
+                <label class="col-sm-3 control-label" for="tel_inst">Tel&eacute;fono Institucional :</label>
+
+                <div class="col-sm-6">
+                    <input placeholder="Tel&eacute;fono Institucional" id="tel_inst" name="tel_inst" value=""/>
+                </div>
+            </div>
+            <div class="row">
+                <label class="col-sm-3 control-label" for="fax">FAX :</label>
+
+                <div class="col-sm-6">
+                    <input placeholder="Tel&eacute;fono FAX" id="fax" name="fax" value=""/>
+                </div>
+            </div>
+            <div class="row">
+                <label class="col-sm-3 control-label" for="n_interno">N&uacute;mero Interno :</label>
+
+                <div class="col-sm-6">
+                    <input placeholder="N&uacute;mero Interno" id="n_interno" name="n_interno" value=""/>
+                </div>
+            </div>
+            <div class="row">
+                <label class="col-sm-3 control-label" for="cel_inst">Celular Institucional : </label>
+
+                <div class="col-sm-6">
+                    <input placeholder="Celular Institucional" id="cel_inst" name="cel_inst" value=""/>
+                </div>
+            </div>
+            <div class="row">
+                <label class="col-sm-3 control-label" for="email_inst">E-mail Institucional:</label>
+
+                <div class="col-sm-6">
+                    <input placeholder="Correo electr&oacute;nico" id="email_inst" name="email_inst" value=""/>
+                </div>
+            </div>
+        </div>
+        <!--</form>-->
+        <!--<div id="selectedProductsHeader">
+            <h4>Selected products</h4>
+            <div id="orderContainer">
+            </div>
+        </div>
+        <div id="selectedProductsButtonsWrapper">
+            <input type="button" value="Back" id="backButtonReview" class="backButton" />
+        </div>-->
+    </div>
+    <div class="section">
+        <!--<form class="navbar-form" id="form">-->
+        <div class="form-horizontal">
+            <h2>Datos alternativos:</h2>
+        </div>
+        <div class="form-horizontal col-sm-6">
+            <div class="row">
+                <label class="col-sm-3 control-label" for="nit">NIT :</label>
+
+                <div class="col-sm-6">
+                    <input placeholder="NIT" id="nit" name="nit" value=""/>
+                </div>
+            </div>
+            <div class="row">
+                <label class="col-sm-3 control-label" for="nit">Funcionario SIGMA :</label>
+
+                <div class="col-sm-6">
+                    <input placeholder="C&oacute;digo funcionario SIGMA" id="n_sigma" name="n_sigma" value=""/>
+                </div>
+            </div>
+            <div class="row">
+                <label class="col-sm-3 control-label" for="libreta_militar">Libreta Militar :</label>
+
+                <div class="col-sm-6">
+                    <input placeholder="C&oacute;digo Libreta Militar" id="libreta_militar" name="libreta_militar"
+                           value=""/>
+                </div>
+            </div>
+            <div class="row">
+                <label class="col-sm-3 control-label" for="registro_prof">Registro Profesional : </label>
+
+                <div class="col-sm-6">
+                    <input placeholder="N&uacute;mero de Registro Profesional" id="registro_prof"
+                           name="registro_prof" value=""/>
+                </div>
+            </div>
+
+
+        </div>
+        <!--</form>-->
+
+
+    </div>
+</div>
+<div style="min-height: 0px; box-shadow: none; -webkit-box-shadow: none;" class="navbar navbar-default "
+     role="navigation">
+    <ul id="myTab" style="min-width: 480px; box-shadow: none; -webkit-box-shadow: none; border: none;"
+        class="nav nav-tabs">
+        <li style="margin-left: 20px;" class="active" id="liList"><a data-tab="listado" href="#listado">Listado</a></li>
+        <li id="liNew"><a data-tab="nuevo" href="#nuevo">Nuevo</a></li>
+        <li id="liEdit"><a data-tab="modificacion" href="#modificacion">Modificaci&oacute;n</a></li>
+        <li id="liView"><a data-tab="historial" href="#historial">Historial</a></li>
+    </ul>
+</div>
+<h2 style="padding-top: 0px; width: 100%;"><b>Gesti&oacute;n Relaci&oacute;n Laboral</b></h2>
+<div style="padding-top: 0px; width: 100%; height: 100%;">
+<form class="navbar-form" id="form">
+<div id="listado" class="box" style="width: 100%; height: 100%; overflow-x: hidden; border: none;">
+</div>
+<div id="nuevo" class="box" style="width: 100%; height: 100%; overflow: hidden; border: none;">
+</div>
+<div id="modificacion" style="width: 100%; height: 100%;" class="box">
+</div>
+<div id="historial" class="box" style="width: 100%; height: 100%; overflow-x: hidden; border: none;">
+</div>
+<div id="popupWindowCargo">
+    <div id="titulo">Seleccionar Cargo</div>
+    <div style="overflow: hidden;">
+        <div id="divGrillaParaSeleccionarCargo"></div>
+    </div>
+</div>
+<div id="popupWindowDown">
+    <div>Dar de Baja</div>
+    <div style="overflow: hidden;">
+        <table>
+            <tr>
+                <td align="left">Esta seguro de dar de baja al registro</td>
+            </tr>
+            <tr>
+                <td align="right"></td>
+                <td style="padding-top: 10px;" align="right">
+                    <input style="margin-right: 5px;" type="button" id="Eliminar" value="Eliminar" />
+                    <input id="Cancel" type="button" value="Cancel" />
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-1">
+    </div>
+    <!--<div class="col-sm-1">
+        <button style="margin-top: 15px;" id="sendButton" type="button">Grabar</button>
+    </div>-->
+</div>
+</form>
+</div>
+</body>

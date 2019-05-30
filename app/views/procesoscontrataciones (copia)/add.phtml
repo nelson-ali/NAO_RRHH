@@ -1,0 +1,290 @@
+<script type="text/javascript">
+	$(document).ready(function () {
+		/*$("#chkAll").click(function (){
+			alert("se selecciono el checkbox general");
+		});	
+		$("#chkOne").click(function (){
+			alert("se selecciono el checkbox individual");
+		});
+*/	
+cargar2();
+
+
+function cargar2() {
+	var source =
+	{
+		datatype: "json",
+		datafields: [
+			{name: '<input type="checkbox" id="chkAll">', type: 'number'},
+			//{ name: 'seleccionar',type: 'bool'},
+			{name: 'nro', type: 'number'},
+			{name: 'id', type: 'number'},
+			{name: 'unidad_administrativa', type: 'string'},
+			{name: 'codigo', type: 'string'},
+			{name: 'cargo', type: 'string'},
+			{name: 'sueldo', type: 'string'},
+			{name: 'gestion', type: 'string'},
+			{name: 'fecha_ini', type: 'date'},
+			{name: 'fecha_fin', type: 'date'},
+			{name: 'estado', type: 'input'}
+		],
+		url: '/procesoscontrataciones/listpac',
+		cache: false
+	};
+
+	var dataAdapter = new $.jqx.dataAdapter(source);
+	$("#jqxgrid").jqxGrid({
+		width: '100%',
+		source: dataAdapter,
+		sortable: true,
+		altRows: true,
+		pageable: true,
+		pagerMode: 'advanced',
+		showfilterrow: true,
+		filterable: true,
+		ready: function () {
+			$(".chkOne").click(function () {
+				//alert(this.checked);
+				if (this.checked == true) {
+					$("#" + this.id).addClass("chkcontratos");
+				} else {
+					$("#" + this.id).removeClass("chkcontratos");
+				}
+			});
+		},
+		columns: [
+			{
+				text: '',
+				datafield: 'nuevo',
+				width: 10,
+				sortable: false,
+				showfilterrow: false,
+				filterable: false,
+				columntype: 'number',
+				cellsrenderer: function (rowline) {
+					ctrlrow = rowline
+					var dataRecord = $("#jqxgrid").jqxGrid('getrowdata', ctrlrow);
+					return "<div style='width: 100%' align='center'><input type='checkbox' id='" + dataRecord.id + "' class='chkOne'></div>";
+					//return "<input type='checkbox' id='chk"+dataRecord.id+"' class='chkOne'>";
+				}
+			},
+
+
+			{text: 'Nro', datafield: 'nro', filtertype: 'number', width: '3%'},
+			{text: 'Organigrama', datafield: 'unidad_administrativa', filtertype: 'input', width: '30%'},
+			{text: 'Item', datafield: 'codigo', filtertype: 'input', width: '5%'},
+			{text: 'Cargo', datafield: 'cargo', filtertype: 'input', width: '30%'},
+			{text: 'Sueldo', datafield: 'sueldo', filtertype: 'number', width: '5%'},
+			{text: 'Gestion', datafield: 'gestion', filtertype: 'number', width: '5%'},
+			{
+				text: 'Fecha Inicio',
+				datafield: 'fecha_ini',
+				filtertype: 'range',
+				width: '8%',
+				cellsalign: 'center',
+				cellsformat: 'dd-MM-yyyy',
+				align: 'center'
+			},
+			{
+				text: 'Fecha Finalización',
+				datafield: 'fecha_fin',
+				filtertype: 'range',
+				width: '9%',
+				cellsalign: 'center',
+				cellsformat: 'dd-MM-yyyy',
+				align: 'center'
+			},
+			{text: 'Estado', datafield: 'estado', filtertype: 'checkedlist', width: '5%'}
+		]
+	});
+}
+
+
+
+
+
+$("#normativamod_id, #codigo_convocatoria").change(function(){ 
+	var element = $("#normativamod_id").find('option:selected'); 
+	var modalidad = element.attr("modalidad"); 
+	var codigo_convocatoria = $("#codigo_convocatoria").val();
+	var fecha = new Date();
+	var anio = fecha.getFullYear();
+	$("#codigo_convocatoria2").val(modalidad+"-"+codigo_convocatoria+"/"+anio);
+        		//$('#setMyTag').val(myTag); 
+        	}); 
+
+$("#guardar").click(function() {
+	var pac_ids = obtenerPac_ids();
+	$("#pac_ids").val(pac_ids);
+	
+
+	$('#testForm').on('submit', function() {
+         return $('#testForm').jqxValidator('validate');
+     });
+	
+});
+
+function obtenerPac_ids(){
+	var sum = 0;
+    var listaContratos = "";
+    var separador = ",";
+    try {
+        $(".chkcontratos").each(function () {
+            listaContratos += this.id + separador;
+            sum++;
+        });
+        listaContratos += separador;
+        listaContratos = listaContratos.replace(separador + separador, "");
+        if (sum == 0) listaContratos = "";
+    } catch (e) {
+
+    }
+     return listaContratos;
+}
+
+$("#fecha_publ_aux").jqxDateTimeInput({width: '250px', height: '25px',formatString:'dd-MM-yyyy'});
+$("#fecha_recep_aux").jqxDateTimeInput({width: '250px', height: '25px',formatString:'dd-MM-yyyy'});
+$("#fecha_concl_aux").jqxDateTimeInput({width: '250px', height: '25px',formatString:'dd-MM-yyyy'});
+
+$('#fecha_publ_aux').on('change', function (event) 
+{  
+    var jsDate = event.args.date; 
+    $("#fecha_publ").val(convertDate(jsDate));
+}); 
+$('#fecha_recep_aux').on('change', function (event) 
+{  
+    var jsDate = event.args.date; 
+    $("#fecha_recep").val(convertDate(jsDate));
+}); 
+$('#fecha_concl_aux').on('change', function (event) 
+{  
+    var jsDate = event.args.date; 
+    $("#fecha_concl").val(convertDate(jsDate));
+}); 
+
+function convertDate(inputFormat) {
+  function pad(s) { return (s < 10) ? '0' + s : s; }
+  var d = new Date(inputFormat);
+  return [pad(d.getDate()), pad(d.getMonth()+1), d.getFullYear()].join('-');
+}
+
+$('#testForm').jqxValidator({
+                rules: [
+                       { input: '#codigo_convocatoria', message: 'Campo requerido!', action: 'keyup, blur', rule: 'required' }
+                       ]
+            });
+
+
+});
+</script>
+<div id="page-wrapper">
+	<!-- <div class="row">
+		<div class="col-lg-12">
+			<h1 class="page-header">Adicionar Proceso de Contratación</h1>
+		</div>
+	</div> -->
+
+	<div class="row">
+		<div class="col-lg-12">
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					PROCESO DE CONTRATACIÓN
+				</div>
+				<div class="panel-body">
+
+
+					<form method="post" action="" class="form-horizontal" id="testForm">
+					<input type="hidden" name="id_pc" id="id_pc">
+					<input type="hidden" name="pac_ids" id="pac_ids">
+						<div class="row">
+							<div class="col-lg-6">
+
+								<div class="form-group">
+									<label class="col-lg-4 control-label">Normativa</label>
+									<div class="col-lg-8">
+										<select name="normativamod_id" id="normativamod_id" class="form-control">
+											<option value="">(Seleccionar)</option>
+											<?php foreach ($normativamod as $v) { ?>
+											<option value="<?php echo $v->id ?>" modalidad="<?php echo $v->modalidad ?>"><?php echo $v->denominacion ?></option>
+											<?php } ?>
+										</select>
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-lg-4 control-label">Codigo Convocatoria</label>
+									<div class="col-lg-4">
+										<input type="text" name="codigo_convocatoria" id="codigo_convocatoria" class="form-control">
+									</div>
+									<div class="col-lg-4">
+										<input type="text" name="codigo_convocatoria2" id="codigo_convocatoria2" readonly="readonly" class="form-control">
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-lg-4 control-label">Observación</label>
+									<div class="col-lg-8">
+										<textarea name="observacion" id="observacion" class="form-control"></textarea>
+									</div>
+								</div>
+
+
+							</div>
+							<div class="col-lg-6">
+
+								<div class="form-group">
+									<label class="col-lg-4 control-label">Fecha Publicacion</label>
+									<div class="col-lg-8">
+										<input type="hidden" id="fecha_publ" name="fecha_publ" value="<?php echo date("d-m-Y") ?>">
+										<div id='fecha_publ_aux'></div>
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-lg-4 control-label">Fecha Recepción</label>
+									<div class="col-lg-8">
+										<input type="hidden" id="fecha_recep" name="fecha_recep" value="<?php echo date("d-m-Y") ?>">
+										<div id='fecha_recep_aux'></div>
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-lg-4 control-label">Fecha Conclusión</label>
+									<div class="col-lg-8">
+									<input type="hidden" id="fecha_concl" name="fecha_concl" value="<?php echo date("d-m-Y") ?>">
+										<div id='fecha_concl_aux' ></div>
+									</div>
+								</div>
+								
+
+							</div>
+						</div>
+						<div class="row">
+							<div class="form-group">
+								<div class="col-lg-12" align="center">
+									<button type="submit" class="btn btn-primary" id="guardar">Guardar</button>
+									<a href="../" class="btn btn-primary">Cancelar</a>
+								</div>
+							</div>
+						</div>
+
+					</form>
+				</div>    
+			</div>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="col-lg-12">
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					PLAN ANUAL DE CONTRATACIONES
+				</div>
+				<div class="panel-body">
+					<div id="jqxgrid"></div>
+				</div>    
+			</div>
+		</div>
+	</div>
+
+	
+</div>
+
+
+

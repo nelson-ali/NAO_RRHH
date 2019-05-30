@@ -1,0 +1,30 @@
+<?php
+if (isset($_POST['username'])) {
+    $user = $_POST['username'];
+} else {
+    $user = '';
+}
+?>
+<!-- BEGIN ERROR BOX -->
+<?php echo $this->flashSession->output(); ?>
+<script src="/assets/js/vendor/jquery-1.11.0.min.js"></script>
+<script type="text/javascript" src="/js/jqwidgets/scripts/jquery-1.11.1.min.js"></script>
+<script type="text/javascript" src="/js/login/oasis.register.js"></script>
+
+<div class="alert alert-danger hide">
+    <button type="button" class="close" data-dismiss="alert">×</button>
+    <h4>Error!</h4>
+
+</div>
+<!-- END ERROR BOX -->
+<form action="#" method="get">
+    <p>Ingrese su dirección de correo electrónico debajo y le enviaremos un enlace para restablecer la contraseña a su bandeja de entrada.</p>
+    <input id="email" type="email" placeholder="Email" name="email" class="input-field" required/>
+    ss
+    <button type="submit" class="btn btn-login btn-reset">Enviar</button>
+</form>
+<div class="login-links">
+    <a href="/login">Ya tienes cuenta  <strong>Ingresar</strong></a>
+    <br>
+    <a href="/login/register"> No tienes cuenta <strong> Registrarse</strong></a>
+</div>

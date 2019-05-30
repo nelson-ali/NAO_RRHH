@@ -1,0 +1,33 @@
+
+<?php echo $this->getContent(); ?>
+
+<?php echo $this->tag->form("estado/save") ?>
+
+<table width="100%">
+    <tr>
+        <td align="left"><?php echo $this->tag->linkTo(array("estado", "Back")) ?></td>
+        <td align="right"><?php echo $this->tag->submitButton("Save") ?></td>
+    <tr>
+</table>
+
+<div align="center">
+    <h1>Edit estado</h1>
+</div>
+
+<table>
+    <tr>
+        <td align="right">
+            <label for="estado">Estado</label>
+        </td>
+        <td align="left">
+            <?php echo $this->tag->textField(array("estado", "size" => 30)) ?>
+        </td>
+    </tr>
+
+    <tr>
+        <td><?php echo $this->tag->hiddenField("id") ?></td>
+        <td><?php echo $this->tag->submitButton("Search") ?></td>
+    </tr>
+</table>
+
+</form>

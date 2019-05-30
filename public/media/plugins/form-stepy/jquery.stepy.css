@@ -1,0 +1,114 @@
+/*@CHARSET "UTF-8";
+
+body { font-size: 10px }
+
+.stepy-header { list-style: none; padding: 0; width: 724px }
+  .stepy-header li { cursor: pointer; float: left; padding: 10px }
+    .stepy-header li.stepy-error { background: url('../demo/img/error.png') no-repeat right top }
+    .stepy-header li div { color: #CCC; font: bold 2.8em verdana; text-shadow: 1px 1px #F8F8F8 }
+    .stepy-header li.stepy-active div { color: #369; cursor: auto }
+    .stepy-header li span { color: #CCC; font: 1.4em verdana }
+    .stepy-header li.stepy-active span { color: #BBB }
+
+.stepy-step { border: 1px solid #BBB; clear: left; padding: 20px 20px; width: 600px; -khtml-border-radius: 3px; -moz-border-radius: 3px; -opera-border-radius: 3px; -webkit-border-radius: 3px; border-radius: 3px }
+  .stepy-step legend { color: #4080BF; font: bold 1.8em arial; letter-spacing: .7px; padding: 0 2px 3px }
+  .stepy-step label { color: #222; display: block; font: bold 1.5em arial; letter-spacing: .7px; margin: 10px 0 3px 1px }
+
+  .stepy-step input,
+  .stepy-step textarea,
+  .stepy-step select { border: 1px solid #999; border-radius: 5px; color: #333; font-size: 1.4em; height: 27px; margin-bottom: 12px; padding: 3px; width: 90% }
+
+  .stepy-step select { height: 34px; padding-top: 5px }
+
+  .stepy-step textarea { height: 100px }
+
+  .stepy-navigator { height: 33px; margin-top: 20px }
+    .button-back { float: left }
+
+    .button-next,
+    .stepy-navigator input[type="submit"] { float: right }
+
+    .button-back,
+    .button-next,
+    .stepy-navigator input[type="submit"] { border: 1px solid #CCC; color: #7F0055; cursor: pointer; font: 1.2em verdana; padding: 7px 15px 8px; text-decoration: none; -khtml-border-radius: 3px; -moz-border-radius: 3px; -opera-border-radius: 3px; -webkit-border-radius: 3px; border-radius: 3px }
+
+    .stepy-navigator input[type="submit"] { background-color: transparent; border-color: #CCC; margin-bottom: 0; padding: 7px 15px 24px; width: 90px }
+
+    .button-back:hover,
+    .button-next:hover,
+    .stepy-navigator input[type="submit"]:hover { border-color: #BBB; color: #B07 }*/
+
+
+    /* Stepy Wizard */
+
+.stepy-header {
+    display: table;
+    width: 100%;
+    list-style: none;
+    padding-left: 0;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #e6e7e8;
+    margin-bottom: 20px;
+}
+.stepy-header li {
+    display: table-cell;
+    cursor: pointer;
+    line-height: 1.42;
+    color: #000000;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    font-size: 14px;
+    font-family: 'Source Sans Pro', 'Segoe UI', 'Droid Sans', Tahoma, Arial, sans-serif;
+    font-weight: 400;
+}
+.stepy-header li small,
+.stepy-header li .small {
+    font-weight: normal;
+    line-height: 1;
+    color: #aeafb1;
+}
+.stepy-header li small,
+.stepy-header li .small {
+    font-size: 75%;
+}
+.stepy-header li div {
+    line-height: 1.42;
+    color: #000000;
+    margin-top: 10px;
+    margin-bottom: 1px;
+    font-size: 33px;
+    font-weight: 400;
+    margin-top: 0;
+    font-weight: 300;
+    font-family: 'Source Sans Pro', 'Segoe UI', 'Droid Sans', Tahoma, Arial, sans-serif;
+    font-family: 300;
+}
+.stepy-header li div small,
+.stepy-header li div .small {
+    font-weight: normal;
+    line-height: 1;
+    color: #aeafb1;
+}
+.stepy-header li div small,
+.stepy-header li div .small {
+    font-size: 65%;
+}
+.stepy-header li:not(.stepy-active) {
+    opacity: 0.3;
+}
+.stepy-header li:not(.stepy-active):hover {
+    opacity: 0.7;
+}
+.stepy-header.panel-footer {
+    margin: 20px 0 -21px 0px;
+    padding: 15px 20px;
+    border-top: 1px solid #dddddd !important;
+}
+.stepy-navigator.panel-footer .btn {
+    margin-left: 10px;
+}
+[class*="panel-"].panel .stepy-navigator {
+    margin: 20px -21px -21px -21px;
+    padding: 20px 20px;
+    border-top: 1px solid #e6e7e8;
+}

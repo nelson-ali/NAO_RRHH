@@ -1,0 +1,284 @@
+</head>
+<body>
+<style>
+    .verde {
+        color: black \9;
+        background-color: #b6ff00 \9;
+    }
+
+    .amarillo {
+        color: black \9;
+        background-color: yellow \9;
+    }
+
+    .rojo {
+        color: black \9;
+        background-color: #e83636 \9;
+    }
+
+    .celeste {
+        color: black \9;
+        background-color: #a8e0ee \9;
+    }
+
+    .verde:not(.jqx-grid-cell-hover):not(.jqx-grid-cell-selected), .jqx-widget .green:not(.jqx-grid-cell-hover):not(.jqx-grid-cell-selected) {
+        color: black;
+        background-color: #b6ff00;
+    }
+
+    .amarillo:not(.jqx-grid-cell-hover):not(.jqx-grid-cell-selected), .jqx-widget .yellow:not(.jqx-grid-cell-hover):not(.jqx-grid-cell-selected) {
+        color: black;
+        background-color: yellow;
+    }
+
+    .rojo:not(.jqx-grid-cell-hover):not(.jqx-grid-cell-selected), .jqx-widget .red:not(.jqx-grid-cell-hover):not(.jqx-grid-cell-selected) {
+        color: black;
+        background-color: #e83636;
+    }
+
+    .celeste:not(.jqx-grid-cell-hover):not(.jqx-grid-cell-selected), .jqx-widget .red:not(.jqx-grid-cell-hover):not(.jqx-grid-cell-selected) {
+        color: black;
+        background-color: #a8e0ee;
+    }
+
+    img {
+        vertical-align: middle;
+    }
+
+    .img-perfil {
+        width: 100px;
+        height: 130px;
+        margin: 0 auto 10 0;
+        text-align: center
+    }
+
+</style>
+<h2 style="padding-top: 0px; width: 100%;"><b>Gesti&oacute;n Tolerancias de Ingreso</b></h2>
+
+<div id="divMsjeExito" class="msjs-alert" hidden="hidden">
+    <button class="close" aria-hidden="true" data-dismiss="alert" type="button">×</button>
+    <h4>
+        <i class="fa fa-check-circle"></i>
+        &Eacute;xito!
+    </h4>
+    Solicitud completada!
+    <a class="alert-link" href="javascript:void(0)" id="aMsjeExito"></a>
+</div>
+<div id="divMsjeInformacion" class="msjs-alert" hidden="hidden">
+    <button class="close" aria-hidden="true" data-dismiss="alert" type="button">×</button>
+    <h4>
+        <i class="fa fa-info-circle"></i>
+        Atenci&oacute;n!
+    </h4>
+    Algo que considerar!
+    <a class="alert-link" href="javascript:void(0)" id="aMsjeInformacion"></a>
+</div>
+<div id="divMsjePeligro" class="msjs-alert" hidden="hidden">
+    <button class="close" aria-hidden="true" data-dismiss="alert" type="button">×</button>
+    <h4>
+        <i class="fa fa-exclamation-circle"></i>
+        Cuidado!
+    </h4>
+    Considere lo siguiente!
+    <a class="alert-link" href="javascript:void(0)" id="aMsjePeligro"></a>
+</div>
+<div id="divMsjeError" class="msjs-alert" hidden="hidden">
+    <button class="close" aria-hidden="true" data-dismiss="alert" type="button">×</button>
+    <h4>
+        <i class="fa fa-times-circle"></i>
+        Error!
+    </h4>
+    Solicitud inv&aacute;lida!
+    <a class="alert-link" href="javascript:void(0)" id="aMsjeError"></a>
+</div>
+<div id='jqxTabsTolerancias'>
+<ul>
+    <li id="liList">Listado</li>
+    <li id="liNew">Nuevo</li>
+    <li id="liEdit">Modificaci&oacute;n</li>
+    <li id="liView">Vista</li>
+</ul>
+<br>
+<div style="height: 550px;" class="row section" id="divList">
+    <div class="col-md-10">
+        <!-- Input Grid Block -->
+        <div class="block">
+            <!-- Input Grid Title -->
+            <div class="block-title">
+                <h2>Listado General</h2>
+                <div id='jqxWidget'>
+                    <div id="jqxgridtolerancias"></div>
+                </div>
+            </div>
+            <!-- END Input Grid Title -->
+
+        </div>
+        <!-- END Input Grid Block -->
+    </div>
+    <div class="col-md-2">
+        <div class="block">
+            <div class="block-title">
+                <h2>Mostrar</h2>
+                <br>
+                <input type="checkbox" id="chkAllCols"> Todas / Ninguna
+            </div>
+            <div id="jqxlistbox"></div>
+        </div>
+    </div>
+</div>
+<div style="display: none;" class="section" id="divNew">
+        <h6><b>NOTA: </b>Los datos precedidos de asterisco son requerido de manera obligatoria (*).</h6>
+        <div class="form-horizontal col-sm-12">
+        <fieldset>
+        <legend><i class="fa fa-angle-right"></i> Datos del Tipo de Tolerancia</legend>
+        <div class="row div-tolerancia" id="divTolerancia">
+            <label class="col-sm-3 control-label" for="txtTolerancia">Minutos Tolerancia *:</label>
+            <div class="col-md-6">
+                <input type="text" id="txtTolerancia" class="form-control numeral" placeholder="Minutos de Tolerancia">
+                <span class="help-block" id="helpErrorTolerancia"></span>
+            </div>
+        </div>
+        <div class="row div-tolerancia" id="divTipoAcumulacion">
+            <label class="col-sm-3 control-label" for="lstTipoAcumulacion">Tipo Acumulaci&oacute;n *:</label>
+            <div class="col-md-6" form-group>
+                <select id="lstTipoAcumulacion" class="form-control"></select>
+                <span class="help-block" id="helpErrorTipoAcumulacion"></span>
+            </div>
+        </div>
+        <div class="row div-tolerancia" id="divConsideracionRetraso">
+            <label class="col-sm-3 control-label" for="lstConsideracionRetraso">Consideraci&oacute;n Retraso *:</label>
+            <div class="col-md-6" form-group>
+                <select id="lstConsideracionRetraso" class="form-control"></select>
+                <span class="help-block" id="helpErrorConsideracionRetraso"></span>
+            </div>
+        </div>
+            <div class="form-group div-tolerancia" id="divDescripcion">
+                <label class="col-md-3 control-label" for="txtDescripcion">Descripci&oacute;n:</label>
+                <div class="col-md-6">
+                    <textarea rows="6" id="txtDescripcion" name="txtDescripcion" class="form-control" placeholder="Descripci&oacute;n.."></textarea>
+                </div>
+                <span class="help-block" id="helpErrorDescripcion"></span>
+            </div>
+            <div class="form-group div-tolerancia" id="divFechaIni">
+                <label class="col-md-3 control-label" for="txtFechaIni">Fecha Inicio *:</label>
+                <div class="col-md-6">
+                    <input id="txtFechaIni" class="form-control input-datepicker" type="text" placeholder="dd-mm-yyyy" data-date-format="dd-mm-yyyy" name="txtFechaIni">
+                    <span class="help-block" id="helpErrorFechaIni"></span>
+                </div>
+            </div>
+            <div class="form-group div-tolerancia" id="divFechaFin">
+                <label class="col-md-3 control-label" for="txtFechaFin">Fecha Fin:</label>
+                <div class="col-md-6">
+                    <input id="txtFechaFin" class="form-control input-datepicker" type="text" placeholder="dd-mm-yyyy" data-date-format="dd-mm-yyyy" name="txtFechaFin">
+                    <span class="help-block" id="helpErrorFechaFin"></span>
+                </div>
+            </div>
+        <div class="form-group div-tolerancia" id="divObservacion">
+            <label class="col-md-3 control-label" for="txtObservacion">Observaciones:</label>
+            <div class="col-md-6">
+                <textarea id="txtObservacion" name="txtObservacion" class="form-control" placeholder="Observaciones.."></textarea>
+            </div>
+            <span class="help-block" id="helpErrorObservacion"></span>
+        </div>
+        </fieldset>
+        <div class="form-group form-actions">
+            <div class="col-md-8 col-md-offset-4">
+                <button id="btnGuardarToleranciaNuevo" class="btn btn-sm btn-primary" type="button">
+                    <i class="fa fa-floppy-o"></i>
+                    Guardar
+                </button>
+                <button id="btnCancelarToleranciaNuevo" class="btn btn-sm btn-warning" type="button">
+                    <i class="fa fa-repeat"></i>
+                    Cancelar
+                </button>
+            </div>
+        </div>
+        </div>
+</div>
+<div style="display: none;" class="section" id="divEdit">
+    <h6><b>NOTA: </b>Los datos precedidos de asterisco son requerido de manera obligatoria (*).</h6>
+    <div class="form-horizontal col-sm-12">
+        <fieldset>
+            <legend><i class="fa fa-angle-right"></i> Datos del Tipo de Tolerancia</legend>
+            <div class="row div-tolerancia" id="divToleranciaEditar">
+                <label class="col-sm-3 control-label" for="txtToleranciaEditar">Minutos Tolerancia *:</label>
+                <div class="col-md-6">
+                    <input type="text" id="txtToleranciaEditar" class="form-control numeral" placeholder="Minutos de Tolerancia">
+                    <span class="help-block" id="helpErrorToleranciaEditar"></span>
+                </div>
+            </div>
+            <div class="row div-tolerancia" id="divTipoAcumulacionEditar">
+                <label class="col-sm-3 control-label" for="lstTipoAcumulacionEditar">Tipo Acumulaci&oacute;n *:</label>
+                <div class="col-md-6" form-group>
+                    <select id="lstTipoAcumulacionEditar" class="form-control"></select>
+                    <span class="help-block" id="helpErrorTipoAcumulacionEditar"></span>
+                </div>
+            </div>
+            <div class="row div-tolerancia" id="divConsideracionRetrasoEditar">
+                <label class="col-sm-3 control-label" for="lstConsideracionRetrasoEditar">Consideraci&oacute;n Retraso *:</label>
+                <div class="col-md-6" form-group>
+                    <select id="lstConsideracionRetrasoEditar" class="form-control"></select>
+                    <span class="help-block" id="helpErrorConsideracionRetrasoEditar"></span>
+                </div>
+            </div>
+            <div class="form-group div-tolerancia" id="divDescripcionEditar">
+                <label class="col-md-3 control-label" for="txtDescripcionEditar">Descripci&oacute;n:</label>
+                <div class="col-md-6">
+                    <textarea rows="6" id="txtDescripcionEditar" name="txtDescripcionEditar" class="form-control" placeholder="Descripci&oacute;n.."></textarea>
+                </div>
+                <span class="help-block" id="helpErrorDescripcionEditar"></span>
+            </div>
+            <div class="form-group div-tolerancia" id="divFechaIniEditar">
+                <label class="col-md-3 control-label" for="txtFechaIniEditar">Fecha Inicio *:</label>
+                <div class="col-md-6">
+                    <input id="txtFechaIniEditar" class="form-control input-datepicker" type="text" placeholder="dd-mm-yyyy" data-date-format="dd-mm-yyyy" name="txtFechaIniEditar">
+                    <span class="help-block" id="helpErrorFechaIniEditar"></span>
+                </div>
+            </div>
+            <div class="form-group div-tolerancia" id="divFechaFinEditar">
+                <label class="col-md-3 control-label" for="txtFechaFinEditar">Fecha Fin:</label>
+                <div class="col-md-6">
+                    <input id="txtFechaFinEditar" class="form-control input-datepicker" type="text" placeholder="dd-mm-yyyy" data-date-format="dd-mm-yyyy" name="txtFechaFinEditar">
+                    <span class="help-block" id="helpErrorFechaFinEditar"></span>
+                </div>
+            </div>
+            <div class="form-group div-tolerancia" id="divObservacionEditar">
+                <label class="col-md-3 control-label" for="txtObservacionEditar">Observaciones:</label>
+                <div class="col-md-6">
+                    <textarea id="txtObservacionEditar" name="txtObservacionEditar" class="form-control" placeholder="Observaciones.."></textarea>
+                </div>
+                <span class="help-block" id="helpErrorObservacionEditar"></span>
+            </div>
+        </fieldset>
+        <input type="hidden" id="hdnIdToleranciaEditar" value="0">
+        <div class="form-group form-actions">
+            <div class="col-md-8 col-md-offset-4">
+                <button id="btnGuardarToleranciaEditar" class="btn btn-sm btn-primary" type="button">
+                    <i class="fa fa-floppy-o"></i>
+                    Guardar
+                </button>
+                <button id="btnCancelarToleranciaEditar" class="btn btn-sm btn-warning" type="button">
+                    <i class="fa fa-repeat"></i>
+                    Cancelar
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+<div style="display: none;" class="section" id="divView">
+</div>
+</div>
+<!--</form></div>-->
+</body>
+<div id="divMsjeNotificacionError">
+    <div id="divMsjePorError">
+    </div>
+</div>
+<div id="divMsjeNotificacionWarning">
+    <div id="divMsjePorWarning">
+    </div>
+</div>
+<div id="divMsjeNotificacionSuccess">
+    <div id="divMsjePorSuccess">
+    </div>
+</div>

@@ -1,0 +1,16 @@
+<h1>Editar Normativa</h1>
+<form method="post" action="">
+	<input type="hidden" name="id" value="<?php echo $normativa->id ?>">
+	<div>
+		<label>Normativa:</label>
+		<input type="text" name="normativa" value="<?php echo $normativa->normativa; ?>">	
+	</div>
+	<div>
+		<label>Descripción</label>
+		<input type="text" name="descripcion" value="<?php echo $normativa->descripcion; ?>">	
+	</div>
+	<div>
+		<button>Guardar</button>
+		<a href="../">Cancelar</a>
+	</div>
+</form>

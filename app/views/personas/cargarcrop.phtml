@@ -1,0 +1,82 @@
+<input type="hidden" id="ancho" name="ancho" />
+<input type="hidden" id="alto" name="alto" />
+<input type="hidden" id="imgancho" name="imgancho" />
+<input type="hidden" id="imgalto" name="imgalto" />
+<script language="Javascript">
+    // llamado del ancho para que se refresquen los valores de la imagen en jquery.
+    $("<img>").attr("src", "/images/personal/tmp.jpg"+ "?nocache=" + (new Date()).getTime()).load(function(){
+        $("#imgancho").val(Number(this.width));
+        $("#imgalto").val(Number(this.height));
+    //    alert (imgWidth+" | "+imgHeight);
+    });
+    $("#cropbox").attr("src", "/images/personal/tmp.jpg"+ "?nocache=" + (new Date()).getTime());
+    $("#ancho").val(Number($("#cropbox").width()));
+    $("#alto").val(Number($("#cropbox").height()));
+    //alert(ancho+" | "+ancho_real);
+    //$("#cropbox").fadeOut();
+    $(function(){
+        $('#cropbox').Jcrop({
+            aspectRatio: 1,
+            onSelect: updateCoords
+        });
+        $("#recortar").click(function(){
+            if ($("#foto_persona").val()){
+                //alert ('hola');
+                var imagen = $("#foto_persona").val();
+            } else {
+                //alert ('chau');
+                var imagen = $("#ci").val();
+            }
+            checkCoords();
+            var v=$.ajax({
+                url:'/personas/crop/',
+                type:'POST',
+                datatype:'jason',
+                data: {x:$("#x").val(),y:$("#y").val(),w:$("#w").val(),h:$("#h").val(),ci:$("#ci").val()},
+                success: function(data){ // alert ('Guardado con éxito');//alert (data);
+                    //var res = jQuery.parseJSON(data);
+                    //alert(res.msm);
+                    $("#ci").attr('readonly','readonly');
+                    $("#cerrar").click();
+                    //$("#boton_foto").unbind();
+                    $("#boton_foto").load('/personas/subirfoto/'+imagen);
+                    //$("#btn_foto").hide();
+                },
+                error: function(){
+                    alert('Se ha producido un error Inesperado');
+                }
+                
+            });
+        });
+    });
+    function updateCoords(c){//alert (c.x+' | '+c.y+' | '+c.w+' | '+c.h);
+        var newX = ($("#imgancho").val()*c.x)/$("#ancho").val();
+        var newY = ($("#imgancho").val()*c.y)/$("#ancho").val();
+        var newW = ($("#imgancho").val()*c.w)/$("#ancho").val();
+        var newH = ($("#imgancho").val()*c.h)/$("#ancho").val();
+        //alert(newX+"*"+$("#ancho").val()+"/"+$("#imgancho").val());
+        //newX = newX*ancho/imgAncho;
+        //alert (newX+" | "+newY+" | "+newW+" | "+newH+" | "+c.w+" | "+c.h);
+        $('#x').val(newX);
+        $('#y').val(newY);
+        $('#w').val(newW);
+        $('#h').val(newH);
+    };
+    function checkCoords(){
+        if (parseInt($('#w').val())) return true;
+        alert('Seleccione el espacio a cortar.');
+        return false;
+    };
+</script>
+<h4>Recortar Imagen</h4>
+<!--Image that we Will insert -->
+<img class='imagem_artigo' src="/images/personal/tmp.jpg" id="cropbox" width="100%"/>
+<!--Form to crop-->
+<form action="/personas/crop/" method="post" onsubmit="return checkCoords();">
+    <input type="hidden" id="x" name="x" />
+    <input type="hidden" id="y" name="y" />
+    <input type="hidden" id="w" name="w" />
+    <input type="hidden" id="h" name="h" />
+    <!--<input type="submit" id="btn-crop" value="Crop Image" />-->
+    <button class="btn btn-sm btn-primary" type="button" id="recortar" >Recortar.</button>
+</form> 

@@ -1,0 +1,1 @@
+$(document).ready(function(){$.jqx.theme="bootstrap";var e=prepareSimulator("tabs");$("#divTabControlExcepciones").jqxTabs({theme:e,height:"100%",width:"100%",keyboardNavigation:!1})});

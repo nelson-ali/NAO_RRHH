@@ -1,0 +1,668 @@
+<script type="text/javascript">
+	$(document).ready(function () {
+		var source =
+		{
+			datatype: "json",
+			datafields: [
+			{ name: 'id',type: 'number'},
+			{ name: 'resolucion_id',type: 'string'},
+			{ name: 'categoria',type: 'string'},
+			{ name: 'clase',type: 'number'},
+			{ name: 'nivel',type: 'number'},
+			{ name: 'denominacion',type: 'string'},
+			{ name: 'sueldo',type: 'number'},
+			{ name: 'fecha_ini',type: 'date', format: 'dd-MM-yyyy'},
+			{ name: 'fecha_ini_v',type: 'string'},
+			{ name: 'fecha_fin',type: 'date'},
+			{ name: 'activo'},
+			{ name: 'activo1',type: 'string'},
+			{ name: 'nivelsalarial_id_existente'}
+			],
+			url: '/nivelsalariales/list',
+			cache: false
+		};
+		var dataAdapter = new $.jqx.dataAdapter(source);
+		cargar();	
+		function cargar(){
+			$("#jqxgrid").jqxGrid(
+			{
+				width: '100%',
+				height: '100%',
+				source: dataAdapter,
+				sortable: true,
+				altRows: true,
+                //groupable: true,
+                columnsresize: true,
+                pageable: true,
+                pagerMode: 'advanced',
+                showfilterrow: true,
+                filterable: true,
+                //showtoolbar: true,
+                autorowheight: true,
+                enablebrowserselection: true,
+                columns: [
+                {
+                	text: '#', sortable: false, filterable: false, editable: false,
+                	groupable: false, draggable: false, resizable: false,
+                	datafield: '', columntype: 'number', width: '3%',
+                	cellsrenderer: function (row, column, value) {
+                		return "<div style='margin:4px;'>" + (value + 1) + "</div>";
+                	}
+                },
+			//{ text: 'Resolucion', datafield: 'resolucion_id', filtertype: 'input',width: '25%' },
+			{ text: 'Categoria', datafield: 'categoria', filtertype: 'input',width: '22%' },
+			{ text: 'Clase', datafield: 'clase', filtertype: 'number',width: '5%' },
+			{ text: 'Nivel', datafield: 'nivel', filtertype: 'number',width: '5%' },
+			{ text: 'Denominacion', datafield: 'denominacion', filtertype: 'input',width: '30%' },
+			{ text: 'Sueldo Bs.', datafield: 'sueldo', filtertype: 'number',width: '10%', cellsalign: 'center', align:'center'},
+			{ text: 'Fecha Inicio', datafield: 'fecha_ini', filtertype: 'range', width: '9%', cellsalign: 'center', cellsformat: 'dd-MM-yyyy',align:'center'},
+			{ text: 'Fecha Final', datafield: 'fecha_fin', filtertype: 'range', width: '9%', cellsalign: 'center', cellsformat: 'dd-MM-yyyy',align:'center'},
+			{ text: 'Estado', datafield: 'activo1', filtertype: 'checkedlist',width: '7%' }
+			]
+		});
+
+}
+
+$("#jqxgrid").bind('rowselect', function (event) {
+	var dataRecord = $("#jqxgrid").jqxGrid('getrowdata', event.args.rowindex);
+	//alert(dataRecord.estado);
+	$("#id").val(dataRecord.id);
+	$("#resolucion_id").val(dataRecord.resolucion_id);
+	$("#categoria").val(dataRecord.categoria);
+	$("#clase").val(dataRecord.clase);
+	$("#nivel").val(dataRecord.nivel);
+	$("#denominacion").val(dataRecord.denominacion);
+	$("#sueldo").val(dataRecord.sueldo);
+	$("#fecha_ini").val(dataRecord.fecha_ini_v);
+                     //$("#activo").removeAttr('checked');
+                      //$('#activo').attr('checked',false);
+                      if(dataRecord.activo=='1'){
+                      	$("#activo").prop('checked', true);
+                      }else{
+                      	$("#activo").prop('checked', false);
+                      }
+
+                  });
+$("#add").click(function(){
+	$("#titulo").text("Adicionar");
+        $("#id").val("");
+	$("#resolucion_id").val("");
+	$("#categoria").val("");
+	$("#clase").val("");
+	$("#nivel").val("");
+	$("#denominacion").val("");
+	$("#sueldo").val("");
+	$("#nivelsalarial_id_existente").val("");
+	$('#myModal').modal('show');
+});
+
+$("#edit").click(function(){
+	if($("#id").val()!=""){
+		$("#titulo").text("Editar");
+		var nivel=$("#nivel").val();
+		getnivel(nivel);
+		$('#myModal').modal('show');        		
+	}else{
+		bootbox.alert("<strong>¡Mensaje!</strong> Seleccionar un registro para editar.");
+	}
+});
+
+$("#delete").click(function(){
+	if($("#id").val()!=""){
+		bootbox.confirm("<strong>¡Mensaje!</strong> Esta seguro de eliminar el registro.", function(result) {
+			if (result==true) {
+				var v=$.ajax({
+					url:'/nivelsalariales/delete/',
+					type:'POST',
+					datatype: 'json',
+					data:{id:$("#id").val()},
+						success: function(data) { cargar(); //alert('Guardado Correctamente'); 
+												}, //mostramos el error
+												error: function() { alert('Se ha producido un error Inesperado'); }
+											});
+			}
+		});
+	}else{
+		bootbox.alert("<strong>¡Mensaje!</strong> Seleccionar un registro para eliminar.");
+	}
+});
+
+$("#perfil").click(function(){
+	if($("#id").val()!=""){
+		window.location.href = '/cargosperfiles/index/'+$("#id").val();
+	}else{
+	bootbox.alert("<strong>¡Mensaje!</strong> Seleccionar un registro para editar.");
+}
+});
+
+// $("#Guardar").click(function () {
+
+// 	var v=$.ajax({
+// 		url:'/nivelsalariales/savePerfil/',
+// 		type:'POST',
+// 		datatype: 'json',
+// 		data:{perfil_id:$("#perfil_id").val(),nivelsalarial_id:$("#id").val(),formacion_academica:$("#formacion_academica").val(),formacion_academica0:$("#formacion_academica0").val(),exp_general_lic_anio:$("#exp_general_lic_anio").val(),exp_general_tec_anio:$("#exp_general_tec_anio").val(),exp_profesional_lic_anio:$("#exp_profesional_lic_anio").val(),exp_profesional_tec_anio:$("#exp_profesional_tec_anio").val(),exp_relacionado_lic_anio:$("#exp_relacionado_lic_anio").val(),exp_relacionado_tec_anio:$("#exp_relacionado_tec_anio").val(),exp_general_lic0_anio:$("#exp_general_lic0_anio").val(),exp_general_tec0_anio:$("#exp_general_tec0_anio").val(),exp_profesional_lic0_anio:$("#exp_profesional_lic0_anio").val(),exp_profesional_tec0_anio:$("#exp_profesional_tec0_anio").val(),exp_relacionado_lic0_anio:$("#exp_relacionado_lic0_anio").val(),exp_relacionado_tec0_anio:$("#exp_relacionado_tec0_anio").val(),exp_general_lic_mes:$("#exp_general_lic_mes").val(),exp_general_tec_mes:$("#exp_general_tec_mes").val(),exp_profesional_lic_mes:$("#exp_profesional_lic_mes").val(),exp_profesional_tec_mes:$("#exp_profesional_tec_mes").val(),exp_relacionado_lic_mes:$("#exp_relacionado_lic_mes").val(),exp_relacionado_tec_mes:$("#exp_relacionado_tec_mes").val(),exp_general_lic0_mes:$("#exp_general_lic0_mes").val(),exp_general_tec0_mes:$("#exp_general_tec0_mes").val(),exp_profesional_lic0_mes:$("#exp_profesional_lic0_mes").val(),exp_profesional_tec0_mes:$("#exp_profesional_tec0_mes").val(),exp_relacionado_lic0_mes:$("#exp_relacionado_lic0_mes").val(),exp_relacionado_tec0_mes:$("#exp_relacionado_tec0_mes").val()
+// 	},
+// 						success: function(data) { cargar(); //alert(data); 
+// 												}, //mostramos el error
+// 												error: function() { alert('Se ha producido un error Inesperado'); }
+// 											});
+//             	// $("#popupWindow_perfil").jqxWindow('hide');
+//             	$('#myModal_Perfil').modal('hide');
+
+//             });
+jQuery.extend(jQuery.validator.messages, {
+    // required: "This field is required.",
+    // remote: "Please fix this field.",
+    // email: "Please enter a valid email address.",
+    // url: "Please enter a valid URL.",
+    // date: "Please enter a valid date.",
+    // dateISO: "Please enter a valid date (ISO).",
+    number: "Ingrese solo numeros."
+    // digits: "Please enter only digits.",
+    // creditcard: "Please enter a valid credit card number.",
+    // equalTo: "Please enter the same value again.",
+    // accept: "Please enter a value with a valid extension.",
+    // maxlength: jQuery.validator.format("Please enter no more than {0} characters."),
+    // minlength: jQuery.validator.format("Please enter at least {0} characters."),
+    // rangelength: jQuery.validator.format("Please enter a value between {0} and {1} characters long."),
+    // range: jQuery.validator.format("Please enter a value between {0} and {1}."),
+    // max: jQuery.validator.format("Please enter a value less than or equal to {0}."),
+    // min: jQuery.validator.format("Please enter a value greater than or equal to {0}.")
+});
+
+$('#testForm_perfil').validate({
+rules: {
+        exp_general_lic_anio: {
+            number: true
+        },
+        exp_general_lic_mes: {
+            number: true
+        },
+        exp_general_tec_anio: {
+            number: true
+        },
+        exp_general_tec_mes: {
+            number: true
+        },
+
+        exp_profesional_lic_anio: {
+            number: true
+        },
+        exp_profesional_lic_mes: {
+            number: true
+        },
+        exp_profesional_tec_anio: {
+            number: true
+        },
+        exp_profesional_tec_mes: {
+            number: true
+        },
+
+        exp_relacionado_lic_anio: {
+            number: true
+        },
+        exp_relacionado_lic_mes: {
+            number: true
+        },
+        exp_relacionado_tec_anio: {
+            number: true
+        },
+        exp_relacionado_tec_mes: {
+            number: true
+        },
+
+        exp_general_lic0_anio: {
+            number: true
+        },
+        exp_general_lic0_mes: {
+            number: true
+        },
+        exp_general_tec0_anio: {
+            number: true
+        },
+        exp_general_tec0_mes: {
+            number: true
+        },
+
+        exp_profesional_lic0_anio: {
+            number: true
+        },
+        exp_profesional_lic0_mes: {
+            number: true
+        },
+        exp_profesional_tec0_anio: {
+            number: true
+        },
+        exp_profesional_tec0_mes: {
+            number: true
+        },
+
+        exp_relacionado_lic0_anio: {
+            number: true
+        },
+        exp_relacionado_lic0_mes: {
+            number: true
+        },
+        exp_relacionado_tec0_anio: {
+            number: true
+        },
+        exp_relacionado_tec0_mes: {
+            number: true
+        },
+    },
+
+	highlight: function (element) {
+		$(element).closest('.control-group').removeClass('success').addClass('error');
+	},
+	success: function (element) {
+        //element.text('OK!').addClass('valid').closest('.control-group').removeClass('error').addClass('success');
+        element.addClass('valid').closest('.control-group').removeClass('error').addClass('success');
+    },
+    submitHandler: function (form) {
+            // form validates so do the ajax
+        var v=$.ajax({
+		url:'/nivelsalariales/savePerfil/',
+		type:'POST',
+		datatype: 'json',
+		data:{perfil_id:$("#perfil_id").val(),nivelsalarial_id:$("#id").val(),formacion_academica:$("#formacion_academica").val(),formacion_academica0:$("#formacion_academica0").val(),exp_general_lic_anio:$("#exp_general_lic_anio").val(),exp_general_tec_anio:$("#exp_general_tec_anio").val(),exp_profesional_lic_anio:$("#exp_profesional_lic_anio").val(),exp_profesional_tec_anio:$("#exp_profesional_tec_anio").val(),exp_relacionado_lic_anio:$("#exp_relacionado_lic_anio").val(),exp_relacionado_tec_anio:$("#exp_relacionado_tec_anio").val(),exp_general_lic0_anio:$("#exp_general_lic0_anio").val(),exp_general_tec0_anio:$("#exp_general_tec0_anio").val(),exp_profesional_lic0_anio:$("#exp_profesional_lic0_anio").val(),exp_profesional_tec0_anio:$("#exp_profesional_tec0_anio").val(),exp_relacionado_lic0_anio:$("#exp_relacionado_lic0_anio").val(),exp_relacionado_tec0_anio:$("#exp_relacionado_tec0_anio").val(),exp_general_lic_mes:$("#exp_general_lic_mes").val(),exp_general_tec_mes:$("#exp_general_tec_mes").val(),exp_profesional_lic_mes:$("#exp_profesional_lic_mes").val(),exp_profesional_tec_mes:$("#exp_profesional_tec_mes").val(),exp_relacionado_lic_mes:$("#exp_relacionado_lic_mes").val(),exp_relacionado_tec_mes:$("#exp_relacionado_tec_mes").val(),exp_general_lic0_mes:$("#exp_general_lic0_mes").val(),exp_general_tec0_mes:$("#exp_general_tec0_mes").val(),exp_profesional_lic0_mes:$("#exp_profesional_lic0_mes").val(),exp_profesional_tec0_mes:$("#exp_profesional_tec0_mes").val(),exp_relacionado_lic0_mes:$("#exp_relacionado_lic0_mes").val(),exp_relacionado_tec0_mes:$("#exp_relacionado_tec0_mes").val()
+	},
+						success: function(data) { cargar(); //alert(data); 
+												}, //mostramos el error
+												error: function() { alert('Se ha producido un error Inesperado'); }
+											});
+            	// $("#popupWindow_perfil").jqxWindow('hide');
+            	$('#myModal_Perfil').modal('hide');
+            
+            return false; // ajax used, block the normal submit
+        }
+    });	
+
+$('#testForm').validate({
+	rules: {
+		resolucion_id: {
+			required: true
+		},
+		categoria: {
+			required: true
+		},
+		denominacion: {
+			required: true
+		},
+		clase: {
+			required: true
+		},
+		nivel: {
+			required: true
+		},
+		sueldo: {
+			required: true
+		}
+	},
+	highlight: function (element) {
+		$(element).closest('.control-group').removeClass('success').addClass('error');
+	},
+	success: function (element) {
+        //element.text('OK!').addClass('valid').closest('.control-group').removeClass('error').addClass('success');
+        element.addClass('valid').closest('.control-group').removeClass('error').addClass('success');
+    },
+    submitHandler: function (form) {
+            // form validates so do the ajax
+            var v=$.ajax({
+            	url:'/nivelsalariales/save/',
+            	type:'POST',
+            	datatype: 'json',
+            	data:{id:$("#id").val(),resolucion_id:$("#resolucion_id").val(),categoria:$("#categoria").val(),clase:$("#clase").val(),nivel:$("#nivel").val(),denominacion:$("#denominacion").val(),sueldo:$("#sueldo").val(),fecha_ini:$("#fecha_ini").val(),activo:$("#activo").is(':checked'),nivelsalarial_id_existente:$("#nivelsalarial_id_existente").val()},
+						success: function(data) { cargar(); //alert(data); 
+												}, //mostramos el error
+												error: function() { alert('Se ha producido un error Inesperado'); }
+											});
+            $('#myModal').modal('hide');
+            return false; // ajax used, block the normal submit
+        }
+    });		
+
+$("#nivel").blur(function(){
+	var nivel=$("#nivel").val();
+	getnivel(nivel);
+
+})
+
+function getnivel(nivel){
+	if(nivel!=''){
+		var v=$.ajax({
+			url:'/nivelsalariales/getNivelActivo/',
+			type:'POST',
+			datatype: 'json',
+			data:{nivel:$("#nivel").val()},
+			success: function(data) { 
+				var res = jQuery.parseJSON(data);
+				if(res.length>0){
+					$.each( res, function( key, valo ) {
+									// alert(valo.denominacion);
+									$("#nivelsalarial_id_existente").val(valo.id);
+									$("#categoria").val(valo.categoria);
+									$("#clase").val(valo.clase);
+									$("#denominacion").val(valo.denominacion);
+									$("#sueldo").val(valo.sueldo);
+									$("#nivel_existente").html("Denominación:"+valo.denominacion+"<br>Sueldo:"+valo.sueldo+" Bs.<br>Fecha Inicio:"+valo.fecha_ini+"<br>ACTIVO");
+								});	
+				}else{
+					$("#nivelsalarial_id_existente").val('');
+					$("#categoria").val('');
+					$("#clase").val('');
+					$("#denominacion").val('');
+					$("#sueldo").val('');
+					$("#nivel_existente").html("");
+				}
+												}, //mostramos el error
+												error: function() { alert('Se ha producido un error Inesperado'); }
+											});	
+}
+}
+
+$("#activo").click(function(){
+	//alert($("#activo").is(':checked'));
+	if($("#activo").is(':checked') && $("#nivelsalarial_id_existente").val()!='') {  
+		bootbox.alert("<strong>¡Mensaje!</strong> Esta seguro de activar el nivel salarial creado. Los demas niveles se desactivaran automaticamente.");
+	} 
+});
+
+});
+</script>
+
+<div class="row">
+	<div class="col-lg-12">
+		<h1>Escalas Salariales</h1>		
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-lg-12">
+		<div class="panel panel-default">
+			<div class="panel-body">
+				
+				<div class="form-group form-actions">
+					<div class="col-xs-12">
+						<button class="btn btn-sm btn-primary" type="button" id="add"><i class="fa fa-plus fa-fw"></i>Adicionar</button>
+						<button class="btn btn-sm btn-warning" type="button" id="edit"><i class="fa fa-pencil fa-fw"></i> Editar</button>
+						<button class="btn btn-sm btn-danger" type="button" id="delete"><i class="fa fa-trash-o fa-fw"></i> Eliminar</button>
+						<button class="btn btn-sm btn-primary" type="button" id="perfil"><i class="fa fa-book fa-fw"></i> Perfil Academico</button>
+					</div>
+				</div>
+				<br>
+				<div class="table-responsive">
+					<div id="jqxgrid"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+</div>
+</div>
+
+<!-- Modal Perfil-->
+
+<div class="modal fade bs-example-modal-lg" id="myModal_Perfil" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+	<div class="modal-dialog modal-lg">
+		<div class="modal-content">
+			<form class="form-horizontal" id="testForm_perfil" data-toggle="validator"/>
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+				<h4 class="modal-title" id="tituloPerfil">Perfil Generico de Cargos</h4>
+			</div>
+			<div class="modal-body">
+				<div class="row">
+					<div class="col-lg-6">
+						<div class="panel panel-default">
+							<input type="hidden" name="perfil_id" id="perfil_id" value="">
+							<div class="panel-heading">
+								AREA SUSTANTIVA O MISIONAL
+							</div>
+							<div class="panel-body form-horizontal">
+
+								<div class="form-group">
+									<div class="col-sm-4" >Formación Academica</div>
+									<div class="col-sm-8">
+										<textarea class="form-control" name="formacion_academica" id="formacion_academica"></textarea>
+									</div>
+								</div>
+								<b>EXPERIENCIA GENERAL</b>
+								<div class="form-group">
+									<div class="col-sm-4" >A Nivel Licenciatura</div>
+									<div class="col-sm-4">
+										<input type="text" class="form-control" name="exp_general_lic_anio" id="exp_general_lic_anio" placeholder="años">
+									</div>
+									<div class="col-sm-4">
+										<input type="text" class="form-control" name="exp_general_lic_mes" id="exp_general_lic_mes" placeholder="meses">
+									</div>
+									
+								</div>
+								<div class="form-group">
+									<div class="col-sm-4" >A Nivel Tecnico</div>
+									<div class="col-sm-4">
+										<input type="text" class="form-control" name="exp_general_tec_anio" id="exp_general_tec_anio" placeholder="años">
+									</div>
+									<div class="col-sm-4">
+										<input type="text" class="form-control" name="exp_general_tec_mes" id="exp_general_tec_mes" placeholder="meses">
+									</div>
+								</div>
+								<b>EXPERIENCIA PROFESIONAL</b>
+								<div class="form-group">
+									<div class="col-sm-4" >A Nivel Licenciatura</div>
+									<div class="col-sm-4">
+										<input type="text" class="form-control" name="exp_profesional_lic_anio" id="exp_profesional_lic_anio" placeholder="años">
+									</div>
+									<div class="col-sm-4">
+										<input type="text" class="form-control" name="exp_profesional_lic_mes" id="exp_profesional_lic_mes" placeholder="meses">
+									</div>
+								</div>
+								<div class="form-group">
+									<div class="col-sm-4" >A Nivel Tecnico</div>
+									<div class="col-sm-4">
+										<input type="text" class="form-control" name="exp_profesional_tec_anio" id="exp_profesional_tec_anio" placeholder="años">
+									</div>
+									<div class="col-sm-4">
+										<input type="text" class="form-control" name="exp_profesional_tec_mes" id="exp_profesional_tec_mes" placeholder="meses">
+									</div>
+								</div>
+								<b>EXPERIENCIA EN CARGOS RELACIONADOS</b>
+								<div class="form-group">
+									<div class="col-sm-4" >A Nivel Licenciatura</div>
+									<div class="col-sm-4">
+										<input type="text" class="form-control" name="exp_relacionado_lic_anio" id="exp_relacionado_lic_anio" placeholder="años">
+									</div>
+									<div class="col-sm-4">
+										<input type="text" class="form-control" name="exp_relacionado_lic_mes" id="exp_relacionado_lic_mes" placeholder="meses">
+									</div>
+								</div>
+								<div class="form-group">
+									<div class="col-sm-4" >A Nivel Tecnico</div>
+									<div class="col-sm-4">
+										<input type="text" class="form-control" name="exp_relacionado_tec_anio" id="exp_relacionado_tec_anio" placeholder="años">
+									</div>
+									<div class="col-sm-4">
+										<input type="text" class="form-control" name="exp_relacionado_tec_mes" id="exp_relacionado_tec_mes" placeholder="meses">
+									</div>
+								</div>
+
+							</div>    
+						</div>
+					</div>
+					<div class="col-lg-6">
+						<div class="panel panel-default">
+							<div class="panel-heading">
+								AREA NO SUSTANTIVA
+							</div>
+							<div class="panel-body form-horizontal" >
+
+								<div class="form-group">
+									<div class="col-sm-4" >Formación Academica</div>
+									<div class="col-sm-8">
+										<textarea class="form-control" name="formacion_academica0" id="formacion_academica0"></textarea>
+									</div>
+								</div>
+								<b>EXPERIENCIA GENERAL</b>
+								<div class="form-group">
+									<div class="col-sm-4" >A Nivel Licenciatura</div>
+									<div class="col-sm-4">
+										<input type="text" class="form-control" name="exp_general_lic0_anio" id="exp_general_lic0_anio" placeholder="años">
+									</div>
+									<div class="col-sm-4">
+										<input type="text" class="form-control" name="exp_general_lic0_mes" id="exp_general_lic0_mes" placeholder="meses">
+									</div>
+									
+								</div>
+								<div class="form-group">
+									<div class="col-sm-4" >A Nivel Tecnico</div>
+									<div class="col-sm-4">
+										<input type="text" class="form-control" name="exp_general_tec0_anio" id="exp_general_tec0_anio" placeholder="años">
+									</div>
+									<div class="col-sm-4">
+										<input type="text" class="form-control" name="exp_general_tec0_mes" id="exp_general_tec0_mes" placeholder="meses">
+									</div>
+								</div>
+								<b>EXPERIENCIA PROFESIONAL</b>
+								<div class="form-group">
+									<div class="col-sm-4" >A Nivel Licenciatura</div>
+									<div class="col-sm-4">
+										<input type="text" class="form-control" name="exp_profesional_lic0_anio" id="exp_profesional_lic0_anio" placeholder="años">
+									</div>
+									<div class="col-sm-4">
+										<input type="text" class="form-control" name="exp_profesional_lic0_mes" id="exp_profesional_lic0_mes" placeholder="meses">
+									</div>
+								</div>
+								<div class="form-group">
+									<div class="col-sm-4" >A Nivel Tecnico</div>
+									<div class="col-sm-4">
+										<input type="text" class="form-control" name="exp_profesional_tec0_anio" id="exp_profesional_tec0_anio" placeholder="años">
+									</div>
+									<div class="col-sm-4">
+										<input type="text" class="form-control" name="exp_profesional_tec0_mes" id="exp_profesional_tec0_mes" placeholder="meses">
+									</div>
+								</div>
+								<b>EXPERIENCIA EN CARGOS RELACIONADOS</b>
+								<div class="form-group">
+									<div class="col-sm-4" >A Nivel Licenciatura</div>
+									<div class="col-sm-4">
+										<input type="text" class="form-control" name="exp_relacionado_lic0_anio" id="exp_relacionado_lic0_anio" placeholder="años">
+									</div>
+									<div class="col-sm-4">
+										<input type="text" class="form-control" name="exp_relacionado_lic0_mes" id="exp_relacionado_lic0_mes" placeholder="meses">
+									</div>
+								</div>
+								<div class="form-group">
+									<div class="col-sm-4" >A Nivel Tecnico</div>
+									<div class="col-sm-4">
+										<input type="text" class="form-control" name="exp_relacionado_tec0_anio" id="exp_relacionado_tec0_anio" placeholder="años">
+									</div>
+									<div class="col-sm-4">
+										<input type="text" class="form-control" name="exp_relacionado_tec0_mes" id="exp_relacionado_tec0_mes" placeholder="meses">
+									</div>
+								</div>
+
+							</div>    
+						</div>
+					</div>
+				</div>
+
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+				<button type="submit" class="btn btn-primary" id="Guardar">Guardar</button>
+			</div>
+		</form>
+	</div>
+</div>
+</div>
+<!-- end  modal -->
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<form class="form-horizontal" id="testForm" data-toggle="validator"/>
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+				<h4 class="modal-title" id="titulo">Editar</h4>
+			</div>
+			<div class="modal-body">
+				<input id="id" name="id" type="hidden" />
+				<div class="form-group">
+					<label class="col-md-3 control-label">Resolución</label>
+					<div class="col-md-9">
+						<?php echo $resolucion; ?>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-md-3 control-label">Nivel Salarial</label>
+					<div class="col-md-9">
+						<input id="nivel" name="nivel" type="number" class="form-control" placeholder="1,2,3.."/>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-md-3 control-label">Categoria</label>
+					<div class="col-md-9">
+						<input id="categoria" name="categoria" type="text" class="form-control" placeholder="SUPERIOR, EJECUTIVO O OPERATIVO"/>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-md-3 control-label">Clase</label>
+					<div class="col-md-9">
+						<input id="clase" name="clase" type="text" class="form-control" placeholder="2°, 3° o 4°"/>
+					</div>
+				</div>
+				
+				<div class="form-group">
+					<label class="col-md-3 control-label">Denominación del Puesto</label>
+					<div class="col-md-9">
+						<input id="denominacion" name="denominacion" type="text" class="form-control" />
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-md-3 control-label">Sueldo Mensual</label>
+					<div class="col-md-9">
+						<input id="sueldo" name="sueldo" type="number" class="form-control" />
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-md-3 control-label">Fecha Inicio</label>
+					<div class="col-md-9">
+						<input type="text" id="fecha_ini" name="fecha_ini" value="<?php echo date("d-m-Y") ?>" class="form-control input-datepicker-close" data-date-format="dd-mm-yyyy" placeholder="dd-mm-yyyy" />
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-md-3 control-label">Activar</label>
+					<div class="col-md-9">
+
+						<label class="switch switch-primary">
+							<input id="activo" name="activo" type="checkbox"/>
+							<span></span>
+						</label>
+
+					</div>
+				</div>
+				<hr>
+				<div class="form-group">
+					<input type="hidden" name="nivelsalarial_id_existente" id="nivelsalarial_id_existente">
+					<label class="col-md-3 control-label">Nivel Salarial Existente</label>
+					<div class="col-md-9" id="nivel_existente">
+
+					</div>
+				</div>
+
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+				<button type="submit" class="btn btn-primary" id="Save">Guardar</button>
+			</div>
+		</form>
+	</div>
+</div>
+</div>
+<!-- end  modal -->
+<style type="text/css">
+	.datepicker{
+		z-index:1151;
+	}
+</style>

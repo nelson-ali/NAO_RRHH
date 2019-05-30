@@ -1,0 +1,60 @@
+<script type="text/javascript">
+    $(document).ready(function () {
+    $('#resolucion_ministerial_id').change(function(){
+    var id=$(this).val();
+    location.href = '/organigramas/index/'+id;
+});
+
+        
+        
+    });
+</script>
+<div class="row">
+	<div class="col-lg-12">
+		<h1>Organigrama</h1>		
+	</div>
+</div>
+
+<div class="row">
+    <div class="col-md-12" class="form-horizontal">
+        <div class="form-group">
+                <label class="col-lg-2 control-label">Resolución:</label>
+                <div class="col-lg-10">
+                    <?php echo $resolucion_ministerial; ?>
+                </div>
+            </div>
+    </div>
+</div>
+<div class="row" >
+<?php echo $this->flashSession->output() ?>
+    <div class="col-sm-12 animation-stretchRight">
+        <div class="widget">
+             <div style="width: 100%;" ><?php echo $lista;?></div>
+        </div>
+    </div>
+</div>
+
+<div class="row" style="min-height: 502px;">
+    <div class="col-sm-12 animation-stretchRight">
+        <div class="widget" style="overflow-x: auto; ">
+             <div id="chart" class="orgChart"></div>
+        </div>
+    </div>
+
+</div>
+
+  <script>
+    jQuery(document).ready(function() {
+        $("#org").jOrgChart({
+            chartElement : '#chart',
+            dragAndDrop  : true
+        });
+
+/*        $("a.prueba").click(function(event) {
+    			event.preventDefault();
+    			var padre = $(this).attr("padre");
+    			alert(padre);
+    
+			});*/
+    });
+    </script>

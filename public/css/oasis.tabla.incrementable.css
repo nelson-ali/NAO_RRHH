@@ -1,0 +1,94 @@
+.tabla-incrementable {
+    margin:0px;padding:0px;
+    width:50%;
+    border:1px solid #c1bdbd;
+
+    -moz-border-radius-bottomleft:0px;
+    -webkit-border-bottom-left-radius:0px;
+    border-bottom-left-radius:0px;
+
+    -moz-border-radius-bottomright:0px;
+    -webkit-border-bottom-right-radius:0px;
+    border-bottom-right-radius:0px;
+
+    -moz-border-radius-topright:0px;
+    -webkit-border-top-right-radius:0px;
+    border-top-right-radius:0px;
+
+    -moz-border-radius-topleft:0px;
+    -webkit-border-top-left-radius:0px;
+    border-top-left-radius:0px;
+}.tabla-incrementable table{
+     border-collapse: collapse;
+     border-spacing: 0;
+     width:100%;
+     height:100%;
+     margin:0px;padding:0px;
+ }.tabla-incrementable tr:last-child td:last-child {
+      -moz-border-radius-bottomright:0px;
+      -webkit-border-bottom-right-radius:0px;
+      border-bottom-right-radius:0px;
+  }
+.tabla-incrementable table tr:first-child td:first-child {
+    -moz-border-radius-topleft:0px;
+    -webkit-border-top-left-radius:0px;
+    border-top-left-radius:0px;
+}
+.tabla-incrementable table tr:first-child td:last-child {
+    -moz-border-radius-topright:0px;
+    -webkit-border-top-right-radius:0px;
+    border-top-right-radius:0px;
+}.tabla-incrementable tr:last-child td:first-child{
+     -moz-border-radius-bottomleft:0px;
+     -webkit-border-bottom-left-radius:0px;
+     border-bottom-left-radius:0px;
+ }.tabla-incrementable tr:hover td{
+
+  }
+.tabla-incrementable tr:nth-child(odd){ background-color:#e5e5e5; }
+.tabla-incrementable tr:nth-child(even)    { background-color:#ffffff; }.tabla-incrementable td{
+                                                                            vertical-align:middle;
+
+
+                                                                            border:1px solid #c1bdbd;
+                                                                            border-width:0px 1px 1px 0px;
+                                                                            text-align:center;
+                                                                            padding:7px;
+                                                                            font-size:13px;
+                                                                            font-family:Verdana;
+                                                                            font-weight:normal;
+                                                                            color:#000000;
+                                                                        }.tabla-incrementable tr:last-child td{
+                                                                             border-width:0px 1px 0px 0px;
+                                                                         }.tabla-incrementable tr td:last-child{
+                                                                              border-width:0px 0px 1px 0px;
+                                                                          }.tabla-incrementable tr:last-child td:last-child{
+                                                                               border-width:0px 0px 0px 0px;
+                                                                           }
+.tabla-incrementable tr:first-child td{
+    background:-o-linear-gradient(bottom, #dbdbdb 5%, #dbdbdb 100%);	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #dbdbdb), color-stop(1, #dbdbdb) );
+    background:-moz-linear-gradient( center top, #dbdbdb 5%, #dbdbdb 100% );
+    filter:progid:DXImageTransform.Microsoft.gradient(startColorstr="#dbdbdb", endColorstr="#dbdbdb");	background: -o-linear-gradient(top,#dbdbdb,dbdbdb);
+
+    background-color:#dbdbdb;
+    border:0px solid #c1bdbd;
+    text-align:center;
+    border-width:0px 0px 1px 1px;
+    font-size:13px;
+    font-family:Verdana;
+    font-weight:bold;
+    color:#000000;
+}
+.tabla-incrementable tr:first-child:hover td{
+    background:-o-linear-gradient(bottom, #dbdbdb 5%, #dbdbdb 100%);	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #dbdbdb), color-stop(1, #dbdbdb) );
+    background:-moz-linear-gradient( center top, #dbdbdb 5%, #dbdbdb 100% );
+    filter:progid:DXImageTransform.Microsoft.gradient(startColorstr="#dbdbdb", endColorstr="#dbdbdb");	background: -o-linear-gradient(top,#dbdbdb,dbdbdb);
+
+    background-color:#dbdbdb;
+}
+.tabla-incrementable tr:first-child td:first-child{
+    border-width:0px 0px 1px 0px;
+}
+.tabla-incrementable tr:first-child td:last-child{
+    border-width:0px 0px 1px 1px;
+}

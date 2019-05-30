@@ -1,0 +1,1 @@
+$(document).ready(function(){$.jqx.theme="bootstrap";var a=prepareSimulator("tabs");$("#divTabControlMarcaciones").jqxTabs({theme:a,height:"100%",width:"100%",keyboardNavigation:!1})});

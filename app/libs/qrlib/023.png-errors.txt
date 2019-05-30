@@ -1,0 +1,442 @@
+2015-10-02 08:42:38: <br />
+<b>Warning</b>:  file_put_contents(C:\xampp\htdocs\rrhh\app\libs\qrlib\cache\frame_5.dat): failed to open stream: No such file or directory in <b>C:\xampp\htdocs\rrhh\app\libs\qrlib\qrspec.php</b> on line <b>568</b><br />
+<br />
+<b>Warning</b>:  mkdir(): No such file or directory in <b>C:\xampp\htdocs\rrhh\app\libs\qrlib\qrmask.php</b> on line <b>154</b><br />
+<br />
+<b>Warning</b>:  file_put_contents(C:\xampp\htdocs\rrhh\app\libs\qrlib\cache\mask_0\mask_37_0.dat): failed to open stream: No such file or directory in <b>C:\xampp\htdocs\rrhh\app\libs\qrlib\qrmask.php</b> on line <b>155</b><br />
+<br />
+<b>Warning</b>:  mkdir(): No such file or directory in <b>C:\xampp\htdocs\rrhh\app\libs\qrlib\qrmask.php</b> on line <b>154</b><br />
+<br />
+<b>Warning</b>:  file_put_contents(C:\xampp\htdocs\rrhh\app\libs\qrlib\cache\mask_1\mask_37_1.dat): failed to open stream: No such file or directory in <b>C:\xampp\htdocs\rrhh\app\libs\qrlib\qrmask.php</b> on line <b>155</b><br />
+<br />
+<b>Warning</b>:  mkdir(): No such file or directory in <b>C:\xampp\htdocs\rrhh\app\libs\qrlib\qrmask.php</b> on line <b>154</b><br />
+<br />
+<b>Warning</b>:  file_put_contents(C:\xampp\htdocs\rrhh\app\libs\qrlib\cache\mask_2\mask_37_2.dat): failed to open stream: No such file or directory in <b>C:\xampp\htdocs\rrhh\app\libs\qrlib\qrmask.php</b> on line <b>155</b><br />
+<br />
+<b>Warning</b>:  mkdir(): No such file or directory in <b>C:\xampp\htdocs\rrhh\app\libs\qrlib\qrmask.php</b> on line <b>154</b><br />
+<br />
+<b>Warning</b>:  file_put_contents(C:\xampp\htdocs\rrhh\app\libs\qrlib\cache\mask_3\mask_37_3.dat): failed to open stream: No such file or directory in <b>C:\xampp\htdocs\rrhh\app\libs\qrlib\qrmask.php</b> on line <b>155</b><br />
+<br />
+<b>Warning</b>:  mkdir(): No such file or directory in <b>C:\xampp\htdocs\rrhh\app\libs\qrlib\qrmask.php</b> on line <b>154</b><br />
+<br />
+<b>Warning</b>:  file_put_contents(C:\xampp\htdocs\rrhh\app\libs\qrlib\cache\mask_4\mask_37_4.dat): failed to open stream: No such file or directory in <b>C:\xampp\htdocs\rrhh\app\libs\qrlib\qrmask.php</b> on line <b>155</b><br />
+<br />
+<b>Warning</b>:  mkdir(): No such file or directory in <b>C:\xampp\htdocs\rrhh\app\libs\qrlib\qrmask.php</b> on line <b>154</b><br />
+<br />
+<b>Warning</b>:  file_put_contents(C:\xampp\htdocs\rrhh\app\libs\qrlib\cache\mask_5\mask_37_5.dat): failed to open stream: No such file or directory in <b>C:\xampp\htdocs\rrhh\app\libs\qrlib\qrmask.php</b> on line <b>155</b><br />
+<br />
+<b>Warning</b>:  mkdir(): No such file or directory in <b>C:\xampp\htdocs\rrhh\app\libs\qrlib\qrmask.php</b> on line <b>154</b><br />
+<br />
+<b>Warning</b>:  file_put_contents(C:\xampp\htdocs\rrhh\app\libs\qrlib\cache\mask_6\mask_37_6.dat): failed to open stream: No such file or directory in <b>C:\xampp\htdocs\rrhh\app\libs\qrlib\qrmask.php</b> on line <b>155</b><br />
+<br />
+<b>Warning</b>:  mkdir(): No such file or directory in <b>C:\xampp\htdocs\rrhh\app\libs\qrlib\qrmask.php</b> on line <b>154</b><br />
+<br />
+<b>Warning</b>:  file_put_contents(C:\xampp\htdocs\rrhh\app\libs\qrlib\cache\mask_7\mask_37_7.dat): failed to open stream: No such file or directory in <b>C:\xampp\htdocs\rrhh\app\libs\qrlib\qrmask.php</b> on line <b>155</b><br />
+2015-10-02 08:42:39: <br />
+<b>Warning</b>:  file_put_contents(C:\xampp\htdocs\rrhh\app\libs\qrlib\cache\frame_5.dat): failed to open stream: No such file or directory in <b>C:\xampp\htdocs\rrhh\app\libs\qrlib\qrspec.php</b> on line <b>568</b><br />
+<br />
+<b>Warning</b>:  mkdir(): No such file or directory in <b>C:\xampp\htdocs\rrhh\app\libs\qrlib\qrmask.php</b> on line <b>154</b><br />
+<br />
+<b>Warning</b>:  file_put_contents(C:\xampp\htdocs\rrhh\app\libs\qrlib\cache\mask_0\mask_37_0.dat): failed to open stream: No such file or directory in <b>C:\xampp\htdocs\rrhh\app\libs\qrlib\qrmask.php</b> on line <b>155</b><br />
+<br />
+<b>Warning</b>:  mkdir(): No such file or directory in <b>C:\xampp\htdocs\rrhh\app\libs\qrlib\qrmask.php</b> on line <b>154</b><br />
+<br />
+<b>Warning</b>:  file_put_contents(C:\xampp\htdocs\rrhh\app\libs\qrlib\cache\mask_1\mask_37_1.dat): failed to open stream: No such file or directory in <b>C:\xampp\htdocs\rrhh\app\libs\qrlib\qrmask.php</b> on line <b>155</b><br />
+<br />
+<b>Warning</b>:  mkdir(): No such file or directory in <b>C:\xampp\htdocs\rrhh\app\libs\qrlib\qrmask.php</b> on line <b>154</b><br />
+<br />
+<b>Warning</b>:  file_put_contents(C:\xampp\htdocs\rrhh\app\libs\qrlib\cache\mask_2\mask_37_2.dat): failed to open stream: No such file or directory in <b>C:\xampp\htdocs\rrhh\app\libs\qrlib\qrmask.php</b> on line <b>155</b><br />
+<br />
+<b>Warning</b>:  mkdir(): No such file or directory in <b>C:\xampp\htdocs\rrhh\app\libs\qrlib\qrmask.php</b> on line <b>154</b><br />
+<br />
+<b>Warning</b>:  file_put_contents(C:\xampp\htdocs\rrhh\app\libs\qrlib\cache\mask_3\mask_37_3.dat): failed to open stream: No such file or directory in <b>C:\xampp\htdocs\rrhh\app\libs\qrlib\qrmask.php</b> on line <b>155</b><br />
+<br />
+<b>Warning</b>:  mkdir(): No such file or directory in <b>C:\xampp\htdocs\rrhh\app\libs\qrlib\qrmask.php</b> on line <b>154</b><br />
+<br />
+<b>Warning</b>:  file_put_contents(C:\xampp\htdocs\rrhh\app\libs\qrlib\cache\mask_4\mask_37_4.dat): failed to open stream: No such file or directory in <b>C:\xampp\htdocs\rrhh\app\libs\qrlib\qrmask.php</b> on line <b>155</b><br />
+<br />
+<b>Warning</b>:  mkdir(): No such file or directory in <b>C:\xampp\htdocs\rrhh\app\libs\qrlib\qrmask.php</b> on line <b>154</b><br />
+<br />
+<b>Warning</b>:  file_put_contents(C:\xampp\htdocs\rrhh\app\libs\qrlib\cache\mask_5\mask_37_5.dat): failed to open stream: No such file or directory in <b>C:\xampp\htdocs\rrhh\app\libs\qrlib\qrmask.php</b> on line <b>155</b><br />
+<br />
+<b>Warning</b>:  mkdir(): No such file or directory in <b>C:\xampp\htdocs\rrhh\app\libs\qrlib\qrmask.php</b> on line <b>154</b><br />
+<br />
+<b>Warning</b>:  file_put_contents(C:\xampp\htdocs\rrhh\app\libs\qrlib\cache\mask_6\mask_37_6.dat): failed to open stream: No such file or directory in <b>C:\xampp\htdocs\rrhh\app\libs\qrlib\qrmask.php</b> on line <b>155</b><br />
+<br />
+<b>Warning</b>:  mkdir(): No such file or directory in <b>C:\xampp\htdocs\rrhh\app\libs\qrlib\qrmask.php</b> on line <b>154</b><br />
+<br />
+<b>Warning</b>:  file_put_contents(C:\xampp\htdocs\rrhh\app\libs\qrlib\cache\mask_7\mask_37_7.dat): failed to open stream: No such file or directory in <b>C:\xampp\htdocs\rrhh\app\libs\qrlib\qrmask.php</b> on line <b>155</b><br />
+2015-10-02 08:42:39: <br />
+<b>Warning</b>:  file_put_contents(C:\xampp\htdocs\rrhh\app\libs\qrlib\cache\frame_5.dat): failed to open stream: No such file or directory in <b>C:\xampp\htdocs\rrhh\app\libs\qrlib\qrspec.php</b> on line <b>568</b><br />
+<br />
+<b>Warning</b>:  mkdir(): No such file or directory in <b>C:\xampp\htdocs\rrhh\app\libs\qrlib\qrmask.php</b> on line <b>154</b><br />
+<br />
+<b>Warning</b>:  file_put_contents(C:\xampp\htdocs\rrhh\app\libs\qrlib\cache\mask_0\mask_37_0.dat): failed to open stream: No such file or directory in <b>C:\xampp\htdocs\rrhh\app\libs\qrlib\qrmask.php</b> on line <b>155</b><br />
+<br />
+<b>Warning</b>:  mkdir(): No such file or directory in <b>C:\xampp\htdocs\rrhh\app\libs\qrlib\qrmask.php</b> on line <b>154</b><br />
+<br />
+<b>Warning</b>:  file_put_contents(C:\xampp\htdocs\rrhh\app\libs\qrlib\cache\mask_1\mask_37_1.dat): failed to open stream: No such file or directory in <b>C:\xampp\htdocs\rrhh\app\libs\qrlib\qrmask.php</b> on line <b>155</b><br />
+<br />
+<b>Warning</b>:  mkdir(): No such file or directory in <b>C:\xampp\htdocs\rrhh\app\libs\qrlib\qrmask.php</b> on line <b>154</b><br />
+<br />
+<b>Warning</b>:  file_put_contents(C:\xampp\htdocs\rrhh\app\libs\qrlib\cache\mask_2\mask_37_2.dat): failed to open stream: No such file or directory in <b>C:\xampp\htdocs\rrhh\app\libs\qrlib\qrmask.php</b> on line <b>155</b><br />
+<br />
+<b>Warning</b>:  mkdir(): No such file or directory in <b>C:\xampp\htdocs\rrhh\app\libs\qrlib\qrmask.php</b> on line <b>154</b><br />
+<br />
+<b>Warning</b>:  file_put_contents(C:\xampp\htdocs\rrhh\app\libs\qrlib\cache\mask_3\mask_37_3.dat): failed to open stream: No such file or directory in <b>C:\xampp\htdocs\rrhh\app\libs\qrlib\qrmask.php</b> on line <b>155</b><br />
+<br />
+<b>Warning</b>:  mkdir(): No such file or directory in <b>C:\xampp\htdocs\rrhh\app\libs\qrlib\qrmask.php</b> on line <b>154</b><br />
+<br />
+<b>Warning</b>:  file_put_contents(C:\xampp\htdocs\rrhh\app\libs\qrlib\cache\mask_4\mask_37_4.dat): failed to open stream: No such file or directory in <b>C:\xampp\htdocs\rrhh\app\libs\qrlib\qrmask.php</b> on line <b>155</b><br />
+<br />
+<b>Warning</b>:  mkdir(): No such file or directory in <b>C:\xampp\htdocs\rrhh\app\libs\qrlib\qrmask.php</b> on line <b>154</b><br />
+<br />
+<b>Warning</b>:  file_put_contents(C:\xampp\htdocs\rrhh\app\libs\qrlib\cache\mask_5\mask_37_5.dat): failed to open stream: No such file or directory in <b>C:\xampp\htdocs\rrhh\app\libs\qrlib\qrmask.php</b> on line <b>155</b><br />
+<br />
+<b>Warning</b>:  mkdir(): No such file or directory in <b>C:\xampp\htdocs\rrhh\app\libs\qrlib\qrmask.php</b> on line <b>154</b><br />
+<br />
+<b>Warning</b>:  file_put_contents(C:\xampp\htdocs\rrhh\app\libs\qrlib\cache\mask_6\mask_37_6.dat): failed to open stream: No such file or directory in <b>C:\xampp\htdocs\rrhh\app\libs\qrlib\qrmask.php</b> on line <b>155</b><br />
+<br />
+<b>Warning</b>:  mkdir(): No such file or directory in <b>C:\xampp\htdocs\rrhh\app\libs\qrlib\qrmask.php</b> on line <b>154</b><br />
+<br />
+<b>Warning</b>:  file_put_contents(C:\xampp\htdocs\rrhh\app\libs\qrlib\cache\mask_7\mask_37_7.dat): failed to open stream: No such file or directory in <b>C:\xampp\htdocs\rrhh\app\libs\qrlib\qrmask.php</b> on line <b>155</b><br />
+2015-10-02 08:53:43: <br />
+<b>Warning</b>:  file_put_contents(C:\xampp\htdocs\rrhh\app\libs\qrlib\cache\frame_5.dat): failed to open stream: No such file or directory in <b>C:\xampp\htdocs\rrhh\app\libs\qrlib\qrspec.php</b> on line <b>568</b><br />
+<br />
+<b>Warning</b>:  mkdir(): No such file or directory in <b>C:\xampp\htdocs\rrhh\app\libs\qrlib\qrmask.php</b> on line <b>154</b><br />
+<br />
+<b>Warning</b>:  file_put_contents(C:\xampp\htdocs\rrhh\app\libs\qrlib\cache\mask_0\mask_37_0.dat): failed to open stream: No such file or directory in <b>C:\xampp\htdocs\rrhh\app\libs\qrlib\qrmask.php</b> on line <b>155</b><br />
+<br />
+<b>Warning</b>:  mkdir(): No such file or directory in <b>C:\xampp\htdocs\rrhh\app\libs\qrlib\qrmask.php</b> on line <b>154</b><br />
+<br />
+<b>Warning</b>:  file_put_contents(C:\xampp\htdocs\rrhh\app\libs\qrlib\cache\mask_1\mask_37_1.dat): failed to open stream: No such file or directory in <b>C:\xampp\htdocs\rrhh\app\libs\qrlib\qrmask.php</b> on line <b>155</b><br />
+<br />
+<b>Warning</b>:  mkdir(): No such file or directory in <b>C:\xampp\htdocs\rrhh\app\libs\qrlib\qrmask.php</b> on line <b>154</b><br />
+<br />
+<b>Warning</b>:  file_put_contents(C:\xampp\htdocs\rrhh\app\libs\qrlib\cache\mask_2\mask_37_2.dat): failed to open stream: No such file or directory in <b>C:\xampp\htdocs\rrhh\app\libs\qrlib\qrmask.php</b> on line <b>155</b><br />
+<br />
+<b>Warning</b>:  mkdir(): No such file or directory in <b>C:\xampp\htdocs\rrhh\app\libs\qrlib\qrmask.php</b> on line <b>154</b><br />
+<br />
+<b>Warning</b>:  file_put_contents(C:\xampp\htdocs\rrhh\app\libs\qrlib\cache\mask_3\mask_37_3.dat): failed to open stream: No such file or directory in <b>C:\xampp\htdocs\rrhh\app\libs\qrlib\qrmask.php</b> on line <b>155</b><br />
+<br />
+<b>Warning</b>:  mkdir(): No such file or directory in <b>C:\xampp\htdocs\rrhh\app\libs\qrlib\qrmask.php</b> on line <b>154</b><br />
+<br />
+<b>Warning</b>:  file_put_contents(C:\xampp\htdocs\rrhh\app\libs\qrlib\cache\mask_4\mask_37_4.dat): failed to open stream: No such file or directory in <b>C:\xampp\htdocs\rrhh\app\libs\qrlib\qrmask.php</b> on line <b>155</b><br />
+<br />
+<b>Warning</b>:  mkdir(): No such file or directory in <b>C:\xampp\htdocs\rrhh\app\libs\qrlib\qrmask.php</b> on line <b>154</b><br />
+<br />
+<b>Warning</b>:  file_put_contents(C:\xampp\htdocs\rrhh\app\libs\qrlib\cache\mask_5\mask_37_5.dat): failed to open stream: No such file or directory in <b>C:\xampp\htdocs\rrhh\app\libs\qrlib\qrmask.php</b> on line <b>155</b><br />
+<br />
+<b>Warning</b>:  mkdir(): No such file or directory in <b>C:\xampp\htdocs\rrhh\app\libs\qrlib\qrmask.php</b> on line <b>154</b><br />
+<br />
+<b>Warning</b>:  file_put_contents(C:\xampp\htdocs\rrhh\app\libs\qrlib\cache\mask_6\mask_37_6.dat): failed to open stream: No such file or directory in <b>C:\xampp\htdocs\rrhh\app\libs\qrlib\qrmask.php</b> on line <b>155</b><br />
+<br />
+<b>Warning</b>:  mkdir(): No such file or directory in <b>C:\xampp\htdocs\rrhh\app\libs\qrlib\qrmask.php</b> on line <b>154</b><br />
+<br />
+<b>Warning</b>:  file_put_contents(C:\xampp\htdocs\rrhh\app\libs\qrlib\cache\mask_7\mask_37_7.dat): failed to open stream: No such file or directory in <b>C:\xampp\htdocs\rrhh\app\libs\qrlib\qrmask.php</b> on line <b>155</b><br />
+2015-10-02 09:01:11: <br />
+<b>Warning</b>:  file_put_contents(C:\xampp\htdocs\rrhh\app\libs\qrlib\cache\frame_5.dat): failed to open stream: No such file or directory in <b>C:\xampp\htdocs\rrhh\app\libs\qrlib\qrspec.php</b> on line <b>568</b><br />
+<br />
+<b>Warning</b>:  mkdir(): No such file or directory in <b>C:\xampp\htdocs\rrhh\app\libs\qrlib\qrmask.php</b> on line <b>154</b><br />
+<br />
+<b>Warning</b>:  file_put_contents(C:\xampp\htdocs\rrhh\app\libs\qrlib\cache\mask_0\mask_37_0.dat): failed to open stream: No such file or directory in <b>C:\xampp\htdocs\rrhh\app\libs\qrlib\qrmask.php</b> on line <b>155</b><br />
+<br />
+<b>Warning</b>:  mkdir(): No such file or directory in <b>C:\xampp\htdocs\rrhh\app\libs\qrlib\qrmask.php</b> on line <b>154</b><br />
+<br />
+<b>Warning</b>:  file_put_contents(C:\xampp\htdocs\rrhh\app\libs\qrlib\cache\mask_1\mask_37_1.dat): failed to open stream: No such file or directory in <b>C:\xampp\htdocs\rrhh\app\libs\qrlib\qrmask.php</b> on line <b>155</b><br />
+<br />
+<b>Warning</b>:  mkdir(): No such file or directory in <b>C:\xampp\htdocs\rrhh\app\libs\qrlib\qrmask.php</b> on line <b>154</b><br />
+<br />
+<b>Warning</b>:  file_put_contents(C:\xampp\htdocs\rrhh\app\libs\qrlib\cache\mask_2\mask_37_2.dat): failed to open stream: No such file or directory in <b>C:\xampp\htdocs\rrhh\app\libs\qrlib\qrmask.php</b> on line <b>155</b><br />
+<br />
+<b>Warning</b>:  mkdir(): No such file or directory in <b>C:\xampp\htdocs\rrhh\app\libs\qrlib\qrmask.php</b> on line <b>154</b><br />
+<br />
+<b>Warning</b>:  file_put_contents(C:\xampp\htdocs\rrhh\app\libs\qrlib\cache\mask_3\mask_37_3.dat): failed to open stream: No such file or directory in <b>C:\xampp\htdocs\rrhh\app\libs\qrlib\qrmask.php</b> on line <b>155</b><br />
+<br />
+<b>Warning</b>:  mkdir(): No such file or directory in <b>C:\xampp\htdocs\rrhh\app\libs\qrlib\qrmask.php</b> on line <b>154</b><br />
+<br />
+<b>Warning</b>:  file_put_contents(C:\xampp\htdocs\rrhh\app\libs\qrlib\cache\mask_4\mask_37_4.dat): failed to open stream: No such file or directory in <b>C:\xampp\htdocs\rrhh\app\libs\qrlib\qrmask.php</b> on line <b>155</b><br />
+<br />
+<b>Warning</b>:  mkdir(): No such file or directory in <b>C:\xampp\htdocs\rrhh\app\libs\qrlib\qrmask.php</b> on line <b>154</b><br />
+<br />
+<b>Warning</b>:  file_put_contents(C:\xampp\htdocs\rrhh\app\libs\qrlib\cache\mask_5\mask_37_5.dat): failed to open stream: No such file or directory in <b>C:\xampp\htdocs\rrhh\app\libs\qrlib\qrmask.php</b> on line <b>155</b><br />
+<br />
+<b>Warning</b>:  mkdir(): No such file or directory in <b>C:\xampp\htdocs\rrhh\app\libs\qrlib\qrmask.php</b> on line <b>154</b><br />
+<br />
+<b>Warning</b>:  file_put_contents(C:\xampp\htdocs\rrhh\app\libs\qrlib\cache\mask_6\mask_37_6.dat): failed to open stream: No such file or directory in <b>C:\xampp\htdocs\rrhh\app\libs\qrlib\qrmask.php</b> on line <b>155</b><br />
+<br />
+<b>Warning</b>:  mkdir(): No such file or directory in <b>C:\xampp\htdocs\rrhh\app\libs\qrlib\qrmask.php</b> on line <b>154</b><br />
+<br />
+<b>Warning</b>:  file_put_contents(C:\xampp\htdocs\rrhh\app\libs\qrlib\cache\mask_7\mask_37_7.dat): failed to open stream: No such file or directory in <b>C:\xampp\htdocs\rrhh\app\libs\qrlib\qrmask.php</b> on line <b>155</b><br />
+2015-10-02 09:01:34: <br />
+<b>Warning</b>:  file_put_contents(C:\xampp\htdocs\rrhh\app\libs\qrlib\cache\frame_5.dat): failed to open stream: No such file or directory in <b>C:\xampp\htdocs\rrhh\app\libs\qrlib\qrspec.php</b> on line <b>568</b><br />
+<br />
+<b>Warning</b>:  mkdir(): No such file or directory in <b>C:\xampp\htdocs\rrhh\app\libs\qrlib\qrmask.php</b> on line <b>154</b><br />
+<br />
+<b>Warning</b>:  file_put_contents(C:\xampp\htdocs\rrhh\app\libs\qrlib\cache\mask_0\mask_37_0.dat): failed to open stream: No such file or directory in <b>C:\xampp\htdocs\rrhh\app\libs\qrlib\qrmask.php</b> on line <b>155</b><br />
+<br />
+<b>Warning</b>:  mkdir(): No such file or directory in <b>C:\xampp\htdocs\rrhh\app\libs\qrlib\qrmask.php</b> on line <b>154</b><br />
+<br />
+<b>Warning</b>:  file_put_contents(C:\xampp\htdocs\rrhh\app\libs\qrlib\cache\mask_1\mask_37_1.dat): failed to open stream: No such file or directory in <b>C:\xampp\htdocs\rrhh\app\libs\qrlib\qrmask.php</b> on line <b>155</b><br />
+<br />
+<b>Warning</b>:  mkdir(): No such file or directory in <b>C:\xampp\htdocs\rrhh\app\libs\qrlib\qrmask.php</b> on line <b>154</b><br />
+<br />
+<b>Warning</b>:  file_put_contents(C:\xampp\htdocs\rrhh\app\libs\qrlib\cache\mask_2\mask_37_2.dat): failed to open stream: No such file or directory in <b>C:\xampp\htdocs\rrhh\app\libs\qrlib\qrmask.php</b> on line <b>155</b><br />
+<br />
+<b>Warning</b>:  mkdir(): No such file or directory in <b>C:\xampp\htdocs\rrhh\app\libs\qrlib\qrmask.php</b> on line <b>154</b><br />
+<br />
+<b>Warning</b>:  file_put_contents(C:\xampp\htdocs\rrhh\app\libs\qrlib\cache\mask_3\mask_37_3.dat): failed to open stream: No such file or directory in <b>C:\xampp\htdocs\rrhh\app\libs\qrlib\qrmask.php</b> on line <b>155</b><br />
+<br />
+<b>Warning</b>:  mkdir(): No such file or directory in <b>C:\xampp\htdocs\rrhh\app\libs\qrlib\qrmask.php</b> on line <b>154</b><br />
+<br />
+<b>Warning</b>:  file_put_contents(C:\xampp\htdocs\rrhh\app\libs\qrlib\cache\mask_4\mask_37_4.dat): failed to open stream: No such file or directory in <b>C:\xampp\htdocs\rrhh\app\libs\qrlib\qrmask.php</b> on line <b>155</b><br />
+<br />
+<b>Warning</b>:  mkdir(): No such file or directory in <b>C:\xampp\htdocs\rrhh\app\libs\qrlib\qrmask.php</b> on line <b>154</b><br />
+<br />
+<b>Warning</b>:  file_put_contents(C:\xampp\htdocs\rrhh\app\libs\qrlib\cache\mask_5\mask_37_5.dat): failed to open stream: No such file or directory in <b>C:\xampp\htdocs\rrhh\app\libs\qrlib\qrmask.php</b> on line <b>155</b><br />
+<br />
+<b>Warning</b>:  mkdir(): No such file or directory in <b>C:\xampp\htdocs\rrhh\app\libs\qrlib\qrmask.php</b> on line <b>154</b><br />
+<br />
+<b>Warning</b>:  file_put_contents(C:\xampp\htdocs\rrhh\app\libs\qrlib\cache\mask_6\mask_37_6.dat): failed to open stream: No such file or directory in <b>C:\xampp\htdocs\rrhh\app\libs\qrlib\qrmask.php</b> on line <b>155</b><br />
+<br />
+<b>Warning</b>:  mkdir(): No such file or directory in <b>C:\xampp\htdocs\rrhh\app\libs\qrlib\qrmask.php</b> on line <b>154</b><br />
+<br />
+<b>Warning</b>:  file_put_contents(C:\xampp\htdocs\rrhh\app\libs\qrlib\cache\mask_7\mask_37_7.dat): failed to open stream: No such file or directory in <b>C:\xampp\htdocs\rrhh\app\libs\qrlib\qrmask.php</b> on line <b>155</b><br />
+2015-10-02 09:02:19: <br />
+<b>Warning</b>:  file_put_contents(C:\xampp\htdocs\rrhh\app\libs\qrlib\cache\frame_5.dat): failed to open stream: No such file or directory in <b>C:\xampp\htdocs\rrhh\app\libs\qrlib\qrspec.php</b> on line <b>568</b><br />
+<br />
+<b>Warning</b>:  mkdir(): No such file or directory in <b>C:\xampp\htdocs\rrhh\app\libs\qrlib\qrmask.php</b> on line <b>154</b><br />
+<br />
+<b>Warning</b>:  file_put_contents(C:\xampp\htdocs\rrhh\app\libs\qrlib\cache\mask_0\mask_37_0.dat): failed to open stream: No such file or directory in <b>C:\xampp\htdocs\rrhh\app\libs\qrlib\qrmask.php</b> on line <b>155</b><br />
+<br />
+<b>Warning</b>:  mkdir(): No such file or directory in <b>C:\xampp\htdocs\rrhh\app\libs\qrlib\qrmask.php</b> on line <b>154</b><br />
+<br />
+<b>Warning</b>:  file_put_contents(C:\xampp\htdocs\rrhh\app\libs\qrlib\cache\mask_1\mask_37_1.dat): failed to open stream: No such file or directory in <b>C:\xampp\htdocs\rrhh\app\libs\qrlib\qrmask.php</b> on line <b>155</b><br />
+<br />
+<b>Warning</b>:  mkdir(): No such file or directory in <b>C:\xampp\htdocs\rrhh\app\libs\qrlib\qrmask.php</b> on line <b>154</b><br />
+<br />
+<b>Warning</b>:  file_put_contents(C:\xampp\htdocs\rrhh\app\libs\qrlib\cache\mask_2\mask_37_2.dat): failed to open stream: No such file or directory in <b>C:\xampp\htdocs\rrhh\app\libs\qrlib\qrmask.php</b> on line <b>155</b><br />
+<br />
+<b>Warning</b>:  mkdir(): No such file or directory in <b>C:\xampp\htdocs\rrhh\app\libs\qrlib\qrmask.php</b> on line <b>154</b><br />
+<br />
+<b>Warning</b>:  file_put_contents(C:\xampp\htdocs\rrhh\app\libs\qrlib\cache\mask_3\mask_37_3.dat): failed to open stream: No such file or directory in <b>C:\xampp\htdocs\rrhh\app\libs\qrlib\qrmask.php</b> on line <b>155</b><br />
+<br />
+<b>Warning</b>:  mkdir(): No such file or directory in <b>C:\xampp\htdocs\rrhh\app\libs\qrlib\qrmask.php</b> on line <b>154</b><br />
+<br />
+<b>Warning</b>:  file_put_contents(C:\xampp\htdocs\rrhh\app\libs\qrlib\cache\mask_4\mask_37_4.dat): failed to open stream: No such file or directory in <b>C:\xampp\htdocs\rrhh\app\libs\qrlib\qrmask.php</b> on line <b>155</b><br />
+<br />
+<b>Warning</b>:  mkdir(): No such file or directory in <b>C:\xampp\htdocs\rrhh\app\libs\qrlib\qrmask.php</b> on line <b>154</b><br />
+<br />
+<b>Warning</b>:  file_put_contents(C:\xampp\htdocs\rrhh\app\libs\qrlib\cache\mask_5\mask_37_5.dat): failed to open stream: No such file or directory in <b>C:\xampp\htdocs\rrhh\app\libs\qrlib\qrmask.php</b> on line <b>155</b><br />
+<br />
+<b>Warning</b>:  mkdir(): No such file or directory in <b>C:\xampp\htdocs\rrhh\app\libs\qrlib\qrmask.php</b> on line <b>154</b><br />
+<br />
+<b>Warning</b>:  file_put_contents(C:\xampp\htdocs\rrhh\app\libs\qrlib\cache\mask_6\mask_37_6.dat): failed to open stream: No such file or directory in <b>C:\xampp\htdocs\rrhh\app\libs\qrlib\qrmask.php</b> on line <b>155</b><br />
+<br />
+<b>Warning</b>:  mkdir(): No such file or directory in <b>C:\xampp\htdocs\rrhh\app\libs\qrlib\qrmask.php</b> on line <b>154</b><br />
+<br />
+<b>Warning</b>:  file_put_contents(C:\xampp\htdocs\rrhh\app\libs\qrlib\cache\mask_7\mask_37_7.dat): failed to open stream: No such file or directory in <b>C:\xampp\htdocs\rrhh\app\libs\qrlib\qrmask.php</b> on line <b>155</b><br />
+2015-10-02 09:02:20: <br />
+<b>Warning</b>:  file_put_contents(C:\xampp\htdocs\rrhh\app\libs\qrlib\cache\frame_5.dat): failed to open stream: No such file or directory in <b>C:\xampp\htdocs\rrhh\app\libs\qrlib\qrspec.php</b> on line <b>568</b><br />
+<br />
+<b>Warning</b>:  mkdir(): No such file or directory in <b>C:\xampp\htdocs\rrhh\app\libs\qrlib\qrmask.php</b> on line <b>154</b><br />
+<br />
+<b>Warning</b>:  file_put_contents(C:\xampp\htdocs\rrhh\app\libs\qrlib\cache\mask_0\mask_37_0.dat): failed to open stream: No such file or directory in <b>C:\xampp\htdocs\rrhh\app\libs\qrlib\qrmask.php</b> on line <b>155</b><br />
+<br />
+<b>Warning</b>:  mkdir(): No such file or directory in <b>C:\xampp\htdocs\rrhh\app\libs\qrlib\qrmask.php</b> on line <b>154</b><br />
+<br />
+<b>Warning</b>:  file_put_contents(C:\xampp\htdocs\rrhh\app\libs\qrlib\cache\mask_1\mask_37_1.dat): failed to open stream: No such file or directory in <b>C:\xampp\htdocs\rrhh\app\libs\qrlib\qrmask.php</b> on line <b>155</b><br />
+<br />
+<b>Warning</b>:  mkdir(): No such file or directory in <b>C:\xampp\htdocs\rrhh\app\libs\qrlib\qrmask.php</b> on line <b>154</b><br />
+<br />
+<b>Warning</b>:  file_put_contents(C:\xampp\htdocs\rrhh\app\libs\qrlib\cache\mask_2\mask_37_2.dat): failed to open stream: No such file or directory in <b>C:\xampp\htdocs\rrhh\app\libs\qrlib\qrmask.php</b> on line <b>155</b><br />
+<br />
+<b>Warning</b>:  mkdir(): No such file or directory in <b>C:\xampp\htdocs\rrhh\app\libs\qrlib\qrmask.php</b> on line <b>154</b><br />
+<br />
+<b>Warning</b>:  file_put_contents(C:\xampp\htdocs\rrhh\app\libs\qrlib\cache\mask_3\mask_37_3.dat): failed to open stream: No such file or directory in <b>C:\xampp\htdocs\rrhh\app\libs\qrlib\qrmask.php</b> on line <b>155</b><br />
+<br />
+<b>Warning</b>:  mkdir(): No such file or directory in <b>C:\xampp\htdocs\rrhh\app\libs\qrlib\qrmask.php</b> on line <b>154</b><br />
+<br />
+<b>Warning</b>:  file_put_contents(C:\xampp\htdocs\rrhh\app\libs\qrlib\cache\mask_4\mask_37_4.dat): failed to open stream: No such file or directory in <b>C:\xampp\htdocs\rrhh\app\libs\qrlib\qrmask.php</b> on line <b>155</b><br />
+<br />
+<b>Warning</b>:  mkdir(): No such file or directory in <b>C:\xampp\htdocs\rrhh\app\libs\qrlib\qrmask.php</b> on line <b>154</b><br />
+<br />
+<b>Warning</b>:  file_put_contents(C:\xampp\htdocs\rrhh\app\libs\qrlib\cache\mask_5\mask_37_5.dat): failed to open stream: No such file or directory in <b>C:\xampp\htdocs\rrhh\app\libs\qrlib\qrmask.php</b> on line <b>155</b><br />
+<br />
+<b>Warning</b>:  mkdir(): No such file or directory in <b>C:\xampp\htdocs\rrhh\app\libs\qrlib\qrmask.php</b> on line <b>154</b><br />
+<br />
+<b>Warning</b>:  file_put_contents(C:\xampp\htdocs\rrhh\app\libs\qrlib\cache\mask_6\mask_37_6.dat): failed to open stream: No such file or directory in <b>C:\xampp\htdocs\rrhh\app\libs\qrlib\qrmask.php</b> on line <b>155</b><br />
+<br />
+<b>Warning</b>:  mkdir(): No such file or directory in <b>C:\xampp\htdocs\rrhh\app\libs\qrlib\qrmask.php</b> on line <b>154</b><br />
+<br />
+<b>Warning</b>:  file_put_contents(C:\xampp\htdocs\rrhh\app\libs\qrlib\cache\mask_7\mask_37_7.dat): failed to open stream: No such file or directory in <b>C:\xampp\htdocs\rrhh\app\libs\qrlib\qrmask.php</b> on line <b>155</b><br />
+2015-10-02 09:02:20: <br />
+<b>Warning</b>:  file_put_contents(C:\xampp\htdocs\rrhh\app\libs\qrlib\cache\frame_5.dat): failed to open stream: No such file or directory in <b>C:\xampp\htdocs\rrhh\app\libs\qrlib\qrspec.php</b> on line <b>568</b><br />
+<br />
+<b>Warning</b>:  mkdir(): No such file or directory in <b>C:\xampp\htdocs\rrhh\app\libs\qrlib\qrmask.php</b> on line <b>154</b><br />
+<br />
+<b>Warning</b>:  file_put_contents(C:\xampp\htdocs\rrhh\app\libs\qrlib\cache\mask_0\mask_37_0.dat): failed to open stream: No such file or directory in <b>C:\xampp\htdocs\rrhh\app\libs\qrlib\qrmask.php</b> on line <b>155</b><br />
+<br />
+<b>Warning</b>:  mkdir(): No such file or directory in <b>C:\xampp\htdocs\rrhh\app\libs\qrlib\qrmask.php</b> on line <b>154</b><br />
+<br />
+<b>Warning</b>:  file_put_contents(C:\xampp\htdocs\rrhh\app\libs\qrlib\cache\mask_1\mask_37_1.dat): failed to open stream: No such file or directory in <b>C:\xampp\htdocs\rrhh\app\libs\qrlib\qrmask.php</b> on line <b>155</b><br />
+<br />
+<b>Warning</b>:  mkdir(): No such file or directory in <b>C:\xampp\htdocs\rrhh\app\libs\qrlib\qrmask.php</b> on line <b>154</b><br />
+<br />
+<b>Warning</b>:  file_put_contents(C:\xampp\htdocs\rrhh\app\libs\qrlib\cache\mask_2\mask_37_2.dat): failed to open stream: No such file or directory in <b>C:\xampp\htdocs\rrhh\app\libs\qrlib\qrmask.php</b> on line <b>155</b><br />
+<br />
+<b>Warning</b>:  mkdir(): No such file or directory in <b>C:\xampp\htdocs\rrhh\app\libs\qrlib\qrmask.php</b> on line <b>154</b><br />
+<br />
+<b>Warning</b>:  file_put_contents(C:\xampp\htdocs\rrhh\app\libs\qrlib\cache\mask_3\mask_37_3.dat): failed to open stream: No such file or directory in <b>C:\xampp\htdocs\rrhh\app\libs\qrlib\qrmask.php</b> on line <b>155</b><br />
+<br />
+<b>Warning</b>:  mkdir(): No such file or directory in <b>C:\xampp\htdocs\rrhh\app\libs\qrlib\qrmask.php</b> on line <b>154</b><br />
+<br />
+<b>Warning</b>:  file_put_contents(C:\xampp\htdocs\rrhh\app\libs\qrlib\cache\mask_4\mask_37_4.dat): failed to open stream: No such file or directory in <b>C:\xampp\htdocs\rrhh\app\libs\qrlib\qrmask.php</b> on line <b>155</b><br />
+<br />
+<b>Warning</b>:  mkdir(): No such file or directory in <b>C:\xampp\htdocs\rrhh\app\libs\qrlib\qrmask.php</b> on line <b>154</b><br />
+<br />
+<b>Warning</b>:  file_put_contents(C:\xampp\htdocs\rrhh\app\libs\qrlib\cache\mask_5\mask_37_5.dat): failed to open stream: No such file or directory in <b>C:\xampp\htdocs\rrhh\app\libs\qrlib\qrmask.php</b> on line <b>155</b><br />
+<br />
+<b>Warning</b>:  mkdir(): No such file or directory in <b>C:\xampp\htdocs\rrhh\app\libs\qrlib\qrmask.php</b> on line <b>154</b><br />
+<br />
+<b>Warning</b>:  file_put_contents(C:\xampp\htdocs\rrhh\app\libs\qrlib\cache\mask_6\mask_37_6.dat): failed to open stream: No such file or directory in <b>C:\xampp\htdocs\rrhh\app\libs\qrlib\qrmask.php</b> on line <b>155</b><br />
+<br />
+<b>Warning</b>:  mkdir(): No such file or directory in <b>C:\xampp\htdocs\rrhh\app\libs\qrlib\qrmask.php</b> on line <b>154</b><br />
+<br />
+<b>Warning</b>:  file_put_contents(C:\xampp\htdocs\rrhh\app\libs\qrlib\cache\mask_7\mask_37_7.dat): failed to open stream: No such file or directory in <b>C:\xampp\htdocs\rrhh\app\libs\qrlib\qrmask.php</b> on line <b>155</b><br />
+2015-10-02 09:03:18: <br />
+<b>Warning</b>:  file_put_contents(C:\xampp\htdocs\rrhh\app\libs\qrlib\cache\frame_5.dat): failed to open stream: No such file or directory in <b>C:\xampp\htdocs\rrhh\app\libs\qrlib\qrspec.php</b> on line <b>568</b><br />
+<br />
+<b>Warning</b>:  mkdir(): No such file or directory in <b>C:\xampp\htdocs\rrhh\app\libs\qrlib\qrmask.php</b> on line <b>154</b><br />
+<br />
+<b>Warning</b>:  file_put_contents(C:\xampp\htdocs\rrhh\app\libs\qrlib\cache\mask_0\mask_37_0.dat): failed to open stream: No such file or directory in <b>C:\xampp\htdocs\rrhh\app\libs\qrlib\qrmask.php</b> on line <b>155</b><br />
+<br />
+<b>Warning</b>:  mkdir(): No such file or directory in <b>C:\xampp\htdocs\rrhh\app\libs\qrlib\qrmask.php</b> on line <b>154</b><br />
+<br />
+<b>Warning</b>:  file_put_contents(C:\xampp\htdocs\rrhh\app\libs\qrlib\cache\mask_1\mask_37_1.dat): failed to open stream: No such file or directory in <b>C:\xampp\htdocs\rrhh\app\libs\qrlib\qrmask.php</b> on line <b>155</b><br />
+<br />
+<b>Warning</b>:  mkdir(): No such file or directory in <b>C:\xampp\htdocs\rrhh\app\libs\qrlib\qrmask.php</b> on line <b>154</b><br />
+<br />
+<b>Warning</b>:  file_put_contents(C:\xampp\htdocs\rrhh\app\libs\qrlib\cache\mask_2\mask_37_2.dat): failed to open stream: No such file or directory in <b>C:\xampp\htdocs\rrhh\app\libs\qrlib\qrmask.php</b> on line <b>155</b><br />
+<br />
+<b>Warning</b>:  mkdir(): No such file or directory in <b>C:\xampp\htdocs\rrhh\app\libs\qrlib\qrmask.php</b> on line <b>154</b><br />
+<br />
+<b>Warning</b>:  file_put_contents(C:\xampp\htdocs\rrhh\app\libs\qrlib\cache\mask_3\mask_37_3.dat): failed to open stream: No such file or directory in <b>C:\xampp\htdocs\rrhh\app\libs\qrlib\qrmask.php</b> on line <b>155</b><br />
+<br />
+<b>Warning</b>:  mkdir(): No such file or directory in <b>C:\xampp\htdocs\rrhh\app\libs\qrlib\qrmask.php</b> on line <b>154</b><br />
+<br />
+<b>Warning</b>:  file_put_contents(C:\xampp\htdocs\rrhh\app\libs\qrlib\cache\mask_4\mask_37_4.dat): failed to open stream: No such file or directory in <b>C:\xampp\htdocs\rrhh\app\libs\qrlib\qrmask.php</b> on line <b>155</b><br />
+<br />
+<b>Warning</b>:  mkdir(): No such file or directory in <b>C:\xampp\htdocs\rrhh\app\libs\qrlib\qrmask.php</b> on line <b>154</b><br />
+<br />
+<b>Warning</b>:  file_put_contents(C:\xampp\htdocs\rrhh\app\libs\qrlib\cache\mask_5\mask_37_5.dat): failed to open stream: No such file or directory in <b>C:\xampp\htdocs\rrhh\app\libs\qrlib\qrmask.php</b> on line <b>155</b><br />
+<br />
+<b>Warning</b>:  mkdir(): No such file or directory in <b>C:\xampp\htdocs\rrhh\app\libs\qrlib\qrmask.php</b> on line <b>154</b><br />
+<br />
+<b>Warning</b>:  file_put_contents(C:\xampp\htdocs\rrhh\app\libs\qrlib\cache\mask_6\mask_37_6.dat): failed to open stream: No such file or directory in <b>C:\xampp\htdocs\rrhh\app\libs\qrlib\qrmask.php</b> on line <b>155</b><br />
+<br />
+<b>Warning</b>:  mkdir(): No such file or directory in <b>C:\xampp\htdocs\rrhh\app\libs\qrlib\qrmask.php</b> on line <b>154</b><br />
+<br />
+<b>Warning</b>:  file_put_contents(C:\xampp\htdocs\rrhh\app\libs\qrlib\cache\mask_7\mask_37_7.dat): failed to open stream: No such file or directory in <b>C:\xampp\htdocs\rrhh\app\libs\qrlib\qrmask.php</b> on line <b>155</b><br />
+2015-10-02 09:04:42: <br />
+<b>Warning</b>:  file_put_contents(C:\xampp\htdocs\rrhh\app\libs\qrlib\cache\frame_5.dat): failed to open stream: No such file or directory in <b>C:\xampp\htdocs\rrhh\app\libs\qrlib\qrspec.php</b> on line <b>568</b><br />
+<br />
+<b>Warning</b>:  mkdir(): No such file or directory in <b>C:\xampp\htdocs\rrhh\app\libs\qrlib\qrmask.php</b> on line <b>154</b><br />
+<br />
+<b>Warning</b>:  file_put_contents(C:\xampp\htdocs\rrhh\app\libs\qrlib\cache\mask_0\mask_37_0.dat): failed to open stream: No such file or directory in <b>C:\xampp\htdocs\rrhh\app\libs\qrlib\qrmask.php</b> on line <b>155</b><br />
+<br />
+<b>Warning</b>:  mkdir(): No such file or directory in <b>C:\xampp\htdocs\rrhh\app\libs\qrlib\qrmask.php</b> on line <b>154</b><br />
+<br />
+<b>Warning</b>:  file_put_contents(C:\xampp\htdocs\rrhh\app\libs\qrlib\cache\mask_1\mask_37_1.dat): failed to open stream: No such file or directory in <b>C:\xampp\htdocs\rrhh\app\libs\qrlib\qrmask.php</b> on line <b>155</b><br />
+<br />
+<b>Warning</b>:  mkdir(): No such file or directory in <b>C:\xampp\htdocs\rrhh\app\libs\qrlib\qrmask.php</b> on line <b>154</b><br />
+<br />
+<b>Warning</b>:  file_put_contents(C:\xampp\htdocs\rrhh\app\libs\qrlib\cache\mask_2\mask_37_2.dat): failed to open stream: No such file or directory in <b>C:\xampp\htdocs\rrhh\app\libs\qrlib\qrmask.php</b> on line <b>155</b><br />
+<br />
+<b>Warning</b>:  mkdir(): No such file or directory in <b>C:\xampp\htdocs\rrhh\app\libs\qrlib\qrmask.php</b> on line <b>154</b><br />
+<br />
+<b>Warning</b>:  file_put_contents(C:\xampp\htdocs\rrhh\app\libs\qrlib\cache\mask_3\mask_37_3.dat): failed to open stream: No such file or directory in <b>C:\xampp\htdocs\rrhh\app\libs\qrlib\qrmask.php</b> on line <b>155</b><br />
+<br />
+<b>Warning</b>:  mkdir(): No such file or directory in <b>C:\xampp\htdocs\rrhh\app\libs\qrlib\qrmask.php</b> on line <b>154</b><br />
+<br />
+<b>Warning</b>:  file_put_contents(C:\xampp\htdocs\rrhh\app\libs\qrlib\cache\mask_4\mask_37_4.dat): failed to open stream: No such file or directory in <b>C:\xampp\htdocs\rrhh\app\libs\qrlib\qrmask.php</b> on line <b>155</b><br />
+<br />
+<b>Warning</b>:  mkdir(): No such file or directory in <b>C:\xampp\htdocs\rrhh\app\libs\qrlib\qrmask.php</b> on line <b>154</b><br />
+<br />
+<b>Warning</b>:  file_put_contents(C:\xampp\htdocs\rrhh\app\libs\qrlib\cache\mask_5\mask_37_5.dat): failed to open stream: No such file or directory in <b>C:\xampp\htdocs\rrhh\app\libs\qrlib\qrmask.php</b> on line <b>155</b><br />
+<br />
+<b>Warning</b>:  mkdir(): No such file or directory in <b>C:\xampp\htdocs\rrhh\app\libs\qrlib\qrmask.php</b> on line <b>154</b><br />
+<br />
+<b>Warning</b>:  file_put_contents(C:\xampp\htdocs\rrhh\app\libs\qrlib\cache\mask_6\mask_37_6.dat): failed to open stream: No such file or directory in <b>C:\xampp\htdocs\rrhh\app\libs\qrlib\qrmask.php</b> on line <b>155</b><br />
+<br />
+<b>Warning</b>:  mkdir(): No such file or directory in <b>C:\xampp\htdocs\rrhh\app\libs\qrlib\qrmask.php</b> on line <b>154</b><br />
+<br />
+<b>Warning</b>:  file_put_contents(C:\xampp\htdocs\rrhh\app\libs\qrlib\cache\mask_7\mask_37_7.dat): failed to open stream: No such file or directory in <b>C:\xampp\htdocs\rrhh\app\libs\qrlib\qrmask.php</b> on line <b>155</b><br />
+2015-10-02 09:04:54: <br />
+<b>Warning</b>:  file_put_contents(C:\xampp\htdocs\rrhh\app\libs\qrlib\cache\frame_5.dat): failed to open stream: No such file or directory in <b>C:\xampp\htdocs\rrhh\app\libs\qrlib\qrspec.php</b> on line <b>568</b><br />
+<br />
+<b>Warning</b>:  mkdir(): No such file or directory in <b>C:\xampp\htdocs\rrhh\app\libs\qrlib\qrmask.php</b> on line <b>154</b><br />
+<br />
+<b>Warning</b>:  file_put_contents(C:\xampp\htdocs\rrhh\app\libs\qrlib\cache\mask_0\mask_37_0.dat): failed to open stream: No such file or directory in <b>C:\xampp\htdocs\rrhh\app\libs\qrlib\qrmask.php</b> on line <b>155</b><br />
+<br />
+<b>Warning</b>:  mkdir(): No such file or directory in <b>C:\xampp\htdocs\rrhh\app\libs\qrlib\qrmask.php</b> on line <b>154</b><br />
+<br />
+<b>Warning</b>:  file_put_contents(C:\xampp\htdocs\rrhh\app\libs\qrlib\cache\mask_1\mask_37_1.dat): failed to open stream: No such file or directory in <b>C:\xampp\htdocs\rrhh\app\libs\qrlib\qrmask.php</b> on line <b>155</b><br />
+<br />
+<b>Warning</b>:  mkdir(): No such file or directory in <b>C:\xampp\htdocs\rrhh\app\libs\qrlib\qrmask.php</b> on line <b>154</b><br />
+<br />
+<b>Warning</b>:  file_put_contents(C:\xampp\htdocs\rrhh\app\libs\qrlib\cache\mask_2\mask_37_2.dat): failed to open stream: No such file or directory in <b>C:\xampp\htdocs\rrhh\app\libs\qrlib\qrmask.php</b> on line <b>155</b><br />
+<br />
+<b>Warning</b>:  mkdir(): No such file or directory in <b>C:\xampp\htdocs\rrhh\app\libs\qrlib\qrmask.php</b> on line <b>154</b><br />
+<br />
+<b>Warning</b>:  file_put_contents(C:\xampp\htdocs\rrhh\app\libs\qrlib\cache\mask_3\mask_37_3.dat): failed to open stream: No such file or directory in <b>C:\xampp\htdocs\rrhh\app\libs\qrlib\qrmask.php</b> on line <b>155</b><br />
+<br />
+<b>Warning</b>:  mkdir(): No such file or directory in <b>C:\xampp\htdocs\rrhh\app\libs\qrlib\qrmask.php</b> on line <b>154</b><br />
+<br />
+<b>Warning</b>:  file_put_contents(C:\xampp\htdocs\rrhh\app\libs\qrlib\cache\mask_4\mask_37_4.dat): failed to open stream: No such file or directory in <b>C:\xampp\htdocs\rrhh\app\libs\qrlib\qrmask.php</b> on line <b>155</b><br />
+<br />
+<b>Warning</b>:  mkdir(): No such file or directory in <b>C:\xampp\htdocs\rrhh\app\libs\qrlib\qrmask.php</b> on line <b>154</b><br />
+<br />
+<b>Warning</b>:  file_put_contents(C:\xampp\htdocs\rrhh\app\libs\qrlib\cache\mask_5\mask_37_5.dat): failed to open stream: No such file or directory in <b>C:\xampp\htdocs\rrhh\app\libs\qrlib\qrmask.php</b> on line <b>155</b><br />
+<br />
+<b>Warning</b>:  mkdir(): No such file or directory in <b>C:\xampp\htdocs\rrhh\app\libs\qrlib\qrmask.php</b> on line <b>154</b><br />
+<br />
+<b>Warning</b>:  file_put_contents(C:\xampp\htdocs\rrhh\app\libs\qrlib\cache\mask_6\mask_37_6.dat): failed to open stream: No such file or directory in <b>C:\xampp\htdocs\rrhh\app\libs\qrlib\qrmask.php</b> on line <b>155</b><br />
+<br />
+<b>Warning</b>:  mkdir(): No such file or directory in <b>C:\xampp\htdocs\rrhh\app\libs\qrlib\qrmask.php</b> on line <b>154</b><br />
+<br />
+<b>Warning</b>:  file_put_contents(C:\xampp\htdocs\rrhh\app\libs\qrlib\cache\mask_7\mask_37_7.dat): failed to open stream: No such file or directory in <b>C:\xampp\htdocs\rrhh\app\libs\qrlib\qrmask.php</b> on line <b>155</b><br />
+2015-10-02 09:06:26: <br />
+<b>Warning</b>:  file_put_contents(C:\xampp\htdocs\rrhh\app\libs\qrlib\cache\frame_5.dat): failed to open stream: No such file or directory in <b>C:\xampp\htdocs\rrhh\app\libs\qrlib\qrspec.php</b> on line <b>568</b><br />
+<br />
+<b>Warning</b>:  mkdir(): No such file or directory in <b>C:\xampp\htdocs\rrhh\app\libs\qrlib\qrmask.php</b> on line <b>154</b><br />
+<br />
+<b>Warning</b>:  file_put_contents(C:\xampp\htdocs\rrhh\app\libs\qrlib\cache\mask_0\mask_37_0.dat): failed to open stream: No such file or directory in <b>C:\xampp\htdocs\rrhh\app\libs\qrlib\qrmask.php</b> on line <b>155</b><br />
+<br />
+<b>Warning</b>:  mkdir(): No such file or directory in <b>C:\xampp\htdocs\rrhh\app\libs\qrlib\qrmask.php</b> on line <b>154</b><br />
+<br />
+<b>Warning</b>:  file_put_contents(C:\xampp\htdocs\rrhh\app\libs\qrlib\cache\mask_1\mask_37_1.dat): failed to open stream: No such file or directory in <b>C:\xampp\htdocs\rrhh\app\libs\qrlib\qrmask.php</b> on line <b>155</b><br />
+<br />
+<b>Warning</b>:  mkdir(): No such file or directory in <b>C:\xampp\htdocs\rrhh\app\libs\qrlib\qrmask.php</b> on line <b>154</b><br />
+<br />
+<b>Warning</b>:  file_put_contents(C:\xampp\htdocs\rrhh\app\libs\qrlib\cache\mask_2\mask_37_2.dat): failed to open stream: No such file or directory in <b>C:\xampp\htdocs\rrhh\app\libs\qrlib\qrmask.php</b> on line <b>155</b><br />
+<br />
+<b>Warning</b>:  mkdir(): No such file or directory in <b>C:\xampp\htdocs\rrhh\app\libs\qrlib\qrmask.php</b> on line <b>154</b><br />
+<br />
+<b>Warning</b>:  file_put_contents(C:\xampp\htdocs\rrhh\app\libs\qrlib\cache\mask_3\mask_37_3.dat): failed to open stream: No such file or directory in <b>C:\xampp\htdocs\rrhh\app\libs\qrlib\qrmask.php</b> on line <b>155</b><br />
+<br />
+<b>Warning</b>:  mkdir(): No such file or directory in <b>C:\xampp\htdocs\rrhh\app\libs\qrlib\qrmask.php</b> on line <b>154</b><br />
+<br />
+<b>Warning</b>:  file_put_contents(C:\xampp\htdocs\rrhh\app\libs\qrlib\cache\mask_4\mask_37_4.dat): failed to open stream: No such file or directory in <b>C:\xampp\htdocs\rrhh\app\libs\qrlib\qrmask.php</b> on line <b>155</b><br />
+<br />
+<b>Warning</b>:  mkdir(): No such file or directory in <b>C:\xampp\htdocs\rrhh\app\libs\qrlib\qrmask.php</b> on line <b>154</b><br />
+<br />
+<b>Warning</b>:  file_put_contents(C:\xampp\htdocs\rrhh\app\libs\qrlib\cache\mask_5\mask_37_5.dat): failed to open stream: No such file or directory in <b>C:\xampp\htdocs\rrhh\app\libs\qrlib\qrmask.php</b> on line <b>155</b><br />
+<br />
+<b>Warning</b>:  mkdir(): No such file or directory in <b>C:\xampp\htdocs\rrhh\app\libs\qrlib\qrmask.php</b> on line <b>154</b><br />
+<br />
+<b>Warning</b>:  file_put_contents(C:\xampp\htdocs\rrhh\app\libs\qrlib\cache\mask_6\mask_37_6.dat): failed to open stream: No such file or directory in <b>C:\xampp\htdocs\rrhh\app\libs\qrlib\qrmask.php</b> on line <b>155</b><br />
+<br />
+<b>Warning</b>:  mkdir(): No such file or directory in <b>C:\xampp\htdocs\rrhh\app\libs\qrlib\qrmask.php</b> on line <b>154</b><br />
+<br />
+<b>Warning</b>:  file_put_contents(C:\xampp\htdocs\rrhh\app\libs\qrlib\cache\mask_7\mask_37_7.dat): failed to open stream: No such file or directory in <b>C:\xampp\htdocs\rrhh\app\libs\qrlib\qrmask.php</b> on line <b>155</b><br />

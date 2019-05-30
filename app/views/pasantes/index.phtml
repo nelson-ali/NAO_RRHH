@@ -1,0 +1,154 @@
+<script type="text/javascript">
+$(document).ready(function () {
+		var source =
+		{
+			datatype: "json",
+			datafields: [
+				{ name: 'id',type: 'number'},
+				{ name: 'nombre_completo',type: 'string'},
+				{ name: 'sexo',type: 'string'},
+				{ name: 'ci',type:'string'},
+				{ name: 'correo',type:'string'},
+				{ name: 'direccion',type:'string'},
+				{ name: 'telefono',type:'string'},
+				{ name: 'fecha_nac',type:'date'},
+				{ name: 'universidad',type:'string'},
+				{ name: 'facultad',type:'string'},
+				{ name: 'carrera',type:'string'},
+				// { name: 'telefono'},
+				// { name: 'celular'},
+				// { name: 'correo',type:'string'},
+				// { name: 'libreta_militar',type:'string'},
+				// { name: 'grado',type:'string'},
+				// { name: 'institucion',type:'string'},
+				// { name: 'valor_1',type:'string'},
+			],
+			url: '/pasantes/list',
+			cache: false
+		};
+		var dataAdapter = new $.jqx.dataAdapter(source);
+		cargar();	
+		function cargar(){
+			$("#jqxgrid").jqxGrid(
+			{
+				
+                width: '100%',
+				source: dataAdapter,
+				sortable: true,
+				altRows: true,
+				showstatusbar: true,
+                columnsresize: true,
+                pageable: true,
+                pagerMode: 'advanced',
+                showfilterrow: true,
+                filterable: true,
+                autorowheight: true,
+              	columns: [
+				{
+					text: '#', sortable: false, filterable: false, editable: false,
+					groupable: false, draggable: false, resizable: false,
+					datafield: '', columntype: 'number', width: '3%',
+					cellsrenderer: function (row, column, value) {
+						return "<div style='margin:4px;'>" + (value + 1) + "</div>";
+					}
+				},
+				{ text: 'Nombre Completo', datafield: 'nombre_completo', filtertype: 'input',width: '20%' },
+				{ text: 'C.I.', datafield: 'ci', filtertype: 'input', width: '8%'},
+				{ text: 'Sexo', datafield: 'sexo',filtertype: 'input', width: '8%' },
+				{ text: 'Fecha Nacimiento', datafield: 'fecha_nac', filtertype: 'range', width: '7%', cellsalign: 'center', cellsformat: 'dd-MM-yyyy',align:'center'},
+				{ text: 'Correo', datafield: 'correo',filtertype: 'input', width: '15%' },
+				{ text: 'Dirección', datafield: 'direccion',filtertype: 'input', width: '15%' },
+				{ text: 'Teléfono', datafield: 'telefono',filtertype: 'input', width: '10%' },
+				
+				{ text: 'Universidad', datafield: 'universidad',filtertype: 'input', width: '15%' },
+				{ text: 'Facultad', datafield: 'facultad',filtertype: 'input', width: '15%' },
+				{ text: 'Carrera', datafield: 'carrera',filtertype: 'input', width: '15%' },
+				// { text: 'Telefono', datafield: 'telefono',filtertype: 'input', width: '10%' },
+				// { text: 'Celular', datafield: 'celular',filtertype: 'input', width: '10%' },
+				// { text: 'Correo', datafield: 'correo',filtertype: 'input', width: '15%' },
+				// { text: 'Libreta Militar', datafield: 'libreta_militar',filtertype: 'input', width: '10%' },
+				
+				]
+			});
+
+}
+            
+$("#ver").click(function(){
+	var rowindex = $("#jqxgrid").jqxGrid("getselectedrowindex");
+	if (rowindex > -1)
+	{
+		var dataRecord = $("#jqxgrid").jqxGrid('getrowdata', rowindex);
+		
+        // document.location.href = '/pasantes/formularioregistro/'+dataRecord.id;    
+        window.open('/pasantes/formularioregistro/'+dataRecord.id,'_blank');
+
+	} 
+	else
+	{
+		bootbox.alert("<strong>¡Mensaje!</strong> Seleccionar un registro para ver los datos.");
+	}
+});
+
+   
+
+});
+
+
+
+</script>
+
+<div class="row">
+	<div class="col-lg-12">
+		<h1>Pasantes registrados</h1>		
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-lg-12">
+		<div class="panel panel-default">
+			<div class="panel-body">
+				<?php //echo $this->flashSession->output() ?>
+				<div class="form-group form-actions">
+					<div class="col-xs-12">
+						<button class="btn btn-sm btn-primary" type="button" id="ver"><i class="fa fa-plus fa-fw"></i>Ver Formulario Registro</button>
+					</div>
+				</div>
+				<br>
+				<div class="table-responsive">
+					<div id="jqxgrid"></div>
+				</div>
+			</div>
+		</div>
+		
+	</div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade bs-example-modal-lg" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+		<div class="modal-content">
+			<form class="form-horizontal" id="testForm" data-toggle="validator"/>
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+				<!-- <h4 class="modal-title" id="titulo">Formulario Unico de Postulación</h4> -->
+				<input type="button" value="Imprimir" class="imprimir"></input>
+			</div>
+			<div class="modal-body">
+				<div class="form-group" id="cargar_pagina">
+					<!-- <label class="col-md-3 control-label">Resolución</label>
+					<div class="col-md-9">
+						<input id="tipo_resolucion" name="tipo_resolucion" type="text" class="form-control"/>
+					</div> -->
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+				<input type="button" value="Imprimir" class="imprimir"></input>
+				<!-- <button type="submit" class="btn btn-primary" id="Save">Guardar</button> -->
+			</div>
+		</form>
+	</div>
+</div>
+</div>
+<!-- end  modal -->
+

@@ -1,0 +1,70 @@
+<?php
+if (isset($foto_persona)){
+    echo '<input id="foto_persona" name="foto_persona" value="'.$foto_persona.'" hidden="hidden">';
+    echo '<button id="btn_foto" class="btn btn-primary"  data-toggle="modal" href="#modal-regular"><img class="img-rounded pull-right img-perfil" src="/images/personal/'.$foto_persona.'.jpg?'.rand().'" width="128" ></button>';
+} else { 
+    echo '<input id="foto_persona" name="foto_persona" value="" hidden="hidden">';
+    echo '<button id="btn_foto" class="btn btn-primary"  data-toggle="modal" href="#modal-regular"><img class="img-rounded pull-right img-perfil" src="/images/personal/imagen_comodin.png"></button>';
+}
+?>
+<script language="Javascript">
+    $(function(){
+        
+        $("#btn_foto").click(function() {
+            if (!$("#ci").val()){
+                alert("Debe ingresar un valor de documento de identidad");
+                return false;
+            } else {
+                if(verificar_ci($("#ci").val(),$("#ci_inicial").val())==false){
+                    return false;
+                } else {
+                    alert("Subida la foto el documento de identidad no podrá modificarse.");
+                }
+            }
+        });
+        $("#recortar_foto").hide();
+        $("#cambio_foto").hide();
+        $("#cambio_foto").click(function(){
+            $("#subir_foto").show();
+            $("#recortar_foto").hide();
+        });
+        var direccion = "/personal/subir/";
+        $("#myAwesomeDropzone").dropzone({
+            url: direccion,
+            paramName: "file",
+            maxFilesize: 1,
+            addRemoveLinks: true,
+            uploadMultiple: false,
+            maxFiles: 1,
+            acceptedFiles: '.jpg',
+            success: function(file) {alert('se subirá el archivo: '+file.name);
+                $("#subir_foto").hide();
+                $("#recortar_foto").load('/personal/cargarcrop/');
+                $("#recortar_foto").show();
+                $("#cambio_foto").show();
+            }
+        });
+    });
+</script>
+
+
+<div id="modal-regular" class="modal" aria-hidden="true" role="dialog" tabindex="-1" style="display: none;">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button class="close" aria-hidden="true" data-dismiss="modal" type="button">×</button>
+                <h3 class="modal-title">Subir Fotograf&iacute;a</h3>
+            </div>
+            <div id="subir_foto">
+                <form action="/personal/subir/" class="dropzone" id="myAwesomeDropzone"></form> 
+            </div>
+            <div id="recortar_foto" class="article">
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-sm btn-default" data-dismiss="modal" id="cerrar" type="button">Cerrar</button>
+                <button class="btn btn-sm btn-primary" type="button" id="cambio_foto">Cambiar Foto</button>
+            </div>
+        </div>
+    </div>
+</div>
+    

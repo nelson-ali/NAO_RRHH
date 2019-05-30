@@ -1,0 +1,142 @@
+<?php $auth = $this->session->get('auth'); ?>
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="iso-8859-1">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="">
+        <meta name="author" content="JugandoEbrio">
+        <meta name="keyword" content="">
+        <link rel="shortcut icon" href="img/favicon.png">
+        <?php echo $this->tag->getTitle(); ?>
+        <!-- CSS -->
+        <?php $this->assets->outputCss(); ?>
+        <!--[if lt IE 9]> <script src="/js/ie/html5shiv.js"></script> <script src="/js/ie/respond.min.js"></script> <script src="/js/ie/excanvas.js"></script> <![endif]-->
+    </head>
+    <body>
+        
+        <!--Header-part-->
+        <div id="header">
+            <h1><a href="/" style="color: #fff;">PAC-MOPSV</a></h1>
+        </div>
+        <!--close-Header-part--> 
+        <!--top-Header-menu-->
+        <div id="user-nav" class="navbar navbar-inverse">
+            <ul class="nav">
+                <li  class="dropdown" id="profile-messages" ><a title="" href="#" data-toggle="dropdown" data-target="#profile-messages" class="dropdown-toggle"><i class="icon icon-user"></i>  <span class="text"> <?php echo $auth['nombre']; ?></span><b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="/profile"><i class="icon-user"></i> Profile</a></li>                                                
+                        <li class="divider"></li>
+                        <li><a href="/user/logout"><i class="icon-key"></i> Salir</a></li>
+                    </ul>
+                </li>
+                <!--<li class="dropdown" id="menu-messages"><a href="#" data-toggle="dropdown" data-target="#menu-messages" class="dropdown-toggle"><i class="icon icon-envelope"></i> <span class="text">Mensajes</span> <span class="label label-important">5</span> <b class="caret"></b></a>
+                    <ul class="dropdown-menu">                        
+                        <li><a class="sInbox" title="" href="#"><i class="icon-envelope"></i> entrada</a></li>
+                        <li class="divider"></li>
+                        <li><a class="sOutbox" title="" href="#"><i class="icon-arrow-up"></i> salida</a></li>                        
+                    </ul>
+                </li> -->               
+                <li class=""><a title="" href="/user/logout" title="Salir del sistema"><i class="icon icon-share-alt"></i> <span class="text">Salir</span></a></li>
+            </ul>
+        </div>
+        <!--sidebar-menu-->
+        <div id="sidebar"><a href="#" class="visible-phone"><i class="icon icon-home"></i> Dashboard</a>
+            <ul>
+                <?php
+                $menu = array();
+                $id = 0;
+                foreach ($menus as $m):
+                    $menu[$m->id][$m->id_submenu]['id'] = $m->id_submenu;
+                    $menu[$m->id][$m->id_submenu]['submenu'] = $m->submenu;
+                    $menu[$m->id][$m->id_submenu]['accion'] = $m->accion;
+                    $menu[$m->id][$m->id_submenu]['descripcion'] = $m->descripcion;
+                endforeach;
+                $sm = 0;
+                ?>
+                <?php foreach ($menus as $m): ?>    
+
+                    <?php if ($id != $m->id): ?>
+
+                        <?php if (count($menu[$m->id]) > 1): ?>
+                            <li class="sub-menu">
+                                <a href="/<?php echo $m->controlador; ?>" ><i class="<?php echo $m->icon ?>"></i><span><?php echo $m->menu; ?></span></a> 
+                                <ul class="sub"> 
+                                    <?php
+                                    ksort($menu[$m->id]);
+                                    foreach ($menu[$m->id] as $k => $v):
+                                        ?>
+                                        <li>
+                                            <a href="/<?php echo $m->controlador; ?>/<?php echo $menu[$m->id][$k]['accion']; ?>" title="<?php echo $menu[$m->id][$k]['descripcion']; ?>"><?php echo $menu[$m->id][$k]['submenu']; ?></a>        
+                                        </li>    
+                                    <?php endforeach; ?>
+                                </ul>
+                            </li>
+                        <?php else: ?>
+                            <li>   
+                                <a href="/<?php echo $m->controlador; ?>" ><i class="<?php echo $m->icon ?>"></i><span ><?php echo $m->menu; ?></span></a> 
+                            </li>
+                        <?php endif; ?>
+                        <?php
+                        $id = $m->id;
+                    endif;
+                    ?>  
+                <?php endforeach; ?>
+                <li>
+                    <a href="/manuales"><i class="icon-book"></i><span >Manual de Usuario</span></a> 
+                </li>
+            </ul>
+        </div>
+        <!--sidebar-menu-->
+
+        <!--main-container-part-->
+        <div id="content">
+            <!--breadcrumbs-->
+            <div id="content-header">
+                <div id="breadcrumb"> <a href="/" title="Go to Home" class="tip-bottom"><i class="icon-home"></i> PROGRAMA ANUAL DE CONTRATACIONES</a></div>
+            </div>
+            <!--End-breadcrumbs-->
+
+            <!--Action boxes-->
+            <div class="container-fluid">               
+                <?php echo $this->getContent(); ?>                 
+            </div>
+
+            <!--end-main-container-part-->
+
+            <!--Footer-part-->
+
+            <!--         <div class="row-fluid">
+                         <div id="footer" class="span12"> 2013 &copy; Matrix Admin. Brought to you by <a href="http://themedesigner.in/">Themedesigner.in</a> </div>
+                     </div>
+            -->
+            <!--end-Footer-part-->
+            <?php echo $this->assets->outputJs() ?>  
+
+
+            <script type="text/javascript">
+                // This function is called from the pop-up menus to transfer to
+                // a different page. Ignore if the value returned is a null string:
+                function goPage(newURL) {
+
+                    // if url is empty, skip the menu dividers and reset the menu selection to default
+                    if (newURL != "") {
+
+                        // if url is "-", it is this page -- reset the menu:
+                        if (newURL == "-") {
+                            resetMenu();
+                        }
+                        // else, send page to designated URL            
+                        else {
+                            document.location.href = newURL;
+                        }
+                    }
+                }
+
+                // resets the menu selection upon entry to this page:
+                function resetMenu() {
+                    document.gomenu.selector.selectedIndex = 2;
+                }
+            </script>
+    </body>
+</html>

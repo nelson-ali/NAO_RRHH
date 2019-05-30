@@ -1,0 +1,276 @@
+<script type="text/javascript">
+    $(document).ready(function () {
+        cargar2();
+        function cargar2() {
+
+            var pc =<?php echo $procesocontratacion->id ?>;
+            var source =
+            {
+                datatype: "json",
+                datafields: [
+                    {name: 'id', type: 'number'},
+                    {name: 'proceso_contratacion_id', type: 'number'},
+                    {name: 'tipo_resolucion', type: 'string'},
+                    {name: 'unidad_administrativa', type: 'string'},
+                    {name: 'codigo', type: 'string'},
+                    {name: 'cargo', type: 'string'},
+                    {name: 'sueldo', type: 'string'},
+                    {name: 'gestion', type: 'string'},
+                    {name: 'fecha_ini', type: 'date'},
+                    {name: 'fecha_fin', type: 'date'}
+                ],
+                url: '/procesoscontrataciones/listpacedit/' + pc + '/',
+                cache: false
+            };
+
+            var dataAdapter = new $.jqx.dataAdapter(source);
+            var firstNameColumnFilter = function () {
+                //alert(tipo_resolucion);
+                var filtergroup = new $.jqx.filter();
+                var filter_or_operator = 1;
+                var filtervalue = $("#tipo_resolucion").val();
+                var filtercondition = 'equal';
+                var filter = filtergroup.createfilter('stringfilter', filtervalue, filtercondition);
+                filtergroup.addfilter(filter_or_operator, filter);
+                return filtergroup;
+            }();
+            $("#jqxgrid").jqxGrid({
+                width: '100%',
+                source: dataAdapter,
+                sortable: true,
+                altRows: true,
+                columnsresize: true,
+                pageable: true,
+                pagerMode: 'advanced',
+                showfilterrow: true,
+                filterable: true,
+                autorowheight: true,
+                ready: function () {
+                    cargarselect(pc);
+                },
+
+                selectionmode: 'checkbox',
+                columns: [
+                    {
+                        text: 'Resolución',
+                        datafield: 'tipo_resolucion',
+                        filtertype: 'checkedlist',
+                        filter: firstNameColumnFilter,
+                        width: '15%'
+                    },
+                    {text: 'Organigrama', datafield: 'unidad_administrativa', filtertype: 'checkedlist', width: '24%'},
+                    {text: 'Item', datafield: 'codigo', filtertype: 'input', width: '4%'},
+                    {text: 'Cargo', datafield: 'cargo', filtertype: 'input', width: '25%'},
+                    {text: 'Sueldo Bs.', datafield: 'sueldo', filtertype: 'number', width: '5%'},
+                    {text: 'Gestion', datafield: 'gestion', filtertype: 'number', width: '5%'},
+                    {
+                        text: 'Fecha Inicio',
+                        datafield: 'fecha_ini',
+                        filtertype: 'range',
+                        width: '8%',
+                        cellsalign: 'center',
+                        cellsformat: 'dd-MM-yyyy',
+                        align: 'center'
+                    },
+                    {
+                        text: 'Fecha Finalización',
+                        datafield: 'fecha_fin',
+                        filtertype: 'range',
+                        width: '9%',
+                        cellsalign: 'center',
+                        cellsformat: 'dd-MM-yyyy',
+                        align: 'center'
+                    }
+                    //{ text: 'Estado', datafield: 'estado', filtertype: 'checkedlist',width: '5%' }
+                ]
+            });
+
+        }
+
+        function cargarselect(pc) {
+            var rows = $('#jqxgrid').jqxGrid('getrows');
+            var rowsCount = rows.length;
+            for (var i = 0; i < rowsCount; i++) {
+                var value = $('#jqxgrid').jqxGrid('getcellvalue', i, "proceso_contratacion_id");
+                if (value == pc) {
+                    $('#jqxgrid').jqxGrid('selectrow', i);
+                    //break;
+                }
+                ;
+            }
+            ;
+        }
+
+// $("#normativamod_id, #codigo_convocatoria").change(function(){
+// 	var element = $("#normativamod_id").find('option:selected');
+// 	var modalidad = element.attr("modalidad");
+// 	var codigo_convocatoria = $("#codigo_convocatoria").val();
+// 	var fecha = new Date();
+// 	var anio = fecha.getFullYear();
+// 	$("#codigo_convocatoria2").val(modalidad+"-"+codigo_convocatoria+"/"+anio);
+//         		//$('#setMyTag').val(myTag);
+//         	});
+
+        $("#guardar").click(function () {
+            //var pac_ids = obtenerPac_ids();
+            var rows = $("#jqxgrid").jqxGrid('selectedrowindexes');
+            var listaContratos = '';
+            var separador = ',';
+            var selectedRecords = new Array();
+            for (var m = 0; m < rows.length; m++) {
+                var row = $("#jqxgrid").jqxGrid('getrowdata', rows[m]);
+                listaContratos += row.id + separador;
+                //selectedRecords[selectedRecords.length] = row;
+            }
+            if (rows.length > 0) {
+                listaContratos += separador;
+                listaContratos = listaContratos.replace(separador + separador, "");
+            }
+
+            // alert (listaContratos);
+
+            $("#pac_ids").val(listaContratos);
+
+
+            $('#testForm').on('submit', function () {
+                return $('#testForm').jqxValidator('validate');
+            });
+
+        });
+
+        $("#normativamod_id").val(<?php echo $procesocontratacion->normativamod_id ?>);
+
+    });
+</script>
+<div id="page-wrapper">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    PROCESO DE CONTRATACIÓN
+                </div>
+                <div class="panel-body">
+                    <form method="post" action="" class="form-horizontal" id="testForm" enctype="multipart/form-data">
+                        <input type="hidden" name="id_pc" id="id_pc">
+                        <input type="hidden" name="pac_ids" id="pac_ids">
+                        <div class="row">
+                            <div class="col-lg-6">
+
+                                <div class="form-group">
+                                    <label class="col-lg-4 control-label">Modalidad</label>
+                                    <div class="col-lg-8">
+                                        <select name="normativamod_id" id="normativamod_id" class="form-control">
+                                            <option value="">(Seleccionar)</option>
+                                            <?php foreach ($normativamod as $v) { ?>
+                                                <option value="<?php echo $v->id ?>"
+                                                        modalidad="<?php echo $v->modalidad ?>"><?php echo $v->denominacion ?></option>
+                                            <?php } ?>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-lg-4 control-label">Codigo Convocatoria</label>
+                                    <div class="col-lg-8">
+                                        <input type="text" name="codigo_convocatoria" id="codigo_convocatoria" required
+                                               class="form-control"
+                                               value="<?php echo $procesocontratacion->codigo_convocatoria; ?>">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-lg-4 control-label">Tipo</label>
+                                    <div class="col-lg-8">
+                                        <?php echo $tipo ?>
+                                    </div>
+                                </div>
+                                <!-- <div class="form-group">
+										<label class="col-lg-4 control-label">Adjuntar Convocatoria Digital</label>
+										<div class="col-lg-4">
+											<input type="file" name="file_convocatoria" id="file_convocatoria" class="file" >
+										</div>
+										<div class="col-lg-4">
+											<?php // foreach ($archivo as $v) { ?>
+												<br>
+												<a href="/procesoscontrataciones/descargar/<?php // echo $v->id ?>"><?php // echo substr($v->nombre_archivo, 15) ?></a>
+												<input type="hidden" name="archivo_id" value="<?php // echo $v->id ?>">
+											<?php // } ?>
+										</div>
+									</div> -->
+                                <div class="form-group">
+                                    <label class="col-lg-4 control-label">Observación</label>
+                                    <div class="col-lg-8">
+                                        <textarea name="observacion" id="observacion"
+                                                  class="form-control"><?php echo $procesocontratacion->observacion ?></textarea>
+                                    </div>
+                                </div>
+
+
+                            </div>
+                            <div class="col-lg-6">
+
+                                <div class="form-group">
+                                    <label class="col-lg-4 control-label">Fecha Publicacion</label>
+                                    <div class="col-lg-8">
+                                        <input type="text" id="fecha_publ" name="fecha_publ"
+                                               value="<?php echo date("d-m-Y", strtotime($procesocontratacion->fecha_publ)) ?>"
+                                               class="form-control input-datepicker-close" data-date-format="dd-mm-yyyy"
+                                               placeholder="dd-mm-yyyy"/>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-lg-4 control-label">Fecha Limite Recepción</label>
+                                    <div class="col-lg-8">
+                                        <input type="text" id="fecha_recep" name="fecha_recep"
+                                               value="<?php echo date("d-m-Y", strtotime($procesocontratacion->fecha_recep)) ?>"
+                                               class="form-control input-datepicker-close" data-date-format="dd-mm-yyyy"
+                                               placeholder="dd-mm-yyyy"/>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-lg-4 control-label">Fecha Conclusión</label>
+                                    <div class="col-lg-8">
+                                        <input type="text" id="fecha_concl" name="fecha_concl"
+                                               value="<?php echo date("d-m-Y", strtotime($procesocontratacion->fecha_concl)) ?>"
+                                               class="form-control input-datepicker-close" data-date-format="dd-mm-yyyy"
+                                               placeholder="dd-mm-yyyy"/>
+                                    </div>
+                                </div>
+
+
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group">
+                                <div class="col-lg-12" align="center">
+                                    <button type="submit" class="btn btn-primary" id="guardar">Guardar</button>
+                                    <a href="../" class="btn btn-primary">Cancelar</a>
+                                </div>
+                            </div>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    PLAN ANUAL DE CONTRATACIONES DE PERSONAL
+                </div>
+                <input type="hidden" name="tipo_resolucion" id="tipo_resolucion" value="<?php echo $tipo_resolucion ?>">
+                <div class="panel-body">
+                    <div id="jqxgrid"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+<style type="text/css">
+    .datepicker {
+        z-index: 1151 !important;
+    }
+</style>

@@ -1,0 +1,5 @@
+https://karlabohorquez.wordpress.com/2015/02/22/consumo-de-webservices-rest-desde-android/
+
+
+
+https://www.chrisblunt.com/android-consuming-a-remote-json-api-with-volley/

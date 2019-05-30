@@ -1,0 +1,346 @@
+<h2 style="padding-top: 0px; width: 100%;"><b>Gesti&oacute;n Planillas de Refrigerio</b></h2>
+<div id='divTabPlanillasRef'>
+<ul>
+    <li id="liList">Listado</li>
+    <li id="liNew">Generaci&oacute;n</li>
+    <li id="liView">Vista</li>
+</ul>
+<br>
+<div style="height: 680px;" class="row section" id="divList">
+    <div class="col-md-10">
+        <!-- Input Grid Block -->
+        <div class="block">
+            <!-- Input Grid Title -->
+            <div class="block-title">
+                <div id='divWidgetPlanillas'>
+                    <div id="divGridPlanillasRef"></div>
+                </div>
+            </div>
+            <!-- END Input Grid Title -->
+
+        </div>
+        <!-- END Input Grid Block -->
+    </div>
+    <div class="col-md-2">
+        <div class="block">
+            <div class="block-title">
+                <h2>Mostrar</h2>
+                <br>
+                <input type="checkbox" id="chkAllCols"> Todas / Ninguna
+            </div>
+            <div id="listBoxPlanillasRef"></div>
+        </div>
+    </div>
+</div>
+<div style="display: none;" class="section" id="divGen">
+    <div class="col-md-10">
+        <!-- Input Grid Block -->
+        <div class="block">
+            <!-- Input Grid Title -->
+            <div class="block-title">
+                <h2>Generaci&oacute;n de Planillas de Refrigerio</h2>
+                <div id='divWidgetPlanillasRef'>
+                    <div class="row">
+                        <div class="col-sm-2" id="divGestionGen">
+                            <div class="block">Gesti&oacute;n:
+                                <select class="form-control" id="lstGestionGen"><option value="">Seleccionar...</option></select>
+                            </div>
+                            <span class="help-block" id="helpErrorGestionGen"></span>
+                        </div>
+                        <div class="col-sm-2" id="divMesGen">
+                            <div class="block">Mes:
+                                <select id="lstMesGen" class="form-control"><option value="">Seleccionar...</option></select>
+                            </div>
+                            <span class="help-block" id="helpErrorMesGen"></span>
+                        </div>
+                        <div class="col-sm-6" id="divFinPartidaGen">
+                            <div class="block">Fuente:
+                                <select id="lstFinPartidaGen" class="form-control"><option value="">Seleccionar...</option></select>
+                            </div>
+                            <span class="help-block" id="helpErrorFinPartidaGen"></span>
+                        </div>
+                        <div class="col-sm-2" id="divTipoPlanillaRefGen">
+                            <div class="block">Tipo:
+                                <select id="lstTipoPlanillaRefGen" class="form-control"><option value="">Seleccionar...</option></select>
+                            </div>
+                            <span class="help-block" id="helpErrorTipoPlanillaRefGen"></span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <button class="btn btn-sm btn-info" type="button" id="btnGenerarPlanillaPreviaRef" accesskey="d">
+                                <i class="gi gi-search"></i>
+                                Buscar
+                            </button>
+                            <button class="btn btn-sm btn-warning" type="button" id="btnCalcularPlanillaPreviaRef" accesskey="d">
+                                <i class="gi gi-calculator"></i>
+                                Calcular
+                            </button>
+                            <button class="btn btn-sm btn-success" type="button" id="btnGenerarPlanillaRef" accesskey="g">
+                                <i class="hi hi-cog"></i>
+                                Generar
+                            </button>
+                            <button class="btn btn-sm btn-success" type="button" id="btnExportarGenExcel" accesskey="i">
+                                <i class="fi fi-xls"></i>
+                                Exportar Excel
+                            </button>
+                            <button class="btn btn-sm btn-default" type="button" id="btnDesfiltrarTodoPlanillasRefGen">
+                                <i class="gi gi-sorting"></i>
+                                Desfiltrar Todo
+                            </button>
+
+                        </div>
+                    </div>
+                    <div id="divCarga" style="display:none" align="center">
+                        <div id="divContador"></div>
+                        <img src="../images/barra_carga.gif" />
+                    </div>
+                    <div id="divGridPlanillasRefGen"></div>
+                    <input type="hidden" id="hdnSwPlanillaRefCalculada" value="0">
+                </div>
+            </div>
+            <!-- END Input Grid Title -->
+
+        </div>
+        <!-- END Input Grid Block -->
+    </div>
+    <div class="col-md-2">
+        <!-- Input Grid Block -->
+        <div class="block">
+            <!-- Input Grid Title -->
+            <div class="block-title">
+                <h2>Mostrar</h2>
+                <br>
+                <!--<input type="checkbox" id="chkAllCols"> Todas / Ninguna-->
+
+                <!--<div id="hintWrapper">
+                    <div id="hintSection" class="hint">
+                    </div>
+                </div>-->
+            </div>
+            <div id="divPlanilllaRefGenListBox"></div>
+            <!-- END Input Grid Title -->
+        </div>
+        <!-- END Input Grid Block -->
+    </div>
+</div>
+<div style="display: none;" class="section" id="divView">
+    <div class="col-md-10">
+        <!-- Input Grid Block -->
+        <div class="block">
+            <!-- Input Grid Title -->
+            <div class="block-title">
+                <h2>Planillas de Refrigerio Generadas</h2>
+                <div id='divWidgetPlanillasRefView'>
+                    <div id='divWidgetPlanillas'>
+                        <div class="block">
+                            <div class="table-responsive">
+                                <table id="tblDatosPlanillaRef" class="table table-vcenter table-striped">
+                                    <thead>
+                                    <tr>
+                                        <th style='text-align: center'>Estado</th>
+                                        <th style='text-align: center'>Gesti&oacute;n</th>
+                                        <th style='text-align: center'>Mes</th>
+                                        <th style='text-align: center'>Fuente</th>
+                                        <th style='text-align: center'>Tipo / N&uacute;mero</th>
+                                        <th style='text-align: center'>Observaci&oacute;n</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody id="tbodyDatosPlanillaRef"></tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div id="divGridPlanillasRefView"></div>
+                        <input type="hidden" value="0" id="hdnIdPlanillaRef">
+                    </div>
+                </div>
+            </div>
+            <!-- END Input Grid Title -->
+
+        </div>
+        <!-- END Input Grid Block -->
+    </div>
+    <div class="col-md-2">
+        <!-- Input Grid Block -->
+        <div class="block">
+            <!-- Input Grid Title -->
+            <div class="block-title">
+                <h2>Mostrar</h2>
+                <br>
+                <!--<input type="checkbox" id="chkAllCols"> Todas / Ninguna-->
+
+                <!--<div id="hintWrapper">
+                    <div id="hintSection" class="hint">
+                    </div>
+                </div>-->
+            </div>
+            <div id="divPlanilllaRefViewListBox"></div>
+            <!-- END Input Grid Title -->
+        </div>
+        <!-- END Input Grid Block -->
+    </div>
+</div>
+</div>
+<div style="display: none;" class="modal fade bs-example-modal-lg" id="popupObservacionPlanillaRef" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <form class="form-horizontal" id="formObservacionPlanillaRef" data-toggle="validator" onsubmit="return false;"/>
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Cerrar</span></button>
+                <h4 class="modal-title" id="h4ModalObservacionPlanillaRef">Observaciones sobre la Planilla de Refrigerio</h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <div class="div-observacion-planillaref" id="divObservacionPlanillaRef">
+                        <label class="col-sm-2 control-label" for="txtObservacionPlanillaRef">Observaci&oacute;n:</label>
+                        <div class="col-md-10"  form-group>
+                            <textarea id="txtObservacionPlanillaRef" class="form-control"></textarea>
+                            <span class="help-block" id="helpErrorObservacionPlanillaRef"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" id="btnCerrarObservacionPlanillaRef" class="btn btn-primary" data-dismiss="modal"><i class="fa fa-compress"></i>Cerrar</button>
+                <button type="button" id="btnAplicarObservacionPlanillaRef" class="btn btn-primary"><i class="fa fa-thumbs-o-up"></i>Aplicar</button>
+            </div>
+            </form>
+        </div>
+    </div>
+</div>
+<div style="display: none;" class="modal fade bs-example-modal-lg" id="popupObservacionPlanillaRefEdit" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <form class="form-horizontal" id="formObservacionPlanillaRefEdit" data-toggle="validator" onsubmit="return false;"/>
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Cerrar</span></button>
+                <h4 class="modal-title" id="h4ModalObservacionPlanillaRefEdit">Observaciones sobre la Planilla de Refrigerio</h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <div class="div-observacion-planillaref-edit" id="divObservacionPlanillaRefEdit">
+                        <label class="col-sm-2 control-label" for="txtObservacionPlanillaRefEdit">Observaci&oacute;n:</label>
+                        <div class="col-md-10"  form-group>
+                            <textarea id="txtObservacionPlanillaRefEdit" class="form-control"></textarea>
+                            <span class="help-block" id="helpErrorObservacionPlanillaRefEdit"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" id="btnCerrarObservacionPlanillaRefEdit" class="btn btn-primary" data-dismiss="modal"><i class="fa fa-compress"></i>Cerrar</button>
+                <button type="button" id="btnAplicarObservacionPlanillaRefEdit" class="btn btn-primary"><i class="fa fa-thumbs-o-up"></i>Aplicar</button>
+            </div>
+            </form>
+        </div>
+    </div>
+</div>
+<div style="display: none" class="modal fade bs-example-modal-lg" id="popupFormulario110ImpRef" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <form class="form-horizontal" id="formFormulario110ImpRef" data-toggle="validator" onsubmit="return false;"/>
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="tituloModal">FORMULARIO 110</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="panel panel-default">
+                            <input type="hidden" name="perfil_id" id="perfil_id" value="">
+                            <div class="panel-heading">
+                                RC - IVA POR REFRIGERIOS POR EL TOTAL GANADO: <strong><label id="lblTotalGanado"></label> Bs.</strong>
+                            </div>
+                            <div class="panel-body form-horizontal">
+                                <fieldset>
+                                    <div class="form-group">
+                                        <div class="div-form110-imp-sal" id="divImporte">
+                                            <label class="col-sm-2 control-label" for="txtImporte">Importe (Bs.)*:</label>
+                                            <div class="col-md-2">
+                                                <input id="txtImporte" name="txtImporte" class="form-control" placeholder="0" type="text">
+                                                <span class="help-block" id="helpErrorImporte"></span>
+                                            </div>
+                                        </div>
+                                        <div class="div-form110-imp-sal" id="divImpuesto">
+                                            <label class="col-sm-2 control-label" for="txtImpuesto">Impuesto:</label>
+                                            <div class="col-md-2">
+                                                <input id="txtImpuesto" name="txtImpuesto" class="form-control" placeholder="0" type="text" readonly>
+                                                <span class="help-block" id="helpErrorImpuesto"></span>
+                                            </div>
+                                        </div>
+                                        <div class="div-form110-imp-sal" id="divRetencion">
+                                            <label class="col-sm-2 control-label" for="txtRetencion">Retenci&oacute;n:</label>
+                                            <div class="col-md-2">
+                                                <input id="txtRetencion" name="txtRetencion" class="form-control" placeholder="0" type="text" readonly>
+                                                <span class="help-block" id="helpErrorRetencion"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="div-form110-imp-sal" id="divFechaForm">
+                                            <label class="col-sm-2 control-label" for="txtFechaForm">Fecha *:</label>
+                                            <div class="col-md-2">
+                                                <input id="txtFechaForm" name="txtFechaForm" class="form-control input-datepicker-close" placeholder="dd-mm-aaaa" data-date-format="dd-mm-yyyy" type="text">
+                                                <span class="help-block" id="helpErrorFechaForm"></span>
+                                            </div>
+                                        </div>
+                                        <div class="form-group div-move-relab" id="divObservacion">
+                                            <label class="col-md-2 control-label" for="txtObservacion">Observaciones:</label>
+                                            <div class="col-md-5">
+                                                <textarea id="txtObservacion" name="txtObservacion" class="form-control" placeholder="Observaciones.."></textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <input type="hidden" value="" id="hdnRowLine">
+                                    <input type="hidden" value="0" id="hdnIdRelaboralForm110ImpRef">
+                                    <input type="hidden" value="0" id="hdnIdForm110ImpRef">
+                                    <input type="hidden" value="0" id="hdnTotalGanadoForm110ImpRef">
+                                    <input type="hidden" value="0" id="hdnGestionForm110ImpRef">
+                                    <input type="hidden" value="0" id="hdnMesForm110ImpRef">
+                                </fieldset>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" id="btnCerrarForm110ImpRef" class="btn btn-primary" data-dismiss="modal"><i class="fa fa-compress"></i>Cerrar</button>
+                <button type="button" id="btnGuardarForm110ImpRef" class="btn btn-primary"><i class="hi hi-floppy_disk"></i>Guardar</button>
+            </div>
+            </form>
+        </div>
+    </div>
+</div>
+<div style="display: none;" class="modal fade bs-example-modal-lg" id="popupOtrasBoletasPlanillaRef" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            <div class="modal-header bg-primary">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Cerrar</span></button>
+                <h4 class="modal-title" id="h4ModalOtrasBoletasSinRefrigerioPlanillaRef">Otras boletas sin refrigerio <b>(Aprobadas)</b></h4>
+            </div>
+            <div class="modal-body">
+                <div id="divContenedorOtrasBoletas"></div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" id="btnCerrarOtrasBoletasPlanillaRef" class="btn btn-default" data-dismiss="modal"><i class="fa fa-compress"></i>Cerrar</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+<div id="divMsjeNotificacionError">
+    <div id="divMsjePorError">
+    </div>
+</div>
+<div id="divMsjeNotificacionWarning">
+    <div id="divMsjePorWarning">
+    </div>
+</div>
+<div id="divMsjeNotificacionSuccess">
+    <div id="divMsjePorSuccess">
+    </div>
+</div>
+<style type="text/css">
+    .evo-pop{z-index:1151 !important;}
+</style>

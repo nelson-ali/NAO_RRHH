@@ -1,0 +1,396 @@
+<h2 style="padding-top: 0px; width: 100%;"><b>Gesti&oacute;n Planillas Salariales</b></h2>
+<div id='divTabPlanillasSal'>
+    <ul>
+        <li id="liList">Listado</li>
+        <li id="liNew">Generaci&oacute;n</li>
+        <li id="liView">Vista</li>
+    </ul>
+    <br>
+
+    <div style="height: 530px;" class="row section" id="divList">
+        <div class="col-md-10">
+            <!-- Input Grid Block -->
+            <div class="block">
+                <!-- Input Grid Title -->
+                <div class="block-title">
+                    <div id='divWidgetPlanillas'>
+                        <div id="divGridPlanillasSal"></div>
+                    </div>
+                </div>
+                <!-- END Input Grid Title -->
+
+            </div>
+            <!-- END Input Grid Block -->
+        </div>
+        <div class="col-md-2">
+            <div class="block">
+                <div class="block-title">
+                    <h2>Mostrar</h2>
+                    <br>
+                    <input type="checkbox" id="chkAllCols"> Todas / Ninguna
+                </div>
+                <div id="listBoxPlanillasSal"></div>
+            </div>
+        </div>
+    </div>
+    <div class="section" id="divGen">
+        <div class="col-md-10">
+            <!-- Input Grid Block -->
+            <div class="block">
+                <!-- Input Grid Title -->
+                <div class="block-title">
+                    <h2>Generaci&oacute;n de Planillas Salariales</h2>
+
+                    <div id='divWidgetPlanillasSal'>
+                        <div class="row">
+                            <div class="col-sm-2" id="divGestionGen">
+                                <div class="block">Gesti&oacute;n:
+                                    <select class="form-control" id="lstGestionGen">
+                                        <option value="">Seleccionar...</option>
+                                    </select>
+                                </div>
+                                <span class="help-block" id="helpErrorGestionGen"></span>
+                            </div>
+                            <div class="col-sm-2" id="divMesGen">
+                                <div class="block">Mes:
+                                    <select id="lstMesGen" class="form-control">
+                                        <option value="">Seleccionar...</option>
+                                    </select>
+                                </div>
+                                <span class="help-block" id="helpErrorMesGen"></span>
+                            </div>
+                            <div class="col-sm-6" id="divFinPartidaGen">
+                                <div class="block">Fuente:
+                                    <select id="lstFinPartidaGen" class="form-control">
+                                        <option value="">Seleccionar...</option>
+                                    </select>
+                                </div>
+                                <span class="help-block" id="helpErrorFinPartidaGen"></span>
+                            </div>
+                            <div class="col-sm-2" id="divTipoPlanillaSalGen">
+                                <div class="block">Tipo:
+                                    <select id="lstTipoPlanillaSalGen" class="form-control">
+                                        <option value="">Seleccionar...</option>
+                                    </select>
+                                </div>
+                                <span class="help-block" id="helpErrorTipoPlanillaSalGen"></span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <button class="btn btn-sm btn-info" type="button" id="btnGenerarPlanillaPreviaSal"
+                                        accesskey="d">
+                                    <i class="gi gi-search"></i>
+                                    Buscar
+                                </button>
+                                <button class="btn btn-sm btn-warning" type="button" id="btnCalcularPlanillaPreviaSal"
+                                        accesskey="d">
+                                    <i class="gi gi-calculator"></i>
+                                    Calcular
+                                </button>
+                                <button class="btn btn-sm btn-success" type="button" id="btnGenerarPlanillaSal"
+                                        accesskey="g">
+                                    <i class="hi hi-cog"></i>
+                                    Generar
+                                </button>
+                                <button class="btn btn-sm btn-success" type="button" id="btnExportarGenExcel" accesskey="i">
+                                    <i class="fi fi-xls"></i>
+                                    Exportar Excel
+                                </button>
+                                <button class="btn btn-sm btn-default" type="button"
+                                        id="btnDesfiltrarTodoPlanillasSalGen">
+                                    <i class="gi gi-sorting"></i>
+                                    Desfiltrar Todo
+                                </button>
+                            </div>
+                        </div>
+                        <div id="divCarga" style="display:none" align="center">
+                            <div id="divContador"></div>
+                            <img src="../images/barra_carga.gif"/>
+                        </div>
+                        <div id="divGridPlanillasSalGen"></div>
+                        <input type="hidden" id="hdnSwPlanillaSalCalculada" value="0">
+                    </div>
+                </div>
+                <!-- END Input Grid Title -->
+
+            </div>
+            <!-- END Input Grid Block -->
+        </div>
+        <div class="col-md-2">
+            <!-- Input Grid Block -->
+            <div class="block">
+                <!-- Input Grid Title -->
+                <div class="block-title">
+                    <h2>Mostrar</h2>
+                    <br>
+                    <!--<input type="checkbox" id="chkAllCols"> Todas / Ninguna-->
+
+                    <!--<div id="hintWrapper">
+                        <div id="hintSection" class="hint">
+                        </div>
+                    </div>-->
+                </div>
+                <div id="divPlanilllaSalGenListBox"></div>
+                <!-- END Input Grid Title -->
+            </div>
+            <!-- END Input Grid Block -->
+        </div>
+    </div>
+    <div class="section" id="divView">
+        <div class="col-md-10">
+            <!-- Input Grid Block -->
+            <div class="block">
+                <!-- Input Grid Title -->
+                <div class="block-title">
+                    <h2>Planillas Salariales Generadas</h2>
+
+                    <div id='divWidgetPlanillasSalView'>
+                        <div id='divWidgetPlanillas'>
+                            <div class="block">
+                                <div class="table-responsive">
+                                    <table id="tblDatosPlanillaSal" class="table table-vcenter table-striped">
+                                        <thead>
+                                        <tr>
+                                            <th style='text-align: center'>Estado</th>
+                                            <th style='text-align: center'>Gesti&oacute;n</th>
+                                            <th style='text-align: center'>Mes</th>
+                                            <th style='text-align: center'>Fuente</th>
+                                            <th style='text-align: center'>Tipo / N&uacute;mero</th>
+                                            <th style='text-align: center'>Observaci&oacute;n</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody id="tbodyDatosPlanillaSal"></tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div id="divGridPlanillasSalView"></div>
+                            <input type="hidden" value="0" id="hdnIdPlanillaSal">
+                        </div>
+                    </div>
+                </div>
+                <!-- END Input Grid Title -->
+
+            </div>
+            <!-- END Input Grid Block -->
+        </div>
+        <div class="col-md-2">
+            <!-- Input Grid Block -->
+            <div class="block">
+                <!-- Input Grid Title -->
+                <div class="block-title">
+                    <h2>Mostrar</h2>
+                    <br>
+                    <!--<input type="checkbox" id="chkAllCols"> Todas / Ninguna-->
+
+                    <!--<div id="hintWrapper">
+                        <div id="hintSection" class="hint">
+                        </div>
+                    </div>-->
+                </div>
+                <div id="divPlanilllaSalViewListBox"></div>
+                <!-- END Input Grid Title -->
+            </div>
+            <!-- END Input Grid Block -->
+        </div>
+    </div>
+</div>
+<div class="modal fade bs-example-modal-lg" id="popupObservacionPlanillaSal" tabindex="-1" role="dialog"
+     aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <form class="form-horizontal" id="formObservacionPlanillaSal" data-toggle="validator"
+                  onsubmit="return false;"/>
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span
+                        class="sr-only">Cerrar</span></button>
+                <h4 class="modal-title" id="h4ModalObservacionPlanillaSal">Observaciones sobre la Planilla Salarial</h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <div class="div-observacion-planillasal" id="divObservacionPlanillaSal">
+                        <label class="col-sm-2 control-label"
+                               for="txtObservacionPlanillaSal">Observaci&oacute;n:</label>
+
+                        <div class="col-md-10" form-group>
+                            <textarea id="txtObservacionPlanillaSal" class="form-control"></textarea>
+                            <span class="help-block" id="helpErrorObservacionPlanillaSal"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" id="btnCerrarObservacionPlanillaSal" class="btn btn-primary" data-dismiss="modal">
+                    <i class="fa fa-compress"></i>Cerrar
+                </button>
+                <button type="button" id="btnAplicarObservacionPlanillaSal" class="btn btn-primary"><i
+                        class="fa fa-thumbs-o-up"></i>Aplicar
+                </button>
+            </div>
+            </form>
+        </div>
+    </div>
+</div>
+<div class="modal fade bs-example-modal-lg" id="popupObservacionPlanillaSalEdit" tabindex="-1" role="dialog"
+     aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <form class="form-horizontal" id="formObservacionPlanillaSalEdit" data-toggle="validator"
+                  onsubmit="return false;"/>
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span
+                        class="sr-only">Cerrar</span></button>
+                <h4 class="modal-title" id="h4ModalObservacionPlanillaSalEdit">Observaciones sobre la Planilla
+                    Salarial</h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <div class="div-observacion-planillasal-edit" id="divObservacionPlanillaSalEdit">
+                        <label class="col-sm-2 control-label"
+                               for="txtObservacionPlanillaSalEdit">Observaci&oacute;n:</label>
+
+                        <div class="col-md-10" form-group>
+                            <textarea id="txtObservacionPlanillaSalEdit" class="form-control"></textarea>
+                            <span class="help-block" id="helpErrorObservacionPlanillaSalEdit"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" id="btnCerrarObservacionPlanillaSalEdit" class="btn btn-primary"
+                        data-dismiss="modal"><i class="fa fa-compress"></i>Cerrar
+                </button>
+                <button type="button" id="btnAplicarObservacionPlanillaSalEdit" class="btn btn-primary"><i
+                        class="fa fa-thumbs-o-up"></i>Aplicar
+                </button>
+            </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!--</form></div>-->
+<div class="modal fade bs-example-modal-lg" id="popupBonoAntiguedad" tabindex="-1" role="dialog"
+     aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <form class="form-horizontal" id="formBonoAntiguedad" data-toggle="validator" onsubmit="return false;"/>
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span
+                        class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="tituloModal">BONO ANTIG&Uuml;EDAD</h4>
+            </div>
+            <div class="modal-body">
+                <b>NOTAS: </b></br>
+                <h6>1) Los datos precedidos de asterisco son requerido de manera obligatoria para el registro y/o modificaci&oacute;n requeridos (*).</br>
+                2) Considere que en caso de que el monto calculado para el bono sea igual o menor a cero, este no se registrar&aacute;.</h6>
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="panel panel-default">
+                            <input type="hidden" name="perfil_id" id="perfil_id" value="">
+                            <!--<div class="panel-heading">
+                                RC - IVA POR REFRIGERIOS POR EL TOTAL GANADO: <strong><label id="lblTotalGanado"></label> Bs.</strong>
+                            </div>-->
+                            <div class="panel-body form-horizontal">
+                                <fieldset>
+                                    <div class="form-group">
+                                        <div class="div-bono-antiguedad-plan-sal" id="divCodigo">
+                                            <label class="col-sm-2 control-label" for="txtCodigo">C&oacute;digo CAS
+                                                *:</label>
+
+                                            <div class="col-md-2">
+                                                <input id="txtCodigo" name="txtCodigo" class="form-control"
+                                                       placeholder="C&oacute;digo CAS" type="text">
+                                                <span class="help-block" id="helpErrorCodigo"></span>
+                                            </div>
+                                        </div>
+                                        <div class="div-bono-antiguedad-plan-sal" id="divAnios">
+                                            <label class="col-sm-2 control-label" for="txtAnios">A&ntilde;os *:</label>
+
+                                            <div class="col-md-2">
+                                                <input id="txtAnios" name="txtAnios" class="numeral form-control"
+                                                       placeholder="0" type="text">
+                                                <span class="help-block" id="helpErrorAnios"></span>
+                                            </div>
+                                        </div>
+                                        <div class="bono-antiguedad-plan-sal" id="divMeses">
+                                            <label class="col-sm-2 control-label" for="txtMeses">Meses:</label>
+
+                                            <div class="col-md-2">
+                                                <input id="txtMeses" name="txtMeses" class="numeral form-control"
+                                                       placeholder="0" type="text">
+                                                <span class="help-block" id="helpErrorMeses"></span>
+                                            </div>
+                                        </div>
+                                        <div class="bono-antiguedad-plan-sal" id="divDias">
+                                            <label class="col-sm-2 control-label" for="txtDias">D&iacute;as:</label>
+
+                                            <div class="col-md-2">
+                                                <input id="txtDias" name="txtDias" class="numeral form-control"
+                                                       placeholder="0" type="text">
+                                                <span class="help-block" id="helpErrorDias"></span>
+                                            </div>
+                                        </div>
+                                        <div class="bono-antiguedad-plan-sal" id="divMonto">
+                                            <label class="col-sm-2 control-label" for="txtMonto">Monto:</label>
+
+                                            <div class="col-md-2">
+                                                <input id="txtMonto" name="txtMonto" class="form-control"
+                                                       placeholder="0" type="text" readonly>
+                                                <span class="help-block" id="helpErrorMonto"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="form-group div-move-relab" id="divObservacion">
+                                            <label class="col-md-2 control-label"
+                                                   for="txtObservacion">Observaciones:</label>
+
+                                            <div class="col-md-10">
+                                                <textarea id="txtObservacion" name="txtObservacion" class="form-control"
+                                                          placeholder="Observaciones.."></textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <input type="hidden" value="" id="hdnRowLine">
+                                    <input type="hidden" value="0" id="hdnIdRelaboralBonoAntiguedad">
+                                    <input type="hidden" value="0" id="hdnIdBonoAntiguedad">
+                                    <input type="hidden" value="0" id="hdnDiasEfectivosBonoAntiguedad">
+                                </fieldset>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" id="btnCerrarBonoAntiguedad" class="btn btn-primary" data-dismiss="modal"><i
+                        class="fa fa-compress"></i> Cerrar
+                </button>
+                <button type="button" id="btnEliminarBonoAntiguedad" class="btn btn-primary" data-dismiss="modal"><i
+                        class="fa fa-ban"></i> Eliminar
+                </button>
+                <button type="button" id="btnGuardarBonoAntiguedad" class="btn btn-primary"><i
+                        class="hi hi-floppy_disk"></i> Guardar
+                </button>
+            </div>
+            </form>
+        </div>
+    </div>
+</div>
+<div id="divMsjeNotificacionError">
+    <div id="divMsjePorError">
+    </div>
+</div>
+<div id="divMsjeNotificacionWarning">
+    <div id="divMsjePorWarning">
+    </div>
+</div>
+<div id="divMsjeNotificacionSuccess">
+    <div id="divMsjePorSuccess">
+    </div>
+</div>
+<style type="text/css">
+    .evo-pop {
+        z-index: 1151 !important;
+    }
+</style>

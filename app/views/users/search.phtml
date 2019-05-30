@@ -1,0 +1,90 @@
+<?php use Phalcon\Tag; ?>
+
+<?php echo $this->getContent(); ?>
+
+<table width="100%">
+    <tr>
+        <td align="left">
+            <?php echo $this->tag->linkTo(array("users/index", "Go Back")); ?>
+        </td>
+        <td align="right">
+            <?php echo $this->tag->linkTo(array("users/new", "Create ")); ?>
+        </td>
+    <tr>
+</table>
+
+<table class="browse" align="center">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Superior</th>
+            <th>Id Of Oficina</th>
+            <th>Dependencia</th>
+            <th>Username</th>
+            <th>Password</th>
+            <th>Nombre</th>
+            <th>Last Of Login</th>
+            <th>Mosca</th>
+            <th>Cargo</th>
+            <th>Email</th>
+            <th>Logins</th>
+            <th>Fecha Of Creacion</th>
+            <th>Habilitado</th>
+            <th>Nivel</th>
+            <th>Genero</th>
+            <th>Prioridad</th>
+            <th>Id Of Entidad</th>
+            <th>Super</th>
+            <th>Cedula Of Identidad</th>
+            <th>Expedido</th>
+            <th>Theme</th>
+            <th>Cite Of Despacho</th>
+         </tr>
+    </thead>
+    <tbody>
+    <?php foreach ($page->items as $user) { ?>
+        <tr>
+            <td><?php echo $user->id ?></td>
+            <td><?php echo $user->superior ?></td>
+            <td><?php echo $user->id_oficina ?></td>
+            <td><?php echo $user->dependencia ?></td>
+            <td><?php echo $user->username ?></td>
+            <td><?php echo $user->password ?></td>
+            <td><?php echo $user->nombre ?></td>
+            <td><?php echo $user->last_login ?></td>
+            <td><?php echo $user->mosca ?></td>
+            <td><?php echo $user->cargo ?></td>
+            <td><?php echo $user->email ?></td>
+            <td><?php echo $user->logins ?></td>
+            <td><?php echo $user->fecha_creacion ?></td>
+            <td><?php echo $user->habilitado ?></td>
+            <td><?php echo $user->nivel ?></td>
+            <td><?php echo $user->genero ?></td>
+            <td><?php echo $user->prioridad ?></td>
+            <td><?php echo $user->id_entidad ?></td>
+            <td><?php echo $user->super ?></td>
+            <td><?php echo $user->cedula_identidad ?></td>
+            <td><?php echo $user->expedido ?></td>
+            <td><?php echo $user->theme ?></td>
+            <td><?php echo $user->cite_despacho ?></td>
+            <td><?php echo $this->tag->linkTo(array("users/edit/" . $user->id, "Edit")); ?></td>
+            <td><?php echo $this->tag->linkTo(array("users/delete/" . $user->id, "Delete")); ?></td>
+        </tr>
+    <?php } ?>
+    </tbody>
+    <tbody>
+        <tr>
+            <td colspan="2" align="right">
+                <table align="center">
+                    <tr>
+                        <td><?php echo $this->tag->linkTo("users/search", "First") ?></td>
+                        <td><?php echo $this->tag->linkTo("users/search?page=" . $page->before, "Previous") ?></td>
+                        <td><?php echo $this->tag->linkTo("users/search?page=" . $page->next, "Next") ?></td>
+                        <td><?php echo $this->tag->linkTo("users/search?page=" . $page->last, "Last") ?></td>
+                        <td><?php echo $page->current, "/", $page->total_pages ?></td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    <tbody>
+</table>

@@ -1,0 +1,438 @@
+<style>
+    .activeDay {background-color:#ff0000 !important;}
+</style>
+<h2 style="padding-top: 0px; width: 100%;"><b>Gesti&oacute;n de Ideas de Negocio</b></h2>
+<div id='divTabGestionIdeas'>
+<ul>
+    <li id="liList">Listado</li>
+    <li id="liIdeas">Ideas</li>
+    <li id="liNew">Nuevo</li>
+    <li id="liView">Ver</li>
+    <li id="liControl">Cuantificador Mensual</li>
+</ul>
+<br>
+<div style="height: 690px;" class="row section" id="divList">
+    <div class="col-md-10">
+        <!-- Input Grid Block -->
+        <div class="block">
+            <!-- Input Grid Title -->
+            <div class="block-title">
+                <div id='jqxWidget'>
+                    <div class="col-md-1">
+                        <br/>
+                        <label>Gesti&oacute;n:</label>
+                    </div>
+                    <div class="col-sm-2" id="divGestionGen">
+                        <select id="lstGestion" class="form-control">
+                            <option value="">Seleccionar..</option>
+                        </select>
+                    </div>
+                    <div id="divGridRelaborales"></div>
+                </div>
+            </div>
+            <!-- END Input Grid Title -->
+
+        </div>
+        <!-- END Input Grid Block -->
+    </div>
+    <div class="col-md-2">
+        <!-- Input Grid Block -->
+        <div class="block">
+            <!-- Input Grid Title -->
+            <div class="block-title">
+                <h2>Mostrar</h2>
+                <br>
+            </div>
+            <div id="divListBoxRelaborales"></div>
+            <!-- END Input Grid Title -->
+        </div>
+        <!-- END Input Grid Block -->
+    </div>
+</div>
+<div style="display: none;" class="section" id="divIdeas">
+<form class="navbar-form" id="formExcept">
+    <div id="tabFichaPersonal">
+        <ul style="margin-left: 30px;">
+            <li>Datos Personales</li>
+            <li>Contacto Personal</li>
+            <li>Contacto Institucional</li>
+        </ul>
+        <div style="display: none;height: 190px;" class="form-horizontal col-sm-12">
+            <br>
+            <div class="widget">
+                <div class="widget-simple themed-background-default">
+                    <a href="#" id="aFotoPerfil">
+                        <img id="imgFotoPerfil" class="img-rounded pull-right img-perfil" alt="" src="">
+                    </a>
+                    <h4 class="widget-content">
+                        <div>
+                            <dl class="dl-horizontal" STYLE="color: white;font-size: 13px;">
+                                <dt id="dtNombres">Nombres y Apellidos:</dt>
+                                <dd id="ddNombres"></dd>
+                                <dt id="dtTipoDeDocumento"></dt>
+                                <dd id="ddNumeroDeDocumento"></dd>
+                                <dt id="dtNacionalidad">Nacionalidad:</dt>
+                                <dd id="ddNacionalidad"></dd>
+                                <dt id="dtLugarDeNacimiento">Lugar de Nacimiento:</dt>
+                                <dd id="ddLugarDeNacimiento"></dd>
+                                <dt id="dtFechaDeNacimiento">Fecha de Nacimiento:</dt>
+                                <dd id="ddFechaDeNacimiento"></dd>
+                            </dl>
+                        </div>
+                    </h4>
+                </div>
+            </div>
+        </div>
+        <div style="display: none;" class="form-horizontal col-sm-12">
+            <br>
+
+            <div class="widget">
+                <div class="widget-simple themed-background-default">
+                    <a href="#" id="aFotoPerfilContactoPer"><img id="imgFotoPerfilContactoPer"
+                                                                 class="img-rounded pull-right img-perfil"></a>
+                    <h4 class="widget-content">
+                        <div>
+                            <dl class="dl-horizontal" STYLE="color: white;font-size: 13px;">
+                                <dt id="dtDireccion">Direcci&oacute;n:</dt>
+                                <dd id="ddDireccion"></dd>
+                                <dt id="dtTelefonoFijo">Tel&eacute;fono Fijo:</dt>
+                                <dd id="ddTelefonoFijo"></dd>
+                                <dt id="dtCelularPer">Celular Personal:</dt>
+                                <dd id="ddCelularPer"></dd>
+                                <dt id="dtEmailPer">E-Mail Personal:</dt>
+                                <dd id="ddEmailPer"></dd>
+                                <dt id="dtAuxiliar1">&nbsp;</dt>
+                                <dd id="ddAuxiliar1">&nbsp;</dd>
+                            </dl>
+                        </div>
+                    </h4>
+                </div>
+            </div>
+        </div>
+        <div style="display: none;" class="form-horizontal col-sm-12">
+            <br>
+
+            <div class="widget">
+                <div class="widget-simple themed-background-default">
+                    <a href="#" id="aFotoPerfilContactoInst"><img id="imgFotoPerfilContactoInst"
+                                                                  class="img-rounded pull-right img-perfil" alt="" src=""></a>
+                    <h4 class="widget-content">
+                        <div>
+                            <dl class="dl-horizontal" STYLE="color: white;font-size: 13px;">
+                                <dt id="dtTelefonoInst">Tel&eacute;fono Inst.:</dt>
+                                <dd id="ddTelefonoInst"></dd>
+                                <dt id="dtCelularInst">Celular Corporativo:</dt>
+                                <dd id="ddCelularInst"></dd>
+                                <dt id="dtTelefonoFax">Fax:</dt>
+                                <dd id="ddTelefonoFax"></dd>
+                                <dt id="dtInternoInst">N&uacute;mero Interno:</dt>
+                                <dd id="ddInternoInst"></dd>
+                                <dt id="dtEmailInst">E-Mail Institucional:</dt>
+                                <dd id="ddEmailInst"></dd>
+                            </dl>
+                        </div>
+                    </h4>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br>
+    <div id="divGridGestionIdeas"></div>
+    <div>
+        <button class="btn btn-sm btn-warning" type="button" id="btnVolverDesdeExcept">
+            <i class="fa fa-reply"></i>
+            Volver al Listado
+        </button>
+    </div>
+</form>
+</div>
+<div style="display: none;" class="section" id="divNew">
+    <h6><b>NOTA: </b>Los datos precedidos de asterisco son requerido de manera obligatoria (*).</h6>
+    <div class="form-horizontal col-sm-12">
+        <fieldset>
+            <legend><i class="fa fa-angle-right"></i> Detalle de la Idea de Negocio</legend>
+            <!-- Headings Block -->
+            <div class="row">
+                <div class="div-ideas" id="divGestionNew">
+                    <label class="col-sm-2 control-label" for="lstGestionNew">Gesti&oacute;n *:</label>
+                    <div class="col-md-2">
+                        <select id="lstGestionNew" class="form-control"><option value="">Seleccionar..</option></select>
+                        <span class="help-block" id="helpErrorGestionNew"></span>
+                    </div>
+                </div>
+                <div class="div-ideas" id="divMesNew">
+                    <label class="col-sm-2 control-label" for="lstMesNew">Mes *:</label>
+                    <div class="col-md-2">
+                        <select id="lstMesNew" class="form-control"><option value="">Seleccionar..</option></select>
+                        <span class="help-block" id="helpErrorMesNew"></span>
+                    </div>
+                </div>
+                <div class="div-ideas" id="divTiposDeNegocioNew">
+                    <label class="col-sm-2 control-label" for="lstTiposDeNegocioNew">Tipo *:</label>
+                    <div class="col-md-2">
+                        <select id="lstTiposDeNegocioNew" class="form-control"><option value="">Seleccionar..</option></select>
+                        <span class="help-block" id="helpErrorTiposDeNegocioNew"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group div-ideas" id="divTituloNew">
+                <label class="col-md-3 control-label" for="txtTituloNew">T&iacute;tulo*:</label>
+                <div class="col-md-6">
+                    <textarea id="txtTituloNew" name="txtTituloNew" class="form-control" placeholder="T&iacute;tulo de la Idea de Negocio.."></textarea>
+                </div>
+                <span class="help-block" id="helpErrorTituloNew"></span>
+            </div>
+            <div class="form-group div-ideas" id="divResumenNew">
+                <label class="col-md-3 control-label" for="txtResumenNew">Resumen*:</label>
+                <div class="col-md-6">
+                    <textarea id="txtResumenNew" name="txtResumenNew" class="form-control" placeholder="Resumen de la Idea de Negocio.."></textarea>
+                </div>
+                <span class="help-block" id="helpErrorResumenNew"></span>
+            </div>
+            <div class="form-group div-ideas" id="divDescripcionNew">
+                <label class="col-md-3 control-label" for="txtDescripcionNew">Planteamiento*:</label>
+                <div class="col-md-6">
+                    <textarea id="txtDescripcionNew" name="txtDescripcionNew" class="form-control" placeholder="Planteamiento de la Idea de Negocio.."></textarea>
+                </div>
+                <span class="help-block" id="helpErrorDescripcionNew"></span>
+            </div>
+        </fieldset>
+        <fieldset>
+            <legend><i class="fa fa-angle-right"></i> &nbsp;</legend>
+            <div class="form-group div-control-excepciones" id="divObservacionNew">
+                <label class="col-md-3 control-label" for="txtObservacionNew" id="lblObservacionNew">Observaciones:</label>
+                <div class="col-md-6">
+                    <textarea id="txtObservacionNew" name="txtObservacionNew" class="form-control" placeholder="Observaciones.."></textarea>
+                </div>
+                <span class="help-block" id="helpErrorObservacionNew"></span>
+            </div>
+        </fieldset>
+        <div class="form-group form-actions">
+            <div class="col-md-8 col-md-offset-4">
+                <button id="btnGuardarIdeaNew" class="btn btn-sm btn-primary" type="button">
+                    <i class="fa fa-floppy-o"></i>
+                    Guardar
+                </button>
+                <button id="btnCancelarIdeaNew" class="btn btn-sm btn-warning" type="button">
+                    <i class="fa fa-repeat"></i>
+                    Cancelar
+                </button>
+                <button class="btn btn-sm btn-warning" type="button" id="btnVolverAlListadoPrincipalDesdeNew">
+                    <i class="fa fa-reply"></i>
+                    Volver al Listado Principal
+                </button>
+            </div>
+        </div>
+        <input type="hidden" id="hdnIdRelaboralNew" value="0">
+    </div>
+</div>
+<div style="display: none;" class="section" id="divView">
+    <h6><b>NOTA: </b>Los datos precedidos de asterisco son requerido de manera obligatoria (*).</h6>
+    <div class="form-horizontal col-sm-12">
+        <fieldset>
+            <legend><i class="fa fa-angle-right"></i> Detalle de la Idea de Negocio</legend>
+            <!-- Headings Block -->
+            <div class="row">
+                <div class="div-ideas" id="divGestionEdit">
+                    <label class="iGestion col-sm-2 control-label" for="lstGestionEdit"><i class="iGestion fa fa-question-circle" id="iGestionEdit"></i> Gesti&oacute;n *:</label>
+
+                    <div class="col-md-2">
+                        <select id="lstGestionEdit" class="form-control">
+                            <option value="">Seleccionar..</option>
+                        </select>
+                        <span class="help-block" id="helpErrorGestionEdit"></span>
+                    </div>
+                </div>
+                <div class="div-ideas" id="divMesEdit">
+                    <label class="iMes col-sm-2 control-label" for="lstMesEdit"><i class="iMes fa fa-question-circle" id="iMesEdit"></i> Mes *:</label>
+
+                    <div class="col-md-2">
+                        <select id="lstMesEdit" class="form-control">
+                            <option value="">Seleccionar..</option>
+                        </select>
+                        <span class="help-block" id="helpErrorMesEdit"></span>
+                    </div>
+                </div>
+                <div class="div-ideas" id="divTiposDeNegocioEdit">
+                    <label class="iTiposDeNegocio col-sm-2 control-label" for="lstTiposDeNegocioEdit"><i class="iTiposDeNegocio fa fa-question-circle" id="iTiposDeNegocioEdit"></i> Tipo *:</label>
+
+                    <div class="col-md-2">
+                        <select id="lstTiposDeNegocioEdit" class="form-control">
+                            <option value="">Seleccionar..</option>
+                        </select>
+                        <span class="help-block" id="helpErrorTiposDeNegocioEdit"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group div-ideas" id="divTituloEdit">
+                <label class="iTitulo col-md-3 control-label" for="txtTituloEdit"><i class="iTitulo fa fa-question-circle" id="iTituloEdit"></i> T&iacute;tulo*:</label>
+
+                <div class="col-md-6">
+                    <textarea id="txtTituloEdit" name="txtTituloEdit" class="form-control"
+                              placeholder="T&iacute;tulo de la Idea de Negocio.." readonly></textarea>
+                </div>
+                <span class="help-block" id="helpErrorTituloEdit"></span>
+            </div>
+            <div class="form-group div-ideas" id="divResumenEdit">
+                <label class="iResumen col-md-3 control-label" for="txtResumenEdit"><i class="iResumen fa fa-question-circle" id="iResumenEdit"></i> Resumen*:</label>
+
+                <div class="col-md-6">
+                    <textarea id="txtResumenEdit" name="txtResumenEdit" class="form-control"
+                              placeholder="Resumen de la Idea de Negocio.." readonly></textarea>
+                </div>
+                <span class="help-block" id="helpErrorResumenEdit"></span>
+            </div>
+            <div class="form-group div-ideas" id="divDescripcionEdit">
+                <label class="iPlanteamiento col-md-3 control-label" for="txtDescripcionEdit"><i class="iPlanteamiento fa fa-question-circle" id="iPlanteamientoEdit"></i> Planteamiento*:</label>
+
+                <div class="col-md-6">
+                    <textarea id="txtDescripcionEdit" name="txtDescripcionEdit" class="form-control"
+                              placeholder="Planteamiento de la Idea de Negocio.." readonly></textarea>
+                </div>
+                <span class="help-block" id="helpErrorDescripcionEdit"></span>
+            </div>
+        </fieldset>
+        <fieldset>
+            <legend><i class="fa fa-angle-right"></i> &nbsp;</legend>
+            <div class="form-group div-control-excepciones" id="divObservacionEdit">
+                <label class="iObservacion col-md-3 control-label" for="txtObservacionEdit"
+                       id="lblObservacionEdit"><i class="iObservacion fa fa-question-circle" id="iObservacionEdit"></i> Observaciones:</label>
+
+                <div class="col-md-6">
+                    <textarea id="txtObservacionEdit" name="txtObservacionEdit" class="form-control"
+                              placeholder="Observaciones.."></textarea>
+                </div>
+                <span class="help-block" id="helpErrorObservacionEdit"></span>
+            </div>
+        </fieldset>
+        <div class="form-group form-actions">
+            <div class="col-md-8 col-md-offset-4">
+                <button id="btnGuardarIdeaEdit" class="btn btn-sm btn-primary" type="button">
+                    <i class="fa fa-floppy-o"></i>
+                    Guardar
+                </button>
+                <button id="btnCancelarIdeaEdit" class="btn btn-sm btn-warning" type="button">
+                    <i class="fa fa-repeat"></i>
+                    Cancelar
+                </button>
+                <button class="btn btn-sm btn-warning" type="button" id="btnVolverAlListadoPrincipalDesdeEdit">
+                    <i class="fa fa-reply"></i>
+                    Volver al Listado Principal
+                </button>
+            </div>
+        </div>
+        <input type="hidden" id="hdnIdRelaboralEdit" value="0">
+        <input type="hidden" id="hdnIdIdeaEdit" value="0">
+    </div>
+</div>
+<div style="display: none;" class="row section" id="divControl">
+    <div class="col-md-10">
+        <!-- Input Grid Block -->
+        <div class="block">
+            <!-- Input Grid Title -->
+            <div class="block-title">
+                <div class="row">
+                    <div class="col-sm-2" id="divGestionCount">
+                        <!--<div class="block">-->Gesti&oacute;n:
+                        <select class="form-control" id="lstGestionCount"><option value="">Seleccionar...</option></select>
+                        <!--</div>-->
+                        <span class="help-block" id="helpErrorGestionCount"></span>
+                    </div>
+                    <div class="col-sm-2" id="divMesCount">
+                        <!--<div class="block">-->Mes:
+                        <select id="lstMesCount" class="form-control"><option value="">Seleccionar...</option></select>
+                        <!--</div>-->
+                        <span class="help-block" id="helpErrorMesCount"></span>
+                    </div>
+                    <div class="col-sm-3" id="divBtnBuscar">
+                        <br>
+                        <button class="btn btn-sm btn-info text-info" type="button" id="btnBuscarIdeasPorMes" accesskey="d">
+                            <i class="gi gi-search"></i>
+                            Buscar
+                        </button>
+                    </div>
+                </div>
+                <div id='jqxWidgetControl'>
+                    <div id="divCarga" style="display:none" align="center">
+                        <div id="divContador"></div>
+                        <img src="../images/barra_carga.gif" />
+                    </div>
+                    <div id="divGridRelaboralesConteo"></div>
+                </div>
+            </div>
+            <!-- END Input Grid Title -->
+
+        </div>
+        <!-- END Input Grid Block -->
+    </div>
+    <div class="col-md-2">
+        <!-- Input Grid Block -->
+        <div class="block">
+            <!-- Input Grid Title -->
+            <div class="block-title">
+                <h2>Mostrar</h2>
+                <br>
+                <!--<input type="checkbox" id="chkAllCols"> Todas / Ninguna-->
+
+                <!--<div id="hintWrapper">
+                    <div id="hintSection" class="hint">
+                    </div>
+                </div>-->
+            </div>
+            <div id="divListBoxConteo"></div>
+
+
+            <!-- END Input Grid Title -->
+        </div>
+        <!-- END Input Grid Block -->
+    </div>
+</div>
+</div>
+<!--</form></div>-->
+<div style="display: none;" class="modal fade bs-example-modal-lg" id="popupCalificacion" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <form class="form-horizontal" id="testForm_perfil" data-toggle="validator" onsubmit="return false;">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="tituloModal">Calificacion</h4>
+            </div>
+            <div class="modal-body">
+                <input id="rtClasificacion" class="rating" min="0" max="5" step="1" data-size="xl"
+                       data-symbol="&#xf005;" data-glyphicon="false" data-rating-class="rating-fa">
+            </div>
+            <div class="modal-footer">
+                <button type="button" id="btnCerrarCalificacion" class="btn btn-primary" data-dismiss="modal"><i class="fa fa-compress"></i>Cerrar</button>
+                <button type="button" id="btnGuardarCalificacion" class="btn btn-primary"><i class="fa fa-pencil"></i>Guardar Calificaci&oacute;n</button>
+            </div>
+            </form>
+        </div>
+    </div>
+</div>
+<div style="display: none;" id="divModalInfografia" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="h4Title">Confirmation</h4>
+            </div>
+            <div class="modal-body" id="divModalBody"></div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+<div id="divMsjeNotificacionError">
+    <div id="divMsjePorError">
+    </div>
+</div>
+<div id="divMsjeNotificacionWarning">
+    <div id="divMsjePorWarning">
+    </div>
+</div>
+<div id="divMsjeNotificacionSuccess">
+    <div id="divMsjePorSuccess">
+    </div>
+</div>

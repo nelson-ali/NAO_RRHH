@@ -1,0 +1,839 @@
+<h2 style="padding-top: 0px; width: 100%;"><b>Gesti&oacute;n Tipos de Documentos</b></h2>
+<div id='divTabTiposDocumentos'>
+    <ul>
+        <li id="liList">Listado</li>
+        <li id="liNew">Nuevo</li>
+        <li id="liEdit">Modificaci&oacute;n</li>
+    </ul>
+    <br>
+
+    <div style="height: 600px;" class="row section" id="divList">
+        <div class="col-md-10">
+            <!-- Input Grid Block -->
+            <div class="block">
+                <!-- Input Grid Title -->
+                <div class="block-title">
+                    <div id='divWidgetExcepciones'>
+                        <div id="divGridTiposDocumentos"></div>
+                    </div>
+                </div>
+                <!-- END Input Grid Title -->
+
+            </div>
+            <!-- END Input Grid Block -->
+        </div>
+        <div class="col-md-2">
+            <div class="block">
+                <div class="block-title">
+                    <h2>Mostrar</h2>
+                    <br>
+                    <input type="checkbox" id="chkAllCols"> Todas / Ninguna
+                </div>
+                <div id="listBoxTiposDocumentos"></div>
+            </div>
+        </div>
+    </div>
+    <div style="display: none;" class="section" id="divNew">
+        <h6><b>NOTAS: </b> 1) Los datos precedidos de un asterisco <span style="font-size:18px;" class="text-danger"><b>*</b></span>
+            son requerido de manera obligatoria. 2) Los datos precedidos de un asterisco <span style="font-size:18px;"
+                                                                                               class="text-success"><b>*</b></span>
+            son alternativamente requeridos, debiendo seleccionarse s&oacute;lo uno de ellos pero no ambos.</h6>
+
+        <div class="form-horizontal col-sm-12">
+            <fieldset>
+                <legend><i class="fa fa-angle-right"></i> Datos de Identificaci&oacute;n</legend>
+                <div class="row">
+                    <div class="col-md-3" id="divTipoDocumentoNew">
+                        <label class="col-md-5 control-label" for="txtTipoDocumentoNew">Tipo Documento <span
+                                class="text-danger">*</span>:</label>
+
+                        <div class="col-md-7">
+                            <textarea style="text-transform: uppercase;" id="txtTipoDocumentoNew" class="form-control"
+                                      placeholder="Tipo de Documento.."></textarea>
+                            <span class="help-block" id="helpErrorTipoDocumentoNew"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-3" id="divCodigoNew">
+                        <label class="col-md-5 control-label" for="txtCodigoNew">C&oacute;digo <span
+                                class="text-danger">*</span>:</label>
+
+                        <div class="col-md-7">
+                            <input style="text-transform: uppercase;" type="text" id="txtCodigoNew" name="txtCodigoNew"
+                                   class="form-control" placeholder="C&oacute;digo..">
+                            <span class="help-block" id="helpErrorCodigoNew"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-3" id="divIndispensableNew">
+                        <label class="col-md-5 control-label" for="chkIndispensableNew">¿Indispensable? <span
+                                class="text-danger">*</span>:</label>
+                        <div class="col-md-7">
+                            <input type="checkbox" name="chkIndispensableNew" id="chkIndispensableNew" data-on-color="success" data-off-color="danger" data-on-text="SI"
+                                   data-off-text="NO">
+                            <span class="help-block" id="helpErrorIndispensableNew"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-3" id="divGrupoArchivoNew">
+                        <label class="col-md-5 control-label" for="lstGrupoArchivoNew">Grupo <span
+                                class="text-danger">*</span>:</label>
+
+                        <div class="col-md-7">
+                            <select id="lstGrupoArchivoNew" class="form-control">
+                                <option value="">Seleccionar...</option>
+                            </select>
+                            <span class="help-block" id="helpErrorGrupoArchivoNew"></span>
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+            <fieldset>
+                <legend><i class="fa fa-angle-right"></i> Datos de Control & Frecuencia de Solicitud</legend>
+                <div class="row">
+                    <div class="col-md-3" id="divTipoPresDocNew">
+                        <label class="col-md-5 control-label" for="lstTipoPresDocNew">Tipo Presentaci&oacute;n <span
+                                class="text-danger">*</span>:</label>
+
+                        <div class="col-md-7">
+                            <select id="lstTipoPresDocNew" class="form-control">
+                                <option value="">Seleccionar...</option>
+                            </select>
+                            <span class="help-block" id="helpErrorTipoPresDocNew"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-3" id="divGeneroNew">
+                        <label class="col-md-5 control-label" for="lstGeneroNew">G&eacute;nero <span
+                                class="text-danger">*</span>:</label>
+
+                        <div class="col-md-7">
+                            <select id="lstGeneroNew" class="form-control">
+                                <option value="">Seleccionar...</option>
+                            </select>
+                            <span class="help-block" id="helpErrorGeneroNew"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-3" id="divTipoFechaEmiDocNew">
+                        <label class="col-md-5 control-label" for="lstTipoFechaEmiDocNew">Tipo Fecha Emisi&oacute;n
+                            <span class="text-danger">*</span>:</label>
+
+                        <div class="col-md-7">
+                            <select id="lstTipoFechaEmiDocNew" class="form-control">
+                                <option value="">Seleccionar...</option>
+                            </select>
+                            <span class="help-block" id="helpErrorTipoFechaEmiDocNew"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-3" id="divNormativaModNew">
+                        <label class="col-md-5 control-label" for="lstNormativaModNew">Normativa:</label>
+
+                        <div class="col-md-7">
+                            <select id="lstNormativaModNew" class="form-control">
+                                <option value="">Seleccionar...</option>
+                            </select>
+                            <span class="help-block" id="helpErrorNormativaModNew"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3" id="divPeriodoPresDocNew">
+                        <label class="col-md-5 control-label" for="lstPeriodoPresDocNew">Periodo Presentaci&oacute;n
+                            <span class="text-primary">*</span>:</label>
+
+                        <div class="col-md-7">
+                            <select id="lstPeriodoPresDocNew" class="form-control">
+                                <option value="">Seleccionar...</option>
+                            </select>
+                            <span class="help-block" id="helpErrorPeriodoPresDocNew"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-3" id="divTipoPersSolDocNew">
+                        <label class="col-md-5 control-label" for="lstTipoPersSolDocNew">Tipo Persistencia <span
+                                class="text-primary">*</span>:</label>
+
+                        <div class="col-md-7">
+                            <select id="lstTipoPersSolDocNew" class="form-control">
+                                <option value="">Seleccionar...</option>
+                            </select>
+                            <span class="help-block" id="helpErrorTipoPersSolDocNew"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-3" id="divTipoEmisorDocNew">
+                        <label class="col-md-5 control-label" for="lstTipoEmisorDocNew">Emisores <span
+                                class="text-danger">*</span>:</label>
+
+                        <div class="col-md-7">
+                            <select id="lstTipoEmisorDocNew" class="form-control">
+                                <option value="">Seleccionar...</option>
+                            </select>
+                            <span class="help-block" id="helpErrorTipoEmisorDocNew"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-3" id="divNivelSalarialNivelNew">
+                        <label class="col-md-5 control-label" for="lstNivelSalarialNivelNew">Nivel:</label>
+                        <div class="col-md-7">
+                            <select id="lstNivelSalarialNivelNew" class="form-control">
+                                <option value="">Seleccionar...</option>
+                            </select>
+                            <span class="help-block" id="helpErrorNivelSalarialNivelNew"></span>
+                        </div>
+                    </div>
+                   
+                </div>
+                <div class="row">
+                    <div class="col-md-3" id="divPermanenteNew">
+                        <label class="col-md-5 control-label" for="chkPermanenteNew">¿Plazo Indefinido? <span
+                                class="text-danger">*</span>:</label>
+
+                        <div class="col-md-7">
+                            <input type="checkbox" name="chkPermanenteNew" id="chkPermanenteNew" data-on-color="success" data-off-color="danger" data-on-text="SI"
+                                   data-off-text="NO">
+                            <span class="help-block" id="helpErrorPermanenteNew"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-3" id="divEventualNew">
+                        <label class="col-md-5 control-label" for="chkEventualNew">¿Plazo Fijo? <span
+                                class="text-danger">*</span>:</label>
+
+                        <div class="col-md-7">
+                            <input type="checkbox" name="chkEventualNew" id="chkEventualNew" data-on-color="success" data-off-color="danger" data-on-text="SI"
+                                   data-off-text="NO">
+                            <span class="help-block" id="helpErrorEventualNew"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-3" id="divConsultorLineaNew">
+                        <label class="col-md-5 control-label" for="chkConsultorLineaNew">¿Consultores de L&iacute;nea?
+                            <span class="text-danger">*</span>:</label>
+
+                        <div class="col-md-7">
+                            <input type="checkbox" name="chkConsultorLineaNew" id="chkConsultorLineaNew"
+                                   data-on-color="success" data-off-color="danger" data-on-text="SI" data-off-text="NO">
+                            <span class="help-block" id="helpErrorConsultorLineaNew"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-3" id="divConsultorProductoNew">
+                        <label class="col-md-5 control-label" for="chkConsultorProductoNew">¿Consultores por Producto?
+                            <span class="text-danger">*</span>:</label>
+
+                        <div class="col-md-7">
+                            <input type="checkbox" name="chkConsultorProductoNew" id="chkConsultorProductoNew"
+                                   data-on-color="success" data-off-color="danger" data-on-text="SI" data-off-text="NO">
+                            <span class="help-block" id="helpErrorConsultorProductoNew"></span>
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+            <fieldset style="display: none;">
+                <legend><i class="fa fa-angle-right"></i> Almacenamiento Digital</legend>
+                <div class="col-xs-6" id="divRutaCarpetaNew">
+                    <label class="col-sm-3 control-label" for="txtRutaCarpetaNew">Direcci&oacute;n Carpeta:</label>
+
+                    <div class="col-sm-3">
+                        <input type="text" name="txtRutaCarpetaNew" id="txtRutaCarpetaNew" class="form-control"
+                               placeholder="Direcci&oacute;n Carpeta">
+                        <span class="help-block" id="helpErrorRutaCarpetaNew"></span>
+                    </div>
+                </div>
+                <div class="col-xs-6" id="divNombreCarpetaNew">
+                    <label class="col-sm-3 control-label" for="txtNombreCarpetaNew">Nombre Carpeta:</label>
+
+                    <div class="col-sm-3">
+                        <input type="text" name="txtNombreCarpetaNew" id="txtNombreCarpetaNew" class="form-control"
+                               placeholder="Nombre Carpeta">
+                        <span class="help-block" id="helpErrorNombreCarpetaNew"></span>
+                    </div>
+                </div>
+                <!--<div class="col-xs-6" id="divFormatoArchivoDigitalNew">
+                    <label class="col-sm-3 control-label" for="lstFormatoArchivoDigitalNew">Formato:</label>
+                    <div class="col-sm-3">
+                        <select id="lstFormatoArchivoDigitalNew" class="form-control"><option value="">Seleccionar...</option></select>
+                        <span class="help-block" id="helpErrorFormatoArchivoDigitalNew"></span>
+                    </div>
+                </div>-->
+                <div class="col-xs-6" id="divResolucionArchivoDigitalNew">
+                    <label class="col-sm-3 control-label"
+                           for="txtResolucionArchivoDigitalNew">Resoluci&oacute;n:</label>
+
+                    <div class="col-sm-3">
+                        <input type="text" name="txtResolucionArchivoDigitalNew" id="txtResolucionArchivoDigitalNew"
+                               class="form-control" placeholder="Resoluci&oacute;n Archivo Digital">
+                        <span class="help-block" id="helpErrorResolucionArchivoDigitalNew"></span>
+                    </div>
+                </div>
+                <div class="col-xs-6" id="divAlturaArchivoDigitalNew">
+                    <label class="col-sm-3 control-label" for="txtAlturaArchivoDigitalNew">Altura:</label>
+
+                    <div class="col-sm-3">
+                        <input type="text" name="txtAlturaArchivoDigitalNew" id="txtAlturaArchivoDigitalNew"
+                               class="form-control" placeholder="Altura Archivo Digital">
+                        <span class="help-block" id="helpErrorAlturaArchivoDigitalNew"></span>
+                    </div>
+                </div>
+                <div class="col-xs-6" id="divAnchuraArchivoDigitalNew">
+                    <label class="col-sm-3 control-label" for="txtAnchuraArchivoDigitalNew">Anchura:</label>
+
+                    <div class="col-sm-3">
+                        <input type="text" name="txtAnchuraArchivoDigitalNew" id="txtAnchuraArchivoDigitalNew"
+                               class="form-control" placeholder="Anchura Archivo Digital">
+                        <span class="help-block" id="helpErrorAnchuraArchivoDigitalNew"></span>
+                    </div>
+                </div>
+            </fieldset>
+            <!--<fieldset>
+                <legend><i class="fa fa-angle-right"></i> Temporalidad Control</legend>
+                <div class="form-group input-daterange">
+                    <div id="divFechaIniNew">
+                        <label class="col-sm-2 control-label" for="txtFechaIniNew">Fecha Inicio:</label>
+                        <div class="col-md-2">
+                            <input name="txtFechaIniNew" id="txtFechaIniNew" class="form-control input-datepicker-close" type="text" data-date-format="dd-mm-yyyy" placeholder="Desde">
+                        </div>
+                    </div>
+                    <div id="divFechaFinNew">
+                        <label class="col-sm-2 control-label" for="txtFechaFinNew">Fecha Fin:</label>
+                        <div class="col-md-2">
+                            <input  name="txtFechaFinNew" id="txtFechaFinNew" class="form-control input-datepicker-close" type="text" data-date-format="dd-mm-yyyy" placeholder="Hasta">
+                        </div>
+                    </div>
+                </div>
+            </fieldset>-->
+            <fieldset>
+                <legend><i class="fa fa-angle-right"></i> Datos Adicionales:</legend>
+                <div class="col-xs-12" id="divColumnasAuxNew">
+                    <!--<label class="col-sm-3 control-label" for="txtColumnasAuxNew">Campoos <span class="text-danger">*</span>:</label>-->
+                    <!--<div id='jqxWidgetColumnasAuxNew' style="text-align: center;">
+                        <div style="text-align: left;">
+                            <button id="btnNuevaColumnaAuxNew" class="btnNuevaColumnaAux btn btn-sm btn-primary" type="button">
+                                <i class="fa fa-plus"></i>
+                                Nuevo Campo Auxiliar
+                            </button>
+                        </div>
+                    </div>-->
+                    <div class="col-sm-12">
+                        <table id="tblColumnasAuxNew" style="font-size: 10px" class="table sorted_table">
+                            <thead>
+                            <tr>
+                                <th>
+                                    <button alt="Nuevo campo auxiliar" title="Nuevo campo auxiliar"
+                                            id="btnNuevaColumnaAuxNew" class="btnNuevaColumnaAux btn btn-sm btn-info"
+                                            type="button">
+                                        <i class="fa fa-plus"></i>
+                                        Nuevo
+                                    </button>
+                                </th>
+                                <th style="text-align: center">Nro.</th>
+                                <th style="text-align: center">Campo Auxiliar</th>
+                                <th style="text-align: center">Tipo</th>
+                                <th style="text-align: center">Obligatoriedad</th>
+                                <th style="text-align: center">&nbsp;</th>
+                                <th style="text-align: center">&nbsp;</th>
+                            </tr>
+                            </thead>
+                            <tbody id="tbodyColumnasAuxNew" class="tbodyColumnasAux"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </fieldset>
+            <fieldset>
+                <legend><i class="fa fa-angle-right"></i> &nbsp;</legend>
+                <div class="row input-daterange">
+                    <div class="col-md-3" id="divFormatoArchivoDigitalNew">
+                        <label class="col-md-5 control-label" for="lstFormatoArchivoDigitalNew">Formato Digital:</label>
+                        <div class="col-md-7">
+                            <select id="lstFormatoArchivoDigitalNew" class="form-control">
+                                <option value="">Seleccionar...</option>
+                            </select>
+                            <span class="help-block" id="helpErrorFormatoArchivoDigitalNew"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-3" id="divFechaIniNew">
+                        <label class="col-md-5 control-label" for="txtFechaIniNew">Fecha Inicio:</label>
+
+                        <div class="col-md-7">
+                            <input name="txtFechaIniNew" id="txtFechaIniNew" class="form-control input-datepicker-close"
+                                   type="text" data-date-format="dd-mm-yyyy" placeholder="Desde">
+                        </div>
+                    </div>
+                    <div class="col-md-3" id="divFechaFinNew">
+                        <label class="col-md-5 control-label" for="txtFechaFinNew">Fecha Fin:</label>
+
+                        <div class="col-md-7">
+                            <input name="txtFechaFinNew" id="txtFechaFinNew" class="form-control input-datepicker-close"
+                                   type="text" data-date-format="dd-mm-yyyy" placeholder="Hasta">
+                        </div>
+                    </div>
+                    <div class="col-md-3" id="divObservacionNew">
+                        <label class="col-md-5 control-label" for="txtObservacionNew">Observaciones:</label>
+
+                        <div class="col-md-7">
+                            <textarea id="txtObservacionNew" name="txtObservacionNew" class="form-control"
+                                      placeholder="Observaciones.."></textarea>
+                        </div>
+                        <span class="help-block" id="helpErrorObservacionNew"></span>
+                    </div>
+                </div>
+            </fieldset>
+            <div class="form-group form-actions">
+                <div class="col-md-8 col-md-offset-4">
+                    <button id="btnGuardarTipoDocumentoNew" class="btn btn-sm btn-primary text" type="button">
+                        <i class="fa fa-floppy-o"></i>
+                        Guardar
+                    </button>
+                    <button id="btnCancelarTipoDocumentoNew" class="btnCancelarTipoDocumento btn btn-sm btn-default"
+                            type="button">
+                        <i class="fa fa-repeat"></i>
+                        Cancelar
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div style="display: none;" class="section" id="divEdit">
+        <h6><b>NOTAS: </b> 1) Los datos precedidos de un asterisco <span style="font-size:18px;" class="text-danger"><b>*</b></span>
+            son requerido de manera obligatoria. 2) Los datos precedidos de un asterisco <span style="font-size:18px;"
+                                                                                               class="text-success"><b>*</b></span>
+            son alternativamente requeridos, debiendo seleccionarse s&oacute;lo uno de ellos pero no ambos.</h6>
+
+        <div class="form-horizontal col-sm-12">
+            <fieldset>
+                <legend><i class="fa fa-angle-right"></i> Datos de Identificaci&oacute;n</legend>
+                <div class="row">
+                    <div class="col-md-3" id="divTipoDocumentoEdit">
+                        <label class="col-md-5 control-label" for="txtTipoDocumentoEdit">Tipo Documento <span
+                                class="text-danger">*</span>:</label>
+
+                        <div class="col-md-7">
+                            <textarea style="text-transform: uppercase;" id="txtTipoDocumentoEdit" class="form-control"
+                                      placeholder="Tipo de Documento.."></textarea>
+                            <span class="help-block" id="helpErrorTipoDocumentoEdit"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-3" id="divCodigoEdit">
+                        <label class="col-md-5 control-label" for="txtCodigoEdit">C&oacute;digo <span
+                                class="text-danger">*</span>:</label>
+
+                        <div class="col-md-7">
+                            <input style="text-transform: uppercase;" type="text" id="txtCodigoEdit"
+                                   name="txtCodigoEdit" class="form-control" placeholder="C&oacute;digo..">
+                            <span class="help-block" id="helpErrorCodigoEdit"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-3" id="divIndispensableEdit">
+                        <label class="col-md-5 control-label" for="chkIndispensableEdit">¿Indispensable? <span
+                                class="text-danger">*</span>:</label>
+                        <div class="col-md-7">
+                            <input type="checkbox" name="chkIndispensableEdit" id="chkIndispensableEdit" data-on-color="success" data-off-color="danger" data-on-text="SI"
+                                   data-off-text="NO">
+                            <span class="help-block" id="helpErrorIndispensableEdit"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-3" id="divGrupoArchivoEdit">
+                        <label class="col-md-5 control-label" for="lstGrupoArchivoEdit">Grupo <span class="text-danger">*</span>:</label>
+
+                        <div class="col-md-7">
+                            <select id="lstGrupoArchivoEdit" class="form-control">
+                                <option value="">Seleccionar...</option>
+                            </select>
+                            <span class="help-block" id="helpErrorGrupoArchivoEdit"></span>
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+            <fieldset>
+                <legend><i class="fa fa-angle-right"></i> Datos de Control & Frecuencia de Solicitud</legend>
+                <div class="row">
+                    <div class="col-md-3" id="divTipoPresDocEdit">
+                        <label class="col-md-5 control-label" for="lstTipoPresDocEdit">Tipo Presentaci&oacute;n <span
+                                class="text-danger">*</span>:</label>
+
+                        <div class="col-md-7">
+                            <select id="lstTipoPresDocEdit" class="form-control">
+                                <option value="">Seleccionar...</option>
+                            </select>
+                            <span class="help-block" id="helpErrorTipoPresDocEdit"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-3" id="divGeneroEdit">
+                        <label class="col-md-5 control-label" for="lstGeneroEdit">G&eacute;nero <span
+                                class="text-danger">*</span>:</label>
+
+                        <div class="col-md-7">
+                            <select id="lstGeneroEdit" class="form-control">
+                                <option value="">Seleccionar...</option>
+                            </select>
+                            <span class="help-block" id="helpErrorGeneroEdit"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-3" id="divTipoFechaEmiDocEdit">
+                        <label class="col-md-5 control-label" for="lstTipoFechaEmiDocEdit">Tipo Fecha Emisi&oacute;n
+                            <span class="text-danger">*</span>:</label>
+
+                        <div class="col-md-7">
+                            <select id="lstTipoFechaEmiDocEdit" class="form-control">
+                                <option value="">Seleccionar...</option>
+                            </select>
+                            <span class="help-block" id="helpErrorTipoFechaEmiDocEdit"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-3" id="divNormativaModEdit">
+                        <label class="col-md-5 control-label" for="lstNormativaModEdit">Normativa:</label>
+
+                        <div class="col-md-7">
+                            <select id="lstNormativaModEdit" class="form-control">
+                                <option value="">Seleccionar...</option>
+                            </select>
+                            <span class="help-block" id="helpErrorNormativaModEdit"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3" id="divPeriodoPresDocEdit">
+                        <label class="col-md-5 control-label" for="lstPeriodoPresDocEdit">Periodo Presentaci&oacute;n
+                            <span class="text-primary">*</span>:</label>
+
+                        <div class="col-md-7">
+                            <select id="lstPeriodoPresDocEdit" class="form-control">
+                                <option value="">Seleccionar...</option>
+                            </select>
+                            <span class="help-block" id="helpErrorPeriodoPresDocEdit"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-3" id="divTipoPersSolDocEdit">
+                        <label class="col-md-5 control-label" for="lstTipoPersSolDocEdit">Tipo Persistencia <span
+                                class="text-primary">*</span>:</label>
+
+                        <div class="col-md-7">
+                            <select id="lstTipoPersSolDocEdit" class="form-control">
+                                <option value="">Seleccionar...</option>
+                            </select>
+                            <span class="help-block" id="helpErrorTipoPersSolDocEdit"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-3" id="divTipoEmisorDocEdit">
+                        <label class="col-md-5 control-label" for="lstTipoEmisorDocEdit">Emisores <span
+                                class="text-danger">*</span>:</label>
+
+                        <div class="col-md-7">
+                            <select id="lstTipoEmisorDocEdit" class="form-control">
+                                <option value="">Seleccionar...</option>
+                            </select>
+                            <span class="help-block" id="helpErrorTipoEmisorDocEdit"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-3" id="divNivelSalarialNivelEdit">
+                        <label class="col-md-5 control-label" for="lstNivelSalarialNivelEdit">Nivel:</label>
+                        <div class="col-md-7">
+                            <select id="lstNivelSalarialNivelEdit" class="form-control">
+                                <option value="">Seleccionar...</option>
+                            </select>
+                            <span class="help-block" id="helpErrorNivelSalarialNivelEdit"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3" id="divPermanenteEdit">
+                        <label class="col-md-5 control-label" for="chkPermanenteEdit">¿Plazo Indefinido? <span
+                                class="text-danger">*</span>:</label>
+
+                        <div class="col-md-7">
+                            <input type="checkbox" name="chkPermanenteEdit" id="chkPermanenteEdit" data-on-color="success" data-off-color="danger" data-on-text="SI"
+                                   data-off-text="NO">
+                            <span class="help-block" id="helpErrorPermanenteEdit"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-3" id="divEventualEdit">
+                        <label class="col-md-5 control-label" for="chkEventualEdit">¿Plazo Fijo? <span
+                                class="text-danger">*</span>:</label>
+
+                        <div class="col-md-7">
+                            <input type="checkbox" name="chkEventualEdit" id="chkEventualEdit"  data-on-color="success" data-off-color="danger" data-on-text="SI"
+                                   data-off-text="NO">
+                            <span class="help-block" id="helpErrorEventualEdit"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-3" id="divConsultorLineaEdit">
+                        <label class="col-md-5 control-label" for="chkConsultorLineaEdit">¿Consultores de L&iacute;nea?
+                            <span class="text-danger">*</span>:</label>
+
+                        <div class="col-md-7">
+                            <input type="checkbox" name="chkConsultorLineaEdit" id="chkConsultorLineaEdit"
+                                   data-on-color="success" data-off-color="danger" data-on-text="SI" data-off-text="NO">
+                            <span class="help-block" id="helpErrorConsultorLineaEdit"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-3" id="divConsultorProductoEdit">
+                        <label class="col-md-5 control-label" for="chkConsultorProductoEdit">¿Consultores por Producto?
+                            <span class="text-danger">*</span>:</label>
+
+                        <div class="col-md-7">
+                            <input type="checkbox" name="chkConsultorProductoEdit" id="chkConsultorProductoEdit"
+                                   data-on-color="success" data-off-color="danger" data-on-text="SI" data-off-text="NO">
+                            <span class="help-block" id="helpErrorConsultorProductoEdit"></span>
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+            <fieldset style="display: none;">
+                <legend><i class="fa fa-angle-right"></i> Almacenamiento Digital</legend>
+                <div class="col-xs-6" id="divRutaCarpetaEdit">
+                    <label class="col-sm-3 control-label" for="txtRutaCarpetaEdit">Direcci&oacute;n Carpeta:</label>
+
+                    <div class="col-sm-3">
+                        <input type="text" name="txtRutaCarpetaEdit" id="txtRutaCarpetaEdit" class="form-control"
+                               placeholder="Direcci&oacute;n Carpeta">
+                        <span class="help-block" id="helpErrorRutaCarpetaEdit"></span>
+                    </div>
+                </div>
+                <div class="col-xs-6" id="divNombreCarpetaEdit">
+                    <label class="col-sm-3 control-label" for="txtNombreCarpetaEdit">Nombre Carpeta:</label>
+
+                    <div class="col-sm-3">
+                        <input type="text" name="txtNombreCarpetaEdit" id="txtNombreCarpetaEdit" class="form-control"
+                               placeholder="Nombre Carpeta">
+                        <span class="help-block" id="helpErrorNombreCarpetaEdit"></span>
+                    </div>
+                </div>
+                <!--<div class="col-xs-6" id="divFormatoArchivoDigitalEdit">
+                    <label class="col-sm-3 control-label" for="lstFormatoArchivoDigitalEdit">Formato:</label>
+                    <div class="col-sm-3">
+                        <select id="lstFormatoArchivoDigitalEdit" class="form-control"><option value="">Seleccionar...</option></select>
+                        <span class="help-block" id="helpErrorFormatoArchivoDigitalEdit"></span>
+                    </div>
+                </div>-->
+                <div class="col-xs-6" id="divResolucionArchivoDigitalEdit">
+                    <label class="col-sm-3 control-label"
+                           for="txtResolucionArchivoDigitalEdit">Resoluci&oacute;n:</label>
+
+                    <div class="col-sm-3">
+                        <input type="text" name="txtResolucionArchivoDigitalEdit" id="txtResolucionArchivoDigitalEdit"
+                               class="form-control" placeholder="Resoluci&oacute;n Archivo Digital">
+                        <span class="help-block" id="helpErrorResolucionArchivoDigitalEdit"></span>
+                    </div>
+                </div>
+                <div class="col-xs-6" id="divAlturaArchivoDigitalEdit">
+                    <label class="col-sm-3 control-label" for="txtAlturaArchivoDigitalEdit">Altura:</label>
+
+                    <div class="col-sm-3">
+                        <input type="text" name="txtAlturaArchivoDigitalEdit" id="txtAlturaArchivoDigitalEdit"
+                               class="form-control" placeholder="Altura Archivo Digital">
+                        <span class="help-block" id="helpErrorAlturaArchivoDigitalEdit"></span>
+                    </div>
+                </div>
+                <div class="col-xs-6" id="divAnchuraArchivoDigitalEdit">
+                    <label class="col-sm-3 control-label" for="txtAnchuraArchivoDigitalEdit">Anchura:</label>
+
+                    <div class="col-sm-3">
+                        <input type="text" name="txtAnchuraArchivoDigitalEdit" id="txtAnchuraArchivoDigitalEdit"
+                               class="form-control" placeholder="Anchura Archivo Digital">
+                        <span class="help-block" id="helpErrorAnchuraArchivoDigitalEdit"></span>
+                    </div>
+                </div>
+            </fieldset>
+            <!--<fieldset>
+                <legend><i class="fa fa-angle-right"></i> Temporalidad Control</legend>
+                <div class="form-group input-daterange">
+                    <div id="divFechaIniEdit">
+                        <label class="col-sm-2 control-label" for="txtFechaIniEdit">Fecha Inicio:</label>
+                        <div class="col-md-2">
+                            <input name="txtFechaIniEdit" id="txtFechaIniEdit" class="form-control input-datepicker-close" type="text" data-date-format="dd-mm-yyyy" placeholder="Desde">
+                        </div>
+                    </div>
+                    <div id="divFechaFinEdit">
+                        <label class="col-sm-2 control-label" for="txtFechaFinEdit">Fecha Fin:</label>
+                        <div class="col-md-2">
+                            <input  name="txtFechaFinEdit" id="txtFechaFinEdit" class="form-control input-datepicker-close" type="text" data-date-format="dd-mm-yyyy" placeholder="Hasta">
+                        </div>
+                    </div>
+                </div>
+            </fieldset>-->
+            <fieldset>
+                <legend><i class="fa fa-angle-right"></i> Datos Adicionales:</legend>
+                <div class="col-xs-12" id="divColumnasAuxEdit">
+                    <!--<label class="col-sm-3 control-label" for="txtColumnasAuxEdit">Campoos <span class="text-danger">*</span>:</label>-->
+                    <!--<div id='jqxWidgetColumnasAuxEdit' style="text-align: center;">
+                        <div style="text-align: left;">
+                            <button id="btnNuevaColumnaAuxEdit" class="btnNuevaColumnaAux btn btn-sm btn-primary" type="button">
+                                <i class="fa fa-plus"></i>
+                                Nuevo Campo Auxiliar
+                            </button>
+                        </div>
+                    </div>-->
+                    <div class="col-sm-12">
+                        <table id="tblColumnasAuxEdit" style="font-size: 10px" class="table sorted_table">
+                            <thead>
+                            <tr>
+                                <th>
+                                    <button alt="Nuevo campo auxiliar" title="Nuevo campo auxiliar"
+                                            id="btnNuevaColumnaAuxEdit"
+                                            class="btnNuevaColumnaAux btn btn-sm btn-info" type="button">
+                                        <i class="fa fa-plus"></i>
+                                        Nuevo
+                                    </button>
+                                </th>
+                                <th style="text-align: center">Nro.</th>
+                                <th style="text-align: center">Campo Auxiliar</th>
+                                <th style="text-align: center">Tipo</th>
+                                <th style="text-align: center">Obligatoriedad</th>
+                                <th style="text-align: center">&nbsp;</th>
+                                <th style="text-align: center">&nbsp;</th>
+                            </tr>
+                            </thead>
+                            <tbody id="tbodyColumnasAuxEdit" class="tbodyColumnasAux"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </fieldset>
+            <fieldset>
+                <legend><i class="fa fa-angle-right"></i> &nbsp;</legend>
+                <div class="row input-daterange">
+                    <div class="col-md-3" id="divFormatoArchivoDigitalEdit">
+                        <label class="col-md-5 control-label" for="lstFormatoArchivoDigitalEdit">Formato Digital:</label>
+
+                        <div class="col-md-7">
+                            <select id="lstFormatoArchivoDigitalEdit" class="form-control">
+                                <option value="">Seleccionar...</option>
+                            </select>
+                            <span class="help-block" id="helpErrorFormatoArchivoDigitalEdit"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-3" id="divFechaIniEdit">
+                        <label class="col-md-5 control-label" for="txtFechaIniEdit">Fecha Inicio:</label>
+
+                        <div class="col-md-7">
+                            <input name="txtFechaIniEdit" id="txtFechaIniEdit"
+                                   class="form-control input-datepicker-close" type="text" data-date-format="dd-mm-yyyy"
+                                   placeholder="Desde">
+                        </div>
+                    </div>
+                    <div class="col-md-3" id="divFechaFinEdit">
+                        <label class="col-md-5 control-label" for="txtFechaFinEdit">Fecha Fin:</label>
+
+                        <div class="col-md-7">
+                            <input name="txtFechaFinEdit" id="txtFechaFinEdit"
+                                   class="form-control input-datepicker-close" type="text" data-date-format="dd-mm-yyyy"
+                                   placeholder="Hasta">
+                        </div>
+                    </div>
+                    <div class="col-md-3" id="divObservacionEdit">
+                        <label class="col-md-5 control-label" for="txtObservacionEdit">Observaciones:</label>
+
+                        <div class="col-md-7">
+                            <textarea id="txtObservacionEdit" name="txtObservacionEdit" class="form-control"
+                                      placeholder="Observaciones.."></textarea>
+                        </div>
+                        <span class="help-block" id="helpErrorObservacionEdit"></span>
+                    </div>
+                </div>
+            </fieldset>
+            <div class="form-group form-actions">
+                <div class="col-md-8 col-md-offset-4">
+                    <button id="btnGuardarTipoDocumentoEdit" class="btn btn-sm btn-primary text" type="button">
+                        <i class="fa fa-floppy-o"></i>
+                        Guardar
+                    </button>
+                    <button id="btnCancelarTipoDocumentoEdit" class="btnCancelarTipoDocumento btn btn-sm btn-default"
+                            type="button">
+                        <i class="fa fa-repeat"></i>
+                        Cancelar
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--</form></div>-->
+<div style="display: none;" class="modal fade bs-example-modal-lg" id="popupNuevoEditarColumnaAux" tabindex="-1"
+     role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <form class="form-horizontal" id="formNuevoEditarColumnaAux" data-toggle="validator"
+                  onsubmit="return false;">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span
+                            aria-hidden="true">&times;</span><span class="sr-only">Cerrar</span></button>
+                    <h4 class="modal-title" id="h4ModalNuevoEditarColumnaAux">Campo Auxiliar</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <div class="div-nuevo-editar-columna-aux" id="divColumnaAuxCampo">
+                            <label class="col-sm-2 control-label" for="txtColumnaAuxCampo">Campo <span
+                                    class="text-danger">*</span>:</label>
+
+                            <div class="col-md-2 form-group">
+                                <input style="text-transform: uppercase;" type="text" name="txtColumnaAuxCampo"
+                                       id="txtColumnaAuxCampo" class="form-control" placeholder="Nombre Campo">
+                                <span class="help-block" id="helpErrorColumnaAuxCampo"></span>
+                            </div>
+                        </div>
+                        <div class="div-nuevo-editar-columna-aux" id="divColumnaAuxTipoDato">
+                            <label class="col-sm-2 control-label" for="lstColumnaAuxTipoDato">Tipo de Dato <span
+                                    class="text-danger">*</span>:</label>
+
+                            <div class="col-md-2 form-group">
+                                <select id="lstColumnaAuxTipoDato" class="form-control">
+                                    <option value="">Seleccionar...</option>
+                                </select>
+                                <span class="help-block" id="helpErrorColumnaAuxTipoDato"></span>
+                            </div>
+                        </div>
+                        <div class="div-nuevo-editar-columna-aux" id="divColumnaAuxObligatoriedad">
+                            <label class="col-sm-2 control-label" for="lstColumnaAuxObligatoriedad">Obligatoriedad <span
+                                    class="text-danger">*</span>:</label>
+
+                            <div class="col-md-2 form-group">
+                                <select id="lstColumnaAuxObligatoriedad" class="form-control">
+                                    <option value="">Seleccionar...</option>
+                                </select>
+                                <span class="help-block" id="helpErrorColumnaAuxObligatoriedad"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" id="btnCerrarNuevoEditarColumnaAux" class="btn btn-primary"
+                            data-dismiss="modal"><i class="fa fa-compress"></i> Cerrar
+                    </button>
+                    <button type="button" id="btnGuardarNuevaColumnaAux" class="btn btn-primary"><i
+                            class="fa fa-floppy-o"></i> Guardar
+                    </button>
+                    <button type="button" id="btnGuardarModificacionColumnaAux" class="btn btn-primary"><i
+                            class="fa fa-floppy-o"></i> Modificar
+                    </button>
+                </div>
+                <input type="hidden" id="hdnIdTipoDocumento" value="0">
+                <input type="hidden" id="hdnColumnaAuxNumerador" value="0">
+                <input type="hidden" id="hdnColumnaAuxNombre" value="">
+                <input type="hidden" id="hdnColumnaAuxTipo" value="">
+                <input type="hidden" id="hdnColumnaAuxObligatoriedad" value="">
+            </form>
+        </div>
+    </div>
+</div>
+<div style="display: none;" id="divModalInfografia" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="h4Title">Confirmation</h4>
+            </div>
+            <div class="modal-body" id="divModalBody"></div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+<div id="divMsjeNotificacionError">
+    <div id="divMsjePorError">
+    </div>
+</div>
+<div id="divMsjeNotificacionWarning">
+    <div id="divMsjePorWarning">
+    </div>
+</div>
+<div id="divMsjeNotificacionSuccess">
+    <div id="divMsjePorSuccess">
+    </div>
+</div>
+<style type="text/css">
+    .evo-pop {
+        z-index: 1151 !important;
+    }
+</style>

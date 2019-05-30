@@ -1,0 +1,288 @@
+
+<div id="page-wrapper">
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-lg-12">
+				<h3>Seguimiento a Contrataciones</h3>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-lg-4">
+				<div class="panel panel-default">
+					<div class="panel-heading">ETAPA 1: Inicio de Proceso </div>
+					<div class="panel-body"> 
+						<form method="post" action="" class="form-horizontal">
+							<div class="form-group">
+								<label class="col-lg-4 control-label">Unidad Solicitante</label>
+								<div class="col-lg-8">
+									<?php echo $oficina ?>
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-lg-4 control-label">Responsable Solicitud</label>
+								<div class="col-lg-8">
+									<?php echo $usuario ?>
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-lg-4 control-label">Codigo Proceso</label>
+								<div class="col-lg-8">
+									<input class="form-control required" name="codigo_proceso" placeholder="" type="text" value="<?php echo $seguimiento->codigo_proceso ?>">
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-lg-4 control-label">Codigo Cargo</label>
+								<div class="col-lg-8">
+									<input class="form-control" type="text" name="codigo_cargo" value="<?php echo $seguimiento->codigo_cargo ?>">
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-lg-4 control-label">Cargo en Acefalia</label>
+								<div class="col-lg-8">
+									<?php echo $cargo ?>	
+								</div>
+							</div>
+
+							<div class="form-group">
+								<label class="col-lg-4 control-label">Nro Acefalias</label>
+								<div class="col-lg-8">
+									<input class="form-control" type="text" name="vacante" value="<?php echo $seguimiento->vacante ?>">	
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-lg-4 control-label">Nro Solicitud</label>
+								<div class="col-lg-8">
+									<input class="form-control" type="text" name="nro_solicitud" value="<?php echo $seguimiento->nro_solicitud ?>">	
+								</div>
+
+							</div>
+							<div class="form-group">
+								<label class="col-lg-4 control-label">Fecha Solicitud</label>
+								<div class="col-lg-8">
+									<input type="text" class="form-control" name="f_solicitud" id="f_solicitud" placeholder="click para mostrar calendario" value="<?php echo $seguimiento->f_solicitud ?>">
+								</div>
+							</div>
+							<div class="form-group">
+								<div class="col-lg-6 col-lg-offset-2">
+									<button class="btn btn-default">Guardar</button>
+									<a href="../" class="btn btn-default">Cancelar</a>
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+
+			<div class="col-lg-4">
+				<div class="panel panel-primary">
+					<div class="panel-heading">ETAPA 2: Documentacion Necesaria </div>
+					<div class="panel-body"> 
+						<form method="post" action="" class="form-horizontal">
+							<div class="form-group">
+								<label class="col-lg-4 control-label">Certificación Presupuestaria</label>
+								<div class="col-lg-8">
+									<label class="radio-inline">
+										<input type="radio" name="cert_presupuestaria" value="Si">Si
+									</label>
+									<label class="radio-inline">
+										<input type="radio" name="cert_presupuestaria" value="No" checked>No
+									</label>
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-lg-4 control-label">Fecha Certificación Presupuestaria</label>
+								<div class="col-lg-8">
+									<input type="text" class="form-control" name="f_cert_presupuestaria" id="f_cert_presupuestaria" placeholder="click para mostrar calendario" value="<?php echo $seguimiento->f_cert_presupuestaria ?>">
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-lg-4 control-label">Normativa</label>
+								<div class="col-lg-8">
+									<?php echo $normativa ?>
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-lg-4 control-label">Componente</label>
+								<div class="col-lg-8">
+									<?php echo $componente ?>
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-lg-4 control-label">Fuente de Financiamiento</label>
+								<div class="col-lg-8">
+									<?php echo $fuente ?>	
+								</div>
+							</div>
+
+							<div class="form-group">
+								<label class="col-lg-4 control-label">Partida Presupuestaria</label>
+								<div class="col-lg-8">
+									<?php echo $partida ?>
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-lg-4 control-label">Haber Basico</label>
+								<div class="col-lg-8">
+									<input class="form-control" type="text" name="haber_basico" value="<?php echo $seguimiento->haber_basico ?>">	
+								</div>
+
+							</div>
+							<div class="form-group">
+								<label class="col-lg-4 control-label">Tipo de Contratación</label>
+								<div class="col-lg-8">
+									<?php echo $tipo_contratacion ?>
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-lg-4 control-label">Fecha Aprobación MAE</label>
+								<div class="col-lg-8">
+									<input type="text" class="form-control" name="f_aprobacion_mae" id="f_aprobacion_mae" placeholder="click para mostrar calendario" value="<?php echo $seguimiento->f_aprobacion_mae ?>">
+								</div>
+							</div>
+							<div class="form-group">
+								<div class="col-lg-6 col-lg-offset-2">
+									<button class="btn btn-default">Guardar</button>
+									<a href="../" class="btn btn-default">Cancelar</a>
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+
+			<div class="col-lg-4">
+				<div class="panel panel-primary">
+					<div class="panel-heading">ETAPA 3: Cronograma </div>
+					<div class="panel-body"> 
+						<form method="post" action="" class="form-horizontal">
+							<div class="form-group">
+								<label class="col-lg-4 control-label">Fecha Publicación</label>
+								<div class="col-lg-8">
+									<input type="text" class="form-control" name="f_publicacion" id="f_publicacion" placeholder="click para mostrar calendario" value="<?php echo $seguimiento->f_publicacion ?>">
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-lg-4 control-label">Fecha Recepción</label>
+								<div class="col-lg-8">
+									<input type="text" class="form-control" name="f_recepcion" id="f_recepcion" placeholder="click para mostrar calendario" value="<?php echo $seguimiento->f_recepcion ?>">
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-lg-4 control-label">Fecha Conclusión</label>
+								<div class="col-lg-8">
+									<input type="text" class="form-control" name="f_conclusion" id="f_conclusion" placeholder="click para mostrar calendario" value="<?php echo $seguimiento->f_conclusion ?>">
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-lg-4 control-label">Fecha de Aprobacion</label>
+								<div class="col-lg-8">
+									<input type="text" class="form-control" name="f_aprobacion" id="f_aprobacion" placeholder="click para mostrar calendario" value="<?php echo $seguimiento->f_aprobacion ?>">
+								</div>
+							</div>
+							
+							<div class="form-group">
+								<div class="col-lg-6 col-lg-offset-2">
+									<button class="btn btn-default">Guardar</button>
+									<a href="../" class="btn btn-default">Cancelar</a>
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-lg-12">
+				<form id="commentForm" method="get" action="" class="form-horizontal">
+					<div id="rootwizard">
+						<ul>
+							<li><a href="#tab1" data-toggle="tab">First</a></li>
+							<li><a href="#tab2" data-toggle="tab">Second</a></li>
+							<li><a href="#tab3" data-toggle="tab">Third</a></li>
+						</ul>
+						<div class="tab-content">
+							<div class="tab-pane" id="tab1">
+								<div class="control-group">
+									<label class="control-label" for="email">Email</label>
+									<div class="controls">
+										<input type="text" id="emailfield" name="emailfield" class="required email">
+									</div>
+								</div>
+								
+								<div class="control-group">
+									<label class="control-label" for="name">Name</label>
+									<div class="controls">
+										<input type="text" id="namefield" name="namefield" class="required">
+									</div>
+								</div>
+							</div>
+							<div class="tab-pane" id="tab2">
+								<div class="control-group">
+									<label class="control-label" for="url">URL</label>
+									<div class="controls">
+										<input type="text" id="urlfield" name="urlfield" class="required url">
+									</div>
+								</div>
+							</div>
+							<div class="tab-pane" id="tab3">
+								3
+							</div>
+							<ul class="pager wizard">
+								<li class="previous first" style="display:none;"><a href="#">First</a></li>
+								<li class="previous"><a href="#">Previous</a></li>
+								<li class="next last" style="display:none;"><a href="#">Last</a></li>
+								<li class="next"><a href="#">Next</a></li>
+							</ul>
+						</div>	
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>    
+</div>
+
+
+<script type="text/javascript">
+            // When the document is ready
+            $(document).ready(function () {
+            	$('#f_solicitud, #f_cert_presupuestaria, #f_aprobacion_mae, #f_publicacion, #f_recepcion, #f_conclusion, #f_aprobacion').datepicker({
+            		format: "yyyy-mm-dd"
+            	});  
+
+            });
+        </script>
+
+        <script type="text/javascript">
+        	$(document).ready(function() {
+        		var $validator = $("#commentForm").validate({
+        			rules: {
+        				emailfield: {
+        					required: true,
+        					email: true,
+        					minlength: 3
+        				},
+        				namefield: {
+        					required: true,
+        					minlength: 3
+        				},
+        				urlfield: {
+        					required: true,
+        					minlength: 3,
+        					url: true
+        				}
+        			}
+        		});
+        		
+        		$('#rootwizard').bootstrapWizard({
+        			'tabClass': 'nav nav-pills',
+        			'onNext': function(tab, navigation, index) {
+        				var $valid = $("#commentForm").valid();
+        				if(!$valid) {
+        					$validator.focusInvalid();
+        					return false;
+        				}
+        			}
+        		});	
+        	});
+        </script>
+

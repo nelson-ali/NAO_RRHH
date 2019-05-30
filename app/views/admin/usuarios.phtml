@@ -1,0 +1,461 @@
+<script>
+    $(document).ready(function() {
+        var theme = 'custom';
+        // prepare the data
+        var unidad = $('#unidad').val();
+        var source =
+                {
+                    datatype: "json",
+                    
+                    datafields: [
+                        {name: 'id'},
+                        {name: 'entidad'},
+                        {name: 'oficina'},
+                        {name: 'username'},
+                        {name: 'nombre'},
+                        {name: 'cargo'},
+                        {name: 'email'},
+                        {name: 'nivel'},
+                        {name: 'genero'},
+                        {name: 'logins', type: 'int'},
+                        {name: 'last_login'},
+                        {name: 'habilitado', type: 'bool'},
+                        {name: 'suma'},
+                    ],
+                    id: 'id',    
+                    localData: <?php echo json_encode($result) ?>
+                    //url: '/contrataciones/listajson/' + unidad,
+                };
+        var dataAdapter = new $.jqx.dataAdapter(source);
+        //agrupacion personalizada
+        var toThemeProperty = function(className) {
+            return className + " " + className + "-" + theme;
+        }
+        var groupsrenderer = function(text, group, expanded, data) {
+// if (data.groupcolumn.datafield == 'uh_costo' || data.groupcolumn.datafield == 'uh_aprobado') {
+            if (data.subItems.length > 0) {
+                // var aggregate = this.getcolumnaggregateddata('precio_referencial', ['sum'], true, data.subItems);
+                //var total = this.getcolumnaggregateddata('monto_total_proyecto', ['sum'], true, data.subItems);
+                var suma = this.getcolumnaggregateddata('suma', ['sum'], true, data.subItems);
+            }
+            else {
+                var rows = new Array();
+                var getRows = function(group, rows) {
+                    if (group.subGroups.length > 0) {
+                        for (var i = 0; i < group.subGroups.length; i++) {
+                            getRows(group.subGroups[i], rows);
+                        }
+                    }
+                    else {
+                        for (var i = 0; i < group.subItems.length; i++) {
+                            rows.push(group.subItems[i]);
+                        }
+                    }
+                }
+                getRows(data, rows);
+                //var aggregate = this.getcolumnaggregateddata('precio_referencial', ['sum'], true, rows);
+                //var total = this.getcolumnaggregateddata('monto_total_proyecto', ['sum'], true, rows);
+                var suma = this.getcolumnaggregateddata('suma', ['sum'], true, rows);
+            }
+            return '<div class="' + toThemeProperty('jqx-grid-groups-row') + '" style="position: absolute "><span style="margin: 5px 0 0 0;">' + text + ' (' + suma.sum + ') , </span>' + '<span class="' + toThemeProperty('jqx-grid-groups-row-details') + '">' + '</span></div>';
+            // }
+            //  else {
+            //     return '<div class="' + toThemeProperty('jqx-grid-groups-row') + '" style="position: absolute;"><span>' + text + '</span>';
+            //  }
+        }
+        var barra = function(statusbar) {
+        };
+        // Create jqxGrid
+        $("#jqxgrid").jqxGrid(
+                {
+                    width: '100%',
+                    height: 420,
+                    source: dataAdapter,
+                    filterable: true,
+                    groupable: true,
+                    sortable: true,
+                    // altrows: true,
+                    groupsrenderer: groupsrenderer,
+                    showstatusbar: true,
+                    columnsresize: true,
+                    columnsreorder: true,
+                    //pageable: true,
+                    theme: 'metro',
+                    showfilterrow: true,
+                    renderstatusbar: barra,
+                    enabletooltips: true,
+                    //update: false,
+                    columns: [
+                        {text: 'ENTIDAD', columntype: 'dropdownlist', editable: false, datafield: 'entidad', width: '5%', filtertype: 'checkedlist'},
+                        {text: 'OFICINA', editable: false, datafield: 'oficina', width: '15%', filtertype: 'textbox', filtercondition: 'contains'},
+                        {text: 'USERNAME', datafield: 'username', width: '5%', filtertype: 'textbox', filtercondition: 'contains'},
+                        {text: 'NOMBRE', datafield: 'nombre', width: '15%', filtertype: 'textbox', filtercondition: 'contains'},
+                        {text: 'CARGO', datafield: 'cargo', width: '15%', filtertype: 'textbox', filtercondition: 'contains'},
+                        {text: 'EMAIL', datafield: 'email', width: '15%', filtertype: 'textbox', filtercondition: 'contains'},
+                        {text: 'NIVEL', columntype: 'dropdownlist', datafield: 'nivel', width: '8%', filtertype: 'checkedlist'},
+                        {text: 'C.I.', datafield: 'cedula_identidad', width: '8%', filtertype: 'textbox', filtercondition: 'contains'},
+                        {text: 'GERENO', columntype: 'dropdownlist', datafield: 'genero', width: '8%', filtertype: 'checkedlist'},
+                        //{text: 'CUCE SICOES', editable: false, datafield: 'cuce', width: '10%', filtertype: 'textbox', filtercondition: 'contains'},
+                        {text: 'LOGINs', datafield: 'logins', width: '3%', cellformat: 'int'},
+                        {text: 'HABILITADO', datafield: 'habilitado', width: '3%', columntype: 'checkbox', },
+                        {text: 'Fecha Ingreso', datafield: 'last_login', width: '8%', cellsformat: 'dd/MM/yyyy', filtertype: 'date'},
+                        //{text: 'Fecha Presentacion', datafield: 'fecha_presentacion', width: '8%', cellsformat: 'dd/MM/yyyy', filtertype: 'date'},
+                        //{text: 'Estado Sicoes', datafield: 'estado_sicoes', width: '10%', columntype: 'dropdownlist', filtertype: 'checkedlist'},
+                        {text: 'Suma', datafield: 'suma', width: '1', hidden: true}
+                    ],
+                    //groups: ['departamento']
+                });
+        //mostramos el total de proyectos
+        $("#jqxgrid").bind("filter", function(event) {
+            var visibleRows = $('#jqxgrid').jqxGrid('getrows');
+            var count = visibleRows.length;
+            $('#statusbarjqxgrid').html('Total: ' + count + ' procesos');
+            var total_mujeres = 0;
+            $.each(visibleRows, function(i, e) {
+                if (e.genero == 'mujer')
+                    total_mujeres = total_mujeres + 1;
+            });
+            $('#statusbarjqxgrid').html('Total: ' + count + ' Usuarios, Mujeres: <b>' + total_mujeres + '</b>' + ', Hombres: <b>' + (count - total_mujeres) + '</b>');
+        });
+        $("#jqxgrid").bind("bindingcomplete", function(event) {
+            var visibleRows = $('#jqxgrid').jqxGrid('getrows');
+            var count = visibleRows.length;
+            ///  $('#statusbarjqxgrid').html('Total: ' + count + ' usuarios');           
+            var total_mujeres = 0;
+            $.each(visibleRows, function(i, e) {
+                if (e.genero == 'mujer')
+                {
+                    total_mujeres = total_mujeres + 1;
+                }
+
+            });
+            $('#statusbarjqxgrid').html('Total: ' + count + ' Usuarios, Mujeres: <b>' + total_mujeres + '</b>' + ', Hombres: <b>' + (count - total_mujeres) + '</b>');
+        });
+        // prepare the data          
+        //dataAdapter.dataBind();
+        $("#jqxgrid").bind('rowdoubleclick', function(event) {
+            var args = event.args;
+            var row = args.rowindex;
+            var dataRecord = $("#jqxgrid").jqxGrid('getrowdata', row);
+            var id = dataRecord.cuce;
+            $('span#titulo').text(dataRecord.objeto);
+        });
+        function formatNumber(num, prefix) {
+            prefix = prefix || '';
+            num += '';
+            var splitStr = num.split(".");
+            var splitLeft = splitStr[0];
+            var splitRight = splitStr.length > 1 ? "." + splitStr[1] : '';
+            var regx = /(\d+)(\d{3})/;
+            while (regx.test(splitLeft)) {
+                splitLeft = splitLeft.replace(regx, "$1" + "," + "$2");
+            }
+            return prefix + splitLeft + splitRight;
+        }
+
+        // expand group.
+        $("#expand").bind('click', function() {
+            var groupnum = parseInt($("#groupnum").val());
+            if (!isNaN(groupnum)) {
+                $("#jqxgrid").jqxGrid('expandgroup', groupnum);
+            }
+        });
+        // collapse group.
+        $("#collapse").bind('click', function() {
+            var groupnum = parseInt($("#groupnum").val());
+            if (!isNaN(groupnum)) {
+                $("#jqxgrid").jqxGrid('collapsegroup', groupnum);
+            }
+        });
+        // expand all groups.
+        $("#expandall").bind('click', function() {
+            $("#jqxgrid").jqxGrid('expandallgroups');
+        });
+        // collapse all groups.
+        $("#collapseall").bind('click', function() {
+            $("#jqxgrid").jqxGrid('collapseallgroups');
+        });
+        // trigger expand and collapse events.
+        $("#jqxgrid").bind('groupexpand', function(event) {
+            var args = event.args;
+            $("#expandedgroup").html("Group: " + args.group + ", Level: " + args.level);
+        });
+        $("#jqxgrid").bind('groupcollapse', function(event) {
+            var args = event.args;
+            $("#collapsedgroup").html("Group: " + args.group + ", Level: " + args.level);
+        });
+        $('#print').click(function() {
+            var group = $('#jqxgrid').jqxGrid('groups');
+            console.log(group);
+            var orden = $('#jqxgrid').jqxGrid('sortcolumn');
+            console.log(orden);
+            var dir = false;
+            if (orden) {
+                dir = $('#jqxgrid').jqxGrid('sortdirection');
+                console.log(dir.ascending);
+            }
+            var columnas = [];
+            var titulos = [];
+            var columns = $('#jqxgrid').jqxGrid('columns');
+            $.each(columns.records, function(i, e) {
+                if (e.datafield != null && e.hidden != true)
+                {
+                    columnas.push(e.datafield);
+                    titulos.push(e.text);
+                }
+            });
+            console.log(columnas);
+            //generamos el reporte
+            var filtros = [];
+            var filtro = $('#jqxgrid').jqxGrid('getfilterinformation');
+            $.each(filtro, function(i, e) {
+                filtros.push(e.filtercolumn);
+                alert(e.filter.operator);
+            });
+            var datainformation = $('#jqxgrid').jqxGrid('updatebounddata');
+            dataAdapter.dataBind();
+            console.log(dataAdapter._options);
+            //  location.href="/excel/reporte/?columnas[]="+columnas+'&grupo='+group+'&orden='+orden+'&dir='+dir+'&titulos='+titulos;
+        });
+        $('#desembolso').click(function() {
+            var rowindex = $('#jqxgrid').jqxGrid('getselectedrowindex');
+            if (rowindex > -1)
+            {
+                var dataRecord = $("#jqxgrid").jqxGrid('getrowdata', rowindex);
+                var left = screen.availWidth;
+                var top = screen.availHeight;
+                left = (left - 800) / 2;
+                top = (top - 500) / 2;
+                var res = window.showModalDialog("/content/desembolzar/" + dataRecord.id, "", "center:0;dialogWidth:750px;dialogHeight:450px;scroll=yes;resizable=yes;status=yes;" + "dialogLeft:" + left + "px;dialogTop:" + top + "px");
+                if (res != null)
+                {
+                    $("#myGrid").addClass('loading');
+                    $.ajax({
+                        type: "POST",
+                        data: {estado: res, id: dataRecord.id},
+                        url: "/ajax/cambiarEstado",
+                        success: function(data)
+                        {
+                            $('#jqxgrid').jqxGrid('updatebounddata');
+                        }
+                    });
+                }
+            }
+            else {
+                alert("Seleccione un proceso por favor");
+            }
+        });
+        //detalle 
+        $('#jqxgridd').bind('rowdoubleclick', function(event)
+        {
+            var args = event.args;
+            var row = args.rowindex;
+            var dataRecord = $("#jqxgrid").jqxGrid('getrowdata', row);
+            // $('#detalleProyecto').html('<img src="/media/jqwidgets/styles/images/ajax-loader.gif" />'); 
+            $('#jqxwindow').jqxWindow({title: dataRecord.objeto
+            });
+            $('#jqxwindow').jqxWindow('open');
+            $.ajax({
+                type: "POST",
+                data: {id: dataRecord.id},
+                url: "/ajax/detalleLicitacion",
+                success: function(data)
+                {
+                    //  $('#detalleProyecto').html(data); 
+                }
+            });
+        });
+        $('#excel').bind('click', function() {
+            //cantidad de datos
+            var rows = $('#jqxgrid').jqxGrid('getrows');
+            var ids = "";
+            $.each(rows, function(i, e) {
+                ids += e.id + ",";
+            });
+            var group = $('#jqxgrid').jqxGrid('groups');
+            //var orden = $('#jqxgrid').jqxGrid('sortcolumn');
+            var dir = false;
+            try {
+                //intento algo que puede producir un error
+                // var orden = $('#jqxgrid').jqxGrid('sortcolumn');
+            } catch (mierror) {
+                //hago algo cuando el error se ha detectado
+                var orden = false;
+            }
+            var direccion = 'ASC';
+            if (orden) {
+                var dir = $('#jqxgrid').jqxGrid('sortdirection');
+                direccion = dir.ascending ? 'ASC' : 'DESC';
+            }
+            else
+            {
+                orden = ""
+            }
+            var columnas = "";
+            var tituls = "";
+            var columns = $('#jqxgrid').jqxGrid('columns');
+            $.each(columns.records, function(i, e) {
+                if (e.datafield != null && e.hidden != true)
+                {
+                    columnas += e.datafield + ",";
+                    tituls += e.text + ",";
+                }
+            });
+            location.href = "/excel/reporte/?datos=" + ids + "&columnas=" + columnas + "&titulos=" + tituls + "&grupo=" + group + "&orden=" + orden + "&dir=" + direccion;
+        });
+        $('#quitarFiltro').click(function() {
+            $("#jqxgrid").jqxGrid('clearfilters');
+        });
+        $('#sicoes').click(function() {
+            var rowindex = $('#jqxgrid').jqxGrid('getselectedrowindex');
+            if (rowindex > -1)
+            {
+                var dataRecord = $("#jqxgrid").jqxGrid('getrowdata', rowindex);
+                var cuce = dataRecord.cuce.split('-');
+                if (cuce[3] != null)
+                    var url = "http://www.sicoes.gob.bo/contrat/procesos.php?form[txtCUCE4]=" + cuce[3] + "&form[rdVigentes]=%";
+                else
+                    var url = "http://www.sicoes.gob.bo/contrat/procesos.php?form[txtEntidad]=MINISTERIO%20DE%20OBRAS%20PUBLICAS,%20SERVICIOS%20Y%%20VIVIENDA&form[txtCUCE4]=%";
+                window.open(url, '_blank');
+                return false;
+            }
+            else {
+                alert("Seleccione un proceso por favor");
+            }
+        });
+        $('#pdf').bind('click', function() {
+            var rowindex = $('#jqxgrid').jqxGrid('getselectedrowindex');
+            if (rowindex > -1)
+            {
+                var s = $('#formulario').serialize();
+                console.log(s);
+                /*   var dataRecord = $("#jqxgrid").jqxGrid('getrowdata', rowindex);
+                 location.href = "/reporte_pdf.php/?id=" + dataRecord.id; */
+            }
+            else
+            {
+                alert("seleccione un proyecto por favor");
+            }
+        });
+        $('#editar').bind('click', function() {
+            var rowindex = $('#jqxgrid').jqxGrid('getselectedrowindex');
+            if (rowindex > -1)
+            {
+                var dataRecord = $("#jqxgrid").jqxGrid('getrowdata', rowindex);
+                location.href = "/contrataciones/editar/" + dataRecord.id;
+            }
+            else
+            {
+                alert("Seleccione un proceso por favor.");
+            }
+        });
+        $('#eliminar').bind('click', function() {
+            var rowindex = $('#jqxgrid').jqxGrid('getselectedrowindex');
+            if (rowindex > -1)
+            {
+                var dataRecord = $("#jqxgrid").jqxGrid('getrowdata', rowindex);
+                if (confirm("Esta usted seguro de eliminar esta contratación"))
+                    location.href = "/contrataciones/eliminar/" + dataRecord.id;
+            }
+            else
+            {
+                alert("Seleccione un proceso por favor.");
+            }
+        });
+        $('#detalle').bind('click', function() {
+            var rowindex = $('#jqxgrid').jqxGrid('getselectedrowindex');
+            if (rowindex > -1)
+            {
+                var dataRecord = $("#jqxgrid").jqxGrid('getrowdata', rowindex);
+                location.href = "/contrataciones/detalle/" + dataRecord.id;
+            }
+            else
+            {
+                alert("Seleccione un proceso por favor.");
+            }
+        });
+        $('#revision').bind('click', function() {
+            var id = $('#unidad').val();
+            if (confirm("Esta usted seguro de enviar los procesos llenados para revision? Tenga en cuenta que una vez enviado a este estado no podra ingresar nuevos ni modificarlos.")) {
+                var request = $.ajax({
+                    url: "/estado/cambiar",
+                    type: "POST",
+                    data: {id: id}
+                });
+                request.done(function(msg) {
+                    location.reload(true);
+                    //alert(msg);
+                });
+            }
+            else {
+                return false;
+            }
+        });
+        $('#aprobar').bind('click', function() {
+            var id = $('#unidad').val();
+            if (confirm("Esta usted seguro de aprobar los procesos llenados por el responsable? Tenga en cuenta que una vez realizado esta accion no podra modificar mas.")) {
+                var request = $.ajax({
+                    url: "/estado/aprobar",
+                    type: "POST",
+                    data: {id: id}
+                });
+                request.done(function(msg) {
+                    location.reload(true);
+                    //alert(msg);
+                });
+            }
+            else {
+                return false;
+            }
+        });
+        $('#modificacion').bind('click', function() {
+            var id = $('#unidad').val();
+            if (confirm("Esta usted seguro de aprobar los procesos llenados por el responsable? Tenga en cuenta que una vez realizado esta accion no podra modificar mas.")) {
+                var request = $.ajax({
+                    url: "/estado/modificacion",
+                    type: "POST",
+                    data: {id: id}
+                });
+                request.done(function(msg) {
+                    location.reload(true);
+                    //alert(msg);
+                });
+            }
+            else {
+                return false;
+            }
+        });
+        $("#print").click(function() {
+            var gridContent = $("#jqxgrid").jqxGrid('exportdata', 'html');
+            var newWindow = window.open('', '', 'width=800, height=500'),
+                    document = newWindow.document.open(),
+                    pageContent =
+                    '<!DOCTYPE html>\n' +
+                    '<html>\n' +
+                    '<head>\n' +
+                    '<meta charset="utf-8" />\n' +
+                    '<title>Pendientes</title>\n' +
+                    '</head>\n' +
+                    '<body>\n' + gridContent + '\n</body>\n</html>';
+            document.write(pageContent);
+            document.close();
+            newWindow.print();
+        });
+    });
+</script>
+<div class="row">
+    <div class="pull-right">
+        <a href="/admin/newuser" class="btn btn-xs btn-danger"><i class="fa fa-user"></i> Nuevo</a>
+        <a href="/admin/newuser" class="btn btn-xs btn-primary"><i class="fa fa-pencil"></i> Editar</a>
+        <a href="/admin/newuser" class="btn btn-xs btn-primary"><i class="fa fa-crop"></i> Dar de Baja</a>
+        <a href="#" id="print" class="btn btn-xs btn-primary"><i class="fa fa-print"></i> Imprimir</a>
+    </div>
+</div>
+<div class="row">
+    <div class="span12">
+        <div id="jqxgrid" >
+            <span class="text-muted">Cargando...</span>
+        </div>
+    </div>
+
+</div>

@@ -1,0 +1,534 @@
+<script type="text/javascript">
+	$(document).ready(function () {
+		
+		cargar();	
+		function cargar(){
+			var source =
+			{
+				datatype: "json",
+				datafields: [
+				{ name: 'id',type: 'number'},
+				{ name: 'tipo_documento',type: 'string'},
+				{ name: 'codigo',type: 'string'}
+				],
+				url: '/tiposdocumentos/list',
+				cache: false
+			};
+			var dataAdapter = new $.jqx.dataAdapter(source);
+			$("#jqxgrid").jqxGrid(
+			{
+				width: '100%',
+				source: dataAdapter,
+				sortable: true,
+				altRows: true,
+				pageable: true,
+				pagerMode: 'advanced',
+				showfilterrow: true,
+				filterable: true,
+				columns: [
+				{
+					text: '#', sortable: false, filterable: false, editable: false,
+					groupable: false, draggable: false, resizable: false,
+					datafield: '', columntype: 'number', width: '5%',
+					cellsrenderer: function (row, column, value) {
+						return "<div style='margin:4px;'>" + (value + 1) + "</div>";
+					}
+				},
+				{ text: 'Nro', datafield: 'id',filtertype: 'number', width: '5%',hidden:true},
+				{ text: 'Documento', datafield: 'tipo_documento', filtertype: 'number',width: '15%' },
+				{ text: 'Codigo', datafield: 'codigo',filtertype: 'input', width: '70%' },
+				]
+			});
+
+		}
+
+// $("#jqxgrid").bind('rowselect', function (event) {
+// 	var dataRecord = $("#jqxgrid").jqxGrid('getrowdata', event.args.rowindex);
+// 	$("#id").val(dataRecord.id);
+// 	$("#orden").val(dataRecord.orden);
+// 	$("#nivel_estructural").val(dataRecord.nivel_estructural);
+// });
+
+// // update the edited row when the user clicks the 'Save' button.
+$("#add").click(function(){
+	$("#titulo").text("Adicionar");
+	// $("#id").val("");
+	// $("#orden").val("");
+	// $("#nivel_estructural").val("");
+	$('#myModal').modal('show');
+//$("#popupWindow").jqxWindow('open');
+});
+
+// $("#edit").click(function(){
+// 	if($("#id").val()!=""){
+// 		$("#titulo").text("Editar");
+// 		$('#myModal').modal('show');        		
+// 	}else{
+// 		bootbox.alert("<strong>¡Mensaje!</strong> Seleccionar un registro para editar.");
+// 	}
+// });
+
+// $("#delete").click(function(){
+// 	if($("#id").val()!=""){
+// 		bootbox.confirm("<strong>¡Mensaje!</strong> Esta seguro de eliminar el registro.", function(result) {
+// 			if (result==true) {
+// 				var v=$.ajax({
+// 					url:'/nivelestructurales/delete/',
+// 					type:'POST',
+// 					datatype: 'json',
+// 					data:{id:$("#id").val()},
+// 				success: function(data) { cargar(); //alert('Guardado Correctamente'); 
+// 				}, //mostramos el error
+// 				error: function() { alert('Se ha producido un error Inesperado'); }
+// 			});
+// 			}
+// 		});
+// 	}else{
+// 		bootbox.alert("<strong>¡Mensaje!</strong> Seleccionar un registro para eliminar.");
+// 	}
+// });
+
+
+$('#testForm').validate({
+    rules: {
+        tipo_documento: {
+            required: true
+        },
+        codigo: {
+            required: true
+        },
+        sexo: {
+            required: true
+        },
+        tipo_proceso_contratacion: {
+            required: true
+        },
+        tipopresdoc_id: {
+            required: true
+        },
+        periodopresdoc_id: {
+            required: true
+        },
+        tipoperssoldoc_id: {
+            required: true
+        },
+        tipoemisordoc_id: {
+            required: true
+        },
+        tipofechaemidoc_id: {
+            required: true
+        },
+        grupoarchivos_id: {
+            required: true
+        },
+        'condicion_id[]': { required: true, minlength: 1 }
+        	
+    },
+     messages: {
+        'condicion_id[]': 'Debe seleccionar mínimo un deporte'
+    },
+    highlight: function (element) {
+        $(element).closest('.control-group').removeClass('success').addClass('error');
+    },
+    success: function (element) {
+        //element.text('OK!').addClass('valid').closest('.control-group').removeClass('error').addClass('success');
+        element.addClass('valid').closest('.control-group').removeClass('error').addClass('success');
+    },
+    submitHandler: function (form) {
+            // form validates so do the ajax
+            //alert("funciono");
+   //          var v=$.ajax({
+   //          	url:'/nivelestructurales/save/',
+   //          	type:'POST',
+   //          	datatype: 'json',
+   //          	data:{id:$("#id").val(),orden:$("#orden").val(),nivel_estructural:$("#nivel_estructural").val()},
+			// 	success: function(data) { cargar(); //alert(data); 
+			// 	}, //mostramos el error
+			// error: function() { alert('Se ha producido un error Inesperado'); }
+			// });
+             $('#myModal').modal('hide');
+            return false; // ajax used, block the normal submit
+        }
+});
+
+
+    $("#condicion_todos").change(function () {
+        if ($(this).is(':checked')) {
+            //$("input[type=checkbox]").prop('checked', true); //todos los check
+            $(".checkbox input[type=checkbox]").prop('checked', true); //solo los del objeto #diasHabilitados
+        } else {
+            //$("input[type=checkbox]").prop('checked', false);//todos los check
+            $(".checkbox input[type=checkbox]").prop('checked', false);//solo los del objeto #diasHabilitados
+        }
+    });
+
+});
+</script>
+
+<div class="row">
+	<div class="col-lg-12">
+		<h2>Tipos de Documentos </h2> solicitados al personal
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-lg-12">
+		<div class="panel panel-default">
+			<div class="panel-body">
+				<?php //echo $this->flashSession->output() ?>
+				<div class="form-group form-actions">
+					<div class="col-xs-12">
+						<button class="btn btn-sm btn-primary" type="button" id="add"><i class="fa fa-plus fa-fw"></i>Adicionar</button>
+						<button class="btn btn-sm btn-warning" type="button" id="edit"><i class="fa fa-pencil fa-fw"></i> Editar</button>
+						<button class="btn btn-sm btn-danger" type="button" id="delete"><i class="fa fa-trash-o fa-fw"></i> Eliminar</button>
+					</div>
+				</div>
+				<br>
+				<div class="table-responsive">
+					<div id="jqxgrid"></div>
+				</div>
+		</div>
+	</div>
+</div>
+</div>
+
+<!-- inicio Modal -->
+
+<div class="modal fade bs-example-modal-lg" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <form class="form-horizontal" id="testForm" data-toggle="validator"/>
+      <div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+				<h4 class="modal-title" id="titulo">Editar</h4>
+			</div>
+      <div class="modal-body">
+
+        <div class="tabbable">
+          <ul class="nav nav-tabs">
+            <li class="active"><a href="#tab1" data-toggle="tab">DETALLES OBLIGATORIOS</a></li>
+            <li><a href="#tab2" data-toggle="tab">DETALLES DE PARAMETRIZACIÓN</a></li>
+            <!-- <li><a href="#tab3" data-toggle="tab">Criterios de Calificacioón</a></li> -->
+          </ul>
+          <div class="tab-content">
+
+
+            <div class="tab-pane active" id="tab1">
+                 <div class="row">
+					<div class="col-md-6">
+					<div class="block">
+						<div class="row">
+							<div class="form-group">
+							<div class="col-md-12">
+									<h3 align="center">Detalles de Identificación</h3>
+							</div>
+							</div>
+							<div class="form-group">
+								<label class="col-md-3 control-label">Tipo de Documento</label>
+								<div class="col-md-9">
+									<input id="tipo_documento" name="tipo_documento" type="text" class="form-control" />
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-md-3 control-label">Codigo</label>
+								<div class="col-md-9">
+									<input id="codigo" name="codigo" type="text" class="form-control" />
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-md-3 control-label">Condiciones de Contrato</label>
+								<div class="col-md-9">
+								<?php if(count($condicion)>=2){ ?>
+									<div class="checkbox">
+										<label for="example-checkbox1">
+											<input type="checkbox" id="condicion_todos" name="condicion_todos" value="Todos" /> TODOS
+										</label>
+									</div>
+								<?php	}  ?>
+								<?php foreach ($condicion as $v) { ?>
+									<div class="checkbox">
+										<label for="example-checkbox1">
+											<input type="checkbox" id="condicion_id<?php echo $v->id ?>" name="condicion_id[<?php echo $v->id ?>]" value="<?php echo $v->id ?>" /> <?php echo $v->condicion ?>
+										</label>
+									</div>
+								<?php  } ?>
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-md-3 control-label">Solicitud por Sexo</label>
+								<div class="col-md-9">
+									<?php echo $sexo ?>
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-md-3 control-label">Tipo de Contratación</label>
+								<div class="col-md-9">
+								<?php echo $normativa ?>
+								</div>
+							</div>	
+						</div>
+					</div>
+						
+					</div>
+					<div class="col-md-6">
+					<div class="block">
+						<div class="row">
+						<div class="form-group">
+							<div class="col-md-12">
+									<h3 align="center">Detalles de Presentación</h3>
+							</div>
+						</div>
+							<div class="form-group">
+								<label class="col-md-3 control-label">Tipo de Presentación</label>
+								<div class="col-md-9">
+									<?php echo $tipo_presentacion ?>
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-md-3 control-label">Periodo Presentación</label>
+								<div class="col-md-9">
+									<?php echo $periodo_presentacion ?>
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-md-3 control-label">Persistencia de Solicitud</label>
+								<div class="col-md-9">
+									<?php echo $persistencia_solicitud ?>
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-md-3 control-label">Tipo Emisor</label>
+								<div class="col-md-9">
+									<?php echo $tipo_emisor ?>
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-md-3 control-label">Tipo Fecha Emisión</label>
+								<div class="col-md-9">
+								<?php echo $tipo_fecha_emision ?>
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-md-3 control-label">Grupo de Archivos</label>
+								<div class="col-md-9">
+								<?php echo $grupo_archivo ?>
+								</div>
+							</div>
+						</div>
+					</div>
+						
+					</div>
+				</div>  
+            </div>
+
+
+            <div class="tab-pane" id="tab2">
+              <div class="row">
+					<div class="col-md-6">
+					<div class="block">
+						<div class="row">
+							<div class="form-group">
+							<div class="col-md-12">
+									<h3 align="center">Detalles Genéricos</h3>
+							</div>
+							</div>
+							<div class="form-group">
+								<label class="col-md-3 control-label">Nombre Carpeta</label>
+								<div class="col-md-9">
+									<input id="nombre_carpeta" name="nombre_carpeta" type="text" class="form-control" />
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-md-3 control-label">Formato</label>
+								<div class="col-md-9">
+									<input id="formato_archivo_digital" name="formato_archivo_digital" type="text" class="form-control" />
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-md-3 control-label">Resolución</label>
+								<div class="col-md-9">
+									<input id="resolucion_archivo_digital" name="resolucion_archivo_digital" type="text" class="form-control" />
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-md-3 control-label">Alto</label>
+								<div class="col-md-9">
+									<input id="altura_archivo_digital" name="altura_archivo_digital" type="text" class="form-control" />
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-md-3 control-label">Ancho</label>
+								<div class="col-md-9">
+								<input id="anchura_archivo_digital" name="anchura_archivo_digital" type="text" class="form-control" />
+								</div>
+							</div>	
+						</div>
+					</div>
+						
+					</div>
+					<div class="col-md-6">
+					<div class="block">
+						<div class="row">
+						<div class="form-group">
+							<div class="col-md-12">
+									<h3 align="center">Detalles de Presentación</h3>
+							</div>
+						</div>
+							<div class="form-group">
+								<label class="col-md-3 control-label">Campo Auxiliar A</label>
+								<div class="col-md-4">
+									<input id="campo_aux_a" name="campo_aux_a" type="text" class="form-control" />
+								</div>
+								<div class="col-md-5">
+									<?php echo $tipo_dato_campo_aux_a ?>
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-md-3 control-label">Campo Auxiliar B</label>
+								<div class="col-md-4">
+									<input id="campo_aux_b" name="campo_aux_b" type="text" class="form-control" />
+								</div>
+								<div class="col-md-5">
+									<?php echo $tipo_dato_campo_aux_b ?>
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-md-3 control-label">Campo Auxiliar C</label>
+								<div class="col-md-4">
+									<input id="campo_aux_c" name="campo_aux_c" type="text" class="form-control" />
+								</div>
+								<div class="col-md-5">
+									<?php echo $tipo_dato_campo_aux_c ?>
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-md-3 control-label">Observaciones</label>
+								<div class="col-md-9">
+									<input id="observacion" name="observacion" type="text" class="form-control" />
+								</div>
+							</div>
+						</div>
+					</div>
+						
+					</div>
+				</div>  
+            </div>
+
+            <!-- <div class="tab-pane" id="tab3">
+              
+            </div> -->
+
+          </div>
+        </div>
+
+      </div>
+      <div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+				<button type="submit" class="btn btn-primary" id="Save">Guardar</button>
+			</div>
+    </form>
+  </div>
+</div>
+</div>
+
+<!-- end  modal -->
+
+
+<!-- Modal -->
+<div class="modal fade bs-example-modal-lg" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+	<div class="modal-dialog modal-lg">
+		<div class="modal-content">
+
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+				<h4 class="modal-title" id="titulo">Editar</h4>
+			</div>
+
+			<form class="form-horizontal" id="testForm" data-toggle="validator"/>
+
+			<div class="modal-body">
+				<div class="row">
+					<div class="col-md-6">
+						<div class="row">
+							<input id="id" name="id" type="hidden" />
+							<div class="form-group">
+								<label class="col-md-3 control-label">Tipo de Documento</label>
+								<div class="col-md-9">
+									<input id="tipo_documento" name="tipo_documento" type="text" class="form-control" required/>
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-md-3 control-label">Codigo</label>
+								<div class="col-md-9">
+									<input id="codigo" name="codigo" type="text" class="form-control" required/>
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-md-3 control-label">Condiciones de Contrato</label>
+								<div class="col-md-9">
+									<input id="tipo_proceso_contratacion" name="tipo_proceso_contratacion" type="text" class="form-control" required/>
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-md-3 control-label">Solicitud por Sexo</label>
+								<div class="col-md-9">
+									<input id="codigo" name="codigo" type="text" class="form-control" required/>
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-md-3 control-label">Tipo de Contratación</label>
+								<div class="col-md-9">
+
+								</div>
+							</div>	
+						</div>
+					</div>
+					<div class="col-md-6">
+						<div class="row">
+							<input id="id" name="id" type="hidden" />
+							<div class="form-group">
+								<label class="col-md-3 control-label">Tipo de Documento</label>
+								<div class="col-md-9">
+									<input id="tipo_documento" name="tipo_documento" type="text" class="form-control" required/>
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-md-3 control-label">Codigo</label>
+								<div class="col-md-9">
+									<input id="codigo" name="codigo" type="text" class="form-control" required/>
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-md-3 control-label">Condiciones de Contrato</label>
+								<div class="col-md-9">
+									<input id="tipo_proceso_contratacion" name="tipo_proceso_contratacion" type="text" class="form-control" required/>
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-md-3 control-label">Solicitud por Sexo</label>
+								<div class="col-md-9">
+									<input id="codigo" name="codigo" type="text" class="form-control" required/>
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-md-3 control-label">Tipo de Contratación</label>
+								<div class="col-md-9">
+
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+
+
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+				<button type="submit" class="btn btn-primary" id="Save">Guardar</button>
+			</div>
+		</form>
+	</div>
+</div>
+</div>
+			<!-- end  modal -->

@@ -1,0 +1,16 @@
+<h1>Editar Proceso</h1>
+<form method="post" action="">
+	<input type="hidden" name="id" value="<?php echo $proceso->id ?>">
+	<div>
+		<label>Proceso:</label>
+		<input type="text" name="proceso" value="<?php echo $proceso->proceso; ?>">	
+	</div>
+	<div>
+		<label>Descripción</label>
+		<input type="text" name="descripcion" value="<?php echo $proceso->descripcion; ?>">	
+	</div>
+	<div>
+		<button>Guardar</button>
+		<a href="../">Cancelar</a>
+	</div>
+</form>

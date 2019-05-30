@@ -1,0 +1,59 @@
+<h1>Adicionar Unidad Administrativa</h1>
+<form method="post" action="">
+	<div>
+		<label>Depende de :</label>
+		<?php echo $padre; ?>
+	</div>
+	<div>
+		<label>Dirección Administrativa</label>
+		<?php echo $da; ?>
+	</div>
+	<div>
+		<label>Nivel Estructural</label>
+		<?php echo $nivelestructural; ?>
+	</div>
+	<div>
+		<label>Unidad Administrativa</label>
+		<input type="text" name="unidad_administrativa" required>
+	</div>
+	<div>
+		<label>Sigla</label>
+		<input type="text" name="sigla" id="sigla" required>
+	</div>
+	<div>
+		<label>Fecha Inicio</label>
+		<input type="text" name="fecha_ini" id="fecha_ini" value="<?php echo date("Y-m-d"); ?>" placeholder="click para mostrar calendario" required>
+	</div>
+	<div>
+		<label>Fecha Finalización</label>
+		<input type="text" name="fecha_fin" id="fecha_fin" value="" placeholder="click para mostrar calendario">
+	</div>
+	<div>
+		<button>Guardar</button>
+		<a href="../">Cancelar</a>
+	</div>
+</form>
+<script type="text/javascript">
+            // When the document is ready
+            $(document).ready(function () {
+            	$('#fecha_ini, #fecha_fin').datepicker({
+            		format: "yyyy-mm-dd"
+            	});  
+    			
+            });
+</script>
+<script type="text/javascript">
+$(function(){
+    $('#padre_id').change(function(){
+        var id=$(this).val(); //id oficina
+    var v=$.ajax({
+	url:'../../ajax/sigla/'+id,
+	type:'POST',
+	datatype: 'json',
+	//data:{id:id},
+	success: function(data) { $("#sigla").val(data);}, //mostramos el error
+	error: function() { alert('Se ha producido un error Inesperado'); }
+	});
+    });
+});
+</script>

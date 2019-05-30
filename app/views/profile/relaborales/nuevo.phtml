@@ -1,0 +1,65 @@
+<html>
+<head>
+    <script src="../../assets/js/vendor/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="../../js/relaborales/oasis.relaborales.new.js"></script>
+</head>
+<body>
+<div id="menu">
+</div>
+<div id="contenido">
+</div>
+<h2>Registro de Nuevo </h2>
+
+<div id="titulo">Editar</div>
+<div style="overflow: hidden;">
+    <table>
+        <tr>
+            <td align="right">id:</td>
+            <td align="left"><input id="id_relaboral" name="id_relaboral" type="hidden" /></td>
+        </tr>
+        <tr>
+            <td align="right">Tipo Resolución:</td>
+            <td align="left"><input id="tipo_resolucion" name="tipo_resolucion" type="text" /></td>
+        </tr>
+        <tr>
+            <td align="right">Numero Resolución:</td>
+            <td align="left"><input id="numero_res" name="numero_res" type="text" /></td>
+        </tr>
+        <tr>
+            <td align="right">Fecha Emisión:</td>
+            <td align="left"><div id='fecha_emi'></div></td>
+        </tr>
+        <tr>
+            <td align="right">Fecha Aprobación:</td>
+            <td align="left"><div id='fecha_apr'></div></td>
+        </tr>
+
+      </table>
+  </div>
+</div>
+
+
+
+<table>
+<tr>
+<td align="right"></td>
+<td style="padding-top: 10px;" align="right">
+<input style="margin-right: 5px;" type="button" id="btnGuardarRelaboral" value="Guardar"/>
+<input id="btnCancelarRelaboral" type="button" value="Cancel"/>
+</td>
+</tr>
+</table>
+<script type="text/javascript">
+$().ready(function () {
+$("#btnGuardarRelaboral").click(function (){
+alert("toco guardar");
+});
+$("#btnCancelarRelaboral").click(function (){
+alert("toco cancelar");
+
+});
+});
+
+</script>
+</body>
+</html>

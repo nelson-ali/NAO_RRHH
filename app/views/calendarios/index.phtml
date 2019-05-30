@@ -1,0 +1,760 @@
+<style>
+    .list-calendarios {
+        position: relative;
+        z-index: 10;
+        list-style: none;
+        margin: 0;
+        padding: 2px;
+        max-height: 300px;
+        overflow-y: scroll;
+    }
+
+    #divCalendarioSmall div {
+        margin: 0 auto;
+    }
+    .clockpicker-popover {
+        z-index: 999999;
+    }
+</style>
+<div class="block block-alt-noborder full">
+    <div class="block-title">
+        <div class="block-options pull-right">
+            <a id="btnImprimirCalendario" class="btn btn-alt btn-sm btn-default" title="Imprimir Calendario"
+               data-toggle="tooltip" href="javascript:void(0)" data-original-title="Imprimir">
+                <i class="fa fa-print"></i>
+            </a>
+        </div>
+        <h2><strong>Calendarios</strong></h2>
+    </div>
+    <div class="row">
+        <div class="col-md-3 text-center">
+            <div class="btn-group">
+                <a href="javascript:void(0)" data-toggle="dropdown" class="btn btn-success dropdown-toggle">Crear nuevo
+                    <span class="caret"></span></a>
+                <ul class="dropdown-menu dropdown-custom text-left">
+                    <li class="dropdown-header">Opciones</li>
+                    <li>
+                        <a href="javascript:void(0)" id="aCrearEventoNuevo"><i class="fa fa-star pull-right"></i>Evento</a>
+                        <a href="javascript:void(0)" id="aCrearCalendarioNuevo"><i
+                                class="fa fa-calendar pull-right"></i>Calendario</a>
+                    </li>
+                </ul>
+                <button class="btn btn-default" id="btnRefrescarCalendario"><i class="fa fa-repeat"></i> Refrescar
+                </button>
+            </div>
+            </br>
+            </br>
+            <!-- Tickets Content -->
+            <!-- Menu Block -->
+            <!-- END Menu Block -->
+            <div class="block full">
+                <!-- Menu Title -->
+                <div class="block-title clearfix">
+                    <div class="block-options pull-right">
+                        <a id="aConfiguracionListadoCalendariosOtros"
+                           data-original-title="Configuracion del listado de otros calendarios."
+                           href="javascript:void(0)"
+                           class="btn btn-alt btn-sm btn-default" data-toggle="tooltip" title="">
+                            <i class="fa fa-cog"></i></a>
+                    </div>
+                    <h2><i class="fa fa-calendar"></i> <strong>General</strong></h2>
+                </div>
+                <!-- END Menu Title -->
+
+                <!-- Menu Content -->
+                <ul id="ulCalendariosOtros" class="nav nav-pills nav-stacked list-calendarios"></ul>
+                <!-- END Menu Content -->
+            </div>
+            <div class="block full">
+                <!-- Menu Title -->
+                <div class="block-title clearfix">
+                    <div class="block-options pull-right">
+                        <a id="aConfiguracionListadoCalendariosPropios"
+                           data-original-title="Configuracion del listado de calendarios propios."
+                           href="javascript:void(0)"
+                           class="btn btn-alt btn-sm btn-default" data-toggle="tooltip"
+                           title="Configuraci&oacute;n del listado de calendarios propios.">
+                            <i class="fa fa-cog"></i></a>
+                    </div>
+                    <h2><i class="fa fa-calendar"></i> <strong>Mis Calendarios</strong></h2>
+                </div>
+                <ul id="ulCalendariosPropios" class="nav nav-pills nav-stacked list-calendarios"></ul>
+                <!-- END Menu Content -->
+            </div>
+            <div class="block full">
+                <!-- Menu Title -->
+                <div class="block-title clearfix">
+                    <!--<div class="block-options pull-right">
+                        <a id="aConfiguracionListadoCalendariosExternos"
+                           data-original-title="Configuracion del listadoo de calendarios externos."
+                           href="javascript:void(0)"
+                           class="btn btn-alt btn-sm btn-default" data-toggle="tooltip"
+                           title="Configuraci&oacute;n del listado de calendarios externos.">
+                            <i class="fa fa-cog"></i></a>
+                    </div>-->
+                    <h2><i class="fa fa-calendar"></i> <strong>Externos</strong></h2>
+                </div>
+                <ul id="ulCalendariosExternos" class="nav nav-pills nav-stacked list-calendarios"></ul>
+                <!-- END Menu Content -->
+            </div>
+            <div style="text-align: center;">
+                <div class="block full" id="divCalendarioSmall"></div>
+            </div>
+        </div>
+        <div class="col-md-9">
+            <div id="divCalendario"></div>
+        </div>
+    </div>
+</div>
+<!-- END FullCalendar Block -->
+<!-- END FullCalendar Content -->
+<div class="modal fade bs-example-modal-lg" id="popupConfiguracionCalendario" role="dialog"
+     aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <form class="form-horizontal" id="formConfiguracionCalendario" data-toggle="validator"
+                  onsubmit="return false;"/>
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span
+                        class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="h4NombreModalCalendario">Calendario</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12">
+                        <div class="panel">
+                            <div class="col-sm-12 col-lg-12" id="divDatosPropietario">
+                                <!-- Default Simple Widget -->
+                                <div class="widget">
+                                    <div class="widget-simple themed-background-default">
+                                        <a href="page_ready_user_profile.html">
+                                            <img id="imgPropietario" alt="Propietario del Calendario"
+                                                 class="widget-image img-circle pull-left">
+                                        </a>
+                                        <h4 class="widget-content widget-content-light">
+                                            <a href="javascript:void(0)">
+                                                <strong id="strongNombrePropietario">Nombre Propietario</strong>
+                                            </a>
+                                            <small id="smallDetallesPropietario"></small>
+                                        </h4>
+                                    </div>
+                                </div>
+                            </div>
+                            <input type="hidden" name="hdnIdCalendario" id="hdnIdCalendario" value="">
+                            <h6><b>NOTA: </b>Los datos precedidos de asterisco son requerido de manera obligatoria <span
+                                    style="font-size:18px;" class="text-danger"><b>*</b></span>.</h6>
+                            <div class="panel-body form-horizontal">
+                                <div class="form-group">
+                                    <div class="div-calendario" id="divCalendarioNombre">
+                                        <label class="col-md-2 control-label" for="txtCalendarioNombre">Nombre <span
+                                                class="text-danger">*</span>:</label>
+                                        <div class="col-md-3">
+                                            <div class="input-group">
+                                                <input type="text" id="txtCalendarioNombre"
+                                                       class="form-control">
+                                            </div>
+                                            <span class="help-block" id="helpErrorCalendarioNombre"></span>
+                                        </div>
+                                    </div>
+                                    <div class="div-calendario" id="divCalendarioGrupo">
+                                        <label class="col-md-2 control-label" for="txtCalendarioGrupo">Grupo:</label>
+                                        <div class="col-md-3">
+                                            <div class="input-group">
+                                                <input type="text" id="txtCalendarioGrupo" class="form-control">
+                                            </div>
+                                            <span class="help-block" id="helpErrorCalendarioGrupo"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group" id="divColoresConfiguracion">
+                                    <div class="div-calendario" id="divCalendarioColorBackground">
+                                        <label class="col-md-2 control-label" for="txtCalendarioColorBackground">Color
+                                            Fondo <span class="text-danger">*</span>:</label>
+                                        <div class="col-md-3">
+                                            <div class="input-group">
+                                                <input type="text" id="txtCalendarioColorBackground" value="#FFFFFF"
+                                                       class="form-control"
+                                                       readonly>
+                                            </div>
+                                            <span class="help-block" id="helpErrorCalendarioColorBackground"></span>
+                                        </div>
+                                    </div>
+                                    <div id="divCalendarioColorTexto">
+                                        <label class="col-md-2 control-label" for="txtCalendarioColorTexto">Color
+                                            Texto <span class="text-danger">*</span>:</label>
+                                        <div class="col-md-3">
+                                            <div class="input-group">
+                                                <input type="text" id="txtCalendarioColorTexto" value="#FFFFFF"
+                                                       class="form-control"
+                                                       readonly>
+                                            </div>
+                                            <span class="help-block" id="helpErrorCalendarioColorTexto"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group" id="divColoresVista">
+                                    <div class="div-calendario" id="divCalendarioColorBackgroundAux">
+                                        <label class="col-md-2 control-label" for="txtCalendarioColorBackgroundAux">Color
+                                            Fondo <span class="text-danger">*</span>:</label>
+                                        <div class="col-md-3">
+                                            <div class="input-group">
+                                                <input type="text" id="txtCalendarioColorBackgroundAux" value="#FFFFFF"
+                                                       class="form-control"
+                                                       readonly>
+                                            </div>
+                                            <span class="help-block" id="helpErrorCalendarioColorBackgroundAux"></span>
+                                        </div>
+                                    </div>
+                                    <div id="divCalendarioColorTextoAux">
+                                        <label class="col-md-2 control-label" for="txtCalendarioColorTextoAux">Color
+                                            Texto <span class="text-danger">*</span>:</label>
+                                        <div class="col-md-3">
+                                            <div class="input-group">
+                                                <input type="text" id="txtCalendarioColorTextoAux" value="#FFFFFF"
+                                                       class="form-control"
+                                                       readonly>
+                                            </div>
+                                            <span class="help-block" id="helpErrorCalendarioColorTextoAux"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group" id="divCalendarioDescripcion">
+                                    <label class="col-md-2 control-label" for="txtCalendarioDescripcion">Descripci&oacute;n:</label>
+                                    <div class="col-md-8" form-group>
+                                        <textarea id="txtCalendarioDescripcion" class="form-control"></textarea>
+                                        <span class="help-block" id="helpErrorCalendarioDescripcion"></span>
+                                    </div>
+                                </div>
+                                <fieldset>
+                                    <legend><i class="fa fa-angle-right"></i> Primer & &Uacute;ltimo Evento</legend>
+                                    <div class="form-group">
+                                        <div id="divCalendarioFechaHoraPrimerEvento">
+                                            <label class="col-md-2 control-label"
+                                                   for="txtCalendarioFechaHoraPrimerEvento">Primer Evento:</label>
+                                            <div class="col-md-3">
+                                                <div class="input-group">
+                                                    <input type="text" id="txtCalendarioFechaHoraPrimerEvento"
+                                                           placeholder="Fecha & Hora Primer Evento" class="form-control"
+                                                           readonly>
+                                                </div>
+                                                <span class="help-block"
+                                                      id="helpErrorCalendarioFechaHoraPrimerEvento"></span>
+                                            </div>
+                                        </div>
+                                        <div id="divCalendarioFechaHoraUltimoEvento">
+                                            <label class="col-md-2 control-label"
+                                                   for="txtCalendarioFechaHoraUltimoEvento">&Uacute;ltimo
+                                                Evento:</label>
+                                            <div class="col-md-3">
+                                                <div class="input-group">
+                                                    <input type="text" id="txtCalendarioFechaHoraUltimoEvento"
+                                                           placeholder="Fecha & Hora &Uacute;ltimo Evento"
+                                                           class="form-control"
+                                                           readonly>
+                                                </div>
+                                                <span class="help-block"
+                                                      id="helpErrorCalendarioFechaHoraUltimoEvento"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </fieldset>
+                                <fieldset>
+                                    <legend><i class="fa fa-angle-right"></i> Observaciones</legend>
+                                    <div class="form-group" id="divCalendarioObservacion">
+                                        <label class="col-md-2 control-label" for="txtCalendarioObservacion">Observaci&oacute;n:</label>
+                                        <div class="col-md-8">
+                                            <textarea id="txtCalendarioObservacion" class="form-control"></textarea>
+                                            <span class="help-block" id="helpErrorCalendarioObservacion"></span>
+                                        </div>
+                                    </div>
+                                </fieldset>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" id="btnCerrarCalendario" class="btn btn-default" data-dismiss="modal"><i
+                        class="fa fa-compress"></i> Cerrar
+                </button>
+                <button type="button" id="btnGuardarCalendario" class="btn btn-success"><i
+                        class="fa fa-floppy-o"></i> Guardar
+                </button>
+                <button type="button" id="btnEliminarCalendario" class="btn btn-danger"><i class="gi gi-bin"></i>
+                    Eliminar
+                </button>
+            </div>
+            </form>
+        </div>
+    </div>
+</div>
+<div class="modal fade bs-example-modal-lg" id="popupCompartirCalendario" role="dialog"
+     aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <form class="form-horizontal" id="formCompartirCalendario" data-toggle="validator"
+                  onsubmit="return false;"/>
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span
+                        class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="h4NombreModalCompartirCalendario">Compartir Calendario</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12">
+                        <div class="panel">
+                            <input type="hidden" name="hdnIdCalendarioCompartir" id="hdnIdCalendarioCompartir" value="">
+                            <!--<h6><b>NOTA: </b>Los datos precedidos de asterisco son requerido de manera obligatoria <span
+                                    style="font-size:18px;" class="text-danger"><b>*</b></span>.</h6>-->
+                            <div class="panel-body form-horizontal">
+
+                                <!--<legend><i class="fa fa-angle-right"></i> Compartir con</legend>-->
+                                <div class="form-group" id="divCompartirConTodos">
+                                    <label class="col-md-2 control-label" for="chkCompartirConTodos">¿Todos?
+                                        *:</label>
+                                    <div class="col-md-8" form-group>
+                                        <input type="checkbox" name="chkCompartirConTodos" id="chkCompartirConTodos"
+                                               data-on-text="SI"
+                                               data-off-text="NO" data-on-color="success" data-off-color="info">
+                                        <span class="help-block" id="helpErrorCompartirConTodos"></span>
+                                    </div>
+                                </div>
+                                <div id="divUsuariosGruposAsignados">
+                                    <div class="form-group" id="divCompartirConUsuarios">
+                                        <label class="col-md-2 control-label"
+                                               for="lstCompartirConUsuarios">Usuario (s):</label>
+                                        <div class="col-md-10" form-group>
+                                            <select id="lstCompartirConUsuarios" class="form-control"
+                                                    multiple="multiple" style="width: 80%">
+                                            </select>
+                                            <span class="help-block" id="helpErrorCompartirConUsuarios"></span>
+                                        </div>
+                                    </div>
+                                    <div class="form-group" id="divCompartirConGrupos">
+                                        <label class="col-md-2 control-label"
+                                               for="lstCompartirConGrupos">Grupo (s):</label>
+                                        <div class="col-md-10" form-group>
+                                            <select id="lstCompartirConGrupos" class="form-control"
+                                                    multiple="multiple" style="width: 80%"></select>
+                                            <span class="help-block" id="helpErrorCompartirConGrupos"></span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <fieldset>
+                                    <legend><i class="fa fa-angle-right"></i> No compartir con</legend>
+                                    <div class="form-group" id="divNoCompartirConUsuarios">
+                                        <label class="col-md-2 control-label"
+                                               for="lstNoCompartirConUsuarios">Usuario (s):</label>
+                                        <div class="col-md-10" form-group>
+                                            <select id="lstNoCompartirConUsuarios" class="form-control"
+                                                    multiple="multiple" style="width: 80%"></select>
+                                            <span class="help-block" id="helpErrorNoCompartirConUsuarios"></span>
+                                        </div>
+                                    </div>
+                                </fieldset>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" id="btnCerrarCompartirCalendario" class="btn btn-default" data-dismiss="modal"><i
+                        class="fa fa-compress"></i> Cerrar
+                </button>
+                <button type="button" id="btnGuardarCompartirCalendario" class="btn btn-success"><i
+                        class="fa fa-floppy-o"></i> Guardar
+                </button>
+                <!--<button type="button" id="btnEliminarCompartirCalendario" class="btn btn-danger"><i class="gi gi-bin"></i>
+                    No Compartir Con nadie
+                </button>-->
+            </div>
+            </form>
+        </div>
+    </div>
+</div>
+<div class="modal fade bs-example-modal-lg" id="popupConfiguracionEvento" role="dialog"
+     aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span
+                        class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="h4NombreModalEvento">Evento</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12">
+                        <div class="panel">
+                            <input type="hidden" name="hdnIdEvento" id="hdnIdEvento" value="0">
+                            <h6><b>NOTA: </b>Los datos precedidos de asterisco son requerido de manera obligatoria <span
+                                    style="font-size:18px;" class="text-danger"><b>*</b></span>.</h6>
+                            <div class="panel-body form-horizontal">
+                                <div class="form-group">
+                                    <div class="div-evento" id="divIdCalendario">
+                                        <label class="col-md-2 control-label" for="lstIdCalendario">Calendario <span
+                                                class="text-danger">*</span>:</label>
+                                        <div class="col-md-3">
+                                            <div class="input-group">
+                                                <select id="lstIdCalendario" class="form-control">
+                                                    <option value="">Seleccionar..</option>
+                                                </select>
+                                            </div>
+                                            <span class="help-block" id="helpErrorIdCalendario"></span>
+                                        </div>
+                                    </div>
+                                    <div class="div-calendario" id="divEventoNombre">
+                                        <label class="col-md-2 control-label" for="txtEventoNombre">Nombre <span
+                                                class="text-danger">*</span>:</label>
+                                        <div class="col-md-3">
+                                            <div class="input-group">
+                                                <input type="text" id="txtEventoNombre"
+                                                       class="form-control">
+                                            </div>
+                                            <span class="help-block" id="helpErrorEventoNombre"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="div-evento" id="divEventoDescripcion">
+                                        <label class="col-md-2 control-label" for="txtEventoDescripcion">Descripci&oacute;n:</label>
+                                        <div class="col-md-3">
+                                            <div class="input-group">
+                                                <textarea id="txtEventoDescripcion" class="form-control"></textarea>
+                                            </div>
+                                            <span class="help-block" id="helpErrorEventoDescripcion"></span>
+                                        </div>
+                                    </div>
+                                    <div class="div-calendario" id="divEventoUbicacion">
+                                        <label class="col-md-2 control-label"
+                                               for="txtEventoUbicacion">Ubicaci&oacute;n:</label>
+                                        <div class="col-md-3">
+                                            <div class="input-group">
+                                                <textarea id="txtEventoUbicacion" class="form-control"></textarea>
+                                            </div>
+                                            <span class="help-block" id="helpErrorEventoUbicacion"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="div-evento" id="divIdDistribucion">
+                                        <label class="col-md-2 control-label" for="lstIdDistribucion">Distribuci&oacute;n
+                                            :</label>
+                                        <div class="col-md-3">
+                                            <div class="input-group">
+                                                <select id="lstIdDistribucion" class="form-control">
+                                                    <option value="">Seleccionar..</option>
+                                                </select>
+                                            </div>
+                                            <span class="help-block" id="helpErrorIdDistribucion"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <fieldset>
+                                    <legend><i class="fa fa-angle-right"></i> Rango Fechas & Horas</legend>
+                                    <div class="row input-daterange">
+                                        <div class="div-evento" id="divEventoFechaIni">
+                                            <label class="col-md-2 control-label" for="txtEventoFechaIni">Fecha
+                                                Inicio <span
+                                                    class="text-danger">*</span>:</label>
+                                            <div class="col-md-3">
+                                                <input type="text" id="txtEventoFechaIni" name="txtEventoFechaIni"
+                                                       class="form-control input-datepicker-close"
+                                                       placeholder="dd-mm-aaaa"
+                                                       data-date-format="dd-mm-yyyy" type="text">
+                                                <span class="help-block" id="helpErrorEventoFechaIni"></span>
+                                            </div>
+                                        </div>
+                                        <div class="div-evento" id="divEventoFechaFin">
+                                            <label class="col-md-2 control-label" for="txtEventoFechaFin">Fecha
+                                                Final <span
+                                                    class="text-danger">*</span>:</label>
+                                            <div class="col-md-3">
+                                                <input type="text" id="txtEventoFechaFin" name="txtEventoFechaFin"
+                                                       class="form-control  input-datepicker-close"
+                                                       placeholder="dd-mm-aaaa"
+                                                       data-date-format="dd-mm-yyyy" type="text">
+                                                <span class="help-block" id="helpErrorEventoFechaFin"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row" id="divEventoHorarios">
+                                        <div class="div-evento" id="divEventoHoraIni">
+                                            <label class="col-md-2 control-label" for="txtEventoHoraIni">Hora
+                                                Inicio <span
+                                                    class="text-danger">*</span>:</label>
+                                            <div class="col-md-3">
+                                                <div class="input-group clockpicker">
+                                                    <input type="text" id="txtEventoHoraIni"
+                                                           class="form-control hora-ini-evento" placeholder="HH:MM">
+                        <span class="input-group-btn" id="spanEventoHoraIni">
+                        <a id="aEventoHoraIni" class="btn btn-success"><i class="fa fa-clock-o"></i></a>
+                        </span>
+                                                </div>
+                                                <span class="help-block" id="helpErrorEventoHoraIni"></span>
+                                            </div>
+                                        </div>
+                                        <div class="div-evento" id="divEventoHoraFin">
+                                            <label class="col-md-2 control-label" for="txtEventoHoraFin">Hora
+                                                Final <span
+                                                    class="text-danger">*</span>:</label>
+
+                                            <div class="col-md-3">
+                                                <div class="input-group clockpicker">
+                                                    <input type="text" id="txtEventoHoraFin"
+                                                           class="form-control hora-fin-evento" placeholder="HH:MM">
+                        <span class="input-group-btn" id="spanErrorEventoHoraFin">
+                        <a id="aEventoHoraFin" class="btn btn-success"><i class="fa fa-clock-o"></i></a>
+                        </span>
+                                                </div>
+                                                <span class="help-block" id="helpErrorEventoHoraFin"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </fieldset>
+                                <fieldset id="fsEventoDistribucion">
+                                    <legend><i class="fa fa-angle-right"></i> Distribuci&oacute;n Interpolada</legend>
+                                    <label class="col-md-2 control-label" for="divDistribucion">Marque D&iacute;as <span
+                                            class="text-danger">*</span>:</label>
+                                    <div class="btn-toolbar col-md-10" id="divEventoDistribucion">
+                                        <div class="btn-group" data-toggle="buttons">
+                                            <button id="btnLun" class="btnDistribucion btn btn-default"><i
+                                                    style="display: none;" id="iLun"
+                                                    class="iDistribucion fa fa-check"></i>Lunes
+                                            </button>
+                                            <button id="btnMar" class="btnDistribucion btn btn-default"><i
+                                                    style="display: none;" id="iMar"
+                                                    class="iDistribucion fa fa-check"></i>Martes
+                                            </button>
+                                            <button id="btnMie" class="btnDistribucion btn btn-default"><i
+                                                    style="display: none;" id="iMie"
+                                                    class="iDistribucion fa fa-check"></i>Mi&eacute;rcoles
+                                            </button>
+                                            <button id="btnJue" class="btnDistribucion btn btn-default"><i
+                                                    style="display: none;" id="iJue"
+                                                    class="iDistribucion fa fa-check"></i>Jueves
+                                            </button>
+                                            <button id="btnVie" class="btnDistribucion btn btn-default"><i
+                                                    style="display: none;" id="iVie"
+                                                    class="iDistribucion fa fa-check"></i>Viernes
+                                            </button>
+                                            <button id="btnSab" class="btnDistribucion btn btn-default"><i
+                                                    style="display: none;" id="iSab"
+                                                    class="iDistribucion fa fa-check"></i>S&aacute;bado
+                                            </button>
+                                            <button id="btnDom" class="btnDistribucion btn btn-default"><i
+                                                    style="display: none;" id="iDom"
+                                                    class="iDistribucion fa fa-check"></i>Domingo
+                                            </button>
+                                        </div>
+                                        <div class="col-md-12"><span class="help-block"
+                                                                     id="helpErrorEventoDistribucion"></span></div>
+                                    </div>
+                                </fieldset>
+                                <fieldset id="fsEventoDistribucionAux">
+                                    <legend><i class="fa fa-angle-right"></i> Distribuci&oacute;n Interpolada</legend>
+                                    <label class="col-md-2 control-label" for="divDistribucion">Marque D&iacute;as <span
+                                            class="text-danger">*</span>:</label>
+                                    <div class="btn-toolbar col-md-10" id="divEventoDistribucion">
+                                        <div class="btn-group" data-toggle="buttons">
+                                            <button id="btnLunAux" class="btnDistribucionAux btn btn-default"><i
+                                                    style="display: none;" id="iLunAux"
+                                                    class="iDistribucionAux fa fa-check"></i>Lunes
+                                            </button>
+                                            <button id="btnMarAux" class="btnDistribucionAux btn btn-default"><i
+                                                    style="display: none;" id="iMarAux"
+                                                    class="iDistribucionAux fa fa-check"></i>Martes
+                                            </button>
+                                            <button id="btnMieAux" class="btnDistribucionAux btn btn-default"><i
+                                                    style="display: none;" id="iMieAux"
+                                                    class="iDistribucionAux fa fa-check"></i>Mi&eacute;rcoles
+                                            </button>
+                                            <button id="btnJueAux" class="btnDistribucionAux btn btn-default"><i
+                                                    style="display: none;" id="iJueAux"
+                                                    class="iDistribucionAux fa fa-check"></i>Jueves
+                                            </button>
+                                            <button id="btnVieAux" class="btnDistribucionAux btn btn-default"><i
+                                                    style="display: none;" id="iVieAux"
+                                                    class="iDistribucionAux fa fa-check"></i>Viernes
+                                            </button>
+                                            <button id="btnSabAux" class="btnDistribucionAux btn btn-default"><i
+                                                    style="display: none;" id="iSabAux"
+                                                    class="iDistribucionAux fa fa-check"></i>S&aacute;bado
+                                            </button>
+                                            <button id="btnDomAux" class="btnDistribucionAux btn btn-default"><i
+                                                    style="display: none;" id="iDomAux"
+                                                    class="iDistribucionAux fa fa-check"></i>Domingo
+                                            </button>
+                                        </div>
+                                        <div class="col-md-12"><span class="help-block"
+                                                                     id="helpErrorEventoDistribucion"></span></div>
+                                    </div>
+                                </fieldset>
+                            </div>
+                            <fieldset>
+                                <legend><i class="fa fa-angle-right"></i> Observaciones</legend>
+                                <div class="div-evento form-group" id="divEventoObservacion">
+                                    <label class="col-md-2 control-label"
+                                           for="txtEventoObservacion">Observaci&oacute;n:</label>
+                                    <div class="col-md-8">
+                                        <textarea id="txtEventoObservacion" class="form-control"></textarea>
+                                        <span class="help-block" id="helpErrorEventoObservacion"></span>
+                                    </div>
+                                </div>
+                            </fieldset>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" id="btnCerrarEvento" class="btn btn-default" data-dismiss="modal"><i
+                        class="fa fa-compress"></i> Cerrar
+                </button>
+                <button type="button" id="btnGuardarEvento" class="btn btn-success"><i
+                        class="fa fa-floppy-o"></i> Guardar
+                </button>
+                <button type="button" id="btnEliminarEvento" class="btn btn-danger"><i class="gi gi-bin"></i>
+                    Eliminar
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade bs-example-modal-lg" id="popupConfiguracionListadoCalendarios" role="dialog"
+     aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <form class="form-horizontal" id="formConfiguracionListadoCalendarios" data-toggle="validator"
+                  onsubmit="return false;"/>
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span
+                        class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="h4NombreModalListadoCalendario">Calendario</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12">
+                        <div class="panel">
+                            <input type="hidden" name="hdnIdCalendario" id="hdnIdCalendario" value="">
+                            <!--<h6><b>NOTA: </b>Los datos precedidos de asterisco son requerido de manera obligatoria <span
+                                    style="font-size:18px;" class="text-danger"><b>*</b></span>.</h6>-->
+                            <div class="panel-body form-horizontal">
+                                <div class="panel panel-flat">
+                                    <div class="panel-heading">
+                                        <div class="panel-body">
+                                            <select id="lstIdCalendariosPropiosOtros" style="display: none;"
+                                                    multiple="multiple"
+                                                    class="form-control listbox-talll">
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" id="btnCerrarListadoCalendario" class="btn btn-default" data-dismiss="modal">
+                    <i
+                        class="fa fa-compress"></i> Cerrar
+                </button>
+                <button type="button" id="btnGuardarListadoCalendario" class="btn btn-success"><i
+                        class="fa fa-floppy-o"></i> Guardar
+                </button>
+            </div>
+            </form>
+        </div>
+    </div>
+</div>
+<div style="display: none;" class="modal fade bs-example-modal-md" id="popupInformacionPersona" tabindex="-1"
+     role="dialog"
+     aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-md">
+        <div class="modal-content">
+            <form class="form-horizontal" id="formInformacionPersona" data-toggle="validator"
+                  onsubmit="return false;"/>
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span
+                        class="sr-only">Cerrar</span></button>
+                <h4 class="modal-title"><i class="gi gi-birthday_cake text-danger"></i> Datos Cumplea&ntilde;er@</h4>
+            </div>
+            <div class="modal-body" id="divCuerpoTarjeta">
+                <div class="row">
+                    <div class="col-md-9">
+                        <div class="col-md-12 div-informacion-persona" id="divNombres">
+                            <label class="col-md-4 control-label" for="lblNombres">Nombres:</label>
+                            <div class="col-md-8" form-group>
+                                <p class="form-control-static" id="pNombres"></p>
+                            </div>
+                        </div>
+                        <div class="col-md-12 div-informacion-persona" id="divGestionGeneracionMarcaciones">
+                            <label class="col-md-4 control-label" for="lblCI">C. I.:</label>
+                            <div class="col-md-8" form-group>
+                                <p class="form-control-static" id="pCI"></p>
+                            </div>
+                        </div>
+                        <div class="col-md-12 div-informacion-persona" id="divCargo">
+                            <label class="col-md-4 control-label" for="lblCargo">Cargo:</label>
+                            <div class="col-md-8" form-group>
+                                <p class="form-control-static" id="pCargo"></p>
+                            </div>
+                        </div>
+                        <div class="col-md-12 div-informacion-persona" id="divGerenciaAdministrativa">
+                            <label class="col-md-4 control-label" for="lblGerenciaAdministrativa">Gerencia:</label>
+                            <div class="col-md-8" form-group>
+                                <p class="form-control-static" id="pGerenciaAdministrativa"></p>
+                            </div>
+                        </div>
+                        <div class="col-md-12 div-informacion-persona" id="divDepartamentoAdministrativo">
+                            <label class="col-md-4 control-label"
+                                   for="lblDepartamentoAdministrativo">Departamento:</label>
+                            <div class="col-md-8" form-group>
+                                <p class="form-control-static" id="pDepartamentoAdministrativo"></p>
+                            </div>
+                        </div>
+                        <div class="col-md-12 div-informacion-persona" id="divFechaCumple">
+                            <label class="col-md-4 control-label"
+                                   for="lblFechaCumple">Fecha:</label>
+                            <div class="col-md-8" form-group>
+                                <p class="form-control-static" id="pFechaCumple"></p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <a href="#" id="aFotoPerfil"><img style="width: 130px;height: 150px" id="imgFotoPerfil"
+                                                          class="img-rounded pull-right img-perfil"></a>
+                    </div>
+                    <!--<div class="col-md-3">&nbsp;</div>-->
+                    <div class="col-md-12">
+                        <h6 style="text-align: justify">Recordar a todos los cumplea&ntilde;eros la obligatoriedad de la actualizaci&oacute;n de su Declaraci&oacute;n Jurada, en el marco de lo dispuesto en Reglamento de Control y Seguimiento de la
+                            Declaraci&oacute;n Jurada de Bienes y Rentas aprobado mediante Resoluci&oacute;n Administrativa Nº 011/2015 de fecha 6 de febrero de 2015.</h6>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" id="btnCerrarInformacionPersona" class="btn btn-danger"
+                        data-dismiss="modal"><i class="fa fa-times-circle"></i></i> Cerrar
+                </button>
+            </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- END Contenido referente al calendario laboral y gestión de horarios -->
+</body>
+<div id="divMsjeNotificacionError">
+    <div id="divMsjePorError">
+    </div>
+</div>
+<div id="divMsjeNotificacionWarning">
+    <div id="divMsjePorWarning">
+    </div>
+</div>
+<div id="divMsjeNotificacionSuccess">
+    <div id="divMsjePorSuccess">
+    </div>
+</div>

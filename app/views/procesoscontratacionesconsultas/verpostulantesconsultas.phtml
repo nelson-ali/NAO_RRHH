@@ -1,0 +1,101 @@
+<script type="text/javascript">
+
+  $(document).ready(function () {
+  	$("#accion li a").click(function(){
+  		var calificacion_id=$(this).attr('idcalificacion');
+  		var postulante=$(this).attr('idpostulante');
+      
+      //alert(calificacion_id);
+  		var v=$.ajax({
+          url:'/procesoscontratacionesconsultas/formulariopostulanteconsultas/',
+          type:'POST',
+          datatype: 'text',
+          data:{id:calificacion_id,postulante_id:postulante},
+        success: function(data) { 
+        	$("#cargar_pagina").html(data);
+        }, //mostramos el error
+        error: function() { alert('Se ha producido un error Inesperado'); }
+      	});
+  	});
+
+  	// $("#printdiv").click(function(){
+  	// 	alert("hola");
+  	// 	var divName="cargar_pagina";
+  	// 	var printContents = document.getElementById(divName).innerHTML;
+  	// 	var originalContents = document.body.innerHTML;
+  	// 	document.body.innerHTML = printContents;
+  	// 	window.print();
+  	// 	document.body.innerHTML = originalContents;
+  	// });
+  	
+
+  	// function printDiv (divName) {
+  	// 	alert("hola");
+  		
+  	// 	var printContents = document.getElementById(divName).innerHTML;
+  	// 	var originalContents = document.body.innerHTML;
+  	// 	document.body.innerHTML = printContents;
+  	// 	window.print();
+  	// 	document.body.innerHTML = originalContents;
+  	// }
+  	
+  	
+$("#imprimir").click(function(){
+   //alert("hoal");
+   //var html="<html>";
+   var html= document.getElementById('cargar_pagina').innerHTML;
+
+   //html+="</html>";
+
+    var printWin = window.open('','','left=0,top=0,width=1000,height=900,toolbar=0,scrollbars=0,status=0');
+
+   printWin.document.write(html);
+   printWin.document.close();
+   printWin.focus();
+   printWin.print();
+   printWin.close();
+});
+  	
+
+
+   });
+</script>
+ <a href="/procesoscontratacionesconsultas/"> << Volver Atras</a>
+<div id="page-wrapper">
+	<div class="row">
+		<div class="col-lg-3">
+
+			<div class="block full" style="overflow-y: scroll; height:400px;">
+				<div class="block-title">
+					<h2>
+						<strong>Postulantes Calificados</strong>
+					</h2>
+				</div>
+				<ol id="accion">
+				<?php foreach ($calificados as $v) { ?>
+				<li><a href="#" idcalificacion=<?php echo $v->pcalificacion_id ?> idpostulante=<?php echo $v->id ?> ><?php echo $v->ci. " - ".$v->app. " ".$v->apm. " ".$v->nombre; ?></a></li>
+				<?php } ?>
+				</ol>
+			</div>
+
+      <div class="block full" style="overflow-y: scroll; height:400px;">
+        <div class="block-title">
+          <h2>
+            <strong>Postulantes que No Califican</strong>
+          </h2>
+        </div>
+        <ol id="accion">
+        <?php foreach ($nocalificados as $v) { ?>
+        <li><a href="#" idcalificacion=<?php echo $v->pcalificacion_id ?> idpostulante=<?php echo $v->id ?> ><?php echo $v->ci. " - ".$v->app. " ".$v->apm. " ".$v->nombre; ?></a></li>
+        <?php } ?>
+        </ol>
+      </div>
+		</div>
+		<div class="col-lg-9">
+		<input type="button" value="Imprimir" id="imprimir"></input>
+
+		
+			<div id="cargar_pagina"></div>
+		</div>
+	</div>
+</div>

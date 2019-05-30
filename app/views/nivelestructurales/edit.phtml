@@ -1,0 +1,17 @@
+<h1>Editar Nivel Estructural</h1>
+<form method="post" action="">
+	<input type="hidden" name="id" value="<?php echo $nivelestructura->id ?>">
+	<div>
+		<label>Orden</label>
+		<input type="text" name="orden" value="<?php echo $nivelestructura->orden; ?>">	
+	</div>
+	<div>
+		<label>Nivel Estructural:</label>
+		<input type="text" name="nivelestructura" value="<?php echo $nivelestructura->nivelestructura; ?>">	
+	</div>
+	
+	<div>
+		<button>Guardar</button>
+		<a href="../">Cancelar</a>
+	</div>
+</form>

@@ -1,0 +1,20 @@
+<h1>Editar Fuente de Financiamiento</h1>
+<form method="post" action="">
+	<input type="hidden" name="id" value="<?php echo $fuente->id ?>">
+	<div>
+		<label>Codigo:</label>
+		<input type="text" name="codigo" value="<?php echo $fuente->codigo; ?>">	
+	</div>
+	<div>
+		<label>Fuente de Financiamiento:</label>
+		<input type="text" name="fuente" value="<?php echo $fuente->fuente; ?>">	
+	</div>
+	<div>
+		<label>Descripción</label>
+		<input type="text" name="descripcion" value="<?php echo $fuente->descripcion; ?>">	
+	</div>
+	<div>
+		<button>Guardar</button>
+		<a href="../">Cancelar</a>
+	</div>
+</form>

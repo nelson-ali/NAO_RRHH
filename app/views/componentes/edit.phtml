@@ -1,0 +1,20 @@
+<h1>Editar Componente</h1>
+<form method="post" action="">
+	<input type="hidden" name="id" value="<?php echo $componente->id ?>">
+	<div>
+		<label>Normativa:</label>
+		<?php echo $normativa ?>
+	</div>
+	<div>
+		<label>Componente:</label>
+		<input type="text" name="componente" value="<?php echo $componente->componente; ?>">	
+	</div>
+	<div>
+		<label>Descripción</label>
+		<input type="text" name="descripcion" value="<?php echo $componente->descripcion; ?>">	
+	</div>
+	<div>
+		<button>Guardar</button>
+		<a href="../">Cancelar</a>
+	</div>
+</form>

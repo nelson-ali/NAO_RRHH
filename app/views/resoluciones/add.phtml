@@ -1,0 +1,33 @@
+<h1>Adicionar Resolución</h1>
+<form method="post" action="">
+	<div>
+		<label>Tipo Resolución:</label>
+		<input type="text" name="tipo_resolucion" value="">	
+	</div>
+	<div>
+		<label>Número Resolución</label>
+		<input type="text" name="numero_res" value="">	
+	</div>
+	<div>
+		<label>Fecha Emisión</label>
+		<input type="text" name="fecha_emi" id="fecha_emi" value="<?php echo date("Y-m-d") ?>">	
+	</div>
+	<div>
+		<label>Fecha Aprobación</label>
+		<input type="text" name="fecha_apr" id="fecha_apr" value="<?php echo date("Y-m-d") ?>">	
+	</div>
+	<div>
+		<button>Guardar</button>
+		<a href="../">Cancelar</a>
+	</div>
+</form>
+
+<script type="text/javascript">
+            // When the document is ready
+            $(document).ready(function () {
+            	$('#fecha_emi, #fecha_apr').datepicker({
+            		format: "yyyy-mm-dd"
+            	});  
+
+            });
+</script>

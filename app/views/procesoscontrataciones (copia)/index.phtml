@@ -1,0 +1,491 @@
+<script type="text/javascript">
+/*$(document).ready(function () {
+		var source =
+		{
+			datatype: "json",
+			datafields: [
+				{ name: 'id',type: 'number'},
+				{ name: 'denominacion',type: 'string'},
+				{ name: 'codigo_convocatoria',type: 'string'},
+				{ name: 'normativamod_id',type: 'number'},
+				{ name: 'fecha_publ'},
+				{ name: 'fecha_recep'},
+				{ name: 'fecha_concl'}
+			],
+			url: '/procesoscontrataciones/list',
+			cache: false
+		};
+		var dataAdapter = new $.jqx.dataAdapter(source);
+		cargar();	
+		function cargar(){
+			$("#jqxgrid").jqxGrid(
+		{
+		width: '100%',
+		source: dataAdapter,
+		sortable: true,
+		altRows: true,
+		pageable: true,
+		pagerMode: 'advanced',
+		showfilterrow: true,
+		filterable: true,
+		columns: [
+			{ text: 'Nro', datafield: 'id',filtertype: 'number', width: '5%'},
+			{ text: 'Denominaión', datafield: 'denominacion', filtertype: 'input',width: '25%' },
+			{ text: 'Codigo Convocatoria', datafield: 'codigo_convocatoria',filtertype: 'input', width: '15%' },
+			{ text: 'Fecha Publicación', datafield: 'fecha_publ', filtertype: 'range',width: '15%' },
+			{ text: 'Fecha Recepeción', datafield: 'fecha_recep',filtertype: 'range', width: '15%' },
+			{ text: 'Fecha Conclusión', datafield: 'fecha_concl',filtertype: 'range', width: '15%' },
+			{ text: 'Editar', datafield: 'Editar', width: '5%',sortable:false, columntype: 'button', cellsrenderer: function () {
+                     return "Editar";
+                  }, buttonclick: function (row) {
+                     // open the popup window when the user clicks a button.
+                     editrow = row;
+                     var offset = $("#jqxgrid").offset();
+                     $("#popupWindow").jqxWindow({ position: { x: parseInt(offset.left) + 60, y: parseInt(offset.top) + 60 } });
+
+                     // get the clicked row's data and initialize the input fields.
+                     var dataRecord = $("#jqxgrid").jqxGrid('getrowdata', editrow);
+                     $("#titulo").text("Editar");
+                     $("#id").val(dataRecord.id);
+                     $("#normativamod_id").val(dataRecord.normativamod_id);
+                     $("#codigo_convocatoria2").val(dataRecord.codigo_convocatoria);
+                     
+                    var fecha=dataRecord.fecha_publ;
+					fecha=fecha.replace("-", "/").replace("-", "/");	  
+  					fecha= new Date(fecha);
+  					fecha.setDate(fecha.getDate());
+					$("#fecha_publ").jqxDateTimeInput('setDate', fecha);
+
+					var fecha=dataRecord.fecha_recep;
+					fecha=fecha.replace("-", "/").replace("-", "/");	  
+  					fecha= new Date(fecha);
+  					fecha.setDate(fecha.getDate());
+					$("#fecha_recep").jqxDateTimeInput('setDate', fecha);
+
+					var fecha=dataRecord.fecha_concl;
+					fecha=fecha.replace("-", "/").replace("-", "/");	  
+  					fecha= new Date(fecha);
+  					fecha.setDate(fecha.getDate());
+					$("#fecha_concl").jqxDateTimeInput('setDate', fecha);
+
+                     // show the popup window.
+                     $("#popupWindow").jqxWindow('open');
+                 }
+            },
+            { text: 'Eliminar', datafield: 'Eliminar',width:'5%', sortable:false, columntype: 'button', cellsrenderer: function () {
+                     return "Eliminar";
+                  }, buttonclick: function (row) {
+                     editrow = row;
+                     var offset = $("#jqxgrid").offset();
+                     $("#popupWindow_delete").jqxWindow({ position: { x: parseInt(offset.left) + 60, y: parseInt(offset.top) + 60 } });
+
+                     var dataRecord = $("#jqxgrid").jqxGrid('getrowdata', editrow);
+                     $("#id").val(dataRecord.id);
+                     $("#popupWindow_delete").jqxWindow('open');
+                 }
+            }
+		]
+		});
+
+		}
+		// initialize the popup window and buttons.
+            $("#popupWindow").jqxWindow({
+                width: 850,height:500, resizable: false,  isModal: true, autoOpen: false, cancelButton: $("#Cancel"), modalOpacity: 0.01           
+            });
+            $("#popupWindow_delete").jqxWindow({
+                width: 850, resizable: false,  isModal: true, autoOpen: false, cancelButton: $("#Cancel"), modalOpacity: 0.01           
+            });
+            // update the edited row when the user clicks the 'Save' button.
+/*            $("#add").click(function(){
+            	$("#titulo").text("Adicionar");
+            	$("#id").val("");
+            	$("#normativamod_id").val("");
+            	
+            	$("#fecha_publ").jqxDateTimeInput({width: '250px', height: '25px',formatString:'yyyy-MM-dd'});
+            	fecha= new Date();
+  				fecha.setDate(fecha.getDate());
+				$("#fecha_recep").jqxDateTimeInput('setDate', fecha);
+				fecha= new Date();
+  				fecha.setDate(fecha.getDate());
+				$("#fecha_concl").jqxDateTimeInput('setDate', fecha);
+
+				$("#popupWindow").jqxWindow('open');
+            });
+	
+            $("#Save").click(function () {
+            	var fecha_publ = $('#fecha_publ').jqxDateTimeInput('getDate');
+            	var fecha_recep = $('#fecha_recep').jqxDateTimeInput('getDate');
+            	var fecha_concl = $('#fecha_concl').jqxDateTimeInput('getDate');
+            	var v=$.ajax({
+                    	url:'/procesoscontrataciones/save/',
+                    	type:'POST',
+                    	datatype: 'json',
+						data:{id:$("#id").val(),normativamod_id:$("#normativamod_id").val(),codigo_convocatoria:$("#codigo_convocatoria2").val(),fecha_publ:fecha_publ,fecha_recep:fecha_recep,fecha_concl:fecha_concl},
+						success: function(data) { cargar(); //alert(data); 
+												}, //mostramos el error
+						error: function() { alert('Se ha producido un error Inesperado'); }
+					});
+                    $("#popupWindow").jqxWindow('hide');
+               // }
+            });
+			
+/*
+	
+			$("#add").click(function(){
+    			location.href="/procesoscontrataciones/add/";
+            });
+	
+
+            $("#Eliminar").click(function () {
+            	if (editrow >= 0) {
+                    var v=$.ajax({
+                    	url:'/procesoscontrataciones/delete/',
+                    	type:'POST',
+                    	datatype: 'json',
+						data:{id:$("#id").val()},
+						success: function(data) { cargar(); //alert('Guardado Correctamente'); 
+												}, //mostramos el error
+						error: function() { alert('Se ha producido un error Inesperado'); }
+					});
+					//$('#jqxgrid').jqxGrid();
+                    $("#popupWindow_delete").jqxWindow('hide');
+                }
+            });
+
+            $("#normativamod_id, #codigo_convocatoria").change(function(){ 
+        		var element = $("#normativamod_id").find('option:selected'); 
+		        var modalidad = element.attr("modalidad"); 
+		        var codigo_convocatoria = $("#codigo_convocatoria").val();
+		        var fecha = new Date();
+				var anio = fecha.getFullYear();
+		        $("#codigo_convocatoria2").val(modalidad+"-"+codigo_convocatoria+"/"+anio);
+        		//$('#setMyTag').val(myTag); 
+    		}); 
+
+            $("#fecha_publ").jqxDateTimeInput({width: '250px', height: '25px',formatString:'yyyy-MM-dd'});
+            $("#fecha_recep").jqxDateTimeInput({width: '250px', height: '25px',formatString:'yyyy-MM-dd'});
+            $("#fecha_concl").jqxDateTimeInput({width: '250px', height: '25px',formatString:'yyyy-MM-dd'});
+	});*/
+
+$(document).ready(function () {
+            // prepare the data
+        var source =
+		{
+			datatype: "json",
+			datafields: [
+				{ name: 'id',type: 'number'},
+				{ name: 'denominacion',type: 'string'},
+				{ name: 'codigo_convocatoria',type: 'string'},
+				{ name: 'normativamod_id',type: 'number'},
+				{ name: 'fecha_publ'},
+				{ name: 'fecha_recep'},
+				{ name: 'fecha_concl'}
+			],
+			url: '/procesoscontrataciones/list',
+			cache: false
+		};
+		var dataAdapter = new $.jqx.dataAdapter(source);
+		$("#jqxgrid").jqxGrid({
+		width: '100%',
+		source: dataAdapter,
+		sortable: true,
+		altRows: true,
+		pageable: true,
+		pagerMode: 'advanced',
+		showfilterrow: true,
+		filterable: true,
+		columns: [
+			{ text: 'Nro', datafield: 'id',filtertype: 'number', width: '5%'},
+			{ text: 'Denominaión', datafield: 'denominacion', filtertype: 'input',width: '25%' },
+			{ text: 'Codigo Convocatoria', datafield: 'codigo_convocatoria',filtertype: 'input', width: '15%' },
+			{ text: 'Fecha Publicación', datafield: 'fecha_publ', filtertype: 'range',width: '15%' },
+			{ text: 'Fecha Recepeción', datafield: 'fecha_recep',filtertype: 'range', width: '15%' },
+			{ text: 'Fecha Conclusión', datafield: 'fecha_concl',filtertype: 'range', width: '15%' },
+			{ text: 'Editar', datafield: 'Editar', width: '5%',sortable:false, columntype: 'button', cellsrenderer: function () {
+                     return "Editar";
+                  }, buttonclick: function (row) {
+                     // open the popup window when the user clicks a button.
+                     editrow = row;
+                     var offset = $("#jqxgrid").offset();
+                     $("#popupWindow").jqxWindow({ position: { x: parseInt(offset.left) + 60, y: parseInt(offset.top) + 60 } });
+
+                     // get the clicked row's data and initialize the input fields.
+                     var dataRecord = $("#jqxgrid").jqxGrid('getrowdata', editrow);
+                     $("#titulo").text("Editar");
+                     $("#id").val(dataRecord.id);
+                     $("#normativamod_id").val(dataRecord.normativamod_id);
+                     $("#codigo_convocatoria2").val(dataRecord.codigo_convocatoria);
+                     
+                    var fecha=dataRecord.fecha_publ;
+					fecha=fecha.replace("-", "/").replace("-", "/");	  
+  					fecha= new Date(fecha);
+  					fecha.setDate(fecha.getDate());
+					$("#fecha_publ").jqxDateTimeInput('setDate', fecha);
+
+					var fecha=dataRecord.fecha_recep;
+					fecha=fecha.replace("-", "/").replace("-", "/");	  
+  					fecha= new Date(fecha);
+  					fecha.setDate(fecha.getDate());
+					$("#fecha_recep").jqxDateTimeInput('setDate', fecha);
+
+					var fecha=dataRecord.fecha_concl;
+					fecha=fecha.replace("-", "/").replace("-", "/");	  
+  					fecha= new Date(fecha);
+  					fecha.setDate(fecha.getDate());
+					$("#fecha_concl").jqxDateTimeInput('setDate', fecha);
+
+                     // show the popup window.
+                     $("#popupWindow").jqxWindow('open');
+                 }
+            },
+            { text: 'Eliminar', datafield: 'Eliminar',width:'5%', sortable:false, columntype: 'button', cellsrenderer: function () {
+                     return "Eliminar";
+                  }, buttonclick: function (row) {
+                     editrow = row;
+                     var offset = $("#jqxgrid").offset();
+                     $("#popupWindow_delete").jqxWindow({ position: { x: parseInt(offset.left) + 60, y: parseInt(offset.top) + 60 } });
+
+                     var dataRecord = $("#jqxgrid").jqxGrid('getrowdata', editrow);
+                     $("#id").val(dataRecord.id);
+                     $("#popupWindow_delete").jqxWindow('open');
+                 }
+            }
+		]
+		});
+		dataFields = [
+                        { name: 'id' },
+                        { name: 'proceso_contratacion_id' },
+                        { name: 'codigo_cargo' },
+                        { name: 'cargo'},
+                        { name: 'sueldo'}
+                    ];
+		var source =
+		{
+			datatype: "json",
+			datafields: dataFields,
+			url: '/procesoscontrataciones/listseguimiento',
+			cache: false
+		};
+		var dataAdapter = new $.jqx.dataAdapter(source);
+        dataAdapter.dataBind();
+            $("#jqxgrid").on('rowselect', function (event) {
+                var customerID = event.args.row.id;
+                //alert(customerID);
+                var records = new Array();
+                var length = dataAdapter.records.length;
+                for (var i = 0; i < length; i++) {
+                    var record = dataAdapter.records[i];
+                    if (record.proceso_contratacion_id == customerID) {
+                        records[records.length] = record;
+                    }
+                }
+                var dataSource = {
+                    datafields: dataFields,
+                    localdata: records
+                }
+                var adapter = new $.jqx.dataAdapter(dataSource);
+        
+                // update data source.
+                $("#ordersGrid").jqxGrid({ source: adapter });
+            });
+            $("#ordersGrid").jqxGrid(
+            {
+                width: 850,
+                height: 250,
+                keyboardnavigation: false,
+                columns: [
+                    { text: 'Nro', datafield: 'id', width: 100 },
+                    { text: 'Proceso Contratacion', datafield: 'proceso_contratacion_id', width: 100 },
+                    { text: 'Codigo Cargo', datafield: 'codigo_cargo', cellsformat: 'd', width: 150 },
+                    { text: 'Cargo', datafield: 'cargo', cellsformat: 'd', width: 150 },
+                    { text: 'Sueldo', datafield: 'sueldo' }
+                ]
+            });
+            
+
+/********************Funciones de la primera grilla************************/
+// initialize the popup window and buttons.
+            $("#popupWindow").jqxWindow({
+                width: 850,height:500, resizable: false,  isModal: true, autoOpen: false, cancelButton: $("#Cancel"), modalOpacity: 0.01           
+            });
+            $("#popupWindow_delete").jqxWindow({
+                width: 850, resizable: false,  isModal: true, autoOpen: false, cancelButton: $("#Cancel"), modalOpacity: 0.01           
+            });
+            // update the edited row when the user clicks the 'Save' button.
+/*            $("#add").click(function(){
+            	$("#titulo").text("Adicionar");
+            	$("#id").val("");
+            	$("#normativamod_id").val("");
+            	
+            	$("#fecha_publ").jqxDateTimeInput({width: '250px', height: '25px',formatString:'yyyy-MM-dd'});
+            	fecha= new Date();
+  				fecha.setDate(fecha.getDate());
+				$("#fecha_recep").jqxDateTimeInput('setDate', fecha);
+				fecha= new Date();
+  				fecha.setDate(fecha.getDate());
+				$("#fecha_concl").jqxDateTimeInput('setDate', fecha);
+
+				$("#popupWindow").jqxWindow('open');
+            });
+*/	
+            $("#Save").click(function () {
+            	var fecha_publ = $('#fecha_publ').jqxDateTimeInput('getDate');
+            	var fecha_recep = $('#fecha_recep').jqxDateTimeInput('getDate');
+            	var fecha_concl = $('#fecha_concl').jqxDateTimeInput('getDate');
+            	var v=$.ajax({
+                    	url:'../../procesoscontrataciones/save/',
+                    	type:'POST',
+                    	datatype: 'json',
+						data:{id:$("#id").val(),normativamod_id:$("#normativamod_id").val(),codigo_convocatoria:$("#codigo_convocatoria2").val(),fecha_publ:fecha_publ,fecha_recep:fecha_recep,fecha_concl:fecha_concl},
+						success: function(data) { cargar(); //alert(data); 
+												}, //mostramos el error
+						error: function() { alert('Se ha producido un error Inesperado'); }
+					});
+                    $("#popupWindow").jqxWindow('hide');
+               // }
+            });
+			
+
+	
+			$("#add").click(function(){
+    			location.href="/procesoscontrataciones/add/";
+            });
+	
+
+            $("#Eliminar").click(function () {
+            	if (editrow >= 0) {
+                    var v=$.ajax({
+                    	url:'/procesoscontrataciones/delete/',
+                    	type:'POST',
+                    	datatype: 'json',
+						data:{id:$("#id").val()},
+						success: function(data) { cargar(); //alert('Guardado Correctamente'); 
+												}, //mostramos el error
+						error: function() { alert('Se ha producido un error Inesperado'); }
+					});
+					//$('#jqxgrid').jqxGrid();
+                    $("#popupWindow_delete").jqxWindow('hide');
+                }
+            });
+
+            $("#normativamod_id, #codigo_convocatoria").change(function(){ 
+        		var element = $("#normativamod_id").find('option:selected'); 
+		        var modalidad = element.attr("modalidad"); 
+		        var codigo_convocatoria = $("#codigo_convocatoria").val();
+		        var fecha = new Date();
+				var anio = fecha.getFullYear();
+		        $("#codigo_convocatoria2").val(modalidad+"-"+codigo_convocatoria+"/"+anio);
+        		//$('#setMyTag').val(myTag); 
+    		}); 
+
+            $("#fecha_publ").jqxDateTimeInput({width: '250px', height: '25px',formatString:'yyyy-MM-dd'});
+            $("#fecha_recep").jqxDateTimeInput({width: '250px', height: '25px',formatString:'yyyy-MM-dd'});
+            $("#fecha_concl").jqxDateTimeInput({width: '250px', height: '25px',formatString:'yyyy-MM-dd'});
+/************************************************/
+
+        });
+</script>
+
+<div class="row">
+	<div class="col-lg-12">
+		<div class="panel panel-default">
+			
+				<?php echo $this->flashSession->output() ?>
+				<div class="col-lg-12">
+						<h3>Procesos de Contratación</h3>		
+				</div>
+				<div style="margin-left: 5px;">
+					<div>
+						<input id="add" type="button" value=" (+) Adicionar" />
+					</div>
+				</div>
+				<br>
+				<div class="table-responsive">
+        			<div id="jqxgrid"></div>
+        			
+				</div>
+				<div class="col-lg-12">
+					<h3>Seguimiento Cargos</h3>		
+				</div>
+				<div class="table-responsive col-lg-12">
+        			<div id="ordersGrid"></div>
+				</div>
+
+				<div style="margin-top: 30px;">
+            		<div id="cellbegineditevent"></div>
+            		<div style="margin-top: 10px;" id="cellendeditevent"></div>
+       			</div>
+				<div id="popupWindow">
+					<div id="titulo">Editar</div>
+					<div style="overflow: hidden;">
+						<table>
+							<tr>
+								<td align="right">id:</td>
+								<td align="left"><input id="id" name="id" type="hidden" /></td>
+							</tr>
+							<tr>
+								<td align="right">Normativa:</td>
+								<td align="left">
+									<select name="normativamod_id" id="normativamod_id">
+										<option value="">(Seleccionar)</option>
+										<?php foreach ($normativamod as $v) { ?>
+										<option value="<?php echo $v->id ?>" modalidad="<?php echo $v->modalidad ?>"><?php echo $v->denominacion ?></option>
+										<?php } ?>
+									</select>
+								</td>
+							</tr>
+							<tr>
+								<td align="right">Codigo:</td>
+								<td align="left">
+									<input type="number" name="codigo_convocatoria" id="codigo_convocatoria" >
+									<input type="text" name="codigo_convocatoria2" id="codigo_convocatoria2" readonly="readonly">
+									
+								</td>
+							</tr>
+							<tr>
+								<td align="right">Fecha Publicación:</td>
+								<td align="left"><div id='fecha_publ'></div></td>
+							</tr>
+							<tr>
+								<td align="right">Fecha Recepción:</td>
+								<td align="left"><div id='fecha_recep'></div></td>
+							</tr>
+							<tr>
+								<td align="right">Fecha Conclusión:</td>
+								<td align="left"><div id='fecha_concl'></div></td>
+							</tr>
+							<tr>
+								<td align="right"></td>
+								<td style="padding-top: 10px;" align="right">
+								<input style="margin-right: 5px;" type="button" id="Save" value="Save" />
+								<input id="Cancel" type="button" value="Cancel" />
+								</td>
+							</tr>
+						</table>
+					</div>
+				</div>
+
+				<div id="popupWindow_delete">
+					<div>Eliminar</div>
+					<div style="overflow: hidden;">
+						<table>
+							<tr>
+								<td align="left">Esta seguro de Eliminar el registro</td>
+							</tr>
+							<tr>
+								<td align="right"></td>
+								<td style="padding-top: 10px;" align="right">
+								<input style="margin-right: 5px;" type="button" id="Eliminar" value="Eliminar" />
+								<input id="Cancel" type="button" value="Cancel" />
+								</td>
+							</tr>
+						</table>
+					</div>
+				</div>
+
+
+		</div>
+		
+	</div>
+</div>
+        			

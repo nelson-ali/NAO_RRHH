@@ -1,0 +1,48 @@
+<?php use Phalcon\Tag; ?>
+
+<?php echo $this->getContent(); ?>
+
+<table width="100%">
+    <tr>
+        <td align="left">
+            <?php echo $this->tag->linkTo(array("etapa/index", "Go Back")); ?>
+        </td>
+        <td align="right">
+            <?php echo $this->tag->linkTo(array("etapa/new", "Create ")); ?>
+        </td>
+    <tr>
+</table>
+
+<table class="browse" align="center">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Etapa</th>
+         </tr>
+    </thead>
+    <tbody>
+    <?php foreach ($page->items as $etapa) { ?>
+        <tr>
+            <td><?php echo $etapa->id ?></td>
+            <td><?php echo $etapa->etapa ?></td>
+            <td><?php echo $this->tag->linkTo(array("etapa/edit/" . $etapa->id, "Edit")); ?></td>
+            <td><?php echo $this->tag->linkTo(array("etapa/delete/" . $etapa->id, "Delete")); ?></td>
+        </tr>
+    <?php } ?>
+    </tbody>
+    <tbody>
+        <tr>
+            <td colspan="2" align="right">
+                <table align="center">
+                    <tr>
+                        <td><?php echo $this->tag->linkTo("etapa/search", "First") ?></td>
+                        <td><?php echo $this->tag->linkTo("etapa/search?page=" . $page->before, "Previous") ?></td>
+                        <td><?php echo $this->tag->linkTo("etapa/search?page=" . $page->next, "Next") ?></td>
+                        <td><?php echo $this->tag->linkTo("etapa/search?page=" . $page->last, "Last") ?></td>
+                        <td><?php echo $page->current, "/", $page->total_pages ?></td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    <tbody>
+</table>

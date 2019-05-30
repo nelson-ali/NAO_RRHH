@@ -1,0 +1,20 @@
+<h1>Editar Partida</h1>
+<form method="post" action="">
+	<input type="hidden" name="id" value="<?php echo $partida->id ?>">
+	<div>
+		<label>Codigo:</label>
+		<input type="text" name="codigo" value="<?php echo $partida->codigo; ?>">	
+	</div>
+	<div>
+		<label>Proceso:</label>
+		<input type="text" name="partida" value="<?php echo $partida->partida; ?>">	
+	</div>
+	<div>
+		<label>Descripción</label>
+		<input type="text" name="descripcion" value="<?php echo $partida->descripcion; ?>">	
+	</div>
+	<div>
+		<button>Guardar</button>
+		<a href="../">Cancelar</a>
+	</div>
+</form>

@@ -1,0 +1,5 @@
+Sistema de RRRHH
+Versión 3.0.11
+1. Se añade un combo de ocultamiento de columnas en relaborales y en horariosymarcaciones.
+2. Se agrega el campo antiguedad en base a un cálculo efectuado en PHP. Se realizará en la Base de Datos posteriormente.
+

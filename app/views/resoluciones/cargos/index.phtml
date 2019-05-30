@@ -1,0 +1,428 @@
+<?php
+if (isset($columnasOcultas) && count($columnasOcultas) > 0) {
+    foreach ($columnasOcultas as $key => $val) {
+        ?>
+        <input type="hidden" id="<?php echo $key; ?>" value="<?php echo $val; ?>">
+        <?php
+    }
+}
+?>
+<div class="row">
+    <div class="col-md-9">
+        <h3>Gesti&oacute;n de Cargos</h3>
+    </div>
+    <div class="col-md-1">
+        Todas / Ninguna
+        <input type="checkbox" id="chkAllColumnasVisibles" value="1">
+    </div>
+    <div class="col-md-2">
+        <div id="divComboColumnasVisibles"></div>
+    </div>
+</div>
+
+
+<!--<div class="row">
+    <div class="col-lg-10">
+        <div class="pull-left">
+            <button class="btn btn-sm btn-success" type="button" id="add"><i class="fa fa-plus fa-fw"></i>Adicionar
+            </button>
+            <button class="btn btn-sm btn-warning" type="button" id="edit"><i class="fa fa-pencil fa-fw"></i> Editar
+            </button>
+            <button class="btn btn-sm btn-danger" type="button" id="delete"><i class="fa fa-trash-o fa-fw"></i> Eliminar
+            </button>
+            <button class="btn btn-sm btn-primary" type="button" id="add_pac"><i class="fa fa-sign-in fa-fw"></i>
+                Asignar PACP
+            </button>
+            <button class="btn btn-sm btn-primary" type="button" id="copy"><i class="fa fa-files-o fa-fw"></i> Copiar
+                Cargo
+            </button>
+        </div>
+        <div class="pull-right">
+            <button class="btn btn-sm btn-default" type="button" id="rep_pdf"><i class="fa fa-book fa-fw text-danger"></i> Reporte
+                PDF
+            </button>
+            <button class="btn btn-sm btn-default" type="button" id="rep_excel"><i class="fa fa-book fa-fw text-success"></i> Reporte
+                Excel
+            </button>
+        </div>
+    </div>
+</div>
+-->
+<div class="row">
+    <div class="col-lg-12 col-md-12 col-xs-12">
+        <div style="width: 100%; height: 350px;  " id="divGrillaCargos"></div>
+        <input type="hidden" name="organigrama_tipo_resolucion" id="organigrama_tipo_resolucion" value="<?php echo $organigrama_tipo_resolucion; ?>">
+        <input type="hidden" name="gestion" id="gestion" value="<?php echo date("Y"); ?>">
+    </div>
+    <!--<div class="col-lg-2 col-md-2 col-xs-12">
+        <div style="width: 100%;" id="jqxlistbox"></div>
+    </div>-->
+</div>
+
+<div class="row">
+    <div class="col-lg-12">
+        <h3>Plan Anual de Contrataciones de Personal</h3>
+    </div>
+
+    <div class="col-lg-12">
+        <div class="panel panel-default">
+            <!--<div class="form-group form-actions">
+                <div class="col-xs-12">
+                    <button class="btn btn-sm btn-danger" type="button" id="delete_pac"><i
+                            class="fa fa-trash-o fa-fw"></i> Eliminar
+                    </button>
+                    <button class="btn btn-sm btn-default" type="button" id="rep_pdf_pac"><i
+                            class="fa fa-book fa-fw text-danger"></i> Reporte
+                    </button>
+                </div>
+            </div>
+            <br>-->
+            <div class="table-responsive">
+                <div id="jqxgrid2"></div>
+            </div>
+
+        </div>
+    </div>
+
+</div>
+
+<!-- Modal add / edit Cargos-->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form class="form-horizontal" id="testForm" data-toggle="validator"/>
+            <div class="modal-header bg-success">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span
+                        class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="titulo">REGISTRAR EN EL PLAN ANUAL DE CONTRATACIONES DE PERSONAL</h4>
+            </div>
+            <div class="modal-body">
+
+                <input id="id" name="id" type="hidden"/>
+                <input id="nivel" name="nivel" type="hidden"/>
+                <input id="gestion_fp" name="gestion_fp" type="hidden">
+                <div class="form-group">
+                    <label class="col-md-4 control-label">Financiamiento & Partida</label>
+                    <div class="col-md-8">
+                        <?php //echo $finpartida; ?>
+                        <select name="fin_partida_id" id="fin_partida_id" class="form-control">
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-4 control-label">Resolución (Organigrama)</label>
+                    <div class="col-md-8">
+                        <?php echo $resolucion_ministerial ?>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-4 control-label">Organigrama</label>
+                    <div class="col-md-8">
+                        <select name="organigrama_id" id="organigrama_id" class="form-control">
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-4 control-label">Depende de</label>
+                    <div class="col-md-8">
+                        <select name="depende_id" id="depende_id" class="form-control">
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-4 control-label">Resolución (Escala)</label>
+                    <div class="col-md-8">
+                        <?php echo $resolucion_escala ?>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-4 control-label">Escala Salarial</label>
+                    <div class="col-md-8">
+                        <?php echo $nivelsalarial; ?>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-4 control-label">Salario Mensual</label>
+                    <div class="col-md-8">
+                        <span id="sueldotxt"></span> Bs.
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-md-4 control-label">Ordenador</label>
+                    <div class="col-md-8">
+                        <input id="ordenador" name="ordenador" type="number" class="form-control"
+                               placeholder='Nro ordenador'/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-4 control-label">Cargo</label>
+                    <div class="col-md-8">
+                        <input id="cargo" name="cargo" type="text" class="form-control"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-4 control-label">Item / Codigo</label>
+                    <div class="col-md-8">
+                        <input id="codigo" name="codigo" type="text" class="form-control" placeholder='Nro item'/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-4 control-label">El Cargo es Jefe de Oficina?</label>
+                    <div class="col-md-8">
+                        <input type="radio" name="jefe" id="jefe1" value="1"/> Si
+                        <input type="radio" name="jefe" id="jefe0" value="0" checked="checked"/> No
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-4 control-label">El Cargo es Asistente del Dependiente?</label>
+                    <div class="col-md-8">
+                        <input type="radio" name="asistente" id="asistente1" value="1"/> Si
+                        <input type="radio" name="asistente" id="asistente0" value="0" checked="checked"/> No
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-md-4 control-label">Formación y Experiencia Laboral</label>
+                    <div class="col-md-8">
+                        <textarea name="formacion_requerida" id="formacion_requerida"
+                                  class="form-control"><?php echo $v->formacion_requerida; ?></textarea>
+                    </div>
+                </div>
+
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                <button type="submit" class="btn btn-primary" id="save">Guardar</button>
+            </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!-- end  modal -->
+
+
+<!-- Modal PACP-->
+<div class="modal fade" id="myModal_pac" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form class="form-horizontal" id="testForm_pac" data-toggle="validator"/>
+            <input id="cargo_id_pac" name="cargo_id_pac" type="hidden"/>
+            <input id="estado_cargo" name="estado_cargo" type="hidden"/>
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span
+                        class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="titulo_pac">REGISTRAR EN EL PLAN ANUAL DE CONTRATACIONES DE PERSONAL</h4>
+            </div>
+            <div class="modal-body">
+
+                <input id="id_pac" name="id_pac" type="hidden"/>
+                <div class="form-group">
+                    <label class="col-md-4 control-label">Organigrama</label>
+                    <div class="col-md-8">
+                        <div id="organigrama_pac"></div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-4 control-label">Item</label>
+                    <div class="col-md-8">
+                        <div id="item_pac"></div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-4 control-label">Cargo</label>
+                    <div class="col-md-8">
+                        <div id="cargo_pac"></div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-4 control-label">Salario Mensual</label>
+                    <div class="col-md-8">
+                        <div id="sueldo_pac"></div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-4 control-label">Gestión</label>
+                    <div class="col-md-8">
+                        <input id="gestion_pac" name="gestion_pac" type="text" value="<?php echo date("Y"); ?>"
+                               class="form-control"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-4 control-label">Fecha Inicio</label>
+                    <div class="col-md-8">
+                        <!-- <div id="fecha_ini_pac"></div> -->
+                        <input type="text" id="fecha_ini_pac" name="fecha_ini_pac" value="<?php echo date("d-m-Y") ?>"
+                               class="form-control input-datepicker-close" data-date-format="dd-mm-yyyy"
+                               placeholder="dd-mm-yyyy"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-4 control-label">Fecha Finalización</label>
+                    <div class="col-md-8">
+                        <!-- <div id="fecha_fin_pac"></div> -->
+                        <input type="text" id="fecha_fin_pac" name="fecha_fin_pac" value="<?php echo date("d-m-Y") ?>"
+                               class="form-control input-datepicker-close" data-date-format="dd-mm-yyyy"
+                               placeholder="dd-mm-yyyy"/>
+                    </div>
+                </div>
+
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                <button type="submit" class="btn btn-primary" id="guardar_pac">Guardar</button>
+            </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!-- end  modal -->
+
+<!-- Modal Reporte-->
+<div class="modal fade" id="myModal_rep" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form class="form-horizontal" id="testForm_rep" data-toggle="validator" action="/cargos/exportarExcel/"
+                  method="POST" target="_blank"/>
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span
+                        class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="titulo">FORMULARIO DE REPORTES</h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label class="col-md-4 control-label">Organigrama</label>
+                    <div class="col-md-8">
+                        <?php echo $organigrama ?>
+                    </div>
+                </div>
+                <!-- <div class="form-group">
+                    <label class="col-md-4 control-label" >Departamentos</label>
+                    <div class="col-md-8">
+                        <select id="departamento" name="departamento">
+                            <option value="">(Seleccionar)</option>
+                        </select>
+                    </div>
+                </div> -->
+                <div class="form-group">
+                    <label class="col-md-4 control-label">Estado</label>
+                    <div class="col-md-8">
+                        <select name="estado_rep" id="estado_rep" class="form-control select-chosen">
+                            <option value="0">(Seleccionar)</option>
+                            <option value="1">ADJUDICADO</option>
+                            <option value="2">ACEFALO</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-4 control-label">Tipo</label>
+                    <div class="col-md-8">
+                        <?php echo $condicion ?>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                <!-- <button type="submit" class="btn btn-primary" id="exportar_excel">Exportar Excel</button> -->
+                <button type="submit" class="btn btn-primary" id="exportar_pdf">Exportar PDF</button>
+            </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!-- end  modal -->
+
+
+<!-- Modal Reporte-->
+<div class="modal fade" id="myModal_rep_pac" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form class="form-horizontal" id="testForm_rep_pac" data-toggle="validator" action="" method="POST"
+                  target="_blank"/>
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span
+                        class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="titulo">FORMULARIO DE REPORTES</h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label class="col-md-4 control-label">Organigrama</label>
+                    <div class="col-md-8">
+                        <?php echo $organigrama_rep_pac ?>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-4 control-label">Fecha Inicio Desde</label>
+                    <div class="col-md-8">
+                        <input type="text" id="fecha_ini_rep_pac" name="fecha_ini_rep_pac"
+                               value="<?php echo date("d-m-Y") ?>" class="form-control input-datepicker-close"
+                               data-date-format="dd-mm-yyyy" placeholder="dd-mm-yyyy"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-4 control-label">Hasta</label>
+                    <div class="col-md-8">
+                        <input type="text" id="fecha_fin_rep_pac" name="fecha_fin_rep_pac"
+                               value="<?php echo date("d-m-Y") ?>" class="form-control input-datepicker-close"
+                               data-date-format="dd-mm-yyyy" placeholder="dd-mm-yyyy"/>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                <!-- <button type="submit" class="btn btn-primary" id="exportar_excel">Exportar Excel</button> -->
+                <button type="submit" class="btn btn-primary" id="exportar_pac_pdf">Exportar PDF</button>
+            </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!-- end  modal -->
+
+<!-- Modal Actualizar escala salarial-->
+
+<div class="modal fade" id="myModal_update" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form class="form-horizontal" id="testForm_update" data-toggle="validator"/>
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span
+                        class="sr-only">Close</span></button>
+                <h4 class="modal-title">ACTUALIZAR ESCALA SALARIAL</h4>
+            </div>
+            <div class="modal-body">
+                <input type="text" name="rm_id" id="rm_id" value="<?php echo $resolucion_ministerial_id ?>">
+                <div class="form-group">
+                    <label class="col-md-4 control-label">Actualizar Según Resolución Ministerial</label>
+                    <div class="col-md-8">
+                        <?php echo $resolucion_ministerial_escala ?>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-4 control-label">Fuente de Financiamiento</label>
+                    <div class="col-md-8">
+                        <?php echo $finpartida ?>
+                    </div>
+                </div>
+
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                <button type="submit" class="btn btn-primary" id="actualizar">Guardar</button>
+            </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!-- end  modal -->
+
+<style type="text/css">
+    .datepicker {
+        z-index: 1151 !important;
+    }
+</style>

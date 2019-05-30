@@ -1,0 +1,193 @@
+</head>
+<body>
+
+<!-- Contenido referente al calendario laboral y gestión de horarios -->
+<div id="page-content">
+    <!-- FullCalendar Content -->
+    <div class="block block-alt-noborder full">
+        <div class="block-title">
+            <div class="block-options pull-right">
+                <a id="btnImprimirCalendario" class="btn btn-alt btn-sm btn-default" title="Imprimir Calendario" data-toggle="tooltip" href="javascript:void(0)" data-original-title="Imprimir">
+                    <i class="fa fa-print"></i>
+                </a>
+            </div>
+            <h2><strong>Calendario Laboral General</strong></h2>
+        </div>
+        <div class="row">
+            <div class="col-md-2">
+                <div class="block-section">
+                    <select id="lstTiposDeHorario" class="form-control"></select>
+                    <!-- Add event functionality (initialized in js/pages/compCalendar.js) -->
+                    <!--<form>-->
+                        <!--<div class="input-group">
+                            <input type="text" id="add-event" name="add-event" class="form-control"
+                                   placeholder="Añada Horario">
+
+                            <div class="input-group-btn">
+                                <button type="submit" id="add-event-btn" class="btn btn-primary"><i
+                                        class="gi gi-plus"></i></button>
+                            </div>
+                        </div>-->
+                    <!--</form>-->
+                </div>
+                <div class="block-section">
+                    <!--<div class="block-section text-center text-muted">
+                        <small><em><i class="fa fa-arrows"></i> Arrastre y suelte horarios en el calendario</em></small>
+                    </div>-->
+                    <div id="lstPerfilesLaboralesDisponibles" class="form-control"></div>
+                    <ul class="calendar-events" id="ulHorariosEnEspera"></ul>
+                </div>
+            </div>
+            <div class="col-md-10">
+                <!-- FullCalendar (initialized in js/pages/compCalendar.js), for more info and examples you can check out http://arshaw.com/fullcalendar/ -->
+                <div id="calendar"></div>
+            </div>
+        </div>
+    </div>
+    <!-- END FullCalendar Block -->
+    <!-- END FullCalendar Content -->
+</div>
+<div class="modal fade bs-example-modal-lg" id="popupDescripcionHorario" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <form class="form-horizontal" id="testForm_perfil" data-toggle="validator" onsubmit="return false;"/>
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="tituloModal">Horario</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="panel panel-default">
+                            <input type="hidden" name="perfil_id" id="perfil_id" value="">
+                            <div class="panel-heading">
+                                DATOS DEL HORARIO SELECCIONADO
+                            </div>
+                            <div class="panel-body form-horizontal">
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label" for="txtNombreHorario">Nombre Horario:</label>
+                                    <div class="col-md-6" form-group>
+                                        <input type="text" id="txtNombreHorario" class="form-control" readonly>
+                                    </div>
+                                </div>
+                                <div class="form-group" id="divNombreAlternativoHorario">
+                                    <label class="col-sm-3 control-label" for="txtNombreAlternativoHorario">Nombre Alternativo:</label>
+                                    <div class="col-md-6" form-group>
+                                        <textarea id="txtNombreAlternativoHorario" class="form-control" readonly></textarea>
+                                    </div>
+                                </div>
+                                <div class="form-group" id="divColorHorario">
+                                    <label class="col-sm-3 control-label" for="txtColorHorario">Color:</label>
+                                    <div class="col-md-6" form-group>
+                                        <input type="text" id="txtColorHorario" value="#FFFFFF" class="form-control" readonly>
+                                    </div>
+                                </div>
+                                <fieldset>
+                                    <legend><i class="fa fa-angle-right"></i> Horario Entrada / Salida</legend>
+                                    <div class="form-group">
+                                        <div class="div-calendario-laboral" id="divHoraEntHorario">
+                                            <label class="col-sm-2 control-label" for="txtHoraEntHorario">Entrada:</label>
+                                            <div class="col-md-2"  form-group>
+                                                <input id="txtHoraEntHorario" name="txtHoraEntHorario" placeholder="Hora de entrada." class="form-control" type="text" readonly>
+                                            </div>
+                                        </div>
+                                        <div class="div-calendario-laboral" id="divHoraSalHorario">
+                                            <label class="col-sm-2 control-label" for="txtHoraSalHorario">Salida:</label>
+                                            <div class="col-md-2"  form-group>
+                                                <input id="txtHoraSalHorario" name="txtHoraSalHorario" class="form-control" type="text" readonly>
+                                            </div>
+                                        </div>
+                                        <label class="col-sm-2 control-label" for="txtHorasLaborales">Horas Laborales:</label>
+                                        <div class="col-md-2">
+                                            <input id="txtHorasLaborales" name="txtHorasLaborales" placeholder="Horas Laborales." type="text" class="form-control" readonly>
+                                        </div>
+                                    </div>
+                                </fieldset>
+                                <fieldset>
+                                    <legend><i class="fa fa-angle-right"></i> Rango Control Marcaciones</legend>
+                                    <div class="form-group">
+                                        <div class="div-calendario-laboral" id="divHoraInicioRangoEnt">
+                                            <label class="col-sm-3 control-label" for="txtHoraInicioRangoEnt">Inicio Entrada:</label>
+                                            <div class="col-md-3">
+                                                <input id="txtHoraInicioRangoEnt" name="txtHoraInicioRangoEnt" placeholder="Hora de entrada." class="form-control" type="text" readonly>
+                                            </div>
+                                        </div>
+                                        <div class="div-calendario-laboral" id="divHoraFinalizacionRangoEnt">
+                                            <label class="col-sm-3 control-label" for="txtHoraFinalizacionRangoEnt">Finalizaci&oacute;n Entrada:</label>
+                                            <div class="col-md-3">
+                                                <input id="txtHoraFinalizacionRangoEnt" name="txtHoraFinalizacionRangoEnt" class="form-control" type="text" readonly>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="div-calendario-laboral" id="divHoraInicioRangoSal">
+                                            <label class="col-sm-3 control-label" for="txtHoraInicioRangoSal">Inicio Salida:</label>
+                                            <div class="col-md-3">
+                                                <input id="txtHoraInicioRangoSal" name="txtHoraInicioRangoSal" placeholder="Hora de inicio de salida." class="form-control" type="text" readonly>
+                                            </div>
+
+                                        </div>
+                                        <div class="div-calendario-laboral" id="divHoraFinalizacionRangoSal">
+                                            <label class="col-sm-3 control-label" for="txtHoraFinalizacionRangoSal">Fin Salida:</label>
+                                            <div class="col-md-3">
+                                                <input id="txtHoraFinalizacionRangoSal" name="txtHoraFinalizacionRangoSal" placeholder="Hora de finalizaci&oacute;n de salida." class="form-control" type="text" readonly>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </fieldset>
+                                <fieldset>
+                                    <legend><i class="fa fa-angle-right"></i> Rango Fechas</legend>
+                                    <div class="form-group">
+                                        <div class="div-calendario-laboral" id="divHorarioFechaIni">
+                                            <label class="col-sm-3 control-label" for="txtHorarioFechaIni">Fecha Inicio:</label>
+                                            <div class="col-md-3">
+                                                <input id="txtHorarioFechaIni" name="txtHorarioFechaIni" class="form-control input-datepicker" placeholder="Desde" data-date-format="dd-mm-yyyy" type="text">
+                                            </div>
+                                        </div>
+                                        <div class="div-calendario-laboral" id="divHorarioFechaFin">
+                                            <label class="col-sm-3 control-label" for="txtHorarioFechaFin">Fecha Fin:</label>
+                                            <div class="col-md-3">
+                                                <input id="txtHorarioFechaFin" name="txtHorarioFechaFin" class="form-control input-datepicker" placeholder="Hasta" data-date-format="dd-mm-yyyy" type="text">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </fieldset>
+                                <fieldset>
+                                    <legend><i class="fa fa-angle-right"></i> Observaciones</legend>
+                                    <div class="form-group div-move-relab" id="divObservacion">
+                                        <label class="col-md-3 control-label" for="txtObservacion">Observaciones:</label>
+                                        <div class="col-md-6">
+                                            <textarea id="txtObservacion" name="txtObservacion" class="form-control" placeholder="Observaciones.." readonly></textarea>
+                                        </div>
+                                    </div>
+                                </fieldset>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" id="btnCerrarHorario" class="btn btn-primary" data-dismiss="modal"><i class="fa fa-compress"></i>Cerrar</button>
+                <button type="button" id="btnGuardarModificacionHorario" class="btn btn-primary"><i class="fa fa-pencil"></i>Guardar Modificaci&oacute;n de Fechas</button>
+                <button type="button" id="btnDescartarHorario" class="btn btn-primary"><i class="gi gi-bin"></i>Descartar</button>
+            </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- END Contenido referente al calendario laboral y gestión de horarios -->
+</body>
+<div id="divMsjeNotificacionError">
+    <div id="divMsjePorError">
+    </div>
+</div>
+<div id="divMsjeNotificacionWarning">
+    <div id="divMsjePorWarning">
+    </div>
+</div>
+<div id="divMsjeNotificacionSuccess">
+    <div id="divMsjePorSuccess">
+    </div>
+</div>

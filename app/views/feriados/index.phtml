@@ -1,0 +1,355 @@
+</head>
+<body>
+<style>
+    .fc-annotation {
+        border-style: solid;
+        border-width: 0;
+        font-size: .85em;
+        cursor: default;
+    }
+
+    .fc-annotation-skin {
+        border-color: #999; /* default BORDER color */
+        background-color: #edb; /* default BACKGROUND color */
+        color: #777; /* default TEXT color */
+        text-align: center;
+        opacity: 0.8;
+        filter: alpha(opacity=80); /* for IE */
+    }
+
+    .fc-annotation.closed {
+        background-color: #f1f1f1;
+    }
+
+</style>
+<h2 style="padding-top: 0px; width: 100%;"><b>Gesti&oacute;n de Feriados</b></h2>
+
+<div id='divTabFeriados'>
+    <ul>
+        <li id="liList">Listado</li>
+        <li id="liNew">Nuevo</li>
+        <li id="liEdit">Modificaci&oacute;n</li>
+        <li id="liView">Calendario</li>
+    </ul>
+    <br>
+
+    <div style="height: 600px;" class="row section" id="divList">
+        <div class="col-md-10">
+            <!-- Input Grid Block -->
+            <div class="block">
+                <!-- Input Grid Title -->
+                <div class="block-title">
+                    <div id='widgetFeriados'>
+                        <div id="divGridFeriados"></div>
+                    </div>
+                </div>
+                <!-- END Input Grid Title -->
+
+            </div>
+            <!-- END Input Grid Block -->
+        </div>
+        <div class="col-md-2">
+            <div class="block">
+                <div class="block-title">
+                    <h2>Mostrar</h2>
+                    <br>
+                    <input type="checkbox" id="chkAllCols"> Todas / Ninguna
+                </div>
+                <div id="jqxlistbox"></div>
+            </div>
+        </div>
+    </div>
+    <div style="display: none" class="section" id="divNew">
+        <h6><b>NOTA: </b>Los datos precedidos de asterisco son requerido de manera obligatoria (*).</h6>
+
+        <div class="form-horizontal col-sm-12">
+            <fieldset>
+                <legend><i class="fa fa-angle-right"></i> Datos del Feriado</legend>
+                <div class="row">
+                    <div class="div-feriados" id="divFeriadoNew">
+                        <label class="col-md-2 control-label" for="txtFeriadoNew">Feriado *:</label>
+
+                        <div class="col-md-2">
+                            <input type="text" id="txtFeriadoNew" class="form-control" placeholder="Nombre del Feriado">
+                            <span class="help-block" id="helpErrorFeriadoNew"></span>
+                        </div>
+                    </div>
+                    <div class="form-group div-feriados" id="divDescripcionNew">
+                        <label class="col-md-2 control-label" for="txtDescripcionNew">Descripci&oacute;n:</label>
+
+                        <div class="col-md-4">
+                            <textarea id="txtDescripcionNew" name="txtDescripcionNew" class="form-control"
+                                      placeholder="Descripci&oacute;n.."></textarea>
+                        </div>
+                        <span class="help-block" id="helpErrorDescripcionNew"></span>
+                    </div>
+                </div>
+            </fieldset>
+            <fieldset>
+                <legend><i class="fa fa-angle-right"></i> Aplicable sobre Tipos de Horario:</legend>
+                <div class="row" id="divTiposHorariosNew">
+                    <div class="div-feriados" id="divHorariosDiscontinuosNew">
+                        <label class="col-md-2 control-label" for="chkHorariosDiscontinuosNew">Discontinuos *:</label>
+
+                        <div class="col-md-2">
+                            <!--<input type="text" id="txtFeriadoNew" class="form-control" placeholder="Nombre del Feriado">-->
+                            <input type="checkbox" name="chkHorariosDiscontinuosNew" id="chkHorariosDiscontinuosNew"
+                                   data-on-text="SI" data-off-text="NO" data-on-color="success" data-off-color="danger">
+                            <span class="help-block" id="helpErrorHorariosDiscontinuosNew"></span>
+                        </div>
+                    </div>
+                    <div class="div-feriados" id="divHorariosContinuosNew">
+                        <label class="col-md-2 control-label" for="chkHorariosContinuosNew">Continuos *:</label>
+
+                        <div class="col-md-2">
+                            <!--<input type="text" id="txtFeriadoNew" class="form-control" placeholder="Nombre del Feriado">-->
+                            <input type="checkbox" name="chkHorariosContinuosNew" id="chkHorariosContinuosNew"
+                                   data-on-text="SI" data-off-text="NO" data-on-color="success" data-off-color="danger">
+                            <span class="help-block" id="helpErrorHorariosContinuosNew"></span>
+                        </div>
+                    </div>
+                    <div class="div-feriados" id="divHorariosMultiplesNew">
+                        <label class="col-md-2 control-label" for="chkHorariosMultiplesNew">Multiples *:</label>
+
+                        <div class="col-md-2">
+                            <input type="checkbox" name="chkHorariosMultiplesNew" id="chkHorariosMultiplesNew"
+                                   data-on-text="SI" data-off-text="NO" data-on-color="success" data-off-color="danger">
+                            <span class="help-block" id="helpErrorHorariosMultiplesNew"></span>
+                        </div>
+                    </div>
+                    <span class="help-block" id="helpErrorTiposHorariosNew"></span>
+                </div>
+            </fieldset>
+            <fieldset>
+                <legend><i class="fa fa-angle-right"></i> Cantidad de D&iacute;as / Temporalidad:</legend>
+                <div class="row">
+                    <div class="div-feriados" id="divCantidadDiasNew">
+                        <label class="col-md-2 control-label" for="chkHorariosMultiplesNew">Multiples *:</label>
+
+                        <div class="col-md-2">
+                            <select id="lstCantidadDiasNew" class="form-control" style="width: 150px;"></select>
+                            <span class="help-block" id="helpErrorCantidadDiasNew"></span>
+                        </div>
+                    </div>
+                    <div class="div-feriados" id="divHorariosMultiplesNew">
+                        <label class="col-md-2 control-label" for="chkRepetitivoNew">Se considera en *:</label>
+
+                        <div class="col-md-2">
+                            <input type="checkbox" name="chkRepetitivoNew" id="chkRepetitivoNew"
+                                   data-on-text="Cada a&ntilde;o" data-off-text="Fecha" data-on-color="success"
+                                   data-off-color="info">
+                        </div>
+                    </div>
+                    <div class="div-feriados" id="divMesFechaEspecifica">
+                        <div class="col-md-2" id="divMesNew">
+                            <select id="lstMesNew" class="form-control"></select>
+                            <span class="help-block" id="helpErrorMesNew"></span>
+                        </div>
+                        <div class="col-md-2" id="divDiaNew">
+                            <select id="lstDiaNew" class="form-control" disabled>
+                                <option value="0">D&iacute;as en cada mes</option>
+                            </select>
+                            <span class="help-block" id="helpErrorDiaNew"></span>
+                        </div>
+                        <div class="col-md-2" id="divFechaEspecificaNew">
+                            <input id="txtFechaEspecificaNew" name="txtFechaEspecificaNew"
+                                   class="form-control input-datepicker-close" placeholder="Fecha Espec&iacute;fica"
+                                   data-date-format="dd-mm-yyyy" type="text">
+                            <span class="help-block" id="helpErrorFechaEspecificaNew"></span>
+                        </div>
+
+                    </div>
+                </div>
+            </fieldset>
+            <fieldset>
+                <legend><i class="fa fa-angle-right"></i>&nbsp;</legend>
+                <div class="form-group div-feriados" id="divObservacionNew">
+                    <label class="col-md-2 control-label" for="txtObservacionNew">Observaciones:</label>
+
+                    <div class="col-md-4">
+                        <textarea id="txtObservacionNew" name="txtObservacionNew" class="form-control"
+                                  placeholder="Observaciones.."></textarea>
+                    </div>
+                    <span class="help-block" id="helpErrorObservacionNew"></span>
+                </div>
+            </fieldset>
+            <div class="form-group form-actions">
+                <div class="col-md-2 col-md-offset-2">
+                    <button id="btnGuardarFeriadoNew" class="btn btn-sm btn-primary" type="button">
+                        <i class="fa fa-floppy-o"></i>
+                        Guardar
+                    </button>
+                    <button id="btnCancelarFeriadoNew" class="btn btn-sm btn-warning" type="button">
+                        <i class="fa fa-repeat"></i>
+                        Cancelar
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div style="display: none" class="section" id="divEdit">
+        <h6><b>NOTA: </b>Los datos precedidos de asterisco son requerido de manera obligatoria (*).</h6>
+
+        <div class="form-horizontal col-md-12">
+            <fieldset>
+                <legend><i class="fa fa-angle-right"></i> Datos del Feriado</legend>
+                <div class="row">
+                    <div class="div-feriados" id="divFeriadoEditar">
+                        <label class="col-md-2 control-label" for="txtFeriadoEditar">Feriado *:</label>
+
+                        <div class="col-md-2">
+                            <input type="text" id="txtFeriadoEditar" class="form-control"
+                                   placeholder="Nombre del Feriado">
+                            <span class="help-block" id="helpErrorFeriadoEditar"></span>
+                        </div>
+                    </div>
+                    <div class="form-group div-feriados" id="divDescripcionEditar">
+                        <label class="col-md-2 control-label" for="txtDescripcionEditar">Descripci&oacute;n:</label>
+
+                        <div class="col-md-4">
+                            <textarea id="txtDescripcionEditar" name="txtDescripcionEditar"
+                                      class="form-control"
+                                      placeholder="Descripci&oacute;n.."></textarea>
+                        </div>
+                        <span class="help-block" id="helpErrorDescripcionEditar"></span>
+                    </div>
+                </div>
+            </fieldset>
+            <fieldset>
+                <legend><i class="fa fa-angle-right"></i> Aplicable sobre Tipos de Horario:</legend>
+                <div class="row" id="divTiposHorariosEditar">
+                    <div class="div-feriados" id="divHorariosDiscontinuosEditar">
+                        <label class="col-md-2 control-label" for="chkHorariosDiscontinuosEditar">Discontinuos
+                            *:</label>
+
+                        <div class="col-md-2">
+                            <!--<input type="text" id="txtFeriadoEditar" class="form-control" placeholder="Nombre del Feriado">-->
+                            <input type="checkbox" name="chkHorariosDiscontinuosEditar"
+                                   id="chkHorariosDiscontinuosEditar"
+                                   data-on-text="SI" data-off-text="NO" data-on-color="success" data-off-color="danger">
+                            <span class="help-block" id="helpErrorHorariosDiscontinuosEditar"></span>
+                        </div>
+                    </div>
+                    <div class="div-feriados" id="divHorariosContinuosEditar">
+                        <label class="col-md-2 control-label" for="chkHorariosContinuosEditar">Continuos *:</label>
+
+                        <div class="col-md-2">
+                            <!--<input type="text" id="txtFeriadoEditar" class="form-control" placeholder="Nombre del Feriado">-->
+                            <input type="checkbox" name="chkHorariosContinuosEditar" id="chkHorariosContinuosEditar"
+                                   data-on-text="SI" data-off-text="NO" data-on-color="success" data-off-color="danger">
+                            <span class="help-block" id="helpErrorHorariosContinuosEditar"></span>
+                        </div>
+                    </div>
+                    <div class="div-feriados" id="divHorariosMultiplesEditar">
+                        <label class="col-md-2 control-label" for="chkHorariosMultiplesEditar">Multiples *:</label>
+
+                        <div class="col-md-2">
+                            <input type="checkbox" name="chkHorariosMultiplesEditar" id="chkHorariosMultiplesEditar"
+                                   data-on-text="SI" data-off-text="NO" data-on-color="success" data-off-color="danger">
+                            <span class="help-block" id="helpErrorHorariosMultiplesEditar"></span>
+                        </div>
+                    </div>
+                    <span class="help-block" id="helpErrorTiposHorariosEditar"></span>
+                </div>
+            </fieldset>
+            <fieldset>
+                <legend><i class="fa fa-angle-right"></i> Cantidad de D&iacute;as / Temporalidad:</legend>
+                <div class="row">
+                    <div class="div-feriados" id="divCantidadDiasEditar">
+                        <label class="col-md-2 control-label" for="chkHorariosMultiplesEditar">Multiples *:</label>
+
+                        <div class="col-md-2">
+                            <select id="lstCantidadDiasEditar" class="form-control" style="width: 150px;"></select>
+                            <span class="help-block" id="helpErrorCantidadDiasEditar"></span>
+                        </div>
+                    </div>
+                    <div class="div-feriados" id="divHorariosMultiplesEditar">
+                        <label class="col-md-2 control-label" for="chkRepetitivoEditar">Se considera en *:</label>
+
+                        <div class="col-md-2">
+                            <input type="checkbox" name="chkRepetitivoEditar" id="chkRepetitivoEditar"
+                                   data-on-text="Cada a&ntilde;o" data-off-text="Fecha" data-on-color="success"
+                                   data-off-color="info">
+                        </div>
+                    </div>
+                    <div class="div-feriados" id="divMesFechaEspecifica">
+                        <div class="col-md-2" id="divMesEditar">
+                            <select id="lstMesEditar" class="form-control"></select>
+                            <span class="help-block" id="helpErrorMesEditar"></span>
+                        </div>
+                        <div class="col-md-2" id="divDiaEditar">
+                            <select id="lstDiaEditar" class="form-control" disabled>
+                                <option value="0">D&iacute;as en cada mes</option>
+                            </select>
+                            <span class="help-block" id="helpErrorDiaEditar"></span>
+                        </div>
+                        <div class="col-md-2" id="divFechaEspecificaEditar">
+                            <input id="txtFechaEspecificaEditar" name="txtFechaEspecificaEditar"
+                                   class="form-control input-datepicker-close" placeholder="Fecha Espec&iacute;fica"
+                                   data-date-format="dd-mm-yyyy" type="text">
+                            <span class="help-block" id="helpErrorFechaEspecificaEditar"></span>
+                        </div>
+
+                    </div>
+                </div>
+            </fieldset>
+            <fieldset>
+                <legend><i class="fa fa-angle-right"></i>&nbsp;</legend>
+                <div class="form-group div-feriados" id="divObservacionEditar">
+                    <label class="col-md-2 control-label" for="txtObservacionEditar">Observaciones:</label>
+
+                    <div class="col-md-4">
+                        <textarea id="txtObservacionEditar" name="txtObservacionEditar" class="form-control"
+                                  placeholder="Observaciones.."></textarea>
+                    </div>
+                    <span class="help-block" id="helpErrorObservacionEditar"></span>
+                </div>
+            </fieldset>
+            <div class="form-group form-actions">
+                <div class="col-md-2 col-md-offset-2">
+                    <button id="btnGuardarFeriadoEditar" class="btn btn-sm btn-success" type="button">
+                        <i class="fa fa-floppy-o"></i>
+                        Guardar
+                    </button>
+                    <button id="btnCancelarFeriadoEditar" class="btn btn-sm btn-warning" type="button">
+                        <i class="fa fa-repeat"></i>
+                        Cancelar
+                    </button>
+                </div>
+            </div>
+        </div>
+        <input type="hidden" id="hdnIdFeriadoEditar" value="0">
+    </div>
+    <div style="display: none" class="section" id="divView">
+        <div class="block block-alt-noborder full">
+            <div class="block-title">
+                <div class="block-options pull-right">
+                    <a id="btnImprimirCalendario" class="btn btn-alt btn-sm btn-default" title="Imprimir Calendario"
+                       data-toggle="tooltip" href="javascript:void(0)" data-original-title="Imprimir">
+                        <i class="fa fa-print"></i>
+                    </a>
+                </div>
+                <h2><strong>Calendario de Feriados</strong></h2>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div id="calendar"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--</form></div>-->
+</body>
+<div id="divMsjeNotificacionError">
+    <div id="divMsjePorError">
+    </div>
+</div>
+<div id="divMsjeNotificacionWarning">
+    <div id="divMsjePorWarning">
+    </div>
+</div>
+<div id="divMsjeNotificacionSuccess">
+    <div id="divMsjePorSuccess">
+    </div>
+</div>

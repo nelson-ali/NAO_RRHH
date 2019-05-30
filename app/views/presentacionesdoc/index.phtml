@@ -1,0 +1,462 @@
+<style>
+    .datepicker {
+        z-index: 99999999999 !important;
+    }
+</style>
+<h2 style="padding-top: 0px; width: 100%;">Formularios de Presentaci&oacute;n de Documentos</h2>
+<input type="hidden" id="hdnMaxFileSize" value="<?php echo $max_file_size; ?>">
+<div id='divTabPresentacionDeDocumentos'>
+    <ul>
+        <li id="liList">Listado</li>
+        <li id="liFolder">Folder</li>
+        <li id="liReport">Reporte</li>
+    </ul>
+    <br>
+    <div style="height: 650px" class="row section" id="divList">
+        <div class="col-md-10">
+            <!-- Input Grid Block -->
+            <div class="block">
+                <!-- Input Grid Title -->
+                <div class="block-title">
+                    <div id='jqxWidget'>
+                        <div class="col-sm-2" id="divGestionGen">
+                            <!--<label id="lblGestion">Gesti&oacute;n:</label>-->
+                            <select id="lstGestion" class="form-control">
+                                <option value="">Seleccionar..</option>
+                            </select>
+                            <span class="help-block" id="helpErrorGestionGen"></span>
+                        </div>
+                        <button class="btn btn-sm btn-primary" type="button" id="btnBuscarPorGestion" accesskey="i">
+                            <i class="fa fa-search"></i>
+                            Buscar
+                        </button>
+                        <div id="divGridRelaborales"></div>
+                    </div>
+                </div>
+                <!-- END Input Grid Title -->
+            </div>
+            <!-- END Input Grid Block -->
+        </div>
+        <div class="col-md-2">
+            <!-- Input Grid Block -->
+            <div class="block">
+                <!-- Input Grid Title -->
+                <div class="block-title">
+                    <h2>Mostrar</h2>
+                    <br>
+                </div>
+                <div id="jqxlistbox"></div>
+                <!-- END Input Grid Title -->
+            </div>
+            <!-- END Input Grid Block -->
+        </div>
+    </div>
+    <div style="display: none" class="section" id="divFolder">
+        <form class="navbar-form" id="formExcept">
+            <div id="tabFichaPersonalTurnAndExcept">
+                <ul style="margin-left: 30px;">
+                    <li>Relaci&oacute;n Laboral</li>
+                    <li>Datos Personales</li>
+                    <li>Contacto Personal</li>
+                    <li>Contacto Institucional</li>
+                </ul>
+                <div style="height: 250px" class="form-horizontal col-sm-12">
+                    <br>
+
+                    <div class="widget">
+                        <div class="widget-simple themed-background-default">
+                            <a href="#" id="aFotoPerfilTurnAndExceptRelaboral">
+                                <img id="imgFotoPerfilTurnAndExceptRelaboral" class="img-rounded pull-right img-perfil">
+                            </a>
+                            <h4 class="widget-content">
+                                <div class="col-sm-5">
+                                    <dl class="dl-horizontal" STYLE="color: white;font-size: 13px;">
+                                        <dt class="dtNombresTurnAndExcept">Nombres:</dt>
+                                        <dd class="ddNombresTurnAndExcept"></dd>
+                                        <dt class="dtCIAndNumComplementoExpdTurnAndExcept">CI:</dt>
+                                        <dd class="ddCIAndNumComplementoExpdTurnAndExcept"></dd>
+                                        <dt id="dtCargoTurnAndExcept">Cargo:</dt>
+                                        <dd id="ddCargoTurnAndExcept"></dd>
+                                        <dt id="dtProcesoTurnAndExcept">Proceso:</dt>
+                                        <dd id="ddProcesoTurnAndExcept"></dd>
+                                        <dt id="dtFinanciamientoTurnAndExcept">Financiamiento:</dt>
+                                        <dd id="ddFinanciamientoTurnAndExcept"></dd>
+                                        <dt id="dtGerenciaTurnAndExcept">Gerencia:</dt>
+                                        <dd id="ddGerenciaTurnAndExcept"></dd>
+                                        <dt id="dtDepartamentoTurnAndExcept">Departamento:</dt>
+                                        <dd id="ddDepartamentoTurnAndExcept"></dd>
+                                    </dl>
+                                </div>
+                                <div class="col-sm-5">
+                                    <dl class="dl-horizontal" STYLE="color: white;font-size: 13px;">
+                                        <dt id="dtUbicacionTurnAndExcept">Ubicaci&oacute;n:</dt>
+                                        <dd id="ddUbicacionTurnAndExcept"></dd>
+                                        <dt id="dtItemTurnAndExcept">&Iacute;tem:</dt>
+                                        <dd id="ddItemTurnAndExcept"></dd>
+                                        <dt id="dtNivelSalarialTurnAndExcept">Nivel Salarial:</dt>
+                                        <dd id="ddNivelSalarialTurnAndExcept"></dd>
+                                        <dt id="dtHaberTurnAndExcept">Haber:</dt>
+                                        <dd id="ddHaberTurnAndExcept"></dd>
+                                        <dt id="dtFechaIngTurnAndExcept">Fecha Ingreso:</dt>
+                                        <dd id="ddFechaIngTurnAndExcept"></dd>
+                                        <dt id="dtFechaIniTurnAndExcept">Fecha Inicio:</dt>
+                                        <dd id="ddFechaIniTurnAndExcept"></dd>
+                                        <dt id="dtFechaIncorTurnAndExcept">Fecha Incorporaci&oacute;n:</dt>
+                                        <dd id="ddFechaIncorTurnAndExcept"></dd>
+                                        <dt id="dtFechaFinTurnAndExcept">Fecha Finalizaci&oacute;n:</dt>
+                                        <dd id="ddFechaFinTurnAndExcept"></dd>
+                                        <dt id="dtEstadoDescripcionTurnAndExcept">Estado:</dt>
+                                        <dd id="ddEstadoDescripcionTurnAndExcept"></dd>
+                                        <dt id="dtFechaBajaTurnAndExcept">Fecha Baja:</dt>
+                                        <dd id="ddFechaBajaTurnAndExcept"></dd>
+                                        <dt id="dtMotivoBajaTurnAndExcept">Motivo Baja:</dt>
+                                        <dd id="ddMotivoBajaTurnAndExcept"></dd>
+                                        <dt id="dtObservacionTurnAndExcept">Observaciones:</dt>
+                                        <dd id="ddObservacionTurnAndExcept"></dd>
+                                    </dl>
+                                </div>
+                            </h4>
+                        </div>
+                    </div>
+                </div>
+                <div style="display: none" class="form-horizontal col-sm-12">
+                    <br>
+
+                    <div class="widget">
+                        <div class="widget-simple themed-background-default">
+                            <a href="#" id="aFotoPerfilTurnAndExcept">
+                                <img id="imgFotoPerfilTurnAndExcept" class="img-rounded pull-right img-perfil">
+                            </a>
+                            <h4 class="widget-content">
+                                <div>
+                                    <dl class="dl-horizontal" STYLE="color: white;font-size: 13px;">
+                                        <dt id="dtNombresTurnAndExcept">Nombres y Apellidos:</dt>
+                                        <dd id="ddNombresTurnAndExcept"></dd>
+                                        <dt id="dtTipoDeDocumentoTurnAndExcept"></dt>
+                                        <dd id="ddNumeroDeDocumentoTurnAndExcept"></dd>
+                                        <dt id="dtNacionalidadTurnAndExcept">Nacionalidad:</dt>
+                                        <dd id="ddNacionalidadTurnAndExcept"></dd>
+                                        <dt id="dtLugarDeNacimientoTurnAndExcept">Lugar de Nacimiento:</dt>
+                                        <dd id="ddLugarDeNacimientoTurnAndExcept"></dd>
+                                        <dt id="dtFechaDeNacimientoTurnAndExcept">Fecha de Nacimiento:</dt>
+                                        <dd id="ddFechaDeNacimientoTurnAndExcept"></dd>
+                                    </dl>
+                                </div>
+                            </h4>
+                        </div>
+                    </div>
+                </div>
+                <div style="display: none" class="form-horizontal col-sm-12">
+                    <br>
+
+                    <div class="widget">
+                        <div class="widget-simple themed-background-default">
+                            <a href="#" id="aFotoPerfilContactoPerTurnAndExcept"><img
+                                    id="imgFotoPerfilContactoPerTurnAndExcept"
+                                    class="img-rounded pull-right img-perfil"></a>
+                            <h4 class="widget-content">
+                                <div>
+                                    <dl class="dl-horizontal" STYLE="color: white;font-size: 13px;">
+                                        <dt id="dtDireccionTurnAndExcept">Direcci&oacute;n:</dt>
+                                        <dd id="ddDireccionTurnAndExcept"></dd>
+                                        <dt id="dtTelefonoFijoTurnAndExcept">Tel&eacute;fono Fijo:</dt>
+                                        <dd id="ddTelefonoFijoTurnAndExcept"></dd>
+                                        <dt id="dtCelularPerTurnAndExcept">Celular Personal:</dt>
+                                        <dd id="ddCelularPerTurnAndExcept"></dd>
+                                        <dt id="dtEmailPerTurnAndExcept">E-Mail Personal:</dt>
+                                        <dd id="ddEmailPerTurnAndExcept"></dd>
+                                        <dt id="dtAuxiliar1TurnAndExcept">&nbsp;</dt>
+                                        <dd id="ddAuxiliar1TurnAndExcept">&nbsp;</dd>
+                                    </dl>
+                                </div>
+                            </h4>
+                        </div>
+                    </div>
+                </div>
+                <div style="display: none" class="form-horizontal col-sm-12">
+                    <div class="widget">
+                        <div class="widget-simple themed-background-default">
+                            <a href="#" id="aFotoPerfilContactoInstTurnAndExcept"><img
+                                    id="imgFotoPerfilContactoInstTurnAndExcept"
+                                    class="img-rounded pull-right img-perfil"></a>
+                            <h4 class="widget-content">
+                                <div>
+                                    <dl class="dl-horizontal" STYLE="color: white;font-size: 13px;">
+                                        <dt id="dtTelefonoInstTurnAndExcept">Tel&eacute;fono Inst.:</dt>
+                                        <dd id="ddTelefonoInstTurnAndExcept"></dd>
+                                        <dt id="dtCelularInstTurnAndExcept">Celular Corporativo:</dt>
+                                        <dd id="ddCelularInstTurnAndExcept"></dd>
+                                        <dt id="dtTelefonoFaxTurnAndExcept">Fax:</dt>
+                                        <dd id="ddTelefonoFaxTurnAndExcept"></dd>
+                                        <dt id="dtInternoInstTurnAndExcept">N&uacute;mero Interno:</dt>
+                                        <dd id="ddInternoInstTurnAndExcept"></dd>
+                                        <dt id="dtEmailInstTurnAndExcept">E-Mail Institucional:</dt>
+                                        <dd id="ddEmailInstTurnAndExcept"></dd>
+                                    </dl>
+                                </div>
+                            </h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </br>
+            <div class="row" style="min-height:300px;">
+                <div class="col-md-2">
+                    <ul class="nav nav-stacked nav-tab-vert" id="ulGruposArchivos"></ul>
+                </div>
+                <div class="col-md-10 block">
+                    <div class="tab-content">
+                        <div class="tab-pane active">
+                            <div id="divGridTiposDocumentosPresentacionDoc"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div style="display: none" class="col-md-12 block" id="divGridDocumentosPresentadosGlobal">
+                <div class="block-title">
+                    <h2 id="h2NombreTipoDocumento"></h2>
+
+                    <div style="display: none" id="divGridDocumentosPresentados"
+                         class="divGridDocumentosPres"></div>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <button class="btn btn-sm btn-warning" type="button" id="btnVolverDesdeFolder">
+                    <i class="fa fa-reply"></i>
+                    Volver al Listado
+                </button>
+            </div>
+        </form>
+    </div>
+    <div style="display: none" class="section" id="divReport">
+        <div class="col-md-2">
+            <ul class="nav nav-stacked nav-tab-vert" id="ulGruposArchivosRep"></ul>
+        </div>
+        <div class="col-md-10 block">
+            <div class="tab-content">
+                <div class="tab-pane active">
+                    <div id="divGridTiposDocumentosPresentacionDocRep"></div>
+                </div>
+            </div>
+        </div>
+        <div style="display: none" class="col-md-12 block" id="divGridDocumentosPresentadosGlobalRep">
+            <div class="block-title">
+                <h2 id="h2NombreTipoDocumentoRep"></h2>
+
+                <div style="display: none" id="divGridDocumentosPresentadosRep"
+                     class="divGridDocumentosPresRep"></div>
+            </div>
+        </div>
+        <div class="col-md-12">
+            <button class="btn btn-sm btn-warning" type="button" id="btnVolverDesdeReport">
+                <i class="fa fa-reply"></i>
+                Volver al Listado
+            </button>
+        </div>
+    </div>
+</div>
+<div style="display: none" class="modal fade bs-example-modal-lg" id="popupNuevoEditarPresentacionDoc" tabindex="-1"
+     role="dialog"
+     aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-md">
+        <div class="modal-content">
+            <form class="form-horizontal" id="formNuevoEditarPresentacionDoc" data-toggle="validator"
+                  onsubmit="return false;"/>
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span
+                        class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="divTituloModal">Documento</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <h6><b>NOTA: </b>Los datos precedidos de asterisco son requerido de manera obligatoria (*).</h6>
+
+                        <div class="panel panel-default">
+                            <input type="hidden" name="id_tipodocumento" id="id_tipodocumento" value="0">
+                            <input type="hidden" name="id_persona" id="id_persona" value="0">
+                            <input type="hidden" name="id_relaboral" id="id_relaboral" value="0">
+                            <input type="hidden" name="id_tipoemisordoc" id="id_tipoemisordoc" value="0">
+
+                            <div class="panel-heading" id="divNombreDelTipoDeDocumento">
+                            </div>
+                            <div class="panel-body form-horizontal">
+                                <div style="display: none;" class="form-group divPresDoc" id="divEmisor">
+                                    <label class="col-md-4 control-label" for="lstEmisores">Emisor *:</label>
+
+                                    <div class="col-md-8" form-group>
+                                        <select class="form-control" id="lstEmisores">
+                                            <option value="">Seleccionar..</option>
+                                        </select>
+                                        <span class="help-block" id="helpErrorEmisor"></span>
+                                    </div>
+                                </div>
+                                <div style="display: none" class="form-group divEmision  divPresDoc" id="divGest">
+                                    <label class="col-sm-4 control-label" for="txtGestGestion">Gesti&oacute;n Emisi&oacute;n:</label>
+
+                                    <div class="col-md-4" form-group id="divGestGestion">
+                                        <input type="text" id="txtGestGestion" class="form-control valEmision numeral">
+                                        <span class="help-block" id="helpErrorGestGestion"></span>
+                                    </div>
+                                </div>
+                                <div style="display: none" class="form-group divEmision divPresDoc" id="divTrim">
+                                    <label class="col-sm-4 control-label" for="lstTrimTrimestre">Trimestre /
+                                        Gesti&oacute;n Emisi&oacute;n *:</label>
+
+                                    <div class="col-md-4" form-group id="divTrimTrimestre">
+                                        <select id="lstTrimTrimestre" class="form-control valEmision">
+                                            <option value="">Seleccionar..</option>
+                                        </select>
+                                        <span class="help-block" id="helpErrorTrimTrimestre"></span>
+                                    </div>
+                                    <div class="col-md-4" form-group id="divTrimGestion">
+                                        <input id="txtTrimGestion" class="form-control valEmision numeral"
+                                               placeholder="Gesti&oacute;n"/>
+                                        <span class="help-block" id="helpErrorTrimGestion"></span>
+                                    </div>
+                                </div>
+                                <div style="display: none" class="form-group divEmision divPresDoc" id="divConj">
+                                    <label class="col-sm-4 control-label" for="txtConjFechaEmi">Fecha
+                                        Emisi&oacute;n *:</label>
+
+                                    <div class="col-md-4" form-group id="divConjFechaEmi">
+                                        <input type="text" id="txtConjFechaEmi"
+                                               class="form-control input-datepicker-close valEmision"
+                                               data-date-format="dd-mm-yyyy"
+                                               placeholder="dd-mm-aaaa">
+                                        <span class="help-block" id="helpErrorConjFechaEmi"></span>
+                                    </div>
+                                </div>
+                                <div style="display: none" class="form-group divEmision divPresDoc" id="divConjHora">
+                                    <label class="col-sm-4 control-label" for="txtConjFechaHoraEmi">Fecha & Hora Emisi&oacute;n
+                                        *:</label>
+
+                                    <div class="col-md-4" form-group id="divConjFechaHoraEmi">
+                                        <input type="text" id="txtConjFechaHoraEmi"
+                                               class="form-control input-datepicker-close valEmision"
+                                               data-date-format="dd-mm-yyyy"
+                                               placeholder="dd-mm-aaaa">
+                                        <span class="help-block" id="helpErrorConjFechaHoraEmi"></span>
+                                    </div>
+                                </div>
+                                <div style="display: none" class="form-group divEmision divPresDoc" id="divPart">
+                                    <label class="col-sm-4 control-label" for="lstPartMes">Mes /
+                                        Gesti&oacute;n Emisi&oacute;n *:</label>
+
+                                    <div class="col-md-4" form-group id="divPartMes">
+                                        <select id="lstPartMes" class="form-control valEmision">
+                                            <option value="">Seleccionar..</option>
+                                        </select>
+                                        <span class="help-block" id="helpErrorPartMes"></span>
+                                    </div>
+                                    <div class="col-md-4" form-group id="divPartGestion">
+                                        <input type="text" id="txtPartGestion" class="form-control valEmision numeral">
+                                        <span class="help-block" id="helpErrorPartGestion"></span>
+                                    </div>
+                                </div>
+                                <div class="form-group divPresDoc" id="divFechaPres">
+                                    <label class="col-sm-4 control-label" for="txtFechaPres">Fecha Presentaci&oacute;n
+                                        *:</label>
+
+                                    <div class="col-md-4" form-group>
+                                        <input type="text" id="txtFechaPres"
+                                               class="form-control input-datepicker-close valEmision"
+                                               data-date-format="dd-mm-yyyy" placeholder="dd-mm-aaaa">
+                                        <span class="help-block" id="helpErrorFechaPres"></span>
+                                    </div>
+                                </div>
+                                <div style="display: none" id="divConjuntoDatosAdicionales">
+                                    <fieldset>
+                                        <legend><i class="fa fa-angle-right"></i> Datos Adicionales</legend>
+                                    </fieldset>
+                                    <div id="divContenidoDatosAdicionales"></div>
+                                </div>
+                                <fieldset>
+                                    <legend><i class="fa fa-angle-right"></i> &nbsp;</legend>
+                                    <div class="form-group div-move-relab" id="divObservacion">
+                                        <label class="col-md-4 control-label"
+                                               for="txtObservacion">Observaciones:</label>
+
+                                        <div class="col-md-8">
+                                            <textarea id="txtObservacion" name="txtObservacion" class="form-control"
+                                                      placeholder="Observaciones.."></textarea>
+                                        </div>
+                                    </div>
+                                </fieldset>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" id="btnGuardarPresentacionDocumento" class="btn btn-primary"
+                        data-id_presentaciondoc="0">
+                    <i class="fa fa-pencil"></i> Guardar
+                </button>
+                <button type="button" id="btnCerrarPresentacionDocumento" class="btn btn-default" data-dismiss="modal">
+                    <i class="fa fa-compress"></i> Cerrar
+                </button>
+            </div>
+            </form>
+        </div>
+    </div>
+</div>
+<div id="popupSubirArchivo" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title" id="h4NombreModalSubirArchivos">Carga de Archivos</h4>
+            </div>
+            <div class="modal-body" id="divModalBody">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+<!-- Modal -->
+<div style="display: none;" id="popupMostrarArchivo" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog"
+     aria-labelledby="myLargeModalLabel">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">Archivo Digital</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div id="divMostrarArchivo"></div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" id="btnEliminarArchivo" class="btn btn-danger">
+                        <i class="fa fa-trash-o"></i> Eliminar
+                    </button>
+                    <button type="button" id="btnCerrarMostrarArchivo" class="btn btn-default"
+                            data-dismiss="modal">
+                        <i class="fa fa-compress"></i> Cerrar
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /.modal -->
+</div>
+<div style="display: none" id="divMsjeNotificacionError">
+    <div id="divMsjePorError">
+    </div>
+</div>
+<div style="display: none" id="divMsjeNotificacionWarning">
+    <div id="divMsjePorWarning">
+    </div>
+</div>
+<div style="display: none" id="divMsjeNotificacionSuccess">
+    <div id="divMsjePorSuccess">
+    </div>
+</div>

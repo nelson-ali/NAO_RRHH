@@ -1,0 +1,120 @@
+<script type="text/javascript">
+	$(document).ready(function () {
+		var source =
+		{
+			datatype: "json",
+			datafields: [
+			{ name: 'id',type: 'number'},
+		{ name: 'resolucion_ministerial_id',type: 'number'},
+		{ name: 'tipo_resolucion',type: 'string'},
+		{ name: 'unidad_administrativa',type: 'string'},
+		{ name: 'organigrama_id',type: 'string'},
+		{ name: 'depende_id',type: 'number'},
+		{ name: 'codigo_nivel',type: 'string'},
+		{ name: 'denominacion',type: 'string'},
+		{ name: 'codigo',type: 'string'},
+		{ name: 'ordenador',type: 'number'},
+		{ name: 'cargo',type: 'string'},
+		{ name: 'sueldo'},
+		{ name: 'fin_partida_id'},
+		{ name: 'estado', type: 'string'},
+		{ name: 'condicion', type: 'string'},
+
+		{ name: 'partida', type: 'number'},
+		{ name: 'fuente_codigo', type: 'number'},
+		{ name: 'fuente', type: 'string'},
+		{ name: 'organismo_codigo', type: 'number'},
+		{ name: 'organismo', type: 'string'},
+		{ name: 'asistente', type: 'number'},
+		{ name: 'jefe', type: 'number'}
+			],
+			url: '/servercargos/list',
+			root: 'Rows',
+			beforeprocessing: function (data) {
+				source.totalrecords = data[0].TotalRows;
+			},
+			sort: function () {
+				$("#jqxgrid").jqxGrid('updatebounddata', 'sort');
+			},
+			filter: function () {
+				$("#jqxgrid").jqxGrid('updatebounddata', 'filter');
+			}
+		};
+		var dataAdapter = new $.jqx.dataAdapter(source);
+	// 	$("#jqxgrid").jqxGrid('applyfilters');
+	// //$("#jqxgrid").jqxGrid('applyfilters', 'resolucion', filtergroup);
+	// var firstNameColumnFilter = function () {
+	//  	//alert(tipo_resolucion);
+	//  	var filtergroup = new $.jqx.filter();
+	//  	var filter_or_operator = 1;
+	//  	var filtervalue = $("#tipo_resolucion").val();
+	//  	var filtercondition = 'equal';
+	//  	var filter = filtergroup.createfilter('stringfilter', filtervalue, filtercondition);
+	//  	filtergroup.addfilter(filter_or_operator, filter);
+	//  	return filtergroup;
+	//  }();
+			$("#jqxgrid").jqxGrid({
+				width: '100%',
+				height: '100%',
+				source: dataAdapter,
+				sortable: true,
+				altRows: true,
+                columnsresize: true,
+                pageable: true,
+                pagerMode: 'advanced',
+                showfilterrow: true,
+                filterable: true,
+                autorowheight: true,
+                virtualmode: true,
+                 rendergridrows: function () {
+                    return dataAdapter.records;
+                },
+                columns: [
+                {
+                	text: '#', sortable: false, filterable: false, editable: false,
+                	groupable: false, draggable: false, resizable: false,
+                	datafield: '', columntype: 'number', width: '2%',
+                	cellsrenderer: function (row, column, value) {
+                		return "<div style='margin:3px;'>" + (value + 1) + "</div>";
+                	}
+                },
+                 { text: 'Resolución', datafield: 'tipo_resolucion', filtertype: 'checkedlist',width: '15%' },
+                { text: 'Organigrama', datafield: 'unidad_administrativa', filtertype: 'checkedlist',width: '20%' },
+                { text: 'Denominacion', datafield: 'denominacion', filtertype: 'input',width: '15%' },
+                { text: 'Ordenador', datafield: 'ordenador', filtertype: 'number',width: '5%' },
+                { text: 'Cargo', datafield: 'cargo', filtertype: 'input',width: '30%' },
+                { text: 'Salario Mensual', datafield: 'sueldo', filtertype: 'number',width: '8%', cellsalign: 'right', align: 'right'},
+                { text: 'Item', datafield: 'codigo', filtertype: 'input',width: '5%' },
+                { text: 'Estado', datafield: 'estado', filtertype: 'checkedlist',width: '7%' },
+                { text: 'Tipo Cargo', datafield: 'condicion', filtertype: 'checkedlist',width: '10%' },
+
+                { text: 'Partida', datafield: 'partida', filtertype: 'number',width: '5%' },
+                { text: 'Fuente Codigo', datafield: 'fuente_codigo', filtertype: 'number',width: '10%' },
+                { text: 'Fuente', datafield: 'fuente', filtertype: 'input',width: '10%', hidden: true},
+                { text: 'Organismo Codigo', datafield: 'organismo_codigo', filtertype: 'number',width: '10%' },
+                { text: 'Organismo', datafield: 'organismo', filtertype: 'input',width: '10%', hidden: true},
+                ]
+            });
+		
+
+});
+</script>
+
+<div class="row">
+	<div class="col-lg-12">
+		<h1>Cargos</h1>		
+	</div>
+</div>
+<input type="hidden" name="tipo_resolucion" id="tipo_resolucion" value="<?php echo $tipo_resolucion ?>">
+<div class="row">
+	<div class="col-lg-12">
+		<div class="panel panel-default">
+			<div class="panel-body">
+				<div class="table-responsive">
+					<div id="jqxgrid"></div>
+				</div>
+			</div>
+		</div>
+		
+	</div>
+</div>

@@ -1,0 +1,756 @@
+</head>
+<body>
+<h2 style="padding-top: 0px; width: 100%;"><b>Gesti&oacute;n Asignaci&oacute;n de Perfiles</b></h2>
+
+<div id="divMsjeExito" class="msjs-alert" hidden="hidden">
+    <button class="close" aria-hidden="true" data-dismiss="alert" type="button">×</button>
+    <h4>
+        <i class="fa fa-check-circle"></i>
+        &Eacute;xito!
+    </h4>
+    Solicitud completada!
+    <a class="alert-link" href="javascript:void(0)" id="aMsjeExito"></a>
+</div>
+<div id="divMsjeInformacion" class="msjs-alert" hidden="hidden">
+    <button class="close" aria-hidden="true" data-dismiss="alert" type="button">×</button>
+    <h4>
+        <i class="fa fa-info-circle"></i>
+        Atenci&oacute;n!
+    </h4>
+    Algo que considerar!
+    <a class="alert-link" href="javascript:void(0)" id="aMsjeInformacion"></a>
+</div>
+<div id="divMsjePeligro" class="msjs-alert" hidden="hidden">
+    <button class="close" aria-hidden="true" data-dismiss="alert" type="button">×</button>
+    <h4>
+        <i class="fa fa-exclamation-circle"></i>
+        Cuidado!
+    </h4>
+    Considere lo siguiente!
+    <a class="alert-link" href="javascript:void(0)" id="aMsjePeligro"></a>
+</div>
+<div id="divMsjeError" class="msjs-alert" hidden="hidden">
+    <button class="close" aria-hidden="true" data-dismiss="alert" type="button">×</button>
+    <h4>
+        <i class="fa fa-times-circle"></i>
+        Error!
+    </h4>
+    Solicitud inv&aacute;lida!
+    <a class="alert-link" href="javascript:void(0)" id="aMsjeError"></a>
+</div>
+<div id='jqxTabsAsignacionPerfiles'>
+<ul>
+    <li id="liList">Listado</li>
+    <li id="liAssignSingle">Individuales</li>
+    <li id="liAssignGroup">Grupal</li>
+    <li id="liNew">Nueva Grupal</li>
+    <li id="liEdit">Modificaci&oacute;n Grupal</li>
+    <li id="liTurnPerfil">Turnos</li>
+</ul>
+<div class="section" id="divList">
+    <form class="navbar-form" id="formNew">
+    <div class="form-horizontal">
+        <h2>Perfiles Laborales Disponibles</h2>
+    </div>
+    <div id='jqxWidgetRelaboral'>
+        <div align="right">
+            <!--<button class="btn btn-sm btn-primary" type="button" id="btnExportarExcel" accesskey="i">
+                <i class="fi fi-xls"></i>
+                Exportar Excel
+            </button>
+            <button class="btn btn-sm btn-primary" type="button" id="btnExportarPDF" accesskey="i">
+                <i class="fi fi-pdf"></i>
+                Exportar PDF
+            </button>-->
+            <button class="btn btn-sm btn-primary" type="button" id="btnDesagrupartodo">
+                <i class="fa fa-chain-broken"></i>
+                Desagrupar Todo
+            </button>
+            <button class="btn btn-sm btn-primary" type="button" id="btnDesfiltrartodo">
+                <i class="gi gi-sorting"></i>
+                Desfiltrar Todo
+            </button>
+        </div>
+        <div id="divGridPerfilesLaborales"></div>
+    </div>
+    </form>
+</div>
+<div class="section" id="divAssignSingle">
+    <form class="navbar-form" id="formAssignSingle" onsubmit="return false;">
+        <div class="widget">
+            <div class="widget-simple themed-background-dark">
+                <h2 style="color: white">Gesti&oacute;n de Asignaciones Individuales</h2>
+                <h4 class="widget-content">
+                    <div>
+                        <dl class="dl-horizontal" STYLE="color: white;font-size: 13px;">
+                            <dt id="dtPerfilLaboralSingle">Perfil Laboral:</dt>
+                            <dd id="ddPerfilLaboralSingle"></dd>
+                            <dt id="dtGrupoSingle">Grupo:</dt>
+                            <dd id="ddGrupoSingle"></dd>
+                            <dt id="dtTipoHorarioSingle">Tipo de Horario:</dt>
+                            <dd id="ddTipoHorarioSingle"></dd>
+                        </dl>
+                    </div>
+                </h4>
+            </div>
+        </div>
+        <div class="col-md-10">
+            <!-- Input Grid Block -->
+            <div class="block">
+                <div class="block-title">
+                    <h2>Listado General</h2>
+                    <div id='jqxWidget'>
+                        <div class="col-sm-2" id="divGestionGen">
+                            <label id="lblGestion">Gesti&oacute;n:</label>
+                            <select id="lstGestion" class="form-control"><option value="">Seleccionar..</option></select>
+                            <span class="help-block" id="helpErrorGestionGen"></span>
+                        </div>
+                        <button class="btn btn-sm btn-primary" type="button" id="btnBuscarPorGestion" accesskey="i">
+                            <i class="fa fa-search"></i>
+                            Buscar
+                        </button>
+                        <div align="right">
+                            <!-- <button class="btn btn-sm btn-primary" type="button" id="btnExportarExcel" accesskey="i">
+                                 <i class="fi fi-xls"></i>
+                                 Exportar Excel
+                             </button>
+                             <button class="btn btn-sm btn-primary" type="button" id="btnExportarPDF" accesskey="i">
+                                 <i class="fi fi-pdf"></i>
+                                 Exportar PDF
+                             </button>-->
+                            <button class="btn btn-sm btn-primary" type="button" id="btnDesagruparTodoAsignacionSingle">
+                                <i class="fa fa-chain-broken"></i>
+                                Desagrupar Todo
+                            </button>
+                            <button class="btn btn-sm btn-primary" type="button" id="btnDesfiltrarTodoAsignacionSingle">
+                                <i class="gi gi-sorting"></i>
+                                Desfiltrar Todo
+                            </button>
+                        </div>
+                        <div id="divGrillaAsignacionesIndividuales"></div>
+                    </div>
+                </div>
+
+
+            </div>
+            <!-- END Input Grid Block -->
+        </div>
+        <div class="col-md-2">
+            <!-- Input Grid Block -->
+            <div class="block">
+                <div class="block-title">
+                    <h2>Mostrar</h2>
+                    <br>
+                </div>
+                <div id="lstBoxColumnasDisponibles"></div>
+                <!-- END Input Grid Title -->
+            </div>
+            <!-- END Input Grid Block -->
+        </div>
+        <br>
+        <br>
+        <div id="divGrupoBotonesSingle" class="btn-group">
+            <button id="btnCancelarSingle" class="btnCancelarSingle btn btn-warning"  type="button"><i class="fa fa-repeat"></i> Cancelar / Volver a Perfiles</button>
+        </div>
+        <input type="hidden" id="hdnIdPerfilLaboralSingle" value="0">
+        <input type="hidden" id="hdnTipoHorarioSingle" value="0">
+        <input type="hidden" id="hdnFechaIniSingle" value="">
+        <input type="hidden" id="hdnFechaFinSingle" value="">
+    </form>
+</div>
+<div class="section" id="divAssignGroup">
+    <!--<div class="form-horizontal">
+        <h2>Nuevo Perfil Laboral</h2>
+    </div>-->
+    <form class="navbar-form" id="formAssingGroup">
+        <br>
+        <div class="widget">
+            <div class="widget-simple themed-background-dark">
+                <h2 style="color: white">Gesti&oacute;n de Asignaciones Agrupadas</h2>
+                <h4 class="widget-content">
+                    <div>
+                        <dl class="dl-horizontal" STYLE="color: white;font-size: 13px;">
+                            <dt id="dtPerfilLaboral">Perfil Laboral:</dt>
+                            <dd id="ddPerfilLaboral"></dd>
+                            <dt id="dtGrupo">Grupo:</dt>
+                            <dd id="ddGrupo"></dd>
+                            <dt id="dtTipoHorario">Tipo de Horario:</dt>
+                            <dd id="ddTipoHorario"></dd>
+                        </dl>
+                    </div>
+                </h4>
+            </div>
+        </div>
+        <div class="block full col-sm-12">
+            <div align="right">
+                <!-- <button class="btn btn-sm btn-primary" type="button" id="btnExportarExcel" accesskey="i">
+                     <i class="fi fi-xls"></i>
+                     Exportar Excel
+                 </button>
+                 <button class="btn btn-sm btn-primary" type="button" id="btnExportarPDF" accesskey="i">
+                     <i class="fi fi-pdf"></i>
+                     Exportar PDF
+                 </button>-->
+                <button class="btn btn-sm btn-primary" type="button" id="btnDesagruparTodoAsignacionGroup">
+                    <i class="fa fa-chain-broken"></i>
+                    Desagrupar Todo
+                </button>
+                <button class="btn btn-sm btn-primary" type="button" id="btnDesfiltrarTodoAsignacionGroup">
+                    <i class="gi gi-sorting"></i>
+                    Desfiltrar Todo
+                </button>
+            </div>
+            <div id="divGridAsignaciones"></div>
+        </div>
+        <div id="divGrupoBotonesAssignGroup" class="btn-group">
+            <button id="btnCancelarAssignGroup" class="btnCancelarAssignGroup btn btn-warning"  type="button"><i class="fa fa-repeat"></i> Cancelar / Volver a Perfiles</button>
+        </div>
+    </form>
+</div>
+<div class="section" id="divNew">
+    <form class="navbar-form" id="formNew">
+        <br>
+        <div class="widget">
+            <div class="widget-simple themed-background-dark">
+                <h2 style="color: white">Nueva Asignaci&oacute;n</h2>
+                <h4 class="widget-content">
+                    <div>
+                        <dl class="dl-horizontal" STYLE="color: white;font-size: 13px;">
+                            <dt id="dtPerfilLaboralNew">Perfil Laboral:</dt>
+                            <dd id="ddPerfilLaboralNew"></dd>
+                            <dt id="dtGrupoNew">Grupo:</dt>
+                            <dd id="ddGrupoNew"></dd>
+                            <dt id="dtTipoHorarioNew">Tipo de Horario:</dt>
+                            <dd id="ddTipoHorarioNew"></dd>
+                        </dl>
+                    </div>
+                </h4>
+            </div>
+        </div>
+        <div class="form-horizontal col-sm-12" id="detallesDependenciaNew">
+            <h6><b>NOTA: </b>Los datos precedidos de asterisco son requerido de manera obligatoria (*)</h6>
+            <br>
+
+                <div class="row">
+                    <div class="col-sm-6" id="divUbicacionesNew">
+                        <label class="col-sm-3 control-label" for="lstUbicacionesNew">Ubicaci&oacute;n *:</label>
+                        <div class="col-sm-6">
+                            <select id="lstUbicacionesNew" class="form-control new-asignacion-perfil"></select>
+                            <span class="help-block" id="helpErrorUbicacionesNew"></span>
+                        </div>
+                    </div>
+                    <div class="col-sm-6" id="divEstacionesNew">
+                        <label class="col-sm-3 control-label" for="lstEstacionesNew">Estaci&oacute;n<span id="spanAsteriscoEstaciones"></span>:</label>
+                        <div class="col-sm-6">
+                            <select id="lstEstacionesNew" class="form-control new-asignacion-perfil" disabled><option value="0">Seleccionar...</option></select>
+                            <span class="help-block" id="helpErrorEstacionesNew"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-6" id="divFechaIniNew">
+                        <label class="col-sm-3 control-label" for="txtFechaIniNew">Fecha Ini. *: </label>
+                        <div class="col-sm-6">
+                            <div style="margin-top: 5px;" id="txtFechaIniNew" on></div>
+                            <span class="help-block" id="helpErrorFechaIniNew"></span>
+                        </div>
+                    </div>
+                    <div class="col-sm-6" id="divFechaFinNew">
+                        <label class="col-sm-3 control-label" for="txtFechaFinNew">Fecha Fin *: </label>
+                        <div class="col-sm-6">
+                            <div style="margin-top: 5px;" id="txtFechaFinNew" on></div>
+                            <span class="help-block" id="helpErrorFechaFinNew"></span>
+                        </div>
+                    </div>
+                </div>
+            <div class="block">
+                <div class="row">
+                    <div class="col-xs-6" id="divNoSeleccionadosNew">
+                        <b>Disponibles:</b>
+                            <div id="lstBoxNewA"></div>
+                            <button id="clearFilterNewA" class="btn btn-sm btn-primary" type="button"><i class="fa fa-exchange"></i> Desfiltrar</button>
+                            <div id="divContadorLstBoxNewA" style="text-align: right"><b>Total Disponibles:</b> <span id="spanContadorLstBoxNewA"></span></div>
+                    </div>
+                    <div class="col-xs-6" id="divSeleccionadosNew">
+                        <b>Seleccionados *:</b>
+                            <div id="lstBoxNewB"></div>
+                            <button id="clearFilterNewB" class="btn btn-sm btn-primary" type="button"><i class="fa fa-exchange"></i> Desfiltrar</button>
+                            <div id="divContadorLstBoxNewB" style="text-align: right"><b>Total Seleccionados:</b> <span id="spanContadorLstBoxB"></span></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-9 col-sm-offset-3">
+            <button class="btn btn-sm btn-primary" type="button" id="btnGuardarNew">
+                <i class="fa fa-floppy-o"></i>
+                Guardar
+            </button>
+            <button class="btn btn-sm btn-warning" type="button" id="btnCancelarNew">
+                <i class="fa fa-repeat"></i>
+                Cancelar
+            </button>
+        </div>
+        <input type="hidden" id="hdnIdPerfilLaboralNew" value="0">
+    </form>
+</div>
+<div class="section" id="divEdit">
+    <form class="navbar-form" id="formEdit">
+    <br>
+    <div class="widget">
+        <div class="widget-simple themed-background-dark">
+                <h2 style="color: white">Modificaci&oacute;n de Asignaci&oacute;n Grupal</h2>
+                <h4 class="widget-content">
+                    <div>
+                        <dl class="dl-horizontal" STYLE="color: white;font-size: 13px;">
+                            <dt id="dtPerfilLaboralEdit">Perfil Laboral:</dt>
+                            <dd id="ddPerfilLaboralEdit"></dd>
+                            <dt id="dtGrupoEdit">Grupo:</dt>
+                            <dd id="ddGrupoEdit"></dd>
+                            <dt id="dtTipoHorarioEdit">Tipo de Horario:</dt>
+                            <dd id="ddTipoHorarioEdit"></dd>
+                        </dl>
+                    </div>
+                </h4>
+        </div>
+    </div>
+        <div class="form-horizontal col-sm-12" id="detallesDependenciaEdit">
+            <h6><b>NOTA: </b>Los datos precedidos de asterisco son requerido de manera obligatoria (*)</h6>
+            <br>
+
+            <div class="row">
+                <div class="col-sm-6" id="divUbicacionesEdit">
+                    <label class="col-sm-3 control-label" for="lstUbicacionesEdit">Ubicaci&oacute;n *:</label>
+                    <div class="col-sm-6">
+                        <select id="lstUbicacionesEdit" class="form-control edit-asignacion-perfil"></select>
+                        <span class="help-block" id="helpErrorUbicacionesEdit"></span>
+                    </div>
+                </div>
+                <div class="col-sm-6" id="divEstacionesEdit">
+                    <label class="col-sm-3 control-label" for="lstEstacionesEdit">Estaci&oacute;n<span id="spanAsteriscoEstacionesEdit"></span>:</label>
+                    <div class="col-sm-6">
+                        <select id="lstEstacionesEdit" class="form-control edit-asignacion-perfil" disabled><option value="0">Seleccionar...</option></select>
+                        <span class="help-block" id="helpErrorEstacionesEdit"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6" id="divFechaIniEdit">
+                    <label class="col-sm-3 control-label" for="txtFechaIniEdit">Fecha Ini. *: </label>
+                    <div class="col-sm-6">
+                        <div style="margin-top: 5px;" id="txtFechaIniEdit" on></div>
+                        <span class="help-block" id="helpErrorFechaIniEdit"></span>
+                    </div>
+                </div>
+                <div class="col-sm-6" id="divFechaFinEdit">
+                    <label class="col-sm-3 control-label" for="txtFechaFinEdit">Fecha Fin *: </label>
+                    <div class="col-sm-6">
+                        <div style="margin-top: 5px;" id="txtFechaFinEdit" on></div>
+                        <span class="help-block" id="helpErrorFechaFinEdit"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="block">
+                <div class="row">
+                    <div class="col-xs-6" id="divNoSeleccionadosEdit">
+                        <b>Disponibles:</b>
+                        <div id="lstBoxEditA"></div>
+                        <button id="clearFilterEditA" class="btn btn-sm btn-primary" type="button"><i class="fa fa-exchange"></i> Desfiltrar</button>
+                        <div id="divContadorLstBoxEditA" style="text-align: right"><b>Total Disponibles:</b> <span id="spanContadorLstBoxEditA"></span></div>
+                    </div>
+                    <div class="col-xs-6" id="divSeleccionadosEdit">
+                        <b>Seleccionados *:</b>
+                        <div id="lstBoxEditB"></div>
+                        <button id="clearFilterEditB" class="btn btn-sm btn-primary" type="button"><i class="fa fa-exchange"></i> Desfiltrar</button>
+                        <div id="divContadorLstBoxEditB" style="text-align: right"><b>Total Seleccionados:</b> <span id="spanContadorLstBoxEditB"></span></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-9 col-sm-offset-3">
+            <button class="btn btn-sm btn-primary" type="button" id="btnGuardarEdit">
+                <i class="fa fa-floppy-o"></i>
+                Guardar
+            </button>
+            <button class="btn btn-sm btn-warning" type="button" id="btnCancelarEdit">
+                <i class="fa fa-repeat"></i>
+                Cancelar
+            </button>
+        </div>
+        <input type="hidden" id="hdnIdPerfilLaboralEdit" value="0">
+    </form>
+</div>
+<div class="section" id="divTurnPerfil">
+    <form class="navbar-form" id="form" onsubmit="return false;">
+        <br>
+        <div class="widget">
+            <div class="widget-simple themed-background-dark">
+                <h2 style="color: white">Turnos por Asignaci&oacute;n de Perfil</h2>
+                <h4 class="widget-content">
+                    <div>
+                        <dl class="dl-horizontal" STYLE="color: white;font-size: 13px;">
+                            <dt id="dtPerfilLaboralTurn">Perfil Laboral:</dt>
+                            <dd id="ddPerfilLaboralTurn"></dd>
+                            <dt id="dtGrupoTurn">Grupo:</dt>
+                            <dd id="ddGrupoTurn"></dd>
+                            <dt id="dtTipoHorarioTurn">Tipo de Horario:</dt>
+                            <dd id="ddTipoHorarioTurn"></dd>
+                        </dl>
+                    </div>
+                </h4>
+            </div>
+        </div>
+        <!-- Contenido referente al calendario laboral y gestión de horarios -->
+        <div id="page-content">
+            <!-- FullCalendar Content -->
+            <div class="block block-alt-noborder full">
+                <div class="block-title">
+                    <div class="block-options pull-right">
+                        <a id="btnImprimirCalendario" class="btn btn-alt btn-sm btn-default" title="Imprimir Calendario" data-toggle="tooltip" href="javascript:void(0)" data-original-title="Imprimir">
+                            <i class="fa fa-print"></i>
+                        </a>
+                    </div>
+                    <h2>
+                        <strong><span id="spanPrefijoCalendarioLaboral"></span></strong>
+                        Calendario Laboral
+                        <span id="spanSufijoCalendarioLaboral"></span>
+                    </h2>
+                </div>
+                <div class="row">
+                    <div class="col-md-2">
+                        <div class="block-section" id="divAsignacionSingle">
+                            <h5><b>Relaci&oacute;n Laboral</b></h5>
+                            <div align="center"><span id="spanFotoAsignacionSingle"></span></div>
+                            <h5 id="hNombreAsignacionSingle"><b>Nombres:</b> <br><span id="spanNombreAsignacionSingle"></span></h5>
+                            <h5 id="hCargoAsignacionSingle"><b>Cargo:</b> <br><span id="spanCargoAsignacionSingle"></span></h5>
+                            <h5 id="hGerenciaAsignacionSingle"><b>Gerencia:</b> <br><span id="spanGerenciaAsignacionSingle"></span></h5>
+                            <h5 id="hDepartamentoAsignacionSingle"><b>Departamento:</b> <br><span id="spanDepartamentoAsignacionSingle"></span></h5>
+                            <h5 id="hCondicionAsignacionSingle"><b>Condici&oacute;n:</b> <br><span id="spanCondicionAsignacionSingle"></span></h5>
+                            <h5 id="hFechasRelaboralAsignacionSingle"><b>Fechas Relaci&oacute;n Laboral:</b> <br><span id="spanFechasRelaboralAsignacionSingle"></span></h5>
+                        </div>
+                        <div class="block-section" id="divAsignacionGroup">
+                            <div id="divUbicacionesPrincipales">
+                                Ubicaci&oacute;n:
+                            <select id="lstUbicacionesPrincipales" class="form-control"><option value="0">Seleccionar...</option></select>
+                            </div>
+                            <div id="divEstacionesAsignadas">
+                                Estaci&oacute;n:
+                            <select id="lstEstacionesAsignadas" class="form-control" disabled><option value="0">Seleccionar...</option></select>
+                            </div>
+                            <div id="divPersonasAsignadas" hidden="hidden">
+                                Personal Asignado:
+                                <select id="lstBoxRegistrados" class="form-control" disabled><option value="0">Seleccionar...</option></select>
+                                <button id="clearFilterRegistrados" class="btn btn-sm btn-primary" type="button"><i class="fa fa-exchange"></i> Desfiltrar</button>
+                                <div id="divContadorLstBoxRegistrados" style="text-align: right"><b>Total:</b> <span id="spanContadorLstBoxRegistrados"></span></div>
+                            </div>
+                        </div>
+                        <input type="hidden" id="hdnFechaInicialCalendario" value="">
+                        <input type="hidden" id="hdnFechaFinalCalendario" value="">
+                    </div>
+                    <div class="col-md-10">
+                        <div id="calendar"></div>
+                    </div>
+                    </br>
+                    <div class="col-md-12">
+                        <div id="divDatosAsignacionSingle" class="table-responsive">
+                            Horarios asignados:
+                            <table id="tblGrillaAsignacionSingle" class="table table-vcenter table-striped">
+                                <thead>
+                                <tr>
+                                    <th class='text-center'>Nro.</th>
+                                    <th class='text-center'>Fecha Ini</th>
+                                    <th class='text-center'>Fecha Fin</th>
+                                    <th class='text-center'>Ubicaci&oacute;n</th>
+                                    <th class='text-center'>Estaci&oacute;n</th>
+                                    <th class='text-center'>Hora Ingreso</th>
+                                    <th class='text-center'>Hora Salida</th>
+                                    <th class='text-center'>Observaci&oacute;n</th>
+                                </tr>
+                                </thead>
+                                <tbody id="tbody_asignacion_single">
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div id="divGrupoBotonesTurnPerfil" class="btn-group">
+                    <button id="btnCancelarTurnPerfil" class="btnCancelarTurnPerfil btn btn-warning"  type="button"><i class="fa fa-repeat"></i> Cancelar / Volver a Perfiles</button>
+                </div>
+            </div>
+        </div>
+            <!-- END FullCalendar Block -->
+            <!-- END FullCalendar Content -->
+    </form>
+</div>
+        <!-- END Contenido referente al calendario laboral y gestión de horarios -->
+</div>
+</div>
+<!--</form></div>-->
+</body>
+<div id="divMsjeNotificacionError">
+    <div id="divMsjePorError">
+    </div>
+</div>
+<div id="divMsjeNotificacionWarning">
+    <div id="divMsjePorWarning">
+    </div>
+</div>
+<div id="divMsjeNotificacionSuccess">
+    <div id="divMsjePorSuccess">
+    </div>
+</div>
+<div class="modal fade bs-example-modal-lg" id="popupAsignacionPerfilLaboral" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <form class="form-horizontal" id="testForm_perfil" data-toggle="validator" onsubmit="return false;"/>
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="tituloModal"><span id="spanPrefijoFormularioAsignacionSingle"></span>Asignaci&oacute;n de Perfil</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <!--<div class="panel panel-default">-->
+                            <!--<input type="hidden" name="perfil_id" id="perfil_id" value="">
+                            <div class="panel-heading">
+                                DATOS DEL HORARIO SELECCIONADO
+                            </div>-->
+                            <div class="panel-body form-horizontal">
+                                <!--<fieldset>
+                                    <legend><i class="fa fa-angle-right"></i> Rango Fechas</legend>-->
+                                <!-- Block -->
+                                <div class="block">
+                                    <!-- Block Title -->
+                                    <div class="block-title">
+                                        <h2><strong>Marcaci&oacute;n</strong> Entrada</h2>
+                                    </div>
+                                    <!-- END Block Title -->
+                                    <div class="form-group">
+                                        <div class="div-asignacion-perfil" id="divUbicacionesEntradaAsignacionSingle">
+                                            <label class="col-sm-3 control-label" for="lstUbicacionesEntradaAsignacionSingle">Ubicaci&oacute;n:</label>
+                                            <div class="col-md-3">
+                                                <select id="lstUbicacionesEntradaAsignacionSingle" class="form-control"><option value="0" data-cant-nodos-hijos="0">Seleccionar...</option></select>
+                                                <span class="help-block" id="helpErrorUbicacionesEntradaAsignacionSingle"></span>
+                                            </div>
+                                        </div>
+                                        <div class="div-asignacion-perfil" id="divEstacionesEntradaAsignacionSingle">
+                                            <label class="col-sm-3 control-label" for="lstEstacionesEntradaAsignacionSingle">Estaci&oacute;n:</label>
+                                            <div class="col-md-3">
+                                                <select id="lstEstacionesEntradaAsignacionSingle" class="form-control"><option value="0">Seleccionar...</option></select>
+                                                <span class="help-block" id="helpErrorEstacionesEntradaAsignacionSingle"></span>
+                                            </div>
+                                        </div>
+                                        <div class="form-group div-move-relab" id="divTiposMarcacionesEntradaAsignacionSingle">
+                                            <label class="col-md-3 control-label" for="lstTiposMarcacionesEntradaAsignacionSingle">Puede marcar en:</label>
+                                            <div class="col-md-9">
+                                                <select id="lstTiposMarcacionesEntradaAsignacionSingle" class="form-control"><option value="">Seleccionar...</option></select>
+                                                <span class="help-block" id="helpErrorTiposMarcacionesEntradaAsignacionSingle"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- END Block -->
+                                <div class="block">
+                                    <!-- Block Title -->
+                                    <div class="block-title">
+                                        <h2><strong>Marcaci&oacute;n</strong> Salida</h2>
+                                    </div>
+                                    <!-- END Block Title -->
+                                    <div class="form-group">
+                                        <div class="div-asignacion-perfil" id="divUbicacionesSalidaAsignacionSingle">
+                                            <label class="col-sm-3 control-label" for="lstUbicacionesSalidaAsignacionSingle">Ubicaci&oacute;n:</label>
+                                            <div class="col-md-3">
+                                                <select id="lstUbicacionesSalidaAsignacionSingle" class="form-control"><option value="0" data-cant-nodos-hijos="0">Seleccionar...</option></select>
+                                                <span class="help-block" id="helpErrorUbicacionesSalidaAsignacionSingle"></span>
+                                            </div>
+                                        </div>
+                                        <div class="div-asignacion-perfil" id="divEstacionesSalidaAsignacionSingle">
+                                            <label class="col-sm-3 control-label" for="lstEstacionesSalidaAsignacionSingle">Estaci&oacute;n:</label>
+                                            <div class="col-md-3">
+                                                <select id="lstEstacionesSalidaAsignacionSingle" class="form-control"><option value="0">Seleccionar...</option></select>
+                                                <span class="help-block" id="helpErrorEstacionesSalidaAsignacionSingle"></span>
+                                            </div>
+                                        </div>
+                                        <div class="form-group div-move-relab" id="divTiposMarcacionesSalidaAsignacionSingle">
+                                            <label class="col-md-3 control-label" for="lstTiposMarcacionesSalidaAsignacionSingle">Puede marcar en:</label>
+                                            <div class="col-md-9">
+                                                <select id="lstTiposMarcacionesSalidaAsignacionSingle" class="form-control"><option value="">Seleccionar...</option></select>
+                                                <span class="help-block" id="helpErrorTiposMarcacionesSalidaAsignacionSingle"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="div-asignacion-perfil" id="divFechaIniAsignacionSingle">
+                                        <label class="col-sm-3 control-label" for="txtFechaIniAsignacionSingle">Fecha Inicio:</label>
+                                        <div class="col-md-3">
+                                            <!--input-datepicker-->
+                                            <input id="txtFechaIniAsignacionSingle" name="txtFechaIniAsignacionSingle" class="form-control input-datepicker-close" placeholder="Desde" data-date-max="" data-date-min="" data-date-format="dd-mm-yyyy" type="text">
+                                            <span class="help-block" id="helpErrorFechaIniAsignacionSingle"></span>
+                                        </div>
+                                    </div>
+                                    <div class="div-asignacion-perfil" id="divFechaFinAsignacionSingle">
+                                        <label class="col-sm-3 control-label" for="txtFechaFinAsignacionSingle">Fecha Fin:</label>
+                                        <div class="col-md-3">
+                                            <input id="txtFechaFinAsignacionSingle" name="txtFechaFinAsignacionSingle" class="form-control input-datepicker-close" placeholder="Hasta" data-date-max="" data-date-min="" data-date-format="dd-mm-yyyy" type="text">
+                                            <span class="help-block" id="helpErrorFechaFinAsignacionSingle"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group div-move-relab" id="divObservacionAsignacionSingle">
+                                    <label class="col-md-3 control-label" for="txtObservacionAsignacionSingle">Observaciones:</label>
+                                    <div class="col-md-6">
+                                        <textarea id="txtObservacionAsignacionSingle" name="txtObservacionAsignacionSingle" class="form-control" placeholder="Observaciones.."></textarea>
+                                        <span class="help-block" id="helpErrorObservacionAsignacionSingle"></span>
+                                    </div>
+                                </div>
+                            </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" id="btnCerrarAsignacionSinglePerfil" class="btn btn-primary" data-dismiss="modal"><i class="fa fa-compress"></i> Cerrar</button>
+                <button type="button" id="btnGuardarAsignacionSinglePerfil" class="btn btn-primary"><i class="fa fa-floppy-o"></i> Guardar</button>
+                <input type="hidden" id="hdnAccionAsignacionSinglePerfil" value="0">
+                <input type="hidden" id="hdnIdRelaboralAsignacionSinglePerfil" value="0">
+                <input type="hidden" id="hdnIdRelaboralPerfilAsignacionSinglePerfil" value="0">
+                <input type="hidden" id="hdnIdPerfilLaboralAsignacionSinglePerfil" value="0">
+            </div>
+            </form>
+        </div>
+    </div>
+</div>
+<div class="modal fade bs-example-modal-lg" id="popupDescripcionHorario" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <form class="form-horizontal" id="testForm_perfil" data-toggle="validator" onsubmit="return false;"/>
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="tituloModal">Horario</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="panel panel-default">
+                            <input type="hidden" name="perfil_id" id="perfil_id" value="">
+                            <div class="panel-heading">
+                                DATOS DEL HORARIO SELECCIONADO
+                            </div>
+                            <div class="panel-body form-horizontal">
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label" for="txtNombreHorario">Nombre Horario:</label>
+                                    <div class="col-md-6" form-group>
+                                        <input type="text" id="txtNombreHorario" class="form-control" readonly>
+                                    </div>
+                                </div>
+                                <div class="form-group" id="divNombreAlternativoHorario">
+                                    <label class="col-sm-3 control-label" for="txtNombreAlternativoHorario">Nombre Alternativo:</label>
+                                    <div class="col-md-6" form-group>
+                                        <textarea id="txtNombreAlternativoHorario" class="form-control" readonly></textarea>
+                                    </div>
+                                </div>
+                                <div class="form-group" id="divColorHorario">
+                                    <label class="col-sm-3 control-label" for="txtColorHorario">Color:</label>
+                                    <div class="col-md-6" form-group>
+                                        <input type="text" id="txtColorHorario" value="#FFFFFF" class="form-control" readonly>
+                                    </div>
+                                </div>
+                                <fieldset>
+                                    <legend><i class="fa fa-angle-right"></i> Horario Entrada / Salida</legend>
+                                    <div class="form-group">
+                                        <div class="div-calendario-laboral" id="divHoraEntHorario">
+                                            <label class="col-sm-2 control-label" for="txtHoraEntHorario">Entrada:</label>
+                                            <div class="col-md-2"  form-group>
+                                                <input id="txtHoraEntHorario" name="txtHoraEntHorario" placeholder="Hora de entrada." class="form-control" type="text" readonly>
+                                            </div>
+                                        </div>
+                                        <div class="div-calendario-laboral" id="divHoraSalHorario">
+                                            <label class="col-sm-2 control-label" for="txtHoraSalHorario">Salida:</label>
+                                            <div class="col-md-2"  form-group>
+                                                <input id="txtHoraSalHorario" name="txtHoraSalHorario" class="form-control" type="text" readonly>
+                                            </div>
+                                        </div>
+                                        <label class="col-sm-2 control-label" for="txtHorasLaborales">Horas Laborales:</label>
+                                        <div class="col-md-2">
+                                            <input id="txtHorasLaborales" name="txtHorasLaborales" placeholder="Horas Laborales." type="text" class="form-control" readonly>
+                                        </div>
+                                    </div>
+                                </fieldset>
+                                <fieldset>
+                                    <legend><i class="fa fa-angle-right"></i> Rango Control Marcaciones</legend>
+                                    <div class="form-group">
+                                        <div class="div-calendario-laboral" id="divHoraInicioRangoEnt">
+                                            <label class="col-sm-3 control-label" for="txtHoraInicioRangoEnt">Inicio Entrada:</label>
+                                            <div class="col-md-3">
+                                                <input id="txtHoraInicioRangoEnt" name="txtHoraInicioRangoEnt" placeholder="Hora de entrada." class="form-control" type="text" readonly>
+                                            </div>
+                                        </div>
+                                        <div class="div-calendario-laboral" id="divHoraFinalizacionRangoEnt">
+                                            <label class="col-sm-3 control-label" for="txtHoraFinalizacionRangoEnt">Finalizaci&oacute;n Entrada:</label>
+                                            <div class="col-md-3">
+                                                <input id="txtHoraFinalizacionRangoEnt" name="txtHoraFinalizacionRangoEnt" class="form-control" type="text" readonly>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="div-calendario-laboral" id="divHoraInicioRangoSal">
+                                            <label class="col-sm-3 control-label" for="txtHoraInicioRangoSal">Inicio Salida:</label>
+                                            <div class="col-md-3">
+                                                <input id="txtHoraInicioRangoSal" name="txtHoraInicioRangoSal" placeholder="Hora de inicio de salida." class="form-control" type="text" readonly>
+                                            </div>
+
+                                        </div>
+                                        <div class="div-calendario-laboral" id="divHoraFinalizacionRangoSal">
+                                            <label class="col-sm-3 control-label" for="txtHoraFinalizacionRangoSal">Fin Salida:</label>
+                                            <div class="col-md-3">
+                                                <input id="txtHoraFinalizacionRangoSal" name="txtHoraFinalizacionRangoSal" placeholder="Hora de finalizaci&oacute;n de salida." class="form-control" type="text" readonly>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </fieldset>
+                                <fieldset>
+                                    <legend><i class="fa fa-angle-right"></i> Rango Fechas</legend>
+                                    <div class="form-group">
+                                        <div class="div-calendario-laboral" id="divHorarioFechaIni">
+                                            <label class="col-sm-3 control-label" for="txtHorarioFechaIni">Fecha Inicio:</label>
+                                            <div class="col-md-3">
+                                                <input id="txtHorarioFechaIni" name="txtHorarioFechaIni" class="form-control input-datepicker-close" placeholder="Desde" data-date-format="dd-mm-yyyy" type="text">
+                                            </div>
+                                        </div>
+                                        <div class="div-calendario-laboral" id="divHorarioFechaFin">
+                                            <label class="col-sm-3 control-label" for="txtHorarioFechaFin">Fecha Fin:</label>
+                                            <div class="col-md-3">
+                                                <input id="txtHorarioFechaFin" name="txtHorarioFechaFin" class="form-control input-datepicker-close" placeholder="Hasta" data-date-format="dd-mm-yyyy" type="text">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </fieldset>
+                                <fieldset>
+                                    <legend><i class="fa fa-angle-right"></i> Observaciones</legend>
+                                    <div class="form-group div-move-relab" id="divObservacion">
+                                        <label class="col-md-3 control-label" for="txtObservacion">Observaciones:</label>
+                                        <div class="col-md-6">
+                                            <textarea id="txtObservacion" name="txtObservacion" class="form-control" placeholder="Observaciones.." readonly></textarea>
+                                        </div>
+                                    </div>
+                                </fieldset>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" id="btnCerrarHorario" class="btn btn-primary" data-dismiss="modal"><i class="fa fa-compress"></i>Cerrar</button>
+                <button type="button" id="btnGuardarModificacionHorario" class="btn btn-primary"><i class="fa fa-pencil"></i>Guardar Modificaci&oacute;n de Fechas</button>
+                <button type="button" id="btnDescartarHorario" class="btn btn-primary"><i class="gi gi-bin"></i>Descartar</button>
+            </div>
+            </form>
+        </div>
+    </div>
+</div>
+<style type="text/css">
+    .datepicker{
+        z-index:1151;
+    }
+</style>

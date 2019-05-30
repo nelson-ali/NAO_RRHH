@@ -1,0 +1,463 @@
+<h2 style="padding-top: 0px; width: 100%;"><b>Gesti&oacute;n de Excepciones</b></h2>
+
+<div id='divTabExcepciones'>
+    <ul>
+        <li id="liList">Listado</li>
+        <li id="liNew">Nuevo</li>
+        <li id="liEdit">Modificaci&oacute;n</li>
+    </ul>
+    <br>
+
+    <div style="height: 680px;" class="row section" id="divList">
+        <div class="col-md-10">
+            <!-- Input Grid Block -->
+            <div class="block">
+                <!-- Input Grid Title -->
+                <div class="block-title">
+                    <div id='divWidgetExcepciones'>
+                        <div id="divGridExcepciones"></div>
+                    </div>
+                </div>
+                <!-- END Input Grid Title -->
+
+            </div>
+            <!-- END Input Grid Block -->
+        </div>
+        <div class="col-md-2">
+            <div class="block">
+                <div class="block-title">
+                    <h2>Mostrar</h2>
+                    <br>
+                    <input type="checkbox" id="chkAllCols"> Todas / Ninguna
+                </div>
+                <div id="listBoxExcepciones"></div>
+            </div>
+        </div>
+    </div>
+    <div style="display: none;" class="section" id="divNew">
+        <h6><b>NOTA: </b>Los datos precedidos de asterisco son requerido de manera obligatoria (*).</h6>
+
+        <div class="form-horizontal col-md-12">
+            <fieldset>
+                <legend><i class="fa fa-angle-right"></i> Datos de Identificaci&oacute;n</legend>
+                <div class="row">
+                    <div id="divExcepcionNew">
+                        <label class="col-md-2 control-label" for="txtExcepcionNew">Excepci&oacute;n *:</label>
+
+                        <div class="col-md-2">
+                            <textarea id="txtExcepcionNew" class="form-control"
+                                      placeholder="Excepci&oacute;n.."></textarea>
+                            <span class="help-block" id="helpErrorExcepcionNew"></span>
+                        </div>
+                    </div>
+                    <div id="divTipoExcepcionNew">
+                        <label class="col-md-2 control-label" for="lstTipoExcepcionNew">Tipo *:</label>
+
+                        <div class="col-md-2" form-group>
+                            <select id="lstTipoExcepcionNew" class="form-control"></select>
+                            <span class="help-block" id="helpErrorTipoExcepcionNew"></span>
+                        </div>
+                    </div>
+                    <div id="divCodigoNew">
+                        <label class="col-md-2 control-label" for="txtCodigoNew">C&oacute;digo *:</label>
+
+                        <div class="col-md-2">
+                            <input type="text" id="txtCodigoNew" name="txtCodigoNew" class="form-control"
+                                   placeholder="C&oacute;digo..">
+                            <span class="help-block" id="helpErrorCodigoNew"></span>
+                        </div>
+                    </div>
+                    <div id="divGeneroNew">
+                        <label class="col-md-2 control-label" for="lstGeneroNew">G&eacute;nero *:</label>
+
+                        <div class="col-md-2">
+                            <select id="lstGeneroNew" class="form-control">
+                                <option value="">Seleccionar...</option>
+                            </select>
+                            <span class="help-block" id="helpErrorGeneroNew"></span>
+                        </div>
+                    </div>
+                    <div id="divColorNew">
+                        <label class="col-md-2 control-label" for="txtColorNew">Color *:</label>
+
+                        <div class="col-md-2">
+                            <input type="text" id="txtColorNew" name="txtColorNew" class="kolorPicker form-control"
+                                   value="#FFFFFF" placeholder="#FFFFFF">
+                            <span class="help-block" id="helpErrorColorNew"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div id="divDescuentoNew">
+                        <label class="col-md-2 control-label" for="chkDescuentoNew">¿Aplicar descuento? *:</label>
+
+                        <div class="col-md-2">
+                            <input type="checkbox" name="chkDescuentoNew" id="chkDescuentoNew" data-on-text="SI"
+                                   data-off-text="NO" data-on-color="success" data-off-color="danger" >
+                            <span class="help-block" id="helpErrorDescuentoNew"></span>
+                        </div>
+                    </div>
+                    <div id="divCompensatoriaNew">
+                        <label class="col-md-2 control-label" for="chkCompensatoriaNew">¿Debe compensar horas?
+                            *:</label>
+
+                        <div class="col-md-2">
+                            <input type="checkbox" name="chkCompensatoriaNew" id="chkCompensatoriaNew" data-on-text="SI"
+                                   data-off-text="NO" data-on-color="success" data-off-color="danger" >
+                            <span class="help-block" id="helpErrorCompensatoriaNew"></span>
+                        </div>
+                    </div>
+                    <div id="divHorarioNew">
+                        <label class="col-md-2 control-label" for="chkHorarioNew">¿Solicitar Horario? *:</label>
+
+                        <div class="col-md-2">
+                            <input type="checkbox" name="chkHorarioNew" id="chkHorarioNew" data-on-text="SI"
+                                   data-off-text="NO" data-on-color="success" data-off-color="danger" >
+                            <span class="help-block" id="helpErrorHorarioNew"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div id="divRefrigerioNew">
+                        <label class="col-md-2 control-label" for="chkRefrigerioNew">¿Pagar Refrigerio? *:</label>
+
+                        <div class="col-md-2">
+                            <input type="checkbox" name="chkRefrigerioNew" id="chkRefrigerioNew" data-on-text="SI"
+                                   data-off-text="NO" data-on-color="success" data-off-color="danger" >
+                            <span class="help-block" id="helpErrorRefrigerioNew"></span>
+                        </div>
+                    </div>
+                    <div id="divBoletaNew">
+                        <label class="col-md-2 control-label" for="chkBoletaNew">¿Con Boleta? *:</label>
+
+                        <div class="col-md-2">
+                            <input type="checkbox" name="chkBoletaNew" id="chkBoletaNew" data-on-text="SI"
+                                   data-off-text="NO" data-on-color="success" data-off-color="danger" >
+                            <span class="help-block" id="helpErrorBoletaNew"></span>
+                        </div>
+                    </div>
+                    <div id="divLugarNew">
+                        <label class="col-md-2 control-label" for="chkLugarNew">¿Solicitar Lugar? *:</label>
+
+                        <div class="col-md-2">
+                            <input type="checkbox" name="chkLugarNew" id="chkLugarNew" data-on-text="SI"
+                                   data-off-text="NO" data-on-color="success" data-off-color="danger" >
+                            <span class="help-block" id="helpErrorLugarNew"></span>
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+            <fieldset>
+                <legend><i class="fa fa-angle-right"></i> Reglamento Interno de Personal (R. I. P.)</legend>
+                <div class="row">
+                    <div id="divArticuloRipNew">
+                        <label class="col-md-2 control-label" for="txtArticuloRipNew">Art&iacute;culo:</label>
+
+                        <div class="col-md-2">
+                            <input type="text" name="txtArticuloRipNew" id="txtArticuloRipNew"
+                                   class="form-control">
+                            <span class="help-block" id="helpErrorArticuloRipNew"></span>
+                        </div>
+                    </div>
+                    <div id="divIncisoRipNew">
+                        <label class="col-md-2 control-label" for="txtIncisoRipNew">Inciso:</label>
+
+                        <div class="col-md-2" form-group>
+                            <input type="text" name="txtIncisoRipNew" id="txtIncisoRipNew" class="form-control">
+                            <span class="help-block" id="helpErrorIncisoRipNew"></span>
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+            <fieldset>
+                <legend><i class="fa fa-angle-right"></i> Frecuencia:</legend>
+                <div class="row" id="divFrecuenciaNew">
+                    <div id="divCantidadNew">
+                        <label class="col-md-2 control-label" for="txtCantidadNew">Cantidad:</label>
+
+                        <div class="col-md-2" form-group>
+                            <input type="text" name="txtCantidadNew" id="txtCantidadNew" class="form-control decimal">
+                            <span class="help-block" id="helpErrorCantidadNew"></span>
+                        </div>
+                    </div>
+                    <div id="divUnidadNew">
+                        <label class="col-md-2 control-label" for="lstUnidadNew">Unidad:</label>
+                        <div class="col-md-2" form-group>
+                            <select id="lstUnidadNew" name="lstUnidadNew" class="form-control"><option value="">Seleccionar...</option></select>
+                            <span class="help-block" id="helpErrorUnidadNew"></span>
+                        </div>
+                    </div>
+                    <div id="divFraccionamientoNew">
+                        <label class="col-md-2 control-label" for="lstFraccionamientoNew">Fraccionamiento:</label>
+                        <div class="col-md-2" form-group>
+                            <select id="lstFraccionamientoNew" name="lstFraccionamientoNew" class="form-control" disabled><option value="" dataid-unidad="0">Seleccionar...</option></select>
+                            <span class="help-block" id="helpErrorFraccionamientoNew"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div id="divResultadoNew">
+                    <label class="col-md-2 control-label" for="txtResultadoNew">Resultado:</label>
+                    <div class="col-sm-2" id="divFrecuenciaNew">
+                        <span id="spanFrecuenciaNew" class="form-control"></span>
+                    </div>
+                    </div>
+                    <div id="divDisgregadoNew">
+                        <label class="col-md-2 control-label" for="chkDisgregadoNew">¿Disgregado?:</label>
+                        <div class="col-md-2">
+                            <input type="checkbox" name="chkDisgregadoNew" id="chkDisgregadoNew"
+                                   data-on-text="SI" data-off-text="NO" data-on-color="success" data-off-color="danger" >
+                            <span class="help-block" id="helpErrorDisgregadoNew"></span>
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+            <fieldset>
+                <legend><i class="fa fa-angle-right"></i> &nbsp;</legend>
+                <div class="form-group div-excepciones" id="divObservacionNew">
+                    <label class="col-md-2 control-label" for="txtObservacionNew">Observaci&oacute;n:</label>
+                    <div class="col-md-6">
+                        <textarea id="txtObservacionNew" name="txtObservacionNew" class="form-control"
+                                  placeholder="Observaci&oacute;n.."></textarea>
+                    </div>
+                    <span class="help-block" id="helpErrorObservacionNew"></span>
+                </div>
+            </fieldset>
+            <div class="form-group form-actions">
+                <div class="col-md-8 col-md-offset-4">
+                    <button id="btnGuardarExcepcionNew" class="btn btn-sm btn-primary" type="button">
+                        <i class="fa fa-floppy-o"></i>
+                        Guardar
+                    </button>
+                    <button id="btnCancelarExcepcionNew" class="btn btn-sm btn-warning" type="button">
+                        <i class="fa fa-repeat"></i>
+                        Cancelar
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div style="display: none;" class="section" id="divEdit">
+        <h6><b>NOTA: </b>Los datos precedidos de asterisco son requerido de manera obligatoria (*).</h6>
+
+        <div class="form-horizontal col-md-12">
+            <fieldset>
+                <legend><i class="fa fa-angle-right"></i> Datos de Identificaci&oacute;n</legend>
+                <div class="row">
+                    <div id="divExcepcionEdit">
+                        <label class="col-md-2 control-label" for="txtExcepcionEdit">Excepci&oacute;n *:</label>
+
+                        <div class="col-md-2">
+                            <textarea id="txtExcepcionEdit" class="form-control"
+                                      placeholder="Excepci&oacute;n.."></textarea>
+                            <span class="help-block" id="helpErrorExcepcionEdit"></span>
+                        </div>
+                    </div>
+                    <div id="divTipoExcepcionEdit">
+                        <label class="col-md-2 control-label" for="lstTipoExcepcionEdit">Tipo *:</label>
+
+                        <div class="col-md-2" form-group>
+                            <select id="lstTipoExcepcionEdit" class="form-control"></select>
+                            <span class="help-block" id="helpErrorTipoExcepcionEdit"></span>
+                        </div>
+                    </div>
+                    <div id="divCodigoEdit">
+                        <label class="col-md-2 control-label" for="txtCodigoEdit">C&oacute;digo *:</label>
+
+                        <div class="col-md-2">
+                            <input type="text" id="txtCodigoEdit" name="txtCodigoEdit" class="form-control"
+                                   placeholder="C&oacute;digo..">
+                            <span class="help-block" id="helpErrorCodigoEdit"></span>
+                        </div>
+                    </div>
+                    <div id="divGeneroEdit">
+                        <label class="col-md-2 control-label" for="lstGeneroEdit">G&eacute;nero *:</label>
+
+                        <div class="col-md-2">
+                            <select id="lstGeneroEdit" class="form-control">
+                                <option value="">Seleccionar...</option>
+                            </select>
+                            <span class="help-block" id="helpErrorGeneroEdit"></span>
+                        </div>
+                    </div>
+                    <div id="divColorEdit">
+                        <label class="col-md-2 control-label" for="txtColorEdit">Color *:</label>
+
+                        <div class="col-md-2">
+                            <input type="text" id="txtColorEdit" name="txtColorEdit" class="kolorPicker form-control"
+                                   value="#FFFFFF" placeholder="#FFFFFF">
+                            <span class="help-block" id="helpErrorColorEdit"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div id="divDescuentoEdit">
+                        <label class="col-md-2 control-label" for="chkDescuentoEdit">¿Aplicar descuento? *:</label>
+
+                        <div class="col-md-2">
+                            <input type="checkbox" name="chkDescuentoEdit" id="chkDescuentoEdit" data-on-text="SI"
+                                   data-off-text="NO" data-on-color="success" data-off-color="danger" >
+                            <span class="help-block" id="helpErrorDescuentoEdit"></span>
+                        </div>
+                    </div>
+                    <div id="divCompensatoriaEdit">
+                        <label class="col-md-2 control-label" for="chkCompensatoriaEdit">¿Debe compensar horas?
+                            *:</label>
+
+                        <div class="col-md-2">
+                            <input type="checkbox" name="chkCompensatoriaEdit" id="chkCompensatoriaEdit" data-on-text="SI"
+                                   data-off-text="NO" data-on-color="success" data-off-color="danger" >
+                            <span class="help-block" id="helpErrorCompensatoriaEdit"></span>
+                        </div>
+                    </div>
+                    <div id="divHorarioEdit">
+                        <label class="col-md-2 control-label" for="chkHorarioEdit">¿Solicitar Horario? *:</label>
+
+                        <div class="col-md-2">
+                            <input type="checkbox" name="chkHorarioEdit" id="chkHorarioEdit" data-on-text="SI"
+                                   data-off-text="NO" data-on-color="success" data-off-color="danger" >
+                            <span class="help-block" id="helpErrorHorarioEdit"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div id="divRefrigerioEdit">
+                        <label class="col-md-2 control-label" for="chkRefrigerioEdit">¿Pagar Refrigerio? *:</label>
+
+                        <div class="col-md-2">
+                            <input type="checkbox" name="chkRefrigerioEdit" id="chkRefrigerioEdit" data-on-text="SI"
+                                   data-off-text="NO" data-on-color="success" data-off-color="danger" >
+                            <span class="help-block" id="helpErrorRefrigerioEdit"></span>
+                        </div>
+                    </div>
+                    <div id="divBoletaEdit">
+                        <label class="col-md-2 control-label" for="chkBoletaEdit">¿Con Boleta? *:</label>
+
+                        <div class="col-md-2">
+                            <input type="checkbox" name="chkBoletaEdit" id="chkBoletaEdit" data-on-text="SI"
+                                   data-off-text="NO" data-on-color="success" data-off-color="danger" >
+                            <span class="help-block" id="helpErrorBoletaEdit"></span>
+                        </div>
+                    </div>
+                    <div id="divLugarEdit">
+                        <label class="col-md-2 control-label" for="chkLugarEdit">¿Solicitar Lugar? *:</label>
+
+                        <div class="col-md-2">
+                            <input type="checkbox" name="chkLugarEdit" id="chkLugarEdit" data-on-text="SI"
+                                   data-off-text="NO" data-on-color="success" data-off-color="danger" >
+                            <span class="help-block" id="helpErrorLugarEdit"></span>
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+            <fieldset>
+                <legend><i class="fa fa-angle-right"></i> Reglamento Interno de Personal (R. I. P.)</legend>
+                <div class="row">
+                    <div id="divArticuloRipEdit">
+                        <label class="col-md-2 control-label" for="txtArticuloRipEdit">Art&iacute;culo:</label>
+
+                        <div class="col-md-2">
+                            <input type="text" name="txtArticuloRipEdit" id="txtArticuloRipEdit"
+                                   class="form-control">
+                            <span class="help-block" id="helpErrorArticuloRipEdit"></span>
+                        </div>
+                    </div>
+                    <div id="divIncisoRipEdit">
+                        <label class="col-md-2 control-label" for="txtIncisoRipEdit">Inciso:</label>
+
+                        <div class="col-md-2" form-group>
+                            <input type="text" name="txtIncisoRipEdit" id="txtIncisoRipEdit" class="form-control">
+                            <span class="help-block" id="helpErrorIncisoRipEdit"></span>
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+            <fieldset>
+                <legend><i class="fa fa-angle-right"></i> Frecuencia:</legend>
+                <div class="row" id="divFrecuenciaEdit">
+                    <div id="divCantidadEdit">
+                        <label class="col-md-2 control-label" for="txtCantidadEdit">Cantidad:</label>
+
+                        <div class="col-md-2" form-group>
+                            <input type="text" name="txtCantidadEdit" id="txtCantidadEdit" class="form-control decimal">
+                            <span class="help-block" id="helpErrorCantidadEdit"></span>
+                        </div>
+                    </div>
+                    <div id="divUnidadEdit">
+                        <label class="col-md-2 control-label" for="lstUnidadEdit">Unidad:</label>
+                        <div class="col-md-2" form-group>
+                            <select id="lstUnidadEdit" name="lstUnidadEdit" class="form-control"><option value="">Seleccionar...</option></select>
+                            <span class="help-block" id="helpErrorUnidadEdit"></span>
+                        </div>
+                    </div>
+                    <div id="divFraccionamientoEdit">
+                        <label class="col-md-2 control-label" for="lstFraccionamientoEdit">Fraccionamiento:</label>
+                        <div class="col-md-2" form-group>
+                            <select id="lstFraccionamientoEdit" name="lstFraccionamientoEdit" class="form-control" disabled><option value="" dataid-unidad="0">Seleccionar...</option></select>
+                            <span class="help-block" id="helpErrorFraccionamientoEdit"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div id="divResultadoEdit">
+                        <label class="col-md-2 control-label" for="txtResultadoEdit">Resultado:</label>
+                        <div class="col-sm-2" id="divFrecuenciaEdit">
+                            <span id="spanFrecuenciaEdit" class="form-control"></span>
+                        </div>
+                    </div>
+                    <div id="divDisgregadoEdit">
+                        <label class="col-md-2 control-label" for="chkDisgregadoEdit">¿Disgregado?:</label>
+                        <div class="col-md-2">
+                            <input type="checkbox" name="chkDisgregadoEdit" id="chkDisgregadoEdit"
+                                   data-on-text="SI" data-off-text="NO" data-on-color="success" data-off-color="danger" >
+                            <span class="help-block" id="helpErrorDisgregadoEdit"></span>
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+            <fieldset>
+                <legend><i class="fa fa-angle-right"></i> &nbsp;</legend>
+                <div class="form-group div-excepciones" id="divObservacionEdit">
+                    <label class="col-md-2 control-label" for="txtObservacionEdit">Observaci&oacute;n:</label>
+
+                    <div class="col-md-6">
+                        <textarea id="txtObservacionEdit" name="txtObservacionEdit" class="form-control"
+                                  placeholder="Observaci&oacute;n.."></textarea>
+                    </div>
+                    <span class="help-block" id="helpErrorObservacionEdit"></span>
+                </div>
+            </fieldset>
+            <input type="hidden" id="hdnIdExcepcionEdit" value="0">
+            <div class="form-group form-actions">
+                <div class="col-md-8 col-md-offset-4">
+                    <button id="btnGuardarExcepcionEdit" class="btn btn-sm btn-primary" type="button">
+                        <i class="fa fa-floppy-o"></i>
+                        Guardar
+                    </button>
+                    <button id="btnCancelarExcepcionEdit" class="btn btn-sm btn-warning" type="button">
+                        <i class="fa fa-repeat"></i>
+                        Cancelar
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--</form></div>-->
+<div id="divMsjeNotificacionError">
+    <div id="divMsjePorError">
+    </div>
+</div>
+<div id="divMsjeNotificacionWarning">
+    <div id="divMsjePorWarning">
+    </div>
+</div>
+<div id="divMsjeNotificacionSuccess">
+    <div id="divMsjePorSuccess">
+    </div>
+</div>
+<style type="text/css">
+    .evo-pop {
+        z-index: 1151 !important;
+    }
+</style>

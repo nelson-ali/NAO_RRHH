@@ -1,0 +1,96 @@
+<a href="/index" class="btn  btn-mini btn-default">inicio</a>
+<div class="row state-overview">
+    <div class="col-lg-3 col-sm-6">
+        <section class="panel">
+            <div class="symbol terques">
+                <i class="icon-calendar-empty"></i>
+            </div>
+            <div class="value">
+                <h1 class="count">
+                    0
+                </h1>
+                <p>Procesos Programados</p>
+            </div>
+        </section>
+    </div>
+    <div class="col-lg-3 col-sm-6">
+        <section class="panel">
+            <div class="symbol red">
+                <i class="icon-calendar"></i>
+            </div>
+            <div class="value">
+                <h1 class=" count2">
+                    0
+                </h1>
+                <p>Sales</p>
+            </div>
+        </section>
+    </div>
+    <div class="col-lg-3 col-sm-6">
+        <section class="panel">
+            <div class="symbol yellow">
+                <i class="icon-check-sign"></i>
+            </div>
+            <div class="value">
+                <h1 class=" count3">
+                    0
+                </h1>
+                <p>New Order</p>
+            </div>
+        </section>
+    </div>
+    <div class="col-lg-3 col-sm-6">
+        <section class="panel">
+            <div class="symbol blue">
+                <i class="icon-bar-chart"></i>
+            </div>
+            <div class="value">
+                <h1 class=" count4">
+                    0
+                </h1>
+                <p>Total Profit</p>
+            </div>
+        </section>
+    </div>
+</div>
+
+<!--state overview end-->
+<div id='chartContainer' style="width:100%; height: 400px"></div>
+<div class="row">
+    <section class="panel">
+        <div class="panel-body">
+
+            <table>
+                <tbody>
+
+                </tbody>
+            </table>
+            <?php
+            /*      $connection = new \Phalcon\Db\Adapter\Pdo\Oracle(array(
+              'username' => 'system',
+              'password' => 'sistemas',
+              //     'dbname' => '(DESCRIPTION=(ADDRESS_LIST = (ADDRESS = (PROTOCOL = TCP)(HOST = 172.16.0.11)(PORT = 1521)))(CONNECT_DATA=(SID="CONTRATACIONES")))',
+              'dbname' => '(DESCRIPTION=
+              (ADDRESS=
+              (PROTOCOL=TCP)
+              (HOST=10.0.8.10)
+              (PORT=1521)
+              )
+              (CONNECT_DATA=
+              (SERVER=dedicated)
+              (SERVICE_NAME=orcl)
+              )
+              )'
+              //'dbname' => '172.16.0.11/CONTRATACIONES'
+              )); /*
+              /*$results = $connection->query("SELECT sysdate FROM dual");
+              while ($robot = $results->fetch()) {
+              echo $robot[0];
+              }
+             */
+            //$result=$con->query("INSERT INTO PAC_CONTRATOS (id,modalidad_id,objeto) VALUES (SEQ_PAC_PROCESOS.nextval,2,'TE AMO')");
+            ?>
+        </div>
+    </section>
+
+</div>

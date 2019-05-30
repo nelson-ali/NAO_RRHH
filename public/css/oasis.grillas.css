@@ -1,0 +1,173 @@
+/*
+ *   Oasis - Sistema de Gestión para Recursos Humanos
+ *   Empresa Estatal de Transporte por Cable "Mi Teleférico"
+ *   Versión:  1.0.0
+ *   Usuario Creador: Lic. Javier Loza
+ *   Fecha Creación:  19-02-2015
+ */
+.themed-background-dark {
+    background: #efefef !important;
+}
+ .fc-past{
+    background-color: #efefef !important;
+ }
+.fc-today{
+    background-color: #b778a5;
+    font-weight: 500;    
+}
+.fc-sat, .fc-sun{
+    background-color: #FFFFDB;
+}
+.azul {
+    color: black \9;
+    background-color: #3085ff \9;
+}
+.verde {
+    color: black \9;
+    background-color: #b6ff00 \9;
+}
+
+.amarillo {
+    color: black \9;
+    background-color: yellow \9;
+}
+
+.rojo {
+    color: black \9;
+    background-color: #e83636 \9;
+}
+
+.celeste {
+    color: black \9;
+    background-color: #a8e0ee \9;
+}
+
+.verde:not(.jqx-grid-cell-hover):not(.jqx-grid-cell-selected), .jqx-widget .green:not(.jqx-grid-cell-hover):not(.jqx-grid-cell-selected) {
+    color: black;
+    background-color: #b6ff00;
+}
+
+.amarillo:not(.jqx-grid-cell-hover):not(.jqx-grid-cell-selected), .jqx-widget .yellow:not(.jqx-grid-cell-hover):not(.jqx-grid-cell-selected) {
+    color: black;
+    background-color: yellow;
+}
+
+.rojo:not(.jqx-grid-cell-hover):not(.jqx-grid-cell-selected), .jqx-widget .red:not(.jqx-grid-cell-hover):not(.jqx-grid-cell-selected) {
+    color: black;
+    background-color: #e83636;
+}
+
+.celeste:not(.jqx-grid-cell-hover):not(.jqx-grid-cell-selected), .jqx-widget .red:not(.jqx-grid-cell-hover):not(.jqx-grid-cell-selected) {
+    color: black;
+    background-color: #a8e0ee;
+}
+
+img {
+    vertical-align: middle;
+}
+
+.img-perfil {
+    height: 100px;
+    margin: 0 auto 10 0;
+    text-align: center
+}
+
+
+img {
+    vertical-align: middle;
+}
+
+.draggable-demo-cart
+{
+    border: 2px dashed #aaa;
+    padding: 5px;
+    width: 232px;
+    margin: auto;
+}
+.draggable-demo-shop
+{
+    border: 1px solid #666;
+    width: 665px;
+    padding: 5px;
+}
+.draggable-demo-catalog
+{
+    position: relative;
+    width: 397px;
+    border: 1px solid #bbb;
+    height: 457px;
+    float: left;
+}
+.draggable-demo-product-image
+{
+    width: 150px;
+}
+.draggable-demo-product
+{
+    padding: 5px;
+    border: 1px solid #888;
+    width: 115px;
+    height: 135px;
+    background-color: #fff;
+    position: absolute;
+    margin: 5px;
+}
+.draggable-demo-product img
+{
+    width: 113px;
+    border: 1px solid #aaa;
+    border-top-width: 0px;
+    outline-width: 15px;
+}
+.draggable-demo-product-header
+{
+    border: 1px solid #888;
+    height: 20px;
+    border-bottom-width: 0px;
+    font-size: 13px;
+    position: relative;
+    text-align: center;
+}
+.draggable-demo-product-header-label
+{
+    margin-top: 3px;
+}
+.draggable-demo-product-price
+{
+    position: absolute;
+    top: 124px;
+    left: 6px;
+    width: 113px;
+    text-align: center;
+    font-family: Verdana;
+    font-size: 11px;
+    display: none;
+    height: 16px;
+    border-top: 1px solid #888;
+    border-bottom: 1px solid #fff;
+}
+.draggable-demo-title
+{
+    font-size: 23px;
+    font-family: Verdana;
+    text-align: center;
+    padding: 7px;
+    margin: 5px;
+    font-weight: bold;
+    border: 1px solid #aaa;
+}
+.draggable-demo-cart-wrapper
+{
+    float: right;
+    border: 1px solid #aaa;
+    height: 457px;
+    width: 260px;
+}
+.draggable-demo-total
+{
+    font-size: 17px;
+    font-family: Verdana;
+    margin: 6px;
+    margin-top: 7px;
+    padding: 7px;
+}

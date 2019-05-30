@@ -1,0 +1,17 @@
+<h1>Editar Direccion Administrativa</h1>
+<form method="post" action="">
+	<input type="hidden" name="id" value="<?php echo $da->id ?>">
+	<div>
+		<label>Direccion Administrativa</label>
+		<input type="text" name="direccion_administrativa" value="<?php echo $da->direccion_administrativa; ?>">	
+	</div>
+	<div>
+		<label>Codigo:</label>
+		<input type="text" name="codigo" value="<?php echo $da->codigo; ?>">	
+	</div>
+	
+	<div>
+		<button>Guardar</button>
+		<a href="../">Cancelar</a>
+	</div>
+</form>

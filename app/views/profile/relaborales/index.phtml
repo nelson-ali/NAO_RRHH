@@ -1,0 +1,884 @@
+</head>
+<body>
+<style>
+    .verde {
+        color: black\9;
+        background-color: #b6ff00\9;
+    }
+    .amarillo {
+        color: black\9;
+        background-color: yellow\9;
+    }
+    .rojo {
+        color: black\9;
+        background-color: #e83636\9;
+    }
+
+    .verde:not(.jqx-grid-cell-hover):not(.jqx-grid-cell-selected), .jqx-widget .green:not(.jqx-grid-cell-hover):not(.jqx-grid-cell-selected) {
+        color: black;
+        background-color: #b6ff00;
+    }
+    .amarillo:not(.jqx-grid-cell-hover):not(.jqx-grid-cell-selected), .jqx-widget .yellow:not(.jqx-grid-cell-hover):not(.jqx-grid-cell-selected) {
+        color: black;
+        background-color: yellow;
+    }
+    .rojo:not(.jqx-grid-cell-hover):not(.jqx-grid-cell-selected), .jqx-widget .red:not(.jqx-grid-cell-hover):not(.jqx-grid-cell-selected) {
+        color: black;
+        background-color: #e83636;
+    }
+</style>
+<h2 style="padding-top: 0px; width: 100%;"><b>Gesti&oacute;n Relaci&oacute;n Laboral</b></h2>
+
+<div id="divMsjeExito" class="msjs-alert" hidden="hidden">
+    <button class="close" aria-hidden="true" data-dismiss="alert" type="button">×</button>
+    <h4>
+        <i class="fa fa-check-circle"></i>
+        &Eacute;xito!
+    </h4>
+    Solicitud completada!
+    <a class="alert-link" href="javascript:void(0)" id="aMsjeExito"></a>
+</div>
+<div id="divMsjeInformacion" class="msjs-alert" hidden="hidden">
+    <button class="close" aria-hidden="true" data-dismiss="alert" type="button">×</button>
+    <h4>
+        <i class="fa fa-info-circle"></i>
+        Atenci&oacute;n!
+    </h4>
+    Algo que considerar!
+    <a class="alert-link" href="javascript:void(0)" id="aMsjeInformacion"></a>
+</div>
+<div id="divMsjePeligro" class="msjs-alert" hidden="hidden">
+    <button class="close" aria-hidden="true" data-dismiss="alert" type="button">×</button>
+    <h4>
+        <i class="fa fa-exclamation-circle"></i>
+        Cuidado!
+    </h4>
+    Considere lo siguiente!
+    <a class="alert-link" href="javascript:void(0)" id="aMsjePeligro"></a>
+</div>
+<div id="divMsjeError" class="msjs-alert" hidden="hidden">
+    <button class="close" aria-hidden="true" data-dismiss="alert" type="button">×</button>
+    <h4>
+        <i class="fa fa-times-circle"></i>
+        Error!
+    </h4>
+    Solicitud inv&aacute;lida!
+    <a class="alert-link" href="javascript:void(0)" id="aMsjeError"></a>
+</div>
+<div id='jqxTabs'>
+<ul>
+    <li id="liList">Listado</li>
+    <li id="liNew">Nuevo</li>
+    <li id="liEdit">Modificaci&oacute;n</li>
+    <li id="liDown">Baja</li>
+    <li id="liView">Historial</li>
+</ul>
+<div class="section" id="divList">
+    <div class="form-horizontal">
+        <h2>Listado General</h2>
+    </div>
+    <div id='jqxWidget'>
+        <div align="right">
+            <button class="btn btn-sm btn-primary" type="button" id="btnDesfiltrartodo">
+                <i class="fa fa-exchange"></i>
+                Desfiltrar Todo
+            </button>
+        </div>
+        <div id="jqxgrid"></div>
+    </div>
+    <b>Columnas a mostrarse:</b>
+
+    <div id="jqxlistbox"></div>
+    <div id="hintWrapper">
+        <div id="hintSection" class="hint">
+        </div>
+    </div>
+</div>
+<div class="section" id="divNew">
+    <form class="navbar-form" id="formNuevo">
+
+        <!-- Simple Widget with Post Input - Variation 1 -->
+        <div class="widget">
+            <div class="widget-simple themed-background-dark">
+                <a href="/usuario/profile">
+                    <img src="/assets/img/placeholders/avatars/avatar3.jpg" alt="avatar"
+                         class="widget-image img-circle img-rounded pull-right">
+                </a>
+                <h4 class="widget-content">
+                    <a href="#">
+
+                        <small id="sda">Nuevo Registro de Relacion Laboral para:</small>
+
+                        <strong id="NombreParaNuevoRegistro"></strong>
+                    </a>
+                    <small id="CorreoPersonal"></small>
+                </h4>
+            </div>
+        </div>
+        <!-- END Simple Widget with Post Input - Variation 1 -->
+
+        <div id="divGrillaCargoSeleccionado" class="table-responsive">
+
+            <table id="tblGrillaCargo" class="table table-vcenter table-condensed table-bordered">
+                <thead>
+                <tr>
+                    <th class='text-center'>
+                        <button class="btn btn-primary" type="button" id="btnBuscarCargo"><i
+                                class="fa fa-search"></i> Buscar
+                        </button>
+                    </th>
+                    <th class='text-center'>&Iacute;tem/C&oacute;digo</th>
+
+                    <th class='text-center'>
+                        Condici&oacute;n
+                    </th>
+                    <th class='text-center'>
+                        Gerencia
+                    </th>
+                    <th class='text-center'>
+                        Departamento
+                    </th>
+                    <th class='text-center'>
+                        Nivel Salarial
+                    </th>
+                    <th class='text-center'>
+                        Cargo
+                    </th>
+                    <th class='text-center'>
+                        Haber
+                    </th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr id="tr_cargo_seleccionado">
+                </tr>
+                </tbody>
+            </table>
+
+            <h6><b>NOTA: </b>Los datos precedidos de asterisco son requerido de manera obligatoria (*). Para habilitar
+                su registro debe buscar y seleccionar el cargo correspondiente.</h6>
+            <input type="hidden" id="hdnIdPersonaSeleccionada" value="0">
+            <input type="hidden" id="hdnIdCargoNuevoSeleccionado" value="0">
+            <input type="hidden" id="hdnIdCondicionNuevaSeleccionada" value="0">
+            <input type="hidden" id="hdnIdOrganigramaSeleccionado" value="0">
+        </div>
+        <br>
+        <!--form-horizontal-->
+        <div class="block full col-sm-6" id="detallesDependencia">
+            <!--<div class="row div-new-relab" id="divItems">
+                <label class="col-sm-3 control-label" for="txtItem">&Iacute;tem *:</label>
+            <div class="col-sm-6">
+                <input type="text" id="txtItem" class="new-relab numeral">
+                <span class="help-block" id="helpErrorItems"></span>
+            </div>
+        </div>-->
+            <div class="row div-new-relab form-group" id="divNumContratos">
+                <label class="col-sm-3 control-label" for="txtNumContrato">N&uacute;mero de Contrato *:</label>
+
+                <div class="col-sm-6">
+                    <input type="text" id="txtNumContrato" class="new-relab">
+                    <span class="help-block" id="helpErrorNumContratos"></span>
+                </div>
+            </div>
+            <div class="row div-new-relab" id="divUbicaciones">
+                <label class="col-sm-3 control-label" for="lstUbicaciones">Ubicaci&oacute;n *:</label>
+
+                <div class="col-md-6">
+                    <!--col-sm-6-->
+                    <?php echo $ubicaciones ?>
+                    <span class="help-block" id="helpErrorUbicaciones"></span>
+                </div>
+            </div>
+            <!--<div class="row">
+                <label class="col-sm-3 control-label" for="area">Area:</label>
+
+                <div class="col-sm-6">
+                    <div style="margin-top: 5px;" id="area" on></div>
+                </div>
+            </div>
+            <div class="row">
+                <label class="col-sm-3 control-label" for="departamento">Departamento *:</label>
+
+                <div class="col-sm-6">
+                    <div style="margin-top: 5px;" id="departamento" on></div>
+                </div>
+            </div>-->
+            <div class="row div-new-relab" id="divProcesos">
+                <label class="col-sm-3 control-label" for="lstProcesos">Proceso *:</label>
+
+                <div class="col-sm-6">
+                    <?php /*echo $procesos */ ?>
+                    <select id="lstProcesos"></select>
+                    <span class="help-block" id="helpErrorProcesos"></span>
+                </div>
+            </div>
+            <!--<div class="row div-new-relab" id="divCategorias">
+                <label class="col-sm-3 control-label" for="lstCategorias">Categor&iacute;a *:</label>
+            <div class="col-sm-6">
+                <?php /*echo $categorias */ ?>
+                <span class="help-block" id="helpErrorCategorias"></span>
+            </div>
+        </div>-->
+            <div class="row div-new-relab" id="divFechasIni">
+                <label class="col-sm-3 control-label" for="FechaIni">Fecha Ini. *: </label>
+
+                <div class="col-sm-6">
+                    <div style="margin-top: 5px;" id="FechaIni" on></div>
+                    <span class="help-block" id="helpErrorFechasIni"></span>
+                </div>
+            </div>
+            <div class="row div-new-relab" id="divFechasIncor">
+                <label class="col-sm-3 control-label" for="FechaIncor">Fecha Inc. *: </label>
+
+                <div class="col-sm-6">
+                    <div style="margin-top: 5px;" id="FechaIncor" on></div>
+                    <span class="help-block" id="helpErrorFechasIncor"></span>
+                </div>
+            </div>
+            <div class="row div-new-relab" id="divFechasFin">
+                <label class="col-sm-3 control-label" for="FechaFin">Fecha Fin *: </label>
+
+                <div class="col-sm-6">
+                    <div style="margin-top: 5px;" id="FechaFin" on></div>
+                    <span class="help-block" id="helpErrorFechasFin"></span>
+                </div>
+            </div>
+            <div class="row" id="divObservacion">
+                <label class="col-sm-3 control-label" for="txtObservacion">Observaciones :</label>
+
+                <div class="col-sm-6">
+                    <textarea placeholder="Observaciones" id="txtObservacion" name="txtObservacion"
+                              cols="50"></textarea>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-9 col-sm-offset-3">
+            <button class="btn btn-sm btn-primary" type="button" id="btnGuardarNuevo">
+                <i class="fa fa-floppy-o"></i>
+                Guardar
+            </button>
+            <button class="btn btn-sm btn-warning" type="button" id="btnCancelarNuevo">
+                <i class="fa fa-repeat"></i>
+                Cancelar
+            </button>
+        </div>
+
+    </form>
+</div>
+<div class="section" id="divEdit">
+    <form class="navbar-form" id="formEditar">
+        <div class="widget">
+            <div class="widget-simple themed-background-dark">
+                <a href="/usuario/profile">
+                    <img src="/assets/img/placeholders/avatars/avatar3.jpg" alt="avatar"
+                         class="widget-image img-circle img-rounded pull-right">
+                </a>
+                <h4 class="widget-content">
+                    <a href="#">
+
+                        <small>Nuevo Registro de Relacion Laboral para:</small>
+
+                        <strong id="NombreParaEditarRegistro"></strong>
+                    </a>
+                    <small id="CorreoPersonalEditar"></small>
+                </h4>
+            </div>
+        </div>
+
+        <div id="divGrillaCargoSeleccionadoParaEditar" class="table-responsive">
+            <table class="table table-vcenter table-condensed table-bordered">
+                <thead>
+                <tr>
+                    <th>
+                        <button class="btn btn-primary" type="button" id="btnBuscarCargoEditar"><i
+                                class="fa fa-search"></i> Buscar
+                        </button>
+                    </th>
+                    <th class='text-center'>&Iacute;tem/C&oacute;digo</th>
+                    <!--<td>Fuente</td>-->
+                    <th class='text-center'>
+                        Condici&oacute;n
+                    </th>
+                    <th class='text-center'>
+                        Gerencia
+                    </th>
+                    <th class='text-center'>
+                        Departamento
+                    </th>
+                    <th class='text-center'>
+                        Nivel Salarial
+                    </th>
+                    <th class='text-center'>
+                        Cargo
+                    </th>
+                    <th class='text-center'>
+                        Haber
+                    </th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr id="tr_cargo_seleccionado_editar">
+                <tr/>
+                </tbody>
+            </table>
+            <h6><b>NOTA: </b>Los datos precedidos de asterisco son requerido de manera obligatoria (*). Para habilitar
+                su
+                modificaci&oacute;n debe buscar y seleccionar el cargo correspondiente.</h6>
+
+            <input type="hidden" id="hdnIdRelaboralEditar" value="0">
+            <input type="hidden" id="hdnIdPersonaSeleccionadaEditar" value="0">
+            <input type="hidden" id="hdnIdCargoSeleccionadoEditar" value="0">
+            <input type="hidden" id="hdnIdCondicionEditableSeleccionada" value="0">
+            <input type="hidden" id="hdnIdOrganigramaSeleccionadoEditar" value="0">
+            <input type="hidden" id="hdnIdUbicacionEditar" value="0">
+            <input type="hidden" id="hdnIdProcesoEditar" value="0">
+            <input type="hidden" id="hdnFechaIniEditar" value="">
+            <input type="hidden" id="hdnFechaIncorEditar" value="">
+            <input type="hidden" id="hdnFechaFinEditar" value="">
+        </div>
+        <br>
+
+        <div class="form-horizontal col-sm-6" id="detallesDependenciaEditable">
+            <div class="row div-edit-relab" id="divNumContratosEditar">
+                <label class="col-sm-3 control-label" for="txtNumContratoEditar">N&uacute;mero de Contrato *:</label>
+
+                <div class="col-sm-6">
+                    <input type="text" id="txtNumContratoEditar" class="edit-relab">
+                    <span class="help-block" id="helpErrorNumContratosEditar"></span>
+                </div>
+            </div>
+            <div class="row div-edit-relab" id="divUbicacionesEditar">
+                <label class="col-sm-3 control-label" for="lstUbicacionesEditar">Ubicaci&oacute;n *:</label>
+
+                <div class="col-sm-6">
+                    <select id="lstUbicacionesEditar"></select>
+                    <span class="help-block" id="helpErrorUbicacionesEditar"></span>
+                </div>
+            </div>
+            <!--<div class="row">
+                <label class="col-sm-3 control-label" for="areaEditar">Area:</label>
+
+                <div class="col-sm-6">
+                    <div style="margin-top: 5px;" id="areaEditar" on></div>
+                </div>
+            </div>
+            <div class="row">
+                <label class="col-sm-3 control-label" for="departamentoEditar">Departamento *:</label>
+
+                <div class="col-sm-6">
+                    <div style="margin-top: 5px;" id="departamentoEditar" on></div>
+                </div>
+            </div>-->
+            <div class="row div-edit-relab" id="divProcesosEditar">
+                <label class="col-sm-3 control-label" for="lstProcesosEditar">Proceso *:</label>
+
+                <div class="col-sm-6">
+                    <select id="lstProcesosEditar"></select>
+                    <span class="help-block" id="helpErrorProcesosEditar"></span>
+                </div>
+            </div>
+            <!--<div class="row div-new-relab" id="divCategoriasEditar">
+                <label class="col-sm-3 control-label" for="lstCategoriasEditar">Categor&iacute;a *:</label>
+            <div class="col-sm-6">
+                <?php /*echo $categorias */ ?>
+                <span class="help-block" id="helpErrorCategoriasEditar"></span>
+            </div>
+        </div>-->
+            <div class="row div-edit-relab" id="divFechasIniEditar">
+                <label class="col-sm-3 control-label" for="FechaIniEditar">Fecha Inicio *: </label>
+
+                <div class="col-sm-6">
+                    <div style="margin-top: 5px;" id="FechaIniEditar" on></div>
+                    <span class="help-block" id="helpErrorFechasIniEditar"></span>
+                </div>
+            </div>
+            <div class="row div-edit-relab" id="divFechasIncorEditar">
+                <label class="col-sm-3 control-label" for="FechaIncorEditar">Fecha Incorporaci&oacute;n *: </label>
+
+                <div class="col-sm-6">
+                    <div style="margin-top: 5px;" id="FechaIncorEditar" on></div>
+                    <span class="help-block" id="helpErrorFechasIncorEditar"></span>
+                </div>
+            </div>
+            <div class="row div-edit-relab" id="divFechasFinEditar">
+                <label class="col-sm-3 control-label" for="FechaFinEditar">Fecha Fin *: </label>
+
+                <div class="col-sm-6">
+                    <div style="margin-top: 5px;" id="FechaFinEditar" on></div>
+                    <span class="help-block" id="helpErrorFechasFinEditar"></span>
+                </div>
+            </div>
+            <div class="row" id="divObservacionEditar">
+                <label class="col-sm-3 control-label" for="observacionesEditar">Observaciones :</label>
+
+                <div class="col-sm-6">
+                    <textarea placeholder="Observaciones" id="txtObservacionEditar" name="txtObservacionEditar"
+                              cols="50"></textarea>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-9 col-sm-offset-3">
+            <button class="btn btn-sm btn-primary" type="button" id="btnGuardarEditar">
+                <i class="fa fa-floppy-o"></i>
+                Guardar
+            </button>
+            <button class="btn btn-sm btn-warning" type="button" id="btnCancelarEditar">
+                <i class="fa fa-repeat"></i>
+                Cancelar
+            </button>
+        </div>
+    </form>
+</div>
+<div class="section" id="divDown">
+    <form class="navbar-form" id="formDown">
+        <div class="widget">
+            <div class="widget-simple themed-background-dark">
+                <a href="/usuario/profile">
+                    <img src="/assets/img/placeholders/avatars/avatar3.jpg" alt="avatar"
+                         class="widget-image img-circle img-rounded pull-right">
+                </a>
+                <h4 class="widget-content">
+                    <a href="#">
+
+                        <small>Baja de Registro de Relacion Laboral para:</small>
+
+                        <strong id="NombreParaBajaRegistro"></strong>
+                    </a>
+                    <small id="CorreoPersonalBaja"></small>
+                </h4>
+            </div>
+        </div>
+
+        <div id="divGrillaCargoSeleccionadoParaBaja" class="table-responsive">
+            <table class="table table-vcenter table-condensed table-bordered">
+                <thead>
+                <tr>
+                    <th>&Iacute;tem/C&oacute;digo</th>
+                    <!--<td>Fuente</td>-->
+                    <th>
+                        Condici&oacute;n
+                    </th>
+                    <th>
+                        Gerencia
+                    </th>
+                    <th>
+                        Departamento
+                    </th>
+                    <th>
+                        Nivel Salarial
+                    </th>
+                    <th>
+                        Cargo
+                    </th>
+                    <th>
+                        Haber
+                    </th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr id="tr_cargo_seleccionado_baja">
+                <tr/>
+                </tbody>
+            </table>
+
+            <input type="hidden" id="hdnIdRelaboralBaja" value="0">
+            <input type="hidden" id="hdnIdPersonaSeleccionadaBaja" value="0">
+            <input type="hidden" id="hdnIdCargoSeleccionadoBaja" value="0">
+            <input type="hidden" id="hdnIdCondicionSeleccionadaBaja" value="0">
+            <input type="hidden" id="hdnIdOrganigramaSeleccionadoBaja" value="0">
+            <input type="hidden" id="hdnIdUbicacionBaja" value="0">
+            <input type="hidden" id="hdnIdProcesoBaja" value="0">
+            <input type="hidden" id="hdnFechaRenBaja" value="">
+            <input type="hidden" id="hdnFechaAceptaRenBaja" value="">
+            <input type="hidden" id="hdnFechaAgraServBaja" value="">
+
+        </div>
+        <br>
+
+        <div class="form-horizontal col-sm-6" id="detallesDependenciaBaja">
+            <div class="row div-new-relab" id="divMotivosBajas">
+                <label class="col-sm-3 control-label" for="lstMotivosBajas">Motivo Baja *:</label>
+
+                <div class="col-sm-6">
+                    <select id="lstMotivosBajas"></select>
+                    <span class="help-block" id="helpErrorMotivosBajas"></span>
+                </div>
+            </div>
+            <div class="row div-down-relab" id="divFechasIniBaja">
+                <label class="col-sm-3 control-label" for="txtFechaIniBaja">Fecha Inicio *: </label>
+
+                <div class="col-sm-6">
+                    <div style="margin-top: 5px;" id="txtFechaIniBaja" on></div>
+                    <span class="help-block" id="helpErrorFechasIniBaja"></span>
+                </div>
+            </div>
+            <div class="row div-down-relab" id="divFechasIncorBaja">
+                <label class="col-sm-3 control-label" for="txtFechaIncorBaja">Fecha Incorporaci&oacute;n *: </label>
+
+                <div class="col-sm-6">
+                    <div style="margin-top: 5px;" id="txtFechaIncorBaja" on></div>
+                    <span class="help-block" id="helpErrorFechasIncorBaja"></span>
+                </div>
+            </div>
+            <div class="row div-down-relab" id="divFechasFinBaja">
+                <label class="col-sm-3 control-label" for="txtFechaFinBaja">Fecha Finalizaci&oacute;n *: </label>
+
+                <div class="col-sm-6">
+                    <div style="margin-top: 5px;" id="txtFechaFinBaja" on></div>
+                    <span class="help-block" id="helpErrorFechasFinBaja"></span>
+                </div>
+            </div>
+            <div class="row div-down-relab" id="divFechasRenBaja">
+                <label class="col-sm-3 control-label" for="txtFechaRenBaja">Fecha Renuncia *: </label>
+
+                <div class="col-sm-6">
+                    <div style="margin-top: 5px;" id="txtFechaRenBaja" on></div>
+                    <span class="help-block" id="helpErrorFechasRenBaja"></span>
+                </div>
+            </div>
+            <div class="row div-down-relab" id="divFechasAceptaRenBaja">
+                <label class="col-sm-3 control-label" for="txtFechaAceptaRenBaja">Fecha Aceptaci&oacute;n Renuncia
+                    *: </label>
+
+                <div class="col-sm-6">
+                    <div style="margin-top: 5px;" id="txtFechaAceptaRenBaja" on></div>
+                    <span class="help-block" id="helpErrorFechasAceptaRenBaja"></span>
+                </div>
+            </div>
+            <div class="row div-down-relab" id="divFechasAgraServBaja">
+                <label class="col-sm-3 control-label" for="txtFechaAgraServBaja">Fecha Agradecimiento de Servicios
+                    *: </label>
+
+                <div class="col-sm-6">
+                    <div style="margin-top: 5px;" id="txtFechaAgraServBaja" on></div>
+                    <span class="help-block" id="helpErrorFechasAgraServBaja"></span>
+                </div>
+            </div>
+            <div class="row div-down-relab" id="divFechasBaja">
+                <label class="col-sm-3 control-label" for="txtFechaBaja">Fecha Baja *: </label>
+
+                <div class="col-sm-6">
+                    <div style="margin-top: 5px;" id="txtFechaBaja" on></div>
+                    <span class="help-block" id="helpErrorFechasBaja"></span>
+                </div>
+            </div>
+            <div class="row" id="divObservacionBaja">
+                <label class="col-sm-3 control-label" for="txtObservacionBaja">Observaciones :</label>
+
+                <div class="col-sm-6">
+                    <textarea placeholder="Observaciones" id="txtObservacionBaja" name="txtObservacionBaja"
+                              cols="50"></textarea>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-9 col-sm-offset-3">
+            <button class="btn btn-sm btn-primary" type="button" id="btnGuardarBaja">
+                <i class="fa fa-floppy-o"></i>
+                Guardar
+            </button>
+            <button class="btn btn-sm btn-warning" type="button" id="btnCancelarBaja">
+                <i class="fa fa-repeat"></i>
+                Cancelar
+            </button>
+        </div>
+    </form>
+</div>
+<div class="section" id="divView">
+<form class="navbar-form" id="formView">
+<div id="tabFichaPersonal">
+    <ul style="margin-left: 30px;">
+        <li>Datos Personales</li>
+        <li>Datos de Contacto</li>
+    </ul>
+    <div class="form-horizontal col-sm-6">
+        <br>
+        <!-- Description List Horizontal Title -->
+        <!--<div class="block-title">
+            <h2><strong>Horizontal</strong> Description List</h2>
+        </div>-->
+        <!-- END Description List Horizontal Title -->
+
+        <!-- Description List Horizontal Content -->
+        <dl class="dl-horizontal">
+            <dt>Nombres y Apellidos: </dt><dd id="ddNombres"></dd>
+            <dt id="dtTipoDeDocumento">CI: </dt><dd id="ddNumeroDeDocumento"></dd>
+            <dt>Nacionalidad</dt><dd id="ddNacionalidad"></dd>
+            <dt>Lugar de Nacimiento</dt><dd id="ddLugarDeNacimiento"></dd>
+            <dt>Fecha de Nacimiento</dt><dd id="ddFechaDeNacimiento"></dd>
+        </dl>
+        <!-- END Description List Horizontal Content -->
+        <table id="tblFichaPerfil" style="width: 100%">
+            <tr>
+                <td>
+                    <table>
+                        <tr>
+                            <td id="tdNombres"></td>
+                        </tr>
+                        <tr>
+                            <td id="tdTipoDeDocumento"></td>
+                        </tr>
+                        <tr>
+                            <td id="tdNacionalidad"></td>
+                        <tr>
+                            <td id="tdLugarDeNacimiento"></td>
+                        <tr>
+                            <td id="tdFechaDeNacimiento"></td>
+                        <tr>
+                            <td id="tdEdad"></td>
+                        <tr>
+                            <td id="tdEstadoCivil"></td>
+                        <tr>
+                            <td id="tdGrupoSanguineo"></td>
+                        <tr>
+                            <td id="tdSexo"></td>
+                        </tr>
+                    </table>
+                </td>
+                <td rowspan="4">&nbsp;&nbsp;</td>
+                <td rowspan="4">
+                    <div style="margin-top: 10px;"><a href="#" id="aFotoPerfil"><img src="/images/perfil-profesional.jpg"
+                                                                                     height="200"></a></div>
+                </td>
+            </tr>
+        </table>
+        <br>
+    </div>
+    <div class="form-horizontal col-sm-6">
+        <table id="tblFichaPerfilContacto">
+            <tr>
+                <td>
+                    <table>
+                        <tr>
+                            <td id="tdDireccion"></td>
+                        </tr>
+                        <tr>
+                            <td id="tdTelefonoFijo"></td>
+                        </tr>
+                        <tr>
+                            <td id="tdTelefonoInst"></td>
+                        </tr>
+                        <tr>
+                            <td id="tdCelularPer"></td>
+                        <tr>
+                            <td id="tdCelularInst"></td>
+                        <tr>
+                            <td id="tdFax"></td>
+                        <tr>
+                            <td id="tdInternoInst"></td>
+                        <tr>
+                            <td id="tdEmailPer"></td>
+                        <tr>
+                            <td id="tdEmailInst"></td>
+                        </tr>
+                    </table>
+                </td>
+                <td rowspan="9">&nbsp;&nbsp;</td>
+                <td rowspan="9">
+                    <div style="margin-top: 10px;"><a href="#" id="aFotoPerfilContacto"><img
+                                src="/images/perfil-profesional.jpg" height="200"></a></div>
+                </td>
+            </tr>
+        </table>
+        <br>
+    </div>
+</div>
+<br>
+
+<div id="HistorialSplitter">
+    <div class="splitter-panel">
+        Gestiones
+        <div id="listboxGestiones"></div>
+    </div>
+    <div class="splitter-panel">
+    <br>
+        <div>
+            <div class="block-options pull-right">
+                <a data-original-title="Settings" href="javascript:void(0)" class="btn btn-alt btn-sm btn-default"
+                   data-toggle="tooltip" title=""><i class="fa fa-cog"></i></a>
+            </div>
+            <h2><i class="fa fa-ticket"></i> Historial <strong>Relaci&oacute;n de Trabajo</strong></h2>
+        </div
+    <!-- Draggable Blocks Row -->
+    <div class="row draggable-blocks">
+        <div class="col-xs-12 column">
+            <!-- Block -->
+            <div class="block">
+                <div class="block-title">
+                    <div class="block-options pull-right">
+                        <a href="javascript:void(0)" class="btn btn-alt btn-sm btn-default"><i class="fa fa-times-circle"></i></a>
+                    </div>
+                    <h2>Block #1</h2>
+                </div>
+                <p>...</p>
+            </div>
+            <!-- END Block -->
+            <!-- Block -->
+            <div class="block">
+                <div class="block-title">
+                    <div class="block-options pull-right">
+                        <a href="javascript:void(0)" class="btn btn-alt btn-sm btn-default"><i class="fa fa-times-circle"></i></a>
+                    </div>
+                    <h2>Block #1</h2>
+                </div>
+                <p>...</p>
+            </div>
+            <!-- END Block -->
+            <!-- Block -->
+            <div class="block">
+                <div class="block-title">
+                    <div class="block-options pull-right">
+                        <a href="javascript:void(0)" class="btn btn-alt btn-sm btn-default"><i class="fa fa-times-circle"></i></a>
+                    </div>
+                    <h2>Block #1</h2>
+                </div>
+                <p>...</p>
+            </div>
+            <!-- END Block -->
+        </div>
+
+    </div>
+    <!-- END Draggable Blocks Row -->
+
+
+
+
+
+        <!--             Historial-->
+        <!-- Menu Title -->
+        <!--<div>
+            <div class="block-options pull-right">
+                <a data-original-title="Settings" href="javascript:void(0)" class="btn btn-alt btn-sm btn-default"
+                   data-toggle="tooltip" title=""><i class="fa fa-cog"></i></a>
+            </div>
+            <h2><i class="fa fa-ticket"></i> Historial <strong>Relaci&oacute;n de Trabajo</strong></h2>
+        </div>
+        <div  class="jqx-widget">
+            <ul class="nav nav-pills nav-stacked">
+                <li class="active">
+                    <a href="javascript:void(0)">
+                        <span class="badge pull-right">Valor</span>
+                        <i class="fa fa-ticket fa-fw"></i> <strong>Dato</strong>
+                    </a>
+                </li>
+                <li>
+                    <a href="javascript:void(0)">
+                        <span class="badge pull-right">MT-CPE-001-2014</span>
+                        <i class="fa fa-cogs"></i> <strong>Proceso</strong>
+                    </a>
+                </li>
+                <li>
+                    <a href="javascript:void(0)">
+                        <span class="badge pull-right">G. PLANIFICACI&Oacute;N Y DESARROLLO EMPRESARIAL</span>
+                        <i class="fa fa-cogs"></i> <strong>Gerencia</strong>
+                    </a>
+                </li>
+                <li>
+                    <a href="javascript:void(0)">
+                        <span class="badge pull-right">DEPARTAMENTO DE SISTEMAS</span>
+                        <i class="fa fa-cogs"></i> <strong>Departamento</strong>
+                    </a>
+                </li>
+                <li>
+                    <a href="javascript:void(0)">
+                        <span class="badge pull-right">1</span>
+                        <i class="fa fa-cogs"></i> <strong>&Iacute;tem</strong>
+                    </a>
+                </li>
+                <li>
+                    <a href="javascript:void(0)">
+                        <span class="badge pull-right">PROFESIONAL V - TECNICO I</span>
+                        <i class="fa fa-cogs"></i> <strong>Nivel Salarial</strong>
+                    </a>
+                </li>
+                <li>
+                    <a href="javascript:void(0)">
+                        <span class="badge pull-right">PROFESIONAL EN DESARROLLO DE SISTEMAS</span>
+                        <i class="fa fa-cogs"></i> <strong>Cargo</strong>
+                    </a>
+                </li>
+                <li>
+                    <a href="javascript:void(0)">
+                        <span class="badge pull-right">ADMINISTRATIVO</span>
+                        <i class="fa fa-cogs"></i> <strong>Categor&iacute;a</strong>
+                    </a>
+                </li>
+                <li>
+                    <a href="javascript:void(0)">
+                        <span class="badge pull-right">7980</span>
+                        <i class="fa fa-cogs"></i> <strong>Haber</strong>
+                    </a>
+                </li>
+                <li>
+                    <a href="javascript:void(0)">
+                        <span class="badge pull-right">14-10-2014</span>
+                        <i class="fa fa-cogs"></i> <strong>Fecha Inicio</strong>
+                    </a>
+                </li>
+                <li>
+                    <a href="javascript:void(0)">
+                        <span class="badge pull-right">14-10-2014</span>
+                        <i class="fa fa-cogs"></i> <strong>Fecha Incorp.</strong>
+                    </a>
+                </li>
+                <li>
+                    <a href="javascript:void(0)">
+                        <span class="badge pull-right">31-12-2014</span>
+                        <i class="fa fa-cogs"></i> <strong>Fecha Fin</strong>
+                    </a>
+                </li>
+                <li>
+                    <a href="javascript:void(0)">
+                        <span class="badge pull-right">ACTIVO</span>
+                        <i class="fa fa-cogs"></i> <strong>Estado</strong>
+                    </a>
+                </li>
+                <li>
+                    <a href="javascript:void(0)">
+                        <span class="badge pull-right"></span>
+                        <i class="fa fa-cogs"></i> <strong>Observaciones</strong>
+                    </a>
+                </li>
+            </ul>
+        </div>-->
+    </div>
+</div>
+<br>
+
+<div class="col-sm-9 col-sm-offset-3">
+    <button class="btn btn-sm btn-primary" type="button" id="btnGuardarImprimir">
+        <i class="gi gi-print"></i>
+        Imprimir
+    </button>
+    <button class="btn btn-sm btn-warning" type="button" id="btnCancelarVista">
+        <i class="fa fa-repeat"></i>
+        Cancelar
+    </button>
+</div>
+</form>
+</div>
+</div>
+<div id="popupWindowCargo">
+    <div id="titulo">Seleccionar Cargo</div>
+    <div style="overflow: hidden;">
+        <div id="divGrillaParaSeleccionarCargo"></div>
+    </div>
+</div>
+<div id="popupWindowDown">
+    <div>Dar de Baja</div>
+    <div style="overflow: hidden;">
+        <table>
+            <tr>
+                <td align="left">Esta seguro de dar de baja al registro</td>
+            </tr>
+            <tr>
+                <td align="right"></td>
+                <td style="padding-top: 10px;" align="right">
+                    <input style="margin-right: 5px;" type="button" id="Eliminar" value="Eliminar"/>
+                    <input id="Cancel" type="button" value="Cancel"/>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
+<!--</form></div>-->
+</body>

@@ -1,0 +1,165 @@
+<style>
+#tabFichaPersonal{
+    min-height: 170px;
+    height: 190px !important;
+}
+.widget{
+    padding-bottom: 0;
+    margin-bottom: 0;
+    padding-top: 0;
+    margin-top: 0;
+}
+</style>
+
+<h3><i class="fa-lg fa fa-pencil-square-o "></i> Información Personal</h3>
+<input type="hidden" id="hdnIdRelaboralUsuario" name="hdnIdRelaboralUsuario" value="<?php echo $idRelaboral; ?>">
+<input type="hidden" id="hdnIdPersonaUsuario" name="hdnIdPersonaUsuario" value="<?php echo $idPersona; ?>">
+<input type="hidden" id="hdnNombresUsuario" name="hdnNombresUsuario" value="<?php echo $nombres; ?>">
+<input type="hidden" id="hdnCiUsuario" name="hdnciUsuario" value="<?php echo $ci; ?>">
+<div class="row">
+    <div class="col-md-12">
+        <div id="tabFichaPersonal"class="navbar-form"  >
+            <ul style="">
+                <li>Datos Personales</li>
+                <li>Contacto Personal</li>
+                <li>Contacto Institucional</li>
+            </ul>
+            <div style="height: 160px;" class="form-horizontal">
+                <br>
+                <div class="widget">
+                    <div class="widget-simple ">
+                        <a href="#" id="aFotoPerfil">
+                            <img id="imgFotoPerfil" class="img-rounded pull-right img-perfil">
+                        </a>
+                        <h4 class="widget-content">
+                            <div>
+                                <dl class="dl-horizontal" >
+                                    <dt id="dtNombres">Nombres y Apellidos:</dt>
+                                    <dd id="ddNombres"></dd>
+                                    <dt id="dtTipoDeDocumento"></dt>
+                                    <dd id="ddNumeroDeDocumento"></dd>
+                                    <dt id="dtNacionalidad">Nacionalidad:</dt>
+                                    <dd id="ddNacionalidad"></dd>
+                                    <dt id="dtLugarDeNacimiento">Lugar de Nacimiento:</dt>
+                                    <dd id="ddLugarDeNacimiento"></dd>
+                                    <dt id="dtFechaDeNacimiento">Fecha de Nacimiento:</dt>
+                                    <dd id="ddFechaDeNacimiento"></dd>
+                                </dl>
+                            </div>
+                        </h4>
+                    </div>
+                </div>
+            </div>
+            <div style="display: none" class="form-horizontal col-sm-12">
+                <br>
+
+                <div class="widget">
+                    <div class="widget-simple ">
+                        <a href="#" id="aFotoPerfilContactoPer"><img id="imgFotoPerfilContactoPer"
+                                                                     class="img-rounded pull-right img-perfil"></a>
+                        <h4 class="widget-content">
+                            <div>
+                                <dl class="dl-horizontal">
+                                    <dt id="dtDireccion">Direcci&oacute;n:</dt>
+                                    <dd id="ddDireccion"></dd>
+                                    <dt id="dtTelefonoFijo">Tel&eacute;fono Fijo:</dt>
+                                    <dd id="ddTelefonoFijo"></dd>
+                                    <dt id="dtCelularPer">Celular Personal:</dt>
+                                    <dd id="ddCelularPer"></dd>
+                                    <dt id="dtEmailPer">E-Mail Personal:</dt>
+                                    <dd id="ddEmailPer"></dd>
+                                    <dt id="dtAuxiliar1">&nbsp;</dt>
+                                    <dd id="ddAuxiliar1">&nbsp;</dd>
+                                </dl>
+                            </div>
+                        </h4>
+                    </div>
+                </div>
+            </div>
+            <div style="display: none" class="form-horizontal col-sm-12">
+                <br>
+                <div class="widget">
+                    <div class="widget-simple ">
+                        <a href="#" id="aFotoPerfilContactoInst"><img id="imgFotoPerfilContactoInst"
+                                                                      class="img-rounded pull-right img-perfil"></a>
+                        <h4 class="widget-content">
+                            <div>
+                                <dl class="dl-horizontal">
+                                    <dt id="dtTelefonoInst">Tel&eacute;fono Inst.:</dt>
+                                    <dd id="ddTelefonoInst"></dd>
+                                    <dt id="dtCelularInst">Celular Corporativo:</dt>
+                                    <dd id="ddCelularInst"></dd>
+                                    <dt id="dtTelefonoFax">Fax:</dt>
+                                    <dd id="ddTelefonoFax"></dd>
+                                    <dt id="dtInternoInst">N&uacute;mero Interno:</dt>
+                                    <dd id="ddInternoInst"></dd>
+                                    <dt id="dtEmailInst">E-Mail Institucional:</dt>
+                                    <dd id="ddEmailInst"></dd>
+                                </dl>
+                            </div>
+                        </h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12"><hr/><h3><i class="fa fa-lg fa-bars"></i> Relaci&oacute;n Laboral </h3></div>
+        </div>
+        <form  id="formView">
+            <div id="HistorialSplitter">
+                <div class="splitter-panel">
+                    <h4 class="text-center">Gestiones</h4>
+                    <div id="listboxGestiones"></div>
+                </div>
+                <div class="splitter-panel" style="overflow-y: auto;">
+                    <br>
+
+                    <div>
+                        <div class="block-options pull-right">
+                            <a id="btnImprimirHistorial" data-original-title="Imprimir" href="javascript:void(0)"
+                               class="btn btn-alt btn-sm btn-default"
+                               data-toggle="tooltip" title="Imprimir Historial"><i class="fa fa-print"></i></a>
+                        </div>
+                    </div>
+                    <!-- Draggable Blocks Row -->
+                    <div class="row draggable-blocks">
+                        <div class="col-xs-12 column">
+                            <!-- Timeline Style Content -->
+                            <div class="timeline block-content-full">
+                                <ul class="timeline-list timeline-hover" id="HistorialTimeLine">
+                                </ul>
+                            </div>
+                            <!-- END Timeline Style Content -->
+                            <input type="hidden" id="hdnIdPersonaHistorial" value="0">
+                            <input type="hidden" id="hdnSwPrimeraVistaHistorial" value="0">
+                        </div>
+                    </div>
+                    <!-- END Draggable Blocks Row -->
+                </div>
+            </div>
+        </form>
+    </div>
+    <!--<div class="col-md-5">
+            <div class="block">
+                <div class="block-title">
+                    <h2>La presencia viva del Che será eterna en la historia.</h2>
+                </div>
+                <video controls loop class="img-responsive">
+                    <source src="http://rrhh.viasbolivia.gob.bo/files/videos/elche.mp4" type="video/mp4">
+                </video>
+            </div>
+    </div>-->
+</div>
+
+<div id="divMsjeNotificacionError">
+    <div id="divMsjePorError">
+    </div>
+</div>
+<div id="divMsjeNotificacionWarning">
+    <div id="divMsjePorWarning">
+    </div>
+</div>
+<div id="divMsjeNotificacionSuccess">
+    <div id="divMsjePorSuccess">
+    </div>
+</div>

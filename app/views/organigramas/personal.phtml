@@ -1,0 +1,32 @@
+<div class="row">
+	<div class="col-lg-12">
+		<h1>Personigrama</h1>		
+	</div>
+</div>
+<a href="/organigramas"> << Volver</a>
+<div class="row">
+    <div class="col-sm-12 animation-stretchRight">
+        <div class="widget">
+             <div style="width: 100%;" ><?php echo $lista;?></div>
+        </div>
+    </div>
+</div>
+
+<div class="row" style="position: absolute;">
+    <div class="col-sm-12 animation-stretchRight">
+        <div class="widget">
+             <div id="chart" class="orgChart"></div>
+        </div>
+    </div>
+
+</div>
+
+  <script>
+    jQuery(document).ready(function() {
+        $("#org").jOrgChart({
+            chartElement : '#chart',
+            dragAndDrop  : true
+        });
+
+    });
+    </script>

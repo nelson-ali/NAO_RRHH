@@ -1,0 +1,190 @@
+<script type="text/javascript">
+	$(document).ready(function () {
+		
+		cargar();	
+		function cargar(){
+			var source =
+			{
+				datatype: "json",
+				datafields: [
+				{ name: 'id',type: 'number'},
+				{ name: 'orden',type: 'number'},
+				{ name: 'nivel_estructural',type: 'string'}
+				],
+				url: '/nivelestructurales/list',
+				cache: false
+			};
+			var dataAdapter = new $.jqx.dataAdapter(source);
+			$("#jqxgrid").jqxGrid(
+			{
+				width: '100%',
+				source: dataAdapter,
+				sortable: true,
+				altRows: true,
+				pageable: true,
+				pagerMode: 'advanced',
+				showfilterrow: true,
+				filterable: true,
+				columns: [
+				{
+					text: '#', sortable: false, filterable: false, editable: false,
+					groupable: false, draggable: false, resizable: false,
+					datafield: '', columntype: 'number', width: '5%',
+					cellsrenderer: function (row, column, value) {
+						return "<div style='margin:4px;'>" + (value + 1) + "</div>";
+					}
+				},
+				{ text: 'Nro', datafield: 'id',filtertype: 'number', width: '5%',hidden:true},
+				{ text: 'Orden', datafield: 'orden', filtertype: 'number',width: '15%' },
+				{ text: 'Nivel Estructural', datafield: 'nivel_estructural',filtertype: 'input', width: '70%' },
+				]
+			});
+
+		}
+
+$("#jqxgrid").bind('rowselect', function (event) {
+	var dataRecord = $("#jqxgrid").jqxGrid('getrowdata', event.args.rowindex);
+	$("#id").val(dataRecord.id);
+	$("#orden").val(dataRecord.orden);
+	$("#nivel_estructural").val(dataRecord.nivel_estructural);
+});
+
+// update the edited row when the user clicks the 'Save' button.
+$("#add").click(function(){
+	$("#titulo").text("Adicionar");
+	$("#id").val("");
+	$("#orden").val("");
+	$("#nivel_estructural").val("");
+	$('#myModal').modal('show');
+//$("#popupWindow").jqxWindow('open');
+});
+
+$("#edit").click(function(){
+	if($("#id").val()!=""){
+		$("#titulo").text("Editar");
+		$('#myModal').modal('show');        		
+	}else{
+		bootbox.alert("<strong>¡Mensaje!</strong> Seleccionar un registro para editar.");
+	}
+});
+
+$("#delete").click(function(){
+	if($("#id").val()!=""){
+		bootbox.confirm("<strong>¡Mensaje!</strong> Esta seguro de eliminar el registro.", function(result) {
+			if (result==true) {
+				var v=$.ajax({
+					url:'/nivelestructurales/delete/',
+					type:'POST',
+					datatype: 'json',
+					data:{id:$("#id").val()},
+				success: function(data) { cargar(); //alert('Guardado Correctamente'); 
+				}, //mostramos el error
+				error: function() { alert('Se ha producido un error Inesperado'); }
+			});
+			}
+		});
+	}else{
+		bootbox.alert("<strong>¡Mensaje!</strong> Seleccionar un registro para eliminar.");
+	}
+});
+
+
+$('#testForm').validate({
+    rules: {
+        orden: {
+            required: true
+        },
+        nivel_estructural: {
+            required: true
+        }
+    },
+    highlight: function (element) {
+        $(element).closest('.control-group').removeClass('success').addClass('error');
+    },
+    success: function (element) {
+        //element.text('OK!').addClass('valid').closest('.control-group').removeClass('error').addClass('success');
+        element.addClass('valid').closest('.control-group').removeClass('error').addClass('success');
+    },
+    submitHandler: function (form) {
+            // form validates so do the ajax
+            //alert("funciono");
+            var v=$.ajax({
+            	url:'/nivelestructurales/save/',
+            	type:'POST',
+            	datatype: 'json',
+            	data:{id:$("#id").val(),orden:$("#orden").val(),nivel_estructural:$("#nivel_estructural").val()},
+				success: function(data) { cargar(); //alert(data); 
+				}, //mostramos el error
+			error: function() { alert('Se ha producido un error Inesperado'); }
+			});
+            $('#myModal').modal('hide');
+            return false; // ajax used, block the normal submit
+        }
+});
+
+
+});
+</script>
+
+<div class="row">
+	<div class="col-lg-12">
+		<h1>Niveles Estructurales</h1>		
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-lg-12">
+		<div class="panel panel-default">
+			<div class="panel-body">
+				<?php //echo $this->flashSession->output() ?>
+				<div class="form-group form-actions">
+					<div class="col-xs-12">
+						<button class="btn btn-sm btn-primary" type="button" id="add"><i class="fa fa-plus fa-fw"></i>Adicionar</button>
+						<button class="btn btn-sm btn-warning" type="button" id="edit"><i class="fa fa-pencil fa-fw"></i> Editar</button>
+						<button class="btn btn-sm btn-danger" type="button" id="delete"><i class="fa fa-trash-o fa-fw"></i> Eliminar</button>
+					</div>
+				</div>
+				<br>
+				<div class="table-responsive">
+					<div id="jqxgrid"></div>
+				</div>
+		</div>
+	</div>
+</div>
+</div>
+
+	<!-- Modal -->
+				<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+					<div class="modal-dialog">
+						<div class="modal-content">
+							<form class="form-horizontal" id="testForm" data-toggle="validator"/>
+							<div class="modal-header">
+								<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+								<h4 class="modal-title" id="titulo">Editar</h4>
+							</div>
+							<div class="modal-body">
+
+								<input id="id" name="id" type="hidden" />
+								<div class="form-group">
+									<label class="col-md-3 control-label" for="example-hf-email">Orden</label>
+									<div class="col-md-9">
+										<input id="orden" name="orden" type="number" class="form-control" required/>
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-md-3 control-label" for="example-hf-password">Nivel Estructural</label>
+									<div class="col-md-9">
+										<input id="nivel_estructural" name="nivel_estructural" type="text" class="form-control"/>
+									</div>
+								</div>
+
+							</div>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+								<button type="submit" class="btn btn-primary" id="Save">Guardar</button>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+			<!-- end  modal -->

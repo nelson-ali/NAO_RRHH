@@ -1,0 +1,120 @@
+<div class="block">
+    <div class="block-title">
+        <h2><strong>Intercambio</strong> Perfiles</h2>
+    </div>
+    <div class="row">
+        <div class="col-md-8">
+            <div id="divGridPerfilesLaborales" class="draggable-demo-catalog jqx-rc-all">
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="block" id="divPerfilOrigen">
+                <div class="block-title">
+                    <h2><strong>Perfil</strong> Origen</h2>
+                </div>
+                <div id="divGrillaOrigen"></div>
+                <span class="help-block" id="helpErrorPerfilOrigen"></span>
+            </div>
+            <div class="block" id="divPerfilDestino">
+                <div class="block-title">
+                    <h2><strong>Perfil</strong> Destino</h2>
+                </div>
+                <div id="divGrillaDestino"></div>
+                <span class="help-block" id="helpErrorPerfilDestino"></span>
+            </div>
+            <div class="form-group div-intercambio-perfiles" id="divTipoIntercambio">
+                <label class="col-md-3 control-label" for="lstTipoIntercambio">Intercambio:</label>
+                <div class="col-md-9">
+                    <select id="lstTipoIntercambio" name="lstTipoIntercambio" class="form-control">
+                        <option value="0">Todas las personas del Perfil Origen</option>
+                        <option value="1">Personas en espec&iacute;fico del Perfil Origen</option>
+                        <option value="2">Personas de acuerdo a Organigrama y/o G&eacute;nero</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group div-intercambio-perfiles" id="divIdOrganigrama">
+                <label class="col-md-3 control-label" for="lstIdOrganigrama">Organigrama:</label>
+                <div class="col-md-9">
+                    <select id="lstIdOrganigrama" name="lstIdOrganigrama" class="form-control">
+                        <option>Seleccionar..</option>
+                    </select>
+                    <span class="help-block" id="helpErrorIdOrganigrama"></span>
+                </div>
+            </div>
+            <div class="form-group div-intercambio-perfiles" id="divGenero">
+                <label class="col-md-3 control-label" for="lstGenero">G&eacute;nero:</label>
+                <div class="col-md-9">
+                    <select id="lstGenero" name="lstGenero" class="form-control">
+                        <option value="0">Seleccionar..</option>
+                        <option value="1">MUJERES</option>
+                        <option value="2">HOMBRES</option>
+                    </select>
+                    <span class="help-block" id="helpErrorGenero"></span>
+                </div>
+            </div>
+            <div class="form-group" id="divSoloEstasPersonas">
+                <label class="col-md-3 control-label"
+                       for="lstSoloEstasPersonas">Personas:</label>
+                <div class="col-md-9" form-group>
+                    <select id="lstSoloEstasPersonas" class="form-control"
+                            multiple="multiple">
+                    </select>
+                    <span class="help-block" id="helpErrorSoloEstasPersonas"></span>
+                </div>
+            </div>
+            <div class="form-group div-intercambio-perfiles" id="divFechaIntercambio">
+                <label class="col-md-3 control-label" for="txtFechaIntercambio">Fecha <span class="text-danger">*</span>:</label>
+                <div class="col-md-9">
+                    <input type="text" data-date-format="dd-mm-yyyy" placeholder="dd-mm-aaaa"
+                           class="form-control input-datepicker-close" name="txtFechaIntercambio"
+                           id="txtFechaIntercambio">
+                    <span class="help-block" id="helpErrorFechaIntercambio"></span>
+                </div>
+            </div>
+            <div class="form-group div-intercambio-perfiles" id="divObservacion">
+                <label class="col-md-3 control-label" for="txtObservacion">Justificaci&oacute;n <span class="text-danger">*</span>:</label>
+                <div class="col-md-9">
+                    <textarea id="txtObservacion" class="form-control"></textarea>
+                    <span class="help-block" id="helpErrorObservacion"></span>
+                </div>
+            </div>
+            <div class="form-group div-intercambio-perfiles" id="divRetorno">
+                <label class="col-md-3 control-label" for="chkRetorno">Con Retorno:</label>
+                <div class="col-md-1">
+                    <input type="checkbox" id="chkRetorno" value="1">
+                    <span class="help-block" id="helpErrorRetorno"></span>
+                </div>
+                <label class="col-md-4 control-label" for="lstTodaMarcacion"> Toda Marcaci&oacute;n:</label>
+                <div class="col-md-4">
+                    <select id="lstTodaMarcacion" class="form-control">
+                        <option value="0">No aplica</option>
+                        <option value="1">S&oacute;lo Entradas</option>
+                        <option value="2">S&oacute;lo Salidas</option>
+                        <option value="3">Entradas & Salidas</option>
+                    </select>
+                    <span class="help-block" id="helpErrorTodaMarcacion"></span>
+                </div>
+            </div>
+            <div class="col-md-9 col-md-offset-3">
+                <button type="button" id="btnGuardarIntercambio" class="btn btn-success"><i
+                        class="fa fa-floppy-o"></i> Guardar
+                </button>
+                <button type="button" id="btnLimpiarFormularioIntercambio" class="btn btn-warning">
+                    <i class="fa fa-repeat"></i>
+                    Limpiar
+                </button>
+            </div>
+        </div>
+    </div>
+    <div id="divMsjeNotificacionError">
+        <div id="divMsjePorError">
+        </div>
+    </div>
+    <div id="divMsjeNotificacionWarning">
+        <div id="divMsjePorWarning">
+        </div>
+    </div>
+    <div id="divMsjeNotificacionSuccess">
+        <div id="divMsjePorSuccess">
+        </div>
+    </div>

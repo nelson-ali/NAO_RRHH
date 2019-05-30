@@ -1,0 +1,37 @@
+{
+// Vea https://go.microsoft.com/fwlink/?LinkId=733558 
+    // para la documentación acerca del formato tasks.json
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "type": "npm",
+            "script": "test",
+            "path": "public/js/cropit/",
+            "problemMatcher": []
+        },
+        {
+            "type": "npm",
+            "script": "install",
+            "path": "public/js/cropit/",
+            "problemMatcher": []
+        },
+        {
+            "type": "npm",
+            "script": "install",
+            "path": "public/js/select2/",
+            "problemMatcher": []
+        },
+        {
+            "type": "npm",
+            "script": "install",
+            "path": "public/media/plugins/jquery-fileupload/server/node/",
+            "problemMatcher": []
+        },
+        {
+            "type": "npm",
+            "script": "install",
+            "path": "public/select/",
+            "problemMatcher": []
+        }
+    ]
+}

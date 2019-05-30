@@ -1,0 +1,351 @@
+<?php
+?>
+
+<script type="text/javascript">
+function utf8_encode(argString) {
+  //  discuss at: http://phpjs.org/functions/utf8_encode/
+  // original by: Webtoolkit.info (http://www.webtoolkit.info/)
+  // improved by: Kevin van Zonneveld (http://kevin.vanzonneveld.net)
+  // improved by: sowberry
+  // improved by: Jack
+  // improved by: Yves Sucaet
+  // improved by: kirilloid
+  // bugfixed by: Onno Marsman
+  // bugfixed by: Onno Marsman
+  // bugfixed by: Ulrich
+  // bugfixed by: Rafal Kukawski
+  // bugfixed by: kirilloid
+  //   example 1: utf8_encode('Kevin van Zonneveld');
+  //   returns 1: 'Kevin van Zonneveld'
+
+  if (argString === null || typeof argString === 'undefined') {
+    return '';
+  }
+
+  var string = (argString + ''); // .replace(/\r\n/g, "\n").replace(/\r/g, "\n");
+  var utftext = '',
+    start, end, stringl = 0;
+
+  start = end = 0;
+  stringl = string.length;
+  for (var n = 0; n < stringl; n++) {
+    var c1 = string.charCodeAt(n);
+    var enc = null;
+
+    if (c1 < 128) {
+      end++;
+    } else if (c1 > 127 && c1 < 2048) {
+      enc = String.fromCharCode(
+        (c1 >> 6) | 192, (c1 & 63) | 128
+      );
+    } else if ((c1 & 0xF800) != 0xD800) {
+      enc = String.fromCharCode(
+        (c1 >> 12) | 224, ((c1 >> 6) & 63) | 128, (c1 & 63) | 128
+      );
+    } else { // surrogate pairs
+      if ((c1 & 0xFC00) != 0xD800) {
+        throw new RangeError('Unmatched trail surrogate at ' + n);
+      }
+      var c2 = string.charCodeAt(++n);
+      if ((c2 & 0xFC00) != 0xDC00) {
+        throw new RangeError('Unmatched lead surrogate at ' + (n - 1));
+      }
+      c1 = ((c1 & 0x3FF) << 10) + (c2 & 0x3FF) + 0x10000;
+      enc = String.fromCharCode(
+        (c1 >> 18) | 240, ((c1 >> 12) & 63) | 128, ((c1 >> 6) & 63) | 128, (c1 & 63) | 128
+      );
+    }
+    if (enc !== null) {
+      if (end > start) {
+        utftext += string.slice(start, end);
+      }
+      utftext += enc;
+      start = end = n + 1;
+    }
+  }
+
+  if (end > start) {
+    utftext += string.slice(start, stringl);
+  }
+
+  return utftext;
+};
+
+$(document).ready(function () {
+		var source =
+		{
+			datatype: "json",
+			datafields: [
+				{ name: 'id'},
+				{ name: 'p_nombre'},
+                                { name: 's_nombre'},
+                                { name: 'p_apellido'},
+                                { name: 's_apellido'},
+                                { name: 'ci', type: 'string'},
+                                { name: 'fecha_nac', format: 'date'},
+				{ name: 'expd'},
+				{ name: 'fecha_emi'},
+				{ name: 'fecha_apr', format: 'date'},
+                                { name: 'num_docs'},
+                                { name: 'num_falt'}
+			],
+			url: '../../presentaciondoc/list',
+			cache: false
+		};
+                var dataAdapter = new $.jqx.dataAdapter(source);
+                /*var salida = '';
+                for (var p in dataAdapter) {
+                    salida += p + ': ' + dataAdapter[p] + '\n';
+                }
+                alert(salida);*/
+                cargar();
+		function cargar(){
+                    //var datos = dataAdapter.records;
+                    var cellclass = function (row, columnfield, value) {
+                        var datos = dataAdapter.records;
+                        editrow = row;
+                        var dataRecord = $("#jqxgrid").jqxGrid('getrowdata', editrow);
+                        //alert(dataRecord.num_falt);
+                        var num_falt = dataRecord.num_falt;
+                        var num_docs = dataRecord.num_docs;
+                        if (num_falt == num_docs) {
+                            return 'red';
+                        }
+                        else if (num_falt > 0 && num_falt < num_docs) {
+                            return 'yellow';
+                        }
+                        else return 'green';
+                    }
+                    $("#jqxgrid").jqxGrid(
+		{
+		width: '90%',
+		source: dataAdapter,
+		sortable: true,
+		altrows: true,
+		pageable: true,
+		pagerMode: 'advanced',
+		showfilterrow: true,
+		filterable: true,
+		columns: [
+                    { text: 'Nro', sortable: false, filterable: false, editable: false,
+                      groupable: false, draggable: false, resizable: false,
+                      datafield: '', columntype: 'number', width: 50,
+                      cellsrenderer: function (row, column, value) {
+                          return "<div style='margin:4px;'>" + (value + 1) + "</div>";
+                      }},
+                    { text: 'id', datafield: 'id',filtertype: 'input', width: '5%', hidden: true},
+                    { text: '1o Nombre', datafield: 'p_nombre', filtertype: 'input', cellclassname: cellclass, width: '13%'},
+                    { text: '2o Nombre', datafield: 's_nombre', filtertype: 'input', cellclassname: cellclass,width: '13%'},
+                    { text: '1o Apellido', datafield: 'p_apellido', filtertype: 'input', cellclassname: cellclass,width: '13%'},
+                    { text: '2o Apellido', datafield: 's_apellido', filtertype: 'input', cellclassname: cellclass,width: '13%'},
+                    { text: 'Doc. Ident.', datafield: 'ci', type: 'string',filtertype: 'input', cellclassname: cellclass,width: '11%' },
+                    { text: 'EXP', datafield: 'expd', type: 'string',filtertype: 'input', cellclassname: cellclass,width: '5%' },
+                    { text: 'Fecha Nac.', datafield: 'fecha_nac', format: 'date', filtertype: 'range', cellsformat: 'yyyy', cellclassname: cellclass, width: '11%'},
+                    { text: 'File Personal', datafield: 'File Personal', width: '14%',sortable: false, filterable: false, columntype: 'button', cellsrenderer: function () {
+                        return "File Personal";
+                    }, buttonclick: function (row) {
+                        editrow = row;
+                        var dataRecord = $("#jqxgrid").jqxGrid('getrowdata', editrow);
+                        //window.open("/archivo/gestion/", "_blank");
+                        document.location.href = '/presentaciondoc/filepersonal/'+dataRecord.id;
+                        /*// open the popup window when the user clicks a button.
+                        editrow = row;
+                        var offset = $("#jqxgrid").offset();
+                        $("#popupWindow").jqxWindow({ position: { x: parseInt(offset.left) + 60, y: parseInt(offset.top) + 60 } });
+                        // get the clicked row's data and initialize the input fields.
+                        var dataRecord = $("#jqxgrid").jqxGrid('getrowdata', editrow);
+                        $("#titulo").text("Editar");
+                        $("#id").val(dataRecord.id);
+                        $("#tipo_resolucion").val(dataRecord.tipo_resolucion);
+                        $("#numero_res").val(dataRecord.numero_res);
+                        var fecha=dataRecord.fecha_emi;
+                        fecha=fecha.replace("-", "/").replace("-", "/");	  
+                        fecha= new Date(fecha);
+                        fecha.setDate(fecha.getDate());
+                        $("#fecha_emi").jqxDateTimeInput('setDate', fecha);
+                        var fecha=dataRecord.fecha_apr;
+                        fecha=fecha.replace("-", "/").replace("-", "/");	  
+                        fecha= new Date(fecha);
+                        fecha.setDate(fecha.getDate());
+                        $("#fecha_apr").jqxDateTimeInput('setDate', fecha);
+                        // show the popup window.
+                        $("#popupWindow").jqxWindow('open');*/
+                    }
+                    }
+		]
+                });
+                }
+		// initialize the popup window and buttons.
+            $("#popupWindow").jqxWindow({
+                width: 850,height:500, resizable: false,  isModal: true, autoOpen: false, cancelButton: $("#Cancel"), modalOpacity: 0.01           
+            });
+            $("#popupWindow_delete").jqxWindow({
+                width: 400, resizable: false,  isModal: true, autoOpen: false, cancelButton: $("#Cancel"), modalOpacity: 0.01           
+            });
+            // update the edited row when the user clicks the 'Save' button.
+            $("#add").click(function(){
+                //$("#page-content").load('../../personal/registro');
+                document.location.href = '../../personal/registro';
+            	/*$("#titulo").text("Adicionar");
+            	$("#id").val("");
+            	$("#tipo_resolucion").val("");
+            	$("#numero_res").val("");
+            	$("#popupWindow").jqxWindow('open');
+            	$("#fecha_emi").jqxDateTimeInput({width: '250px', height: '25px',formatString:'yyyy-MM-dd'});
+            	fecha= new Date();
+  				fecha.setDate(fecha.getDate());
+				$("#fecha_emi").jqxDateTimeInput('setDate', fecha);
+				fecha= new Date();
+  				fecha.setDate(fecha.getDate());
+				$("#fecha_apr").jqxDateTimeInput('setDate', fecha);*/
+            });
+
+            $("#Save").click(function () {
+            	var fecha_apr = $('#fecha_apr').jqxDateTimeInput('getDate');
+            	var fecha_emi = $('#fecha_emi').jqxDateTimeInput('getDate');
+            	var v=$.ajax({
+                    	url:'../../resoluciones/save/',
+                    	type:'POST',
+                    	datatype: 'json',
+			data:{id:$("#id").val(),tipo_resolucion:$("#tipo_resolucion").val(),numero_res:$("#numero_res").val(),fecha_apr:fecha_apr,fecha_emi:fecha_emi},
+			success: function(data) { cargar(); //alert(data); 
+			}, //mostramos el error
+			error: function() { alert('Se ha producido un error Inesperado'); }
+		});
+                $("#popupWindow").jqxWindow('hide');
+               // }
+            });
+
+            $("#Eliminar").click(function () {
+            	if (editrow >= 0) {
+                    var v=$.ajax({
+                    	url:'../../personal/delete/',
+                    	type:'POST',
+                    	datatype: 'json',
+						data:{id:$("#id").val()},
+						success: function(data) { cargar(); //alert('Guardado Correctamente'); 
+												}, //mostramos el error
+						error: function() { alert('Se ha producido un error Inesperado'); }
+					});
+					//$('#jqxgrid').jqxGrid();
+                    $("#popupWindow_delete").jqxWindow('hide');
+                }
+            });
+
+            // create a jqxDateTimeInput.
+            //var f='2014-01-01'; 
+               	$("#fecha_emi").jqxDateTimeInput({width: '250px', height: '25px',formatString:'yyyy-MM-dd'});
+                $("#fecha_apr").jqxDateTimeInput({width: '250px', height: '25px',formatString:'yyyy-MM-dd'});
+	});
+</script>
+<style>     
+    .green {
+        color: black\9;
+        background-color: #b6ff00\9;
+    }
+    .yellow {
+        color: black\9;
+        background-color: yellow\9;
+    }
+    .red {
+        color: black\9;
+        background-color: #e83636\9;
+    }
+    .green:not(.jqx-grid-cell-hover):not(.jqx-grid-cell-selected), .jqx-widget .green:not(.jqx-grid-cell-hover):not(.jqx-grid-cell-selected) {
+        color: black;
+        background-color: #b6ff00;
+    }
+    .yellow:not(.jqx-grid-cell-hover):not(.jqx-grid-cell-selected), .jqx-widget .yellow:not(.jqx-grid-cell-hover):not(.jqx-grid-cell-selected) {
+        color: black;
+        background-color: yellow;
+    }
+    .red:not(.jqx-grid-cell-hover):not(.jqx-grid-cell-selected), .jqx-widget .red:not(.jqx-grid-cell-hover):not(.jqx-grid-cell-selected) {
+        color: black;
+        background-color: #e83636;
+    }
+</style>
+<div class="row">
+	<div class="col-lg-12">
+            <h1><b>Lista de Personal con Relaci&oacute;n Laboral</b></h1>		
+	</div>
+</div>
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <div style="margin-left: 5px;">
+                    <div class="row">
+                        <div class="col-sm-3 red">Sin Documentos.</div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-3 yellow">Documentaci&oacute;n incompleta.</div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-3 green">Documentaci&oacute;n completa.</div>
+                    </div>
+                </div>
+                <br>
+                <div class="table-responsive">
+                    <div id="jqxgrid"></div>
+                </div>
+                <div style="margin-top: 30px;">
+                    <div id="cellbegineditevent"></div>
+                        <div style="margin-top: 10px;" id="cellendeditevent"></div>
+                </div>
+                <div id="popupWindow">
+                    <div id="titulo">Editar</div>
+                    <div style="overflow: hidden;">
+                        <table>
+                            <tr>
+                                <td align="right">id:</td>
+                                <td align="left"><input id="id" name="id" type="hidden" /></td>
+                            </tr>
+                            <tr>
+                                <td align="right">Tipo Resolución:</td>
+                                <td align="left"><input id="tipo_resolucion" name="tipo_resolucion" type="text" /></td>
+                            </tr>
+                            <tr>
+                                <td align="right">Numero Resolución:</td>
+                                <td align="left"><input id="numero_res" name="numero_res" type="text" /></td>
+                            </tr>
+                            <tr>
+                                <td align="right">Fecha Emisión:</td>
+                                <td align="left"><div id='fecha_emi'></div></td>
+                            </tr>
+                            <tr>
+                                <td align="right">Fecha Aprobación:</td>
+                                <td align="left"><div id='fecha_apr'></div></td>
+                            </tr>
+                            <tr>
+                                <td align="right"></td>
+                                <td style="padding-top: 10px;" align="right">
+                                    <input style="margin-right: 5px;" type="button" id="Save" value="Save" />
+                                    <input id="Cancel" type="button" value="Cancel" />
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+                <div id="popupWindow_delete">
+                    <div>Eliminar</div>
+                    <div style="overflow: hidden;">
+                        <table>
+                            <tr>
+                                <td align="left">Esta seguro de Eliminar el registro</td>
+                            </tr>
+                            <tr>
+                                <td align="right"></td>
+                                <td style="padding-top: 10px;" align="right">
+                                    <input style="margin-right: 5px;" type="button" id="Eliminar" value="Eliminar" />
+                                    <input id="Cancel" type="button" value="Cancel" />
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

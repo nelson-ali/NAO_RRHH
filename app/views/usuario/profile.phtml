@@ -1,0 +1,90 @@
+
+<div class="content-header content-header-media">
+    <div class="header-section">
+        <img src="/assets/img/placeholders/avatars/avatar2.jpg" alt="Avatar" class="pull-right img-circle" />
+        <h1><?php echo $user->nombre ?><br /><small><?php echo $user->cargo ?></small></h1>
+    </div>
+    <img src="/assets/img/placeholders/headers/login_header.jpg" alt="header image" class="animation-pulseSlow" />
+</div>
+<div class="col-md-6 col-lg-6">
+    <div class="block">
+        <div class="block-title">
+            <div class="block-options pull-right">
+                <a href="javascript:void(0)" class="btn btn-alt btn-sm btn-default" data-toggle="tooltip" title="Friend Request"><i class="fa fa-plus"></i></a>
+                <a href="javascript:void(0)" class="btn btn-alt btn-sm btn-default" data-toggle="tooltip" title="Hire"><i class="fa fa-briefcase"></i></a>
+            </div>
+            <h2> <strong><?php echo $user->nombre?></strong> <small>&bull; <i class="fa fa-file-text text-primary"></i> <a href="javascript:void(0)" data-toggle="tooltip" title="Download Bio in PDF">Bio</a></small></h2>
+        </div>
+        <table class="table table-borderless ">
+            <tbody>
+                <tr>
+                    <td style="width: 20%;"><strong>Usuario</strong></td>
+                    <td><?php echo $user->username?></td>
+                </tr>
+                <tr>
+                    <td style="width: 20%;"><strong>Nombre</strong></td>
+                    <td><?php echo $user->nombre?></td>
+                </tr>
+                <tr>
+                    <td><strong>Cargo</strong></td>
+                    <td><?php echo $user->cargo?></td>
+                </tr>
+                <tr>
+                    <td><strong>Email</strong></td>
+                    <td><?php echo $user->email?></td>
+                </tr>
+                <tr>
+                    <td><strong>Unidad</strong></td>
+                    <td><?php echo $user->oficina?></td>
+                </tr>
+                <tr>
+                    <td><strong>Entidad</strong></td>
+                    <td><?php echo $user->entidad?></td>
+                </tr>
+                <tr>
+                    <td><strong>Numero de Ingresos</strong></td>
+                    <td><span class="label label-info"><?php echo $user->logins?></span></td>
+                </tr>               
+            </tbody>
+        </table>
+    </div>
+</div>
+<div class="col-md-6 col-lg-6">
+    <div class="block">
+        <div class="block-title">
+            <div class="block-options pull-right">
+                <a href="javascript:void(0)" class="btn btn-alt btn-sm btn-default" data-toggle="tooltip" title="Friend Request"><i class="fa fa-plus"></i></a>
+                <a href="javascript:void(0)" class="btn btn-alt btn-sm btn-default" data-toggle="tooltip" title="Hire"><i class="fa fa-briefcase"></i></a>
+            </div>
+            <h2>About <strong>John Doe</strong> <small>&bull; <i class="fa fa-file-text text-primary"></i> <a href="javascript:void(0)" data-toggle="tooltip" title="Download Bio in PDF">Bio</a></small></h2>
+        </div>
+        <table class="table table-borderless table-striped">
+            <tbody>
+                <tr>
+                    <td style="width: 20%;"><strong>Info</strong></td>
+                    <td>Proin ac nibh rutrum lectus rhoncus eleifend. Sed porttitor pretium venenatis. Suspendisse potenti. Aliquam quis ligula elit. Aliquam at orci ac neque semper dictum. Sed tincidunt scelerisque ligula, et facilisis nulla hendrerit non.</td>
+                </tr>
+                <tr>
+                    <td><strong>Founder</strong></td>
+                    <td><a href="javascript:void(0)">Company Inc</a></td>
+                </tr>
+                <tr>
+                    <td><strong>Education</strong></td>
+                    <td><a href="javascript:void(0)">University Name</a></td>
+                </tr>
+                <tr>
+                    <td><strong>Projects</strong></td>
+                    <td><a href="javascript:void(0)" class="label label-danger">168</a></td>
+                </tr>
+                <tr>
+                    <td><strong>Best Skills</strong></td>
+                    <td>
+                        <a href="javascript:void(0)" class="label label-info">HTML</a>
+                        <a href="javascript:void(0)" class="label label-info">CSS</a>
+                        <a href="javascript:void(0)" class="label label-info">Javascript</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

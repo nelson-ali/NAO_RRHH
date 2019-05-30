@@ -1,0 +1,364 @@
+<script type="text/javascript">
+	$(document).ready(function () {
+		var nivelsalarial_id = $("#nivelsalarial_id").val();
+		cargar(nivelsalarial_id);	
+		function cargar(nivelsalarial_id){
+			//alert (nivelsalarial_id);
+			var source =
+			{
+				datatype: "json",
+				datafields: [
+				{ name: 'id',type: 'number'},
+				{ name: 'nivelsalarial_id',type: 'number'},
+				{ name: 'formacion_academica_id',type: 'number'},
+				{ name: 'formacion_academica',type: 'string'},
+				{ name: 'documento_id',type: 'number'},
+				{ name: 'documento',type: 'string'},
+				{ name: 'exp_general',type: 'number'},
+				{ name: 'exp_general_aniomes',type: 'string'},
+				{ name: 'exp_general_text',type: 'string'},
+				{ name: 'exp_profesional',type: 'number'},
+				{ name: 'exp_profesional_aniomes',type: 'string'},
+				{ name: 'exp_profesional_text',type: 'string'},
+				{ name: 'exp_relacionado',type: 'number'},
+				{ name: 'exp_relacionado_aniomes',type: 'string'},
+				{ name: 'exp_relacionado_text',type: 'string'},
+				{ name: 'detalle',type: 'string'},
+				{ name: 'prioridad',type: 'string'},
+				{ name: 'area_sustantiva',type: 'number'},
+				{ name: 'area_sustantiva_text',type: 'string'},
+				],
+				url: '/cargosperfiles/list/'+nivelsalarial_id,
+				cache: false
+			};
+			var dataAdapter = new $.jqx.dataAdapter(source);
+
+			$("#jqxgrid").jqxGrid(
+			{
+				width: '100%',
+				height: '100%',
+				source: dataAdapter,
+				sortable: true,
+				altRows: true,
+                //groupable: true,
+                columnsresize: true,
+                pageable: true,
+                pagerMode: 'advanced',
+                showfilterrow: true,
+                filterable: true,
+                //showtoolbar: true,
+                autorowheight: true,
+                columns: [
+                // {
+                // 	text: '#', sortable: false, filterable: false, editable: false,
+                // 	groupable: false, draggable: false, resizable: false,
+                // 	datafield: '', columntype: 'number', width: '3%',
+                // 	cellsrenderer: function (row, column, value) {
+                // 		return "<div style='margin:4px;'>" + (value + 1) + "</div>";
+                // 	}
+                // },
+                { text: 'Prioridad', datafield: 'prioridad', filtertype: 'number',width: '5%' },
+                { text: 'Formación Academica', datafield: 'formacion_academica', filtertype: 'input',width: '15%' },
+                { text: 'Documento', datafield: 'documento', filtertype: 'input',width: '20%' },
+                { text: 'Detalle', datafield: 'detalle', filtertype: 'input',width: '20%' },
+                { text: 'Exp. General', datafield: 'exp_general_text', filtertype: 'input',width: '10%'},
+                { text: 'Exp. Profesional', datafield: 'exp_profesional_text', filtertype: 'input', width: '10%'},
+                { text: 'Exp. Relacionado', datafield: 'exp_relacionado_text', filtertype: 'input', width: '10%'},
+                { text: 'Area', datafield: 'area_sustantiva_text', filtertype: 'input', width: '10%'}
+                ]
+            });
+
+}
+
+// $("#jqxgrid").bind('rowselect', function (event) {
+// 	var dataRecord = $("#jqxgrid").jqxGrid('getrowdata', event.args.rowindex);
+// 	//alert(dataRecord.estado);
+// 	$("#id").val(dataRecord.id);
+// 	$("#resolucion_id").val(dataRecord.resolucion_id);
+// 	$("#categoria").val(dataRecord.categoria);
+// 	$("#clase").val(dataRecord.clase);
+// 	$("#nivel").val(dataRecord.nivel);
+// 	$("#denominacion").val(dataRecord.denominacion);
+// 	$("#sueldo").val(dataRecord.sueldo);
+// 	$("#fecha_ini").val(dataRecord.fecha_ini_v);
+//                      //$("#activo").removeAttr('checked');
+//                       //$('#activo').attr('checked',false);
+//                       if(dataRecord.activo=='1'){
+//                       	$("#activo").prop('checked', true);
+//                       }else{
+//                       	$("#activo").prop('checked', false);
+//                       }
+
+//                   });
+$("#add").click(function(){
+	$("#titulo").text("Adicionar");
+	$("#id").val("");
+	$("#formacion_academica_id").val("");
+	$("#documento_id").val("0");
+	$("#area_sustantiva").val("1");
+	$("#exp_general").val("");
+	$("#exp_profesional").val("");
+	$("#exp_relacionado").val("");
+	$("#prioridad").val("");
+	$("#detalle").val("");
+	$('#myModal').modal('show');
+});
+
+$("#edit").click(function() {
+	var rowindex = $('#jqxgrid').jqxGrid('getselectedrowindex');
+	if (rowindex > -1)
+	{
+		var dataRecord = $("#jqxgrid").jqxGrid('getrowdata', rowindex);
+		$("#titulo").text("Editar");
+		$("#id").val(dataRecord.id);
+		$("#formacion_academica_id").val(dataRecord.formacion_academica_id);
+		$("#documento_id").val(dataRecord.documento_id);
+		$("#area_sustantiva").val(dataRecord.area_sustantiva);
+		$("#exp_general").val(dataRecord.exp_general);
+		$("#exp_general_aniomes").val(dataRecord.exp_general_aniomes);
+		$("#exp_profesional").val(dataRecord.exp_profesional);
+		$("#exp_profesional_aniomes").val(dataRecord.exp_profesional_aniomes);
+		$("#exp_relacionado").val(dataRecord.exp_relacionado);
+		$("#exp_relacionado_aniomes").val(dataRecord.exp_relacionado_aniomes);
+		$("#prioridad").val(dataRecord.prioridad);
+		$("#detalle").val(dataRecord.detalle);
+
+		$('#myModal').modal('show');
+	}
+	else
+	{
+		bootbox.alert("<strong>¡Mensaje!</strong> Seleccionar un registro para editar.");
+	}
+
+});
+
+$("#delete").click(function(){
+	var rowindex = $('#jqxgrid').jqxGrid('getselectedrowindex');
+	if (rowindex > -1)
+	{
+		var dataRecord = $("#jqxgrid").jqxGrid('getrowdata', rowindex);
+		bootbox.confirm("<strong>¡Mensaje!</strong> Esta seguro de eliminar el registro.", function(result) {
+			if (result==true) {
+				var v=$.ajax({
+					url:'/cargosperfiles/delete/',
+					type:'POST',
+					datatype: 'json',
+					data:{id:dataRecord.id},
+						success: function(data) { cargar($("#nivelsalarial_id").val()); //alert('Guardado Correctamente'); 
+												}, //mostramos el error
+												error: function() { alert('Se ha producido un error Inesperado'); }
+											});
+			}
+		});
+
+	}
+	else
+	{
+		bootbox.alert("<strong>¡Mensaje!</strong> Seleccionar un registro para eliminar.");
+	}
+	
+});
+
+
+jQuery.extend(jQuery.validator.messages, {
+    // required: "This field is required.",
+    // remote: "Please fix this field.",
+    // email: "Please enter a valid email address.",
+    // url: "Please enter a valid URL.",
+    // date: "Please enter a valid date.",
+    // dateISO: "Please enter a valid date (ISO).",
+    number: "Ingrese solo numeros."
+    // digits: "Please enter only digits.",
+    // creditcard: "Please enter a valid credit card number.",
+    // equalTo: "Please enter the same value again.",
+    // accept: "Please enter a value with a valid extension.",
+    // maxlength: jQuery.validator.format("Please enter no more than {0} characters."),
+    // minlength: jQuery.validator.format("Please enter at least {0} characters."),
+    // rangelength: jQuery.validator.format("Please enter a value between {0} and {1} characters long."),
+    // range: jQuery.validator.format("Please enter a value between {0} and {1}."),
+    // max: jQuery.validator.format("Please enter a value less than or equal to {0}."),
+    // min: jQuery.validator.format("Please enter a value greater than or equal to {0}.")
+});
+
+$('#testForm').validate({
+	rules: {
+		formacion_academica_id: {
+			required: true
+		},
+		exp_general: {
+			required: true
+		},
+		exp_profesional: {
+			required: true
+		},
+		exp_relacionado: {
+			required: true
+		}
+	},
+	highlight: function (element) {
+		$(element).closest('.control-group').removeClass('success').addClass('error');
+	},
+	success: function (element) {
+        //element.text('OK!').addClass('valid').closest('.control-group').removeClass('error').addClass('success');
+        element.addClass('valid').closest('.control-group').removeClass('error').addClass('success');
+    },
+    submitHandler: function (form) {
+            // form validates so do the ajax
+            var v=$.ajax({
+            	url:'/cargosperfiles/save/',
+            	type:'POST',
+            	datatype: 'json',
+            	data:{id:$("#id").val(),nivelsalarial_id:$("#nivelsalarial_id").val(),formacion_academica_id:$("#formacion_academica_id").val(),documento_id:$("#documento_id").val(),exp_general:$("#exp_general").val(),exp_general_aniomes:$("#exp_general_aniomes").val(),exp_profesional:$("#exp_profesional").val(),exp_profesional_aniomes:$("#exp_profesional_aniomes").val(),exp_relacionado:$("#exp_relacionado").val(),exp_relacionado_aniomes:$("#exp_relacionado_aniomes").val(),prioridad:$("#prioridad").val(),area_sustantiva:$("#area_sustantiva").val(),detalle:$("#detalle").val()},
+						success: function(data) { cargar($("#nivelsalarial_id").val()); //alert(data); 
+												}, //mostramos el error
+												error: function() { alert('Se ha producido un error Inesperado'); }
+											});
+            $('#myModal').modal('hide');
+            return false; // ajax used, block the normal submit
+        }
+    });		
+
+
+});
+</script>
+<?php $estado = array('INACTIVO','ACTIVO') ?>
+<div class="row">
+	<div class="col-lg-12">
+		<h1>Perfil Generico de Cargos</h1>		
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-md-4">
+					<div class="block">
+						<dl class="dl-horizontal">
+							<dt>Categoria: </dt>
+							<dd><?php echo $nivelsalarial->categoria ?></dd>
+							<dt>Denominación: </dt>
+							<dd><?php echo $nivelsalarial->denominacion ?></dd>
+						</dl>
+					</div>
+	</div>
+	<div class="col-md-4">
+					<div class="block">
+						<dl class="dl-horizontal">
+							<dt>Clase: </dt>
+							<dd><?php echo $nivelsalarial->clase ?></dd>
+							<dt>Sueldo Bs.</dt>
+							<dd><?php echo $nivelsalarial->sueldo ?></dd>
+						</dl>
+					</div>
+	</div>
+	<div class="col-md-4">
+					<div class="block">
+						<dl class="dl-horizontal">
+							<dt>Nivel: </dt>
+							<dd><?php echo $nivelsalarial->nivel ?></dd>
+							<dt>Estado</dt>
+							<dd><?php echo $estado[$nivelsalarial->activo] ?></dd>
+						</dl>
+					</div>
+	</div>
+	
+</div>
+<div class="row">
+	<div class="col-lg-12">
+		<a href="/nivelsalariales"> << Volver</a>
+		<div class="form-group form-actions">
+			<div class="col-xs-12">
+				<button class="btn btn-sm btn-primary" type="button" id="add"><i class="fa fa-plus fa-fw"></i>Adicionar</button>
+				<button class="btn btn-sm btn-warning" type="button" id="edit"><i class="fa fa-pencil fa-fw"></i> Editar</button>
+				<button class="btn btn-sm btn-danger" type="button" id="delete"><i class="fa fa-trash-o fa-fw"></i> Eliminar</button>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="row">
+	<div class="col-lg-12">
+		<div class="table-responsive">
+			<div id="jqxgrid"></div>
+		</div>
+	</div>
+</div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<form class="form-horizontal" id="testForm" data-toggle="validator"/>
+			<input type="hidden" id="nivelsalarial_id" name="nivelsalarial_id" value="<?php echo $nivelsalarial->id ?>">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+				<h4 class="modal-title" id="titulo">Editar</h4>
+			</div>
+			<div class="modal-body">
+				<input id="id" name="id" type="hidden" />
+				<div class="form-group">
+					<label class="col-md-3 control-label">Formación Academica</label>
+					<div class="col-md-9">
+						<?php echo $formacion_academica; ?>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-md-3 control-label">Documento</label>
+					<div class="col-md-9">
+						<?php echo $documento; ?>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-md-3 control-label">Detalle</label>
+					<div class="col-md-9">
+						<input type="text" name="detalle" id="detalle" class="form-control">
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-md-3 control-label">Area </label>
+					<div class="col-md-9">
+						<?php echo $area_sustantiva; ?>
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label class="col-md-3 control-label">Experiencia General</label>
+					<div class="col-md-5">
+						<input id="exp_general" name="exp_general" type="number" class="form-control" placeholder=""/>
+					</div>
+					<div class="col-md-4">
+						<?php echo $exp_general_aniomes; ?>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-md-3 control-label">Experiencia Profesional</label>
+					<div class="col-md-5">
+						<input id="exp_profesional" name="exp_profesional" type="number" class="form-control" placeholder=""/>
+					</div>
+					<div class="col-md-4">
+						<?php echo $exp_profesional_aniomes; ?>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-md-3 control-label">Experiencia Relacionado al Cargo</label>
+					<div class="col-md-5">
+						<input id="exp_relacionado" name="exp_relacionado" type="number" class="form-control" placeholder=""/>
+					</div>
+					<div class="col-md-4">
+						<?php echo $exp_relacionado_aniomes; ?>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-md-3 control-label">Prioridad</label>
+					<div class="col-md-9">
+						<input type="number" name="prioridad" id="prioridad" class="form-control" value="1">
+					</div>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+				<button type="submit" class="btn btn-primary" id="Save">Guardar</button>
+			</div>
+		</form>
+	</div>
+</div>
+</div>
+<!-- end  modal -->

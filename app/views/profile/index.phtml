@@ -1,0 +1,85 @@
+<?php
+
+ use Phalcon\Tag; ?>
+<div class="row-fluid" align="left">
+    <div class="span6">        
+        <div class="widget-box">
+            <div class="widget-title"> <span class="icon"> <i class="icon-folder-open"></i> </span>
+                <h5>PROFILE</h5>
+            </div>
+            <div class="widget-content nopadding">
+                <form class="form-horizontal" method="post" action="" name="basic_validate" id="basic_validate3">
+
+                    <div class="control-group">
+                        <label>&nbsp;&nbsp;Nombre: <?php
+                            echo $user->nombre;
+                            ?>  </label>                        
+                    </div>
+                    <div class="control-group">
+                        <label>&nbsp;&nbsp;Cargo: <?php
+                            echo $user->cargo;
+                            ?>  </label>                        
+                    </div>
+                    <div class="control-group">
+                        <label>&nbsp;&nbsp;Oficina: <?php
+                            $oficina= oficinas::findFirst($user->id_oficina);
+                            echo $oficina->oficina;
+                            ?>  </label>                        
+                    </div>
+                    <div class="control-group">
+                        <label>&nbsp;&nbsp;Nivel: <?php
+                            $oficina= niveles::findFirst($user->nivel);
+                            echo $oficina->nivel;
+                            ?>  </label>                        
+                    </div>
+                   
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="span6">        
+        <div class="widget-box">
+            <div class="widget-title"> <span class="icon"> <i class="icon-shield"></i> </span>
+                <h5>Cambiar contraseña</h5>
+            </div>
+            <div class="widget-content nopadding">
+                
+                <?php $this->flashSession->output(); ?> 
+                <form class="form-horizontal" method="post" action="" name="basic_validate" id="basic_validate3">
+
+                    <div class="control-group">
+                        <label class="control-label">Ingrese contraseña actual:<span class="rojo">(*)</span></label>
+                        <div class="controls">
+                            <?php
+                            echo Tag::passwordField(array('pass_actual', '', 'cols' => 10, 'rows' => 3,
+                                'class' => 'form-control', 'required' => 'required'))
+                            ?>   
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label">Nueva contraseña:<span class="rojo">(*)</span></label>
+                        <div class="controls">
+                            <?php
+                            echo Tag::passwordField(array('pass1', '', 'cols' => 10, 'rows' => 3,
+                                'class' => 'form-control', 'required' => 'required'))
+                            ?>   
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label">Repita la nueva contraseña: <span class="rojo">(*)</span></label>
+                        <div class="controls">
+                            <?php
+                            echo Tag::passwordField(array('pass2', '', 'cols' => 10, 'rows' => 3,
+                                'class' => 'form-control', 'required' => 'required'))
+                            ?>   
+                        </div>
+                    </div>
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-success"><i class="icon-shield"></i> Cambiar contraseña</button>
+                        <span class="rojo campo">Campos Requeridos (*)</span>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

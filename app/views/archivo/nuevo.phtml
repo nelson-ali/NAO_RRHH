@@ -1,0 +1,917 @@
+<?php 
+$resul = new Parametros();
+$resul = Parametros::find(array('baja_logica = 1','order'=> 'id ASC'));
+foreach ($resul as $v){
+    $param_data[] = array(
+        'id' => $v->id,
+        'parametro' => $v->parametro,
+        'valor_1' => $v->valor_1
+    );
+};
+$res = new Normativasmod();
+$res = Normativasmod::find(array('baja_logica = 1','order'=> 'id ASC'));
+foreach ($res as $w){
+    $norm_data[] = array(
+        'id' => $w->id,
+        'modalidad' => $w->modalidad,
+        'denominacion' => $w->denominacion
+    );
+}
+?>
+<style type="text/css">
+        body, html {
+            height: 100%;
+            padding: 0px;
+            margin: 0px;
+            width: 100%;
+            border: none;
+            overflow: hidden;
+        }
+        .required {
+            vertical-align: baseline;
+            color: red;
+            font-size: 10px;
+        }
+        .control-label {
+            white-space: nowrap;
+        }
+    </style>
+</head>
+<body>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            //set
+            
+            // set jQWidgets Theme to "Bootstrap"
+            $.jqx.theme = "bootstrap";
+            $('#sendButton').jqxButton({ height: 25 });
+            // create jqxInput widget.
+            $('input').jqxInput({ height: 22, width: '100%' });
+            $('input').css('margin-top', '5px');
+            // create countries array for the Countries ComboBox.
+            var nacionalidad = [
+                { value: "ARGENTINA", label: "Argentina(0)" },
+                { value: "BOLIVIANA", label: "Boliviana(o)" },
+                { value: "BRASILERA", label: "Brazileña(o)" },
+                { value: "CHILENA", label: "Chilena(o)" },
+                { value: "ECUATORIANA", label: "Ecuatoriana(o)" },
+                { value: "PARAGUAYA", label: "Paraguaya(o)" },
+                { value: "PERUANA", label: "Peruana(o)" }
+            ];
+            /*var formato = [
+                { value: "img", label: "Imagen" },
+                { value: "pdf", label: "PDF" }
+            ];
+            // create Countries ComboBox.
+            //$("#nacionalidad").jqxComboBox({ enableBrowserBoundsDetection: true, autoDropDownHeight: true, promptText: "Seleccione una nacionalidad", source: nacionalidad, height: 22, width: '100%' });
+            // create ciudades ComboBox.
+            $("#formato_archivo_digital").jqxComboBox({ enableBrowserBoundsDetection: true, autoDropDownHeight: true, 
+                promptText: "Seleccione el formato.", source: formato, height: 22, width: '100%' });
+            var modalidad = [
+                { value: 1, label: "Invitación directa"},
+                { value: 2, label: "Convocatoria Pública"},
+                { value: 3, label: "Contartación menor o ANPE"},
+                { value: 4, label: "Todas"}
+            ];*/
+            // create expedido ComboBox
+            /*$("#tipo_proceso_contratacion").jqxComboBox({ enableBrowserBoundsDetection: true, autoDropDownHeight: true, promptText: "Tipo de Proceso de Contratación:", source: modalidad, width: '100%', height: 22 });
+            var tipo_dato_campo_aux = [
+                { value: "numeric", label: "Numérico" },
+                { value: "string", label: "Texto" },
+                { value: "date", label: "Fecha" },
+                { value: "boolean", label: "Lógico" }
+            ];
+            // create estado_civil ComboBox.
+            $("#tipo_dato_campo_aux_a").jqxComboBox({ enableBrowserBoundsDetection: true, autoDropDownHeight: true, 
+                promptText: "Seleccione una opción", source: tipo_dato_campo_aux, height: 22, width: '100%' });
+            $("#tipo_dato_campo_aux_b").jqxComboBox({ enableBrowserBoundsDetection: true, autoDropDownHeight: true, 
+                promptText: "Seleccione una opción", source: tipo_dato_campo_aux, height: 22, width: '100%' });
+            $("#tipo_dato_campo_aux_c").jqxComboBox({ enableBrowserBoundsDetection: true, autoDropDownHeight: true, 
+                promptText: "Seleccione una opción", source: tipo_dato_campo_aux, height: 22, width: '100%' });*/
+            var grupo_sanguineo = [
+                { value: "NN", label: "Sin Datos"},
+                { value: "ORH+", label: "ORH+"},
+                { value: "A+", label: "A+"},
+                { value: "B+", label: "B+"},
+                { value: "AB+", label: "AB+"},
+                { value: "ORH-", label: "ORH-"},
+                { value: "A-", label: "A-"},
+                { value: "B-", label: "B-"},
+                { value: "AB-", label: "AB-"},
+            ];
+            // create grupo_sanguineo ComboBox.
+            //$("#grupo_sanguineo").jqxComboBox({ enableBrowserBoundsDetection: true, selectedIndex: 0,autoDropDownHeight: true, promptText: "Seleccione una opción", source: grupo_sanguineo, height: 22, width: '100%' });
+            /*var sexo = [
+                {value: "F", label: "femenino"},
+                {value: "M", label: "masculino"},
+                {value: "I", label: "independiente al sexo"}
+            ];
+            // create grupo_sanguineo ComboBox.
+            $("#sexo").jqxComboBox({ enableBrowserBoundsDetection: true, selectedIndex: 2, autoDropDownHeight: true, promptText: "Seleccione una opción", source: sexo, height: 22, width: '100%' });
+            // create Accept Terms Checkbox.
+            //$("#acceptTerms").jqxCheckBox({ width: '100%' });
+            // create the Birth Date Calendar.
+            //$("#f_nacimiento").jqxDateTimeInput({ enableBrowserBoundsDetection: true, width: '100%', height: 24, formatString:'yyyy-MM-dd' });
+            // create the Cart Type ComboBox.
+            //var tipoDocs = [{ value: "CI", label: "Carnet de Identidad" }, { value: "RUN", label: "RUN" }, { value: "PASAPORTE", label: "Pasaporte" }, { value: "C_EXT", label: "Carnet de Extranjero" }];
+            var tipoPresentacion =
+                {
+                    datatype: "json",
+                    datafields: [
+                        { name: 'id' },
+                        { name: 'valor_1' }
+                    ],
+                    url: '/archivo/list/tipopresdoc/',
+                    async: false
+                };
+            var da_tipoPresentacion = new $.jqx.dataAdapter(tipoPresentacion);    
+            var periodopresdoc =
+                {
+                    datatype: "json",
+                    datafields: [
+                        { name: 'id' },
+                        { name: 'valor_1' }
+                    ],
+                    url: '/archivo/list/periodopresdoc/',
+                    async: false
+                };
+            var da_periodopresdoc = new $.jqx.dataAdapter(periodopresdoc);    
+            var tipoperssoldoc =
+                {
+                    datatype: "json",
+                    datafields: [
+                        { name: 'id' },
+                        { name: 'valor_1' }
+                    ],
+                    url: '/archivo/list/tipoperssoldoc/',
+                    async: false
+                };
+            var da_tipoperssoldoc = new $.jqx.dataAdapter(tipoperssoldoc);    
+            var tipoemisordoc =
+                {
+                    datatype: "json",
+                    datafields: [
+                        { name: 'id' },
+                        { name: 'valor_1' }
+                    ],
+                    url: '/archivo/list/tipoemisordoc/',
+                    async: false
+                };
+            var da_tipoemisordoc = new $.jqx.dataAdapter(tipoemisordoc);    
+            var tipofechaemidoc =
+                {
+                    datatype: "json",
+                    datafields: [
+                        { name: 'id' },
+                        { name: 'valor_1' }
+                    ],
+                    url: '/archivo/list/tipofechaemidoc/',
+                    async: false
+                };
+            var da_tipofechaemidoc = new $.jqx.dataAdapter(tipofechaemidoc);    
+            var grupoarchivos =
+                {
+                    datatype: "json",
+                    datafields: [
+                        { name: 'id' },
+                        { name: 'valor_1' }
+                    ],
+                    url: '/archivo/list/grupoarchivos/',
+                    async: false
+                };
+            var da_grupoarchivos = new $.jqx.dataAdapter(grupoarchivos);    
+            $("#tipopresdoc_id").jqxComboBox({ enableBrowserBoundsDetection: true, autoDropDownHeight: true, 
+                promptText: "Tipo Presentación:", source: da_tipoPresentacion, width: '100%', height: 22,
+                displayMember: "valor_1", valueMember: "id",});
+            $("#grupoarchivos_id").jqxComboBox({ enableBrowserBoundsDetection: true, autoDropDownHeight: true, 
+                promptText: "Al grupo de Archivo:", source: da_grupoarchivos, width: '100%', height: 22,
+                displayMember: "valor_1", valueMember: "id",});
+            $("#periodopresdoc_id").jqxComboBox({ enableBrowserBoundsDetection: true, autoDropDownHeight: true, 
+                promptText: "Periodo de Presentación:", source: da_periodopresdoc, width: '100%', height: 22,
+                displayMember: "valor_1", valueMember: "id",});
+            $("#tipoperssoldoc_id").jqxComboBox({ enableBrowserBoundsDetection: true, autoDropDownHeight: true, 
+                promptText: "Persistencia de la solicitud:", source: da_tipoperssoldoc, width: '100%', height: 22,
+                displayMember: "valor_1", valueMember: "id",});
+            $("#tipoemisordoc_id").jqxComboBox({ enableBrowserBoundsDetection: true, autoDropDownHeight: true, 
+                promptText: "Tipo de emisor:", source: da_tipoemisordoc, width: '100%', height: 22,
+                displayMember: "valor_1", valueMember: "id",});
+            $("#tipofechaemidoc_id").jqxComboBox({ enableBrowserBoundsDetection: true, autoDropDownHeight: true, 
+                promptText: "Tipo de Fcha a ingresar", source: da_tipofechaemidoc, width: '100%', height: 22,
+                displayMember: "valor_1", valueMember: "id",});
+            /*var months = [
+               { value: "01", label: "01 - January" },
+               { value: "02", label: "02 - February" },
+               { value: "03", label: "03 - March" },
+               { value: "04", label: "04 - April" },
+               { value: "05", label: "05 - May" },
+               { value: "06", label: "06 - June" },
+               { value: "07", label: "07 - July" },
+               { value: "08", label: "08 - August" },
+               { value: "09", label: "09 - September" },
+               { value: "10", label: "10 - October" },
+               { value: "11", label: "11 - November" },
+               { value: "12", label: "12 - December" }
+            ];
+            var years = [
+                { value: "2014", label: "2014" },
+                { value: "2015", label: "2015" },
+                { value: "2016", label: "2016" },
+                { value: "2017", label: "2017" },
+                { value: "2018", label: "2018" },
+                { value: "2019", label: "2019" },
+                { value: "2020", label: "2020" }
+            ];*/
+            // Create Expiration Date & Year ComboBoxes.
+            /*$("#expirationDate").jqxComboBox({ enableBrowserBoundsDetection: true, source: months, selectedIndex: 0, height: 22, width: '100%' });
+            $("#expirationYear").jqxComboBox({ enableBrowserBoundsDetection: true, source: years, autoDropDownHeight: true, selectedIndex: 0, height: 22, width: '100%' });*/
+            // Create the Form Validator. 
+            //$('#form').jqxValidator( { focus: false } );
+            $('#form').jqxValidator({
+                hintType: 'label',
+                rules: [
+                       { input: '#tipo_documento', message: 'El tipo de documento es un campo requerido!', action: 'keyup, blur', rule: 'required' },
+                       { input: '#codigo', message: 'El codigo es un campo requerido!', action: 'keyup, blur', rule: 'required' }/*,
+                       { input: '#ci', message: 'El número de documento es un campo requerido!', action: 'keyup, blur', rule: 'required' },
+                       { input: '#nacionalidad', message: 'La nacionalidad es un campo requerido!', action: 'keyup, blur', rule: 'required' },
+                       { input: '#observaciones', message: 'Prueba!', action: 'keyup, blur', rule: 'required' }*/
+                ]
+            });
+            // Validate form.
+            $("#sendButton").click(function () {
+                /*var validationResult = function (isValid) {
+                    if (isValid) {
+                        $("#form").submit();
+                    }
+                }*/
+                //$('#form').jqxValidator('validate', validationResult);
+                if(!$("#tipo_documento").val()){
+                    alert('Debe ingresar el Tipo de Documento.');
+                    return false;
+                }
+                if(!$("#codigo").val()){
+                    alert('Debe ingresar el Código.');
+                    return false;
+                }
+                var cond_contrato = [
+                    {0: 0},
+                    {1: 0},
+                    {2: 0},
+                    {3: 0},
+                ]
+                selection = $('#tipo_contrato').jqxButtonGroup('getSelection');//alert(selection.length);
+                if (selection.length > 0 ){
+                    j = 0;
+                    for (var i = 0; i < 4; i++){
+                        if (selection[j] == i){
+                            cond_contrato[i] = 1;
+                            j++;
+                        } else {
+                            cond_contrato[i] = 0;
+                        }//alert (cond_contrato[i]);
+                    }
+                } else {
+                    alert('Debe seleccionar al menos una condicón de documento.');
+                    return false;
+                }
+                var sexo = $("#sexo").val();
+                if (sexo == ''){
+                    alert ('Debe seleccionar la solicitud por Sexo.');
+                    return false;
+                }
+                var tipopresdoc_id = $("#tipopresdoc_id").val();
+                if (tipopresdoc_id == ''){
+                    alert ('Debe seleccionar el Tipo de Presentación.');
+                    return false;
+                }
+                var periodopresdoc_id = $("#periodopresdoc_id").val();
+                if (periodopresdoc_id == ''){
+                    alert ('Debe seleccionar el periodo de presentación.');
+                    return false;
+                }
+                var tipoperssoldoc_id = $("#tipoperssoldoc_id").val();
+                if (tipoperssoldoc_id == ''){
+                    alert ('Debe seleccionar la persistencia de solicitud.');
+                    return false;
+                }
+                var tipoemisordoc_id = $("#tipoemisordoc_id").val();
+                if (tipoemisordoc_id == null){
+                    alert ('Debe seleccionar el tipo de emisor.');
+                    return false;
+                }
+                var tipofechaemidoc_id = $("#tipofechaemidoc_id").val();
+                if (tipofechaemidoc_id == null){
+                    alert ('Debe seleccionar el tipo de fecha de emisión.');
+                    return false;
+                }
+                var grupoarchivos_id = $("#grupoarchivos_id").val();
+                if (grupoarchivos_id == null){
+                    alert ('Debe seleccionar el grupo de archivos.');
+                    return false;
+                }
+                var tipo_proceso_contratacion = $("#tipo_proceso_contratacion").val();
+                var tipo_dato_campo_aux_a = $("#tipo_dato_campo_aux_a").val();
+                var tipo_dato_campo_aux_b = $("#tipo_dato_campo_aux_b").val();
+                var tipo_dato_campo_aux_c = $("#tipo_dato_campo_aux_c").val();
+                if(($("#campo_aux_a").val() && tipo_dato_campo_aux_a=='') || (!$("#campo_aux_a").val() && tipo_dato_campo_aux_a!='')){
+                    alert('Debe ingresar ambos valores para el campo auxiliar A.');
+                    return false;
+                }
+                if(($("#campo_aux_b").val() && tipo_dato_campo_aux_b=='') || (!$("#campo_aux_b").val() && tipo_dato_campo_aux_b!='')){
+                    alert('Debe ingresar ambos valores para el campo auxiliar B.'+tipo_dato_campo_aux_b+'|');
+                    return false;
+                } else if (($("#campo_aux_b").val() && tipo_dato_campo_aux_b!='')){
+                    if (!$("#campo_aux_a").val() && tipo_dato_campo_aux_a==''){
+                        alert('Debe ingresar los valores del campo auxiliar A primero.');
+                        return false;
+                    }
+                }
+                if(($("#campo_aux_c").val() && tipo_dato_campo_aux_c=='') || (!$("#campo_aux_c").val() && tipo_dato_campo_aux_c!='')){
+                    alert('Debe ingresar ambos valores para el campo auxiliar C.');
+                    return false;
+                } else if (($("#campo_aux_c").val() && tipo_dato_campo_aux_c!='')){ 
+                    if (!$("#campo_aux_b").val() && tipo_dato_campo_aux_b==''){
+                        alert('Debe ingresar los valores del campo auxiliar B primero.');
+                        return false;
+                    } else if (!$("#campo_aux_a").val() && tipo_dato_campo_aux_a==''){
+                        alert('Debe ingresar los valores del campo auxiliar A primero.');
+                        return false;
+                    }
+                }
+                if(tipo_proceso_contratacion==null){
+                    var tipo_proceso_contratacion=[{value:null}];
+                }
+                if(tipo_dato_campo_aux_a==null){
+                    var tipo_dato_campo_aux_a=[{value:null}];
+                }
+                if(tipo_dato_campo_aux_b==null){
+                    var tipo_dato_campo_aux_b=[{value:null}];
+                }
+                if(tipo_dato_campo_aux_c==null){
+                    var tipo_dato_campo_aux_c=[{value:null}];
+                }
+                var formato_archivo_digital = $("#formato_archivo_digital").val();
+                if(formato_archivo_digital== null){
+                    var formato_archivo_digital=[{value:null}];
+                } 
+                //var fecha_emi = $('#fecha_emi').jqxDateTimeInput('getDate');
+                var v=$.ajax({
+                    	url:'../../archivo/save',
+                    	type:'POST',
+                    	datatype: 'json',
+			data:{id:$("#id").val(),tipo_documento:$("#tipo_documento").val(),codigo:$("#codigo").val(),consultor:cond_contrato[0]
+                              ,eventual:cond_contrato[1], permanente:cond_contrato[2], carrera:cond_contrato[3]
+                              ,sexo:sexo,tipo_proceso_contratacion:tipo_proceso_contratacion
+                              ,tipopresdoc_id:tipopresdoc_id, periodopresdoc_id:periodopresdoc_id, tipoperssoldoc_id:tipoperssoldoc_id
+                              ,tipoemisordoc_id:tipoemisordoc_id, tipofechaemidoc_id:tipofechaemidoc_id, grupoarchivos_id:grupoarchivos_id
+                              ,nombre_carpeta:$("#nombre_carpeta").val(),formato_archivo_digital:formato_archivo_digital
+                              ,resolucion_archivo_digital:$("#resolucion_archivo_digital").val(),altura_archivo_digital:$("#altura_archivo_digital").val()
+                              ,anchura_archivo_digital:$("#anchura_archivo_digital").val(),campo_aux_a:$("#campo_aux_a").val()
+                              ,tipo_dato_campo_aux_a:tipo_dato_campo_aux_a,campo_aux_b:$("#campo_aux_b").val()
+                              ,tipo_dato_campo_aux_b:tipo_dato_campo_aux_b,campo_aux_c:$("#campo_aux_c").val(),tipo_dato_campo_aux_c:tipo_dato_campo_aux_c
+                              ,observacion:$("#observacion").val(),estado:"0",baja_logica:"1",user_reg_id:"1"},
+			success: function(data) { alert (data);
+                            var res = jQuery.parseJSON(data);
+                            alert(res.msm); 
+                            document.location.href = '../../login';
+			}, //mostramos el error
+			error: function() { 
+                            alert('Se ha producido un error Inesperado');
+                        }
+		});
+                //$('#form').jqxValidator('validate');
+            });
+            /*$('#sendButton').on('click', function () {
+                //$('#form').jqxValidator( { focus: false } );
+                $('#form').jqxValidator('validate');
+                //$('#form').jqxValidator( { focus: true } );
+            });*/
+            // prepare chart data as an array
+            var sampleData = [
+                    { Day: 'Monday', Running: 30, Swimming: 0, Cycling: 25, Goal: 40 },
+                    { Day: 'Wednesday', Running: 30, Swimming: 0, Cycling: 25, Goal: 60 },
+                    { Day: 'Friday', Running: 0, Swimming: 20, Cycling: 25, Goal: 50 },
+                    { Day: 'Sunday', Running: 20, Swimming: 40, Cycling: 0, Goal: 90 }
+            ];
+            // prepare jqxChart settings
+            var settings = {
+                borderLineWidth: 0,
+                title: "Fitness & exercise weekly scorecard",
+                description: "Time spent in vigorous exercise by activity",
+                enableAnimations: true,
+                showLegend: true,
+                padding: { left: 5, top: 5, right: 5, bottom: 5 },
+                titlePadding: { left: 30, top: 0, right: 0, bottom: 10 },
+                source: sampleData,
+                categoryAxis:
+                    {
+                        text: 'Category Axis',
+                        textRotationAngle: 0,
+                        dataField: 'Day',
+                        showTickMarks: true,
+                        tickMarksInterval: 1,
+                        tickMarksColor: '#888888',
+                        unitInterval: 1,
+                        showGridLines: false,
+                        gridLinesInterval: 1,
+                        gridLinesColor: '#888888',
+                        axisSize: 'auto'
+                    },
+                colorScheme: 'scheme05',
+                seriesGroups:
+                    [
+                        {
+                            type: 'splinearea',
+                            valueAxis:
+                            {
+                                unitInterval: 20,
+                                minValue: 0,
+                                maxValue: 100,
+                                displayValueAxis: false,
+                                description: 'Goal in minutes',
+                                axisSize: 'auto',
+                                tickMarksColor: '#888888'
+                            },
+                            series: [
+                                    { dataField: 'Goal', displayText: 'Personal Goal', opacity: 0.7 }
+                            ]
+                        },
+                        {
+                            type: 'stackedcolumn',
+                            columnsGapPercent: 100,
+                            seriesGapPercent: 5,
+                            valueAxis:
+                            {
+                                unitInterval: 20,
+                                minValue: 0,
+                                maxValue: 100,
+                                displayValueAxis: true,
+                                description: 'Time in minutes',
+                                axisSize: 'auto',
+                                tickMarksColor: '#888888',
+                                gridLinesColor: '#777777'
+                            },
+                            series: [
+                                    { dataField: 'Running', displayText: 'Running' },
+                                    { dataField: 'Swimming', displayText: 'Swimming' },
+                                    { dataField: 'Cycling', displayText: 'Cycling' }
+                            ]
+                        }
+                    ]
+            };
+            // setup the chart
+            //$('#chart').jqxChart(settings);
+            // prepare DataTable data.
+            var data = new Array();
+            var firstNames = ["Nancy", "Andrew", "Janet", "Margaret", "Steven", "Michael", "Robert", "Laura", "Anne"];
+            var lastNames = ["Davolio", "Fuller", "Leverling", "Peacock", "Buchanan", "Suyama", "King", "Callahan", "Dodsworth"];
+            var titles = ["Sales Representative", "Vice President, Sales", "Sales Representative", "Sales Representative", "Sales Manager", "Sales Representative", "Sales Representative", "Inside Sales Coordinator", "Sales Representative"];
+            var k = 0;
+            for (var i = 0; i < firstNames.length; i++) {
+                var row = {};
+                row["firstname"] = firstNames[k];
+                row["lastname"] = lastNames[k];
+                row["title"] = titles[k];
+                data[i] = row;
+                k++;
+            }
+            var source =
+            {
+                localData: data,
+                dataType: "array"
+            };
+            var dataAdapter = new $.jqx.dataAdapter(source);
+            // create DataTable.
+            /*$("#dataTable").jqxDataTable(
+            {
+                width: '100%',
+                height: '100%',
+                source: dataAdapter,
+                sortable: true,
+                columns: [
+                      { text: 'First Name', dataField: 'firstname', width: '30%' },
+                      { text: 'Last Name', dataField: 'lastname', width: '30%' },
+                      { text: 'Title', dataField: 'title' }
+                ]
+            });*/
+            $("#myTab").tab();
+            $('.box:nth-child(2)').hide();
+            /*$('.box:nth-child(3)').hide();
+            $('.box:nth-child(4)').hide();*/
+            $('#myTab a').click(function (e) {
+                e.preventDefault();
+                $('.box').hide();
+                $('#myTab li').removeClass('active');
+                var id = $(this).attr('data-tab');
+                $("#" + id).show();
+                // notifies the widgets that a resize is required and forces a redraw. $.jqx.resize is called for better UX when navigating through tabs.
+                $.jqx.resize();
+                $(this).parent().addClass('active');
+            })
+            $("#tipo_contrato").jqxButtonGroup({ mode: 'checkbox', theme: 'energyblue' });
+            //$('#tipo_contrato').jqxButtonGroup('setSelection', 0);
+            //$('#tipo_contrato').jqxButtonGroup('setSelection', 3);
+            
+            //alert (selection.length);
+            $("#tipo_contrato").on('buttonclick', function (event) {
+                var clickedButton = event.args.button;
+                //$("#eventsLog").text("Clicked: " + clickedButton[0].id);
+                if (clickedButton[0].id == 'todas'){
+                    var selection = $('#tipo_contrato').jqxButtonGroup('getSelection');
+                    $("#tipo_contrato").jqxButtonGroup('setSelection', 0);
+                    $("#tipo_contrato").jqxButtonGroup('setSelection', 1);
+                    $("#tipo_contrato").jqxButtonGroup('setSelection', 2);
+                    $("#tipo_contrato").jqxButtonGroup('setSelection', 3);
+                    /*for (i in selection){
+                        $("#tipo_contrato").jqxButtonGroup('setSelection', i);
+                    }*/
+                }
+            });
+        });
+    </script>
+    <div style="min-height: 0px; box-shadow: none; -webkit-box-shadow: none;" class="navbar navbar-default " role="navigation">
+        <ul id="myTab" style="min-width: 480px; box-shadow: none; -webkit-box-shadow: none; border: none;" class="nav nav-tabs">
+            <li style="margin-left: 20px;" class="active"><a data-tab="obligatorios" href="#obligatorios">Detalles Obligatorios.</a></li>
+            <li><a data-tab="parametrizacion" href="#parametrizacion">Detalles de Parametrizaci&oacute;n.</a></li>
+            <!--<li><a data-tab="contacto" href="#contacto">Datos de Contacto.</a></li>
+            <li><a data-tab="alternativo" href="#alternativo">Datos Alternativos.</a></li>-->
+        </ul>
+    </div>
+    <h2 style="padding-top: 0px; width: 100%;"><b>Nuevo Registro de Tipo de Documento.</b></h2>
+    <h6><b>NOTA: </b>Los datos precedidos de asterisco son requerido des manera obligatoria(*).</h6>
+    
+    <div style="padding-top: 0px; width: 100%; height: 100%;">
+        <form class="navbar-form" id="form">
+        <div id="obligatorios" class="box" style="width: 100%; height: 100%; overflow-x: hidden; border: none;">
+            <!--<form class="navbar-form" id="form">-->
+                
+                <input id="id" name="id" value="0" hidden="hidden">
+                <div class="form-horizontal col-sm-6">
+                    <div class="form-horizontal">
+                        <h2>Detalles de Identificaci&oacute;n:</h2>
+                    </div>
+                    <div class="row">
+                        <label class="col-sm-3 control-label" for="tipo_documento">Tipo de Documento *:</label>
+                        <div class="col-sm-8">
+                            <input placeholder="Tipo de documento" id="tipo_documento" name="tipo_documento" value="" />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <label class="col-sm-3 control-label" for="codigo">C&oacute;digo *:</label>
+                        <div class="col-sm-4">
+                            <input placeholder="C&oacute;digo del Tipo de Documento" id="codigo" name="codigo" value="" />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <label class="col-sm-3 control-label" for="c_apellido">Condiciones de Contrato *:</label>
+                        <div class="col-sm-8" id='tipo_contrato'>
+                            <button class="btn btn-default btn-lg" id="consultor">Consultor</button>
+                            <button class="btn btn-default btn-lg" id="eventual">Eventual</button>
+                            <button class="btn btn-default btn-lg" id="permanente">Permanente</button>
+                            <button class="btn btn-default btn-lg" id="carrera">Libre Nombrado</button>
+                            <button class="btn btn-default btn-lg" id="todas">Todas</button>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <label class="col-sm-3 control-label" for="sexo">Solicitud por sexo *:</label>
+                        <div class="col-sm-6">
+                            <select id="sexo" class="form-control" >
+                                <option value='F' >femenino.</option>
+                                <option value='M' >masculino.</option>
+                                <option value='I' selected >independiente al sexo.</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <label class="col-sm-3 control-label" for="tipo_proceso_contratacion">Tipo de contrataci&oacute;n *:</label>
+                        <div class="col-sm-6">
+                            <?php 
+                            echo '<select id="tipo_proceso_contratacion" class="form-control" >';
+                            echo '<option value="" selected >Seleccione.</option>';
+                            for ($i = 0; $i < sizeof($norm_data); $i++){
+                                echo '<option value="'.$norm_data[$i]['id'].'" >'.$norm_data[$i]['modalidad'].' - '.$norm_data[$i]['denominacion'].'</option>';
+                            }
+                            echo '</select>';
+                            ?>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-horizontal col-sm-6">
+                    <div class="form-horizontal">
+                        <h2>Detalles de Presentaci&oacute;n:</h2>
+                    </div>
+                    <div class="form-horizontal">
+                        <div class="row">
+                        <label class="col-sm-3 control-label" for="tipopresdoc_id">Tipo de Presentación *:</label>
+                        <div class="col-sm-6">
+                            <?php 
+                            echo '<select id="tipopresdoc_id" class="form-control" >';
+                            echo "<option value='' selected >Seleccione.</option>";
+                            for ($i = 0; $i < sizeof($param_data); $i++){
+                                if ($param_data[$i]['parametro'] == 'tipopresdoc'){
+                                    echo "<option value='".$param_data[$i]['id']."' >".$param_data[$i]['valor_1']."</option>";
+                                }
+                            }
+                            echo '</select>';
+                            ?>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <label class="col-sm-3 control-label" for="periodopresdoc_id">Periodo Presentaci&oacute;n *:</label>
+                        <div class="col-sm-6">
+                            <?php 
+                            echo '<select id="periodopresdoc_id" class="form-control" >';
+                            echo "<option value='' selected >Seleccione.</option>";
+                            for ($i = 0; $i < sizeof($param_data); $i++){
+                                if ($param_data[$i]['parametro'] == 'periodopresdoc'){
+                                    echo "<option value='".$param_data[$i]['id']."' >".$param_data[$i]['valor_1']."</option>";
+                                }
+                            }
+                            echo '</select>';
+                            ?>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <label class="col-sm-3 control-label" for="tipoperssoldoc_id">Persistencia de Solicitud *:</label>
+                        <div class="col-sm-6">
+                            <?php 
+                            echo '<select id="tipoperssoldoc_id" class="form-control" >';
+                            echo "<option value='' selected >Seleccione.</option>";
+                            for ($i = 0; $i < sizeof($param_data); $i++){
+                                if ($param_data[$i]['parametro'] == 'tipoperssoldoc'){
+                                    echo "<option value='".$param_data[$i]['id']."' >".$param_data[$i]['valor_1']."</option>";
+                                }
+                            }
+                            echo '</select>';
+                            ?>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <label class="col-sm-3 control-label" for="tipoemisordoc_id">Tipo Emisor *:   </label>
+                        <div class="col-sm-6">
+                            <?php 
+                            echo '<select id="tipoemisordoc_id" class="form-control" >';
+                            echo "<option value='' selected >Seleccione.</option>";
+                            for ($i = 0; $i < sizeof($param_data); $i++){
+                                if ($param_data[$i]['parametro'] == 'tipoemisordoc'){
+                                    echo "<option value='".$param_data[$i]['id']."' >".$param_data[$i]['valor_1']."</option>";
+                                }
+                            }
+                            echo '</select>';
+                            ?>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <label class="col-sm-3 control-label" for="tipofechaemidoc_id">Tipo Fecha emisi&oacute;n *:   </label>
+                        <div class="col-sm-6">
+                            <?php 
+                            echo '<select id="tipofechaemidoc_id" class="form-control" >';
+                            echo "<option value='' selected >Seleccione.</option>";
+                            for ($i = 0; $i < sizeof($param_data); $i++){
+                                if ($param_data[$i]['parametro'] == 'tipofechaemidoc'){
+                                    echo "<option value='".$param_data[$i]['id']."' >".$param_data[$i]['valor_1']."</option>";
+                                }
+                            }
+                            echo '</select>';
+                            ?>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <label class="col-sm-3 control-label" for="grupoarchivos_id">Grupo de Archivos *:   </label>
+                        <div class="col-sm-6">
+                            <?php 
+                            echo '<select id="grupoarchivos_id" class="form-control" >';
+                            echo "<option value='' selected >Seleccione.</option>";
+                            for ($i = 0; $i < sizeof($param_data); $i++){
+                                if ($param_data[$i]['parametro'] == 'grupoarchivos'){
+                                    echo "<option value='".$param_data[$i]['id']."' >".$param_data[$i]['valor_1']."</option>";
+                                }
+                            }
+                            echo '</select>';
+                            ?>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+            <!--</form>-->
+        </div>
+        <div id="parametrizacion" class="box" style="width: 100%; height: 100%; overflow: hidden; border: none;">
+           <!--<form class="navbar-form" id="form">-->
+                
+                <div class="form-horizontal col-sm-6">
+                    <div class="form-horizontal">
+                        <h2>Detalles de Gen&eacute;ricos:</h2>
+                    </div>
+                    <div class="row">
+                        <label class="col-sm-3 control-label" for="nombre_carpeta">Nombre Carpeta :</label>
+                        <div class="col-sm-6">
+                            <input placeholder="Nombre de la Carpeta almacenadora" id="nombre_carpeta" name="nombre_carpeta" value="" />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <label class="col-sm-3 control-label" for="formato_archivo_digital">Formato :</label>
+                        <div class="col-sm-6">
+                            <select id="formato_archivo_digital" class="form-control" >
+                                <option value='' >seleccione...</option>
+                                <option value='img' >Imagen.</option>
+                                <option value='pdf' >PDF.</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <label class="col-sm-3 control-label" for="resolucion_archivo_digital">Resoluci&oacute;n :</label>
+                        <div class="col-sm-6">
+                            <input placeholder="Resoluci&oacute;n del archivo" id="resolucion_archivo_digital" name="resolucion_archivo_digital" value="" />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <label class="col-sm-3 control-label" for="altura_archivo_digital">Alto :   </label>
+                        <div class="col-sm-6">
+                            <input placeholder="Alto del archivo" id="altura_archivo_digital" name="altura_archivo_digital" value="" />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <label class="col-sm-3 control-label" for="anchura_archivo_digital">Ancho :</label>
+                        <div class="col-sm-6">
+                            <input placeholder="Ancho del archivo" id="anchura_archivo_digital" name="anchura_archivo_digital" value="" />
+                        </div>
+                    </div>
+                </div>
+                <div class="form-horizontal col-sm-6">
+                    <div class="form-horizontal">
+                        <h2>Detalles de Presentaci&oacute;n:</h2>
+                    </div>
+                    <div class="form-horizontal">
+                        <div class="row">
+                            <label class="col-sm-3 control-label" for="campo_aux_a">Campo Auxiliar A :</label>
+                            <div class="col-sm-3">
+                                <input placeholder="Nombre del campo" id="campo_aux_a" name="campo_aux_a" value="" />
+                            </div>
+                            <div class="col-sm-3">
+                                <select id="tipo_dato_campo_aux_a" class="form-control" >
+                                    <option value='' selected >seleccione...</option>
+                                    <option value='numeric' >Num&eacute;rico.</option>
+                                    <option value='string' >Texto.</option>
+                                    <option value='date' >Fecha.</option>
+                                    <option value='boolean' >L&oacute;gico.</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <label class="col-sm-3 control-label" for="campo_aux_b">Campo Auxiliar B :</label>
+                            <div class="col-sm-3">
+                                <input placeholder="Nombre del campo" id="campo_aux_b" name="campo_aux_b" value="" />
+                            </div>
+                            <div class="col-sm-3">
+                                <select id="tipo_dato_campo_aux_b" class="form-control" >
+                                    <option value='' selected >seleccione...</option>
+                                    <option value='numeric' >Num&eacute;rico.</option>
+                                    <option value='string' >Texto.</option>
+                                    <option value='date' >Fecha.</option>
+                                    <option value='boolean' >L&oacute;gico.</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <label class="col-sm-3 control-label" for="campo_aux_c">Campo Auxiliar C :</label>
+                            <div class="col-sm-3">
+                                <input placeholder="Nombre del campo" id="campo_aux_c" name="campo_aux_c" value="" />
+                            </div>
+                            <div class="col-sm-3">
+                                <select id="tipo_dato_campo_aux_c" class="form-control" >
+                                    <option value='' selected >seleccione...</option>
+                                    <option value='numeric' >Num&eacute;rico.</option>
+                                    <option value='string' >Texto.</option>
+                                    <option value='date' >Fecha.</option>
+                                    <option value='boolean' >L&oacute;gico.</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <label class="col-sm-3 control-label" for="observacion">Observaciones :</label>
+                            <div class="col-sm-3">
+                                <input placeholder="Observaciones" id="observacion" name="observacion" value="" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            <!--</form>-->
+        </div>
+        <!--<div id="contacto" style="width: 100%; height: 100%;" class="box">-->
+            <!--<div style="border: none;" id='dataTable'></div>-->
+            <!--<form class="navbar-form" id="form">-->
+                <!--<div class="form-horizontal col-sm-6">
+                    <input id="id_personas_contactos" name="id_personas_contactos" value="0" hidden="hidden">
+                    <div class="form-horizontal">
+                        <h2>Datos de Contacto Personal:</h2>
+                    </div>
+                    <div class="row">
+                        <label class="col-sm-3 control-label" for="direccion">Direcci&oacute;n :</label>
+                        <div class="col-sm-6">
+                            <input placeholder="Direcci&oacute;n" id="direccion" name="direccion" value="" />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <label class="col-sm-3 control-label" for="telefono">Tel&eacute;fono :</label>
+                        <div class="col-sm-6">
+                            <input placeholder="N&uacute;mero de Tel&eacute;fono" id="telefono" name="telefono" value="" />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <label class="col-sm-3 control-label" for="celular">Celular :</label>
+                        <div class="col-sm-6">
+                            <input placeholder="N&uacute;mero de Celular" id="celular" name="celular" value="" />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <label class="col-sm-3 control-label" for="email_p">E-mail Personal:</label>
+                        <div class="col-sm-6">
+                            <input placeholder="Correo electr&oacute;nico" id="email_p" name="email_p" value="" />
+                        </div>
+                    </div>
+                </div>
+                <div class="form-horizontal col-sm-6">
+                    <div class="form-horizontal">
+                        <h2>Datos de Contacto Institucional:</h2>
+                    </div>
+                    <div class="row">
+                        <label class="col-sm-3 control-label" for="tel_inst">Tel&eacute;fono Institucional :</label>
+                        <div class="col-sm-6">
+                            <input placeholder="Tel&eacute;fono Institucional" id="tel_inst" name="tel_inst" value="" />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <label class="col-sm-3 control-label" for="fax">FAX :</label>
+                        <div class="col-sm-6">
+                            <input placeholder="Tel&eacute;fono FAX" id="fax" name="fax" value="" />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <label class="col-sm-3 control-label" for="n_interno">N&uacute;mero Interno :</label>
+                        <div class="col-sm-6">
+                            <input placeholder="N&uacute;mero Interno" id="n_interno" name="n_interno" value="" />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <label class="col-sm-3 control-label" for="cel_inst">Celular Institucional :   </label>
+                        <div class="col-sm-6">
+                            <input placeholder="Celular Institucional" id="cel_inst" name="cel_inst" value="" />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <label class="col-sm-3 control-label" for="email_inst">E-mail Institucional:</label>
+                        <div class="col-sm-6">
+                            <input placeholder="Correo electr&oacute;nico" id="email_inst" name="email_inst" value="" />
+                        </div>
+                    </div>
+                </div>-->
+            <!--</form>-->
+        <!--</div>-->
+        <!--<div id="alternativo" class="box" style="width: 100%; height: 100%; overflow-x: hidden; border: none;">-->
+            <!--<form class="navbar-form" id="form">-->
+                <!--<div class="form-horizontal">
+                    <h2>Datos alternativos:</h2>
+                </div>
+                <div class="form-horizontal col-sm-6">
+                    <div class="row">
+                        <label class="col-sm-3 control-label" for="nit">NIT :</label>
+                        <div class="col-sm-6">
+                            <input placeholder="NIT" id="nit" name="nit" value="" />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <label class="col-sm-3 control-label" for="n_sigma">Funcionario SIGMA :</label>
+                        <div class="col-sm-6">
+                            <input placeholder="C&oacute;digo funcionario SIGMA" id="n_sigma" name="n_sigma" value="" />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <label class="col-sm-3 control-label" for="libreta_militar">Libreta Militar :</label>
+                        <div class="col-sm-6">
+                            <input placeholder="C&oacute;digo Libreta Militar" id="libreta_militar" name="libreta_militar" value="" />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <label class="col-sm-3 control-label" for="registro_prof">Registro Profesional :   </label>
+                        <div class="col-sm-6">
+                            <input placeholder="N&uacute;mero de Registro Profesional" id="registro_prof" name="registro_prof" value="" />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <label class="col-sm-3 control-label" for="observaciones">Observaciones :</label>
+                        <div class="col-sm-6">
+                            <input placeholder="Observaciones" id="observaciones" name="observaciones" value="" />
+                        </div>
+                    </div>
+                    
+                </div>-->
+            <!--</form>-->
+        <!--</div>-->
+        <div class="row">
+            <div class="col-sm-1">
+            </div>
+            <div class="col-sm-1">
+                <button style="margin-top: 15px;" id="sendButton" type="button">Grabar</button>
+            </div>
+        </div>
+        </form>
+    </div>

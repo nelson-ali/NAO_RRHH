@@ -1,0 +1,259 @@
+<script type="text/javascript">
+$(document).ready(function () {
+
+	var source =
+	{
+		datatype: "json",
+		datafields: [
+			{name: 'id', type: 'number'},
+			{name: 'nombre', type: 'string'},
+			{name: 'apellidos', type: 'string'},
+			{name: 'sexo', type: 'string'},
+			{name: 'ci', type: 'string'},
+			{name: 'fecha_nac', type: 'date'},
+			{name: 'nacionalidad', type: 'string'},
+			{name: 'estado_civil', type: 'string'},
+			{name: 'direccion', type: 'string'},
+			{name: 'telefono'},
+			{name: 'celular'},
+			{name: 'correo', type: 'string'},
+			{name: 'libreta_militar', type: 'string'},
+			{name: 'grado', type: 'string'},
+			{name: 'institucion', type: 'string'},
+			{name: 'valor_1', type: 'string'},
+			{name: 'reg_dominio', type: 'string'},
+		],
+		url: '/ppostulantes/list',
+		async: false,
+		cache: false,
+		root: 'Rows',
+		beforeprocessing: function (data) {
+			source.totalrecords = data[0].TotalRows;
+		},
+		filter: function () {
+			// Actualiza la grilla y reenvia los datos actuales al servidor
+			$("#jqxgrid").jqxGrid('updatebounddata', 'filter');
+		},
+		sort: function () {
+			// Actualiza la grilla y reenvia los datos actuales al servidor
+			$("#jqxgrid").jqxGrid('updatebounddata', 'sort');
+		}
+	};
+	var dataAdapter = new $.jqx.dataAdapter(source);
+
+	$("#jqxgrid").jqxGrid(
+		{
+
+			width: '100%',
+			height: '550',
+			source: dataAdapter,
+			sortable: true,
+			altRows: true,
+			columnsresize: true,
+			theme: 'custom',
+			showfilterrow: true,
+			filterable: true,
+			autorowheight: true,
+			pageable: true,
+			pagesize: 20,
+			pagesizeoptions: ['20', '50'],
+			pagerMode: 'advanced',
+			groupable: true,
+			virtualmode: true,
+			rendergridrows: function (obj) {
+				return obj.data;
+			},
+
+			columns: [
+				{
+					text: '#', sortable: false, filterable: false, editable: false,
+					groupable: false, draggable: false, resizable: false,
+					datafield: '', columntype: 'number', width: '3%',
+					cellsrenderer: function (row, column, value) {
+						return "<div style='margin:4px;'>" + (value + 1) + "</div>";
+					}
+				},
+				{text: 'Apellidos', datafield: 'apellidos', filtertype: 'input', width: '10%'},
+				{text: 'Nombres', datafield: 'nombre', filtertype: 'input', width: '10%'},
+				{text: 'C.I.', datafield: 'ci', filtertype: 'input', width: '10%'},
+				{text: 'Sexo', datafield: 'sexo', filtertype: 'input', width: '8%'},
+				{text: 'Grado', datafield: 'grado', filtertype: 'input', width: '10%'},
+				{text: 'Institución', datafield: 'institucion', filtertype: 'input', width: '10%'},
+				{text: 'Titulo', datafield: 'valor_1', filtertype: 'input', width: '10%'},
+				{
+					text: 'Fecha Nacimiento',
+					datafield: 'fecha_nac',
+					filtertype: 'range',
+					width: '7%',
+					cellsalign: 'center',
+					cellsformat: 'dd-MM-yyyy',
+					align: 'center'
+				},
+				{text: 'Nacionalidad', datafield: 'nacionalidad', filtertype: 'input', width: '10%'},
+				{text: 'Estado Civil', datafield: 'estado_civil', filtertype: 'checkedlist', width: '10%'},
+				{text: 'Direccion', datafield: 'direccion', filtertype: 'input', width: '15%'},
+				{text: 'Telefono', datafield: 'telefono', filtertype: 'input', width: '10%'},
+				{text: 'Celular', datafield: 'celular', filtertype: 'input', width: '10%'},
+				{text: 'Correo', datafield: 'correo', filtertype: 'input', width: '15%'},
+				{text: 'Libreta Militar', datafield: 'libreta_militar', filtertype: 'input', width: '10%'},
+				{text: 'Dominio', datafield: 'reg_dominio', filtertype: 'input', width: '10%'},
+
+
+			]
+		});
+
+
+	$("#ver").click(function () {
+		var rowindex = $("#jqxgrid").jqxGrid("getselectedrowindex");
+		if (rowindex > -1) {
+			var dataRecord = $("#jqxgrid").jqxGrid('getrowdata', rowindex);
+			//var postulante=dataRecord.id;
+			var v = $.ajax({
+				url: '/procesoscontrataciones/verformulariopostulante/',
+				type: 'POST',
+				datatype: 'text',
+				data: {postulante_id: dataRecord.id},
+				success: function (data) {
+					$("#cargar_pagina").html(data);
+				}, //mostramos el error
+				error: function () {
+					alert('Se ha producido un error Inesperado');
+				}
+			});
+			$('#myModal').modal('show');
+		}
+		else {
+			bootbox.alert("<strong>¡Mensaje!</strong> Seleccionar un registro para ver los datos.");
+		}
+	});
+
+
+	$(".imprimir").click(function () {
+		//alert("hoal");
+		//var html="<html>";
+		var html = document.getElementById('cargar_pagina').innerHTML;
+
+		//html+="</html>";
+
+		var printWin = window.open('', '', 'left=0,top=0,width=1000,height=900,toolbar=0,scrollbars=0,status=0');
+
+		printWin.document.write(html);
+		printWin.document.close();
+		printWin.focus();
+		printWin.print();
+		printWin.close();
+	});
+
+	$("#btnExportarExcel").click(function () {
+		// alert("hoal");
+		exportarReporte(1);
+	});
+	
+	$("#btnExportarPdf").click(function () {
+
+		exportarReporte(2);
+	});
+
+});
+
+
+
+</script>
+
+<div class="row">
+	<div class="col-lg-12">
+		<h1>Postulantes registrados</h1>		
+	</div>
+</div>
+
+<!--<div class="row">
+	<div class="col-lg-12">
+		<div class="panel panel-default">
+			<div class="panel-body">
+				<div class="form-group form-actions">
+					<div class="col-xs-12">
+						<button class="btn btn-sm btn-primary" type="button" id="ver"><i class="fa fa-plus fa-fw"></i>Ver Hoja de Vida</button>
+					</div>
+				</div>
+				<br>
+				<div class="table-responsive">
+					<div id="jqxgrid"></div>
+				</div>
+			</div>
+		</div>
+		
+	</div>
+</div>
+-->
+<div class="row">
+	<div class="col-lg-12">
+		<div class="panel panel-default">
+			<div class="panel-body">
+				<?php //echo $this->flashSession->output() ?>
+				<div class="row">
+					<div class="col-md-12">
+						<div class="pull-left">
+							<button class="btn btn-sm btn-primary" type="button" id="ver"><i class="fa fa-plus fa-fw"></i>Ver Hoja de Vida</button>
+						</div>
+						<div class="pull-right">
+<!--							<button class="btn btn-sm btn-success" type="button" id="btnExportarExcel" accesskey="i"><i class="fa fa-download"></i> Exportar Excel</button>-->
+							<div class="btn-group btn-group-sm">
+								<a class="btn btn-success btn-option dropdown-toggle enable-tooltip" title="" data-toggle="dropdown" href="javascript:void(0)" data-original-title="Descargar">
+									<i class="fa fa-download"></i> Exportar	<span class="caret"></span>
+								</a>
+								<ul class="dropdown-menu dropdown-custom dropdown-menu-right">
+									<li>
+										<a href="javascript:void(0)" id="btnExportarExcel">
+											<i class="fa fa-file-excel-o pull-right"></i>
+											Excel
+										</a>
+										<a href="javascript:void(0)" id="btnExportarPdf">
+											<i class="fa fa-file-pdf-o pull-right"></i>
+											PDF
+										</a>
+									</li>
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-12">
+						<div id="jqxgrid" style="width: 100%;" ></div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade bs-example-modal-lg" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+		<div class="modal-content">
+			<form class="form-horizontal" id="testForm" data-toggle="validator"/>
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+				<!-- <h4 class="modal-title" id="titulo">Formulario Unico de Postulación</h4> -->
+				<input type="button" value="Imprimir" class="imprimir">
+			</div>
+			<div class="modal-body">
+				<div class="form-group" id="cargar_pagina">
+					<!-- <label class="col-md-3 control-label">Resolución</label>
+					<div class="col-md-9">
+						<input id="tipo_resolucion" name="tipo_resolucion" type="text" class="form-control"/>
+					</div> -->
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+				<input type="button" value="Imprimir" class="imprimir">
+				<!-- <button type="submit" class="btn btn-primary" id="Save">Guardar</button> -->
+			</div>
+		</form>
+	</div>
+</div>
+</div>
+<!-- end  modal -->
+

@@ -1,0 +1,170 @@
+<?php
+    //$parametro = $parametro;
+    $parametros = array(
+        "tipopresdoc" => "Tipo de Presentación",
+        "periodopresdoc" => "Periodo de Presentación",
+        "tipoperssoldoc" => "Persitencia de Solicitud",
+        "tipoemisordoc" => "Tipo Emisor",
+        "tipofechaemidoc" => "Tipo Fecha Emisión",
+        "grupoarchivos" => "Grupo de Archivos"
+    );
+    //echo $parametros[$parametro];
+    //echo $datos_parametro['id'];
+?>
+<style type="text/css">
+        body, html {
+            height: 100%;
+            padding: 0px;
+            margin: 0px;
+            width: 100%;
+            border: none;
+            overflow: hidden;
+        }
+        .required {
+            vertical-align: baseline;
+            color: red;
+            font-size: 10px;
+        }
+        .control-label {
+            white-space: nowrap;
+        }
+    </style>
+</head>
+<body>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            //set
+            
+            // set jQWidgets Theme to "Bootstrap"
+            $.jqx.theme = "bootstrap";
+            $('#sendButton').jqxButton({ height: 25 });
+            $('#cancelButton').jqxButton({ height: 25 });
+            // create jqxInput widget.
+            $('input').jqxInput({ height: 22, width: '100%' });
+            $('input').css('margin-top', '5px');
+            $('#form').jqxValidator({
+                hintType: 'label',
+                rules: [
+                       { input: '#valor_1', message: 'El primer valor es un campo requerido!', action: 'keyup, blur', rule: 'required' }
+                ]
+            });
+            // Validate form.
+            $("#cancelButton").click(function () {
+                document.location.href = '/archivo/parametros';
+            });
+            $("#sendButton").click(function () {
+                var validationResult = function (isValid) {
+                    if (isValid) {
+                        $("#form").submit();
+                    }
+                }
+                //$('#form').jqxValidator('validate', validationResult);
+                if(!$("#valor_1").val()){
+                    alert('Debe ingresar el valor princiapl!.');
+                    return false;
+                }
+                var v=$.ajax({
+                    	url:'/archivo/saveparametro/',
+                    	type:'POST',
+                    	datatype: 'json',
+			data:{id:$("#id").val(),parametro:$("#parametro").val(),nivel:$("#nivel").val(),valor_1:$("#valor_1").val()
+                              ,valor_2:$("#valor_2").val(),valor_3:$("#valor_3").val(),valor_4:$("#valor_4").val(),valor_5:$("#valor_5").val()
+                              ,descripcion:$("#descripcion").val(),observacion:$("#observacion").val()},
+			success: function(data) { alert (data);
+                            var res = jQuery.parseJSON(data);
+                            alert(res.msm); 
+                            document.location.href = '/archivo/parametros/';
+			}, //mostramos el error
+			error: function() { 
+                            alert('Se ha producido un error Inesperado');
+                        }
+		});
+            });
+            $("#myTab").tab();
+            $('#myTab a').click(function (e) {
+                e.preventDefault();
+                $('.box').hide();
+                $('#myTab li').removeClass('active');
+                var id = $(this).attr('data-tab');
+                $("#" + id).show();
+                // notifies the widgets that a resize is required and forces a redraw. $.jqx.resize is called for better UX when navigating through tabs.
+                $.jqx.resize();
+                $(this).parent().addClass('active');
+            })
+        });
+    </script>
+    <div style="min-height: 0px; box-shadow: none; -webkit-box-shadow: none;" class="navbar navbar-default " role="navigation">
+        <ul id="myTab" style="min-width: 480px; box-shadow: none; -webkit-box-shadow: none; border: none;" class="nav nav-tabs">
+            <li style="margin-left: 20px;" class="active"><a data-tab="obligatorios" href="#obligatorios">Datos Generales.</a></li>
+        </ul>
+    </div>
+    <h2 style="padding-top: 0px; width: 100%;"><b>Edici&oacute;n de Registro de <?php echo $parametros[$datos_parametro['parametro']]?>.</b></h2>
+    <h6><b>NOTA: </b>Los datos precedidos de asterisco son requerido des manera obligatoria(*).</h6>
+    
+    <div style="padding-top: 0px; width: 100%; height: 100%;">
+        <form class="navbar-form" id="form">
+        <div id="obligatorios" class="box" style="width: 100%; height: 100%; overflow-x: hidden; border: none;">
+            <!--<form class="navbar-form" id="form">-->
+                <input id="parametro" name="parametro" value="<?php echo $datos_parametro['parametro']; ?>" hidden="hidden">
+                <input id="id" name="id" value="<?php echo $datos_parametro['id'];?>" hidden="hidden">
+                <div class="form-horizontal col-sm-6">
+                    <div class="form-horizontal">
+                        <h2>Datos Generales del Par&aacute;metro:</h2>
+                    </div>
+                    <div class="row">
+                        <label class="col-sm-3 control-label" for="nivel">Nivel del par&aacute;metro :</label>
+                        <div class="col-sm-8">
+                            <input placeholder="Nivel del Par&aacute;metro" id="nivel" name="nivel" value="<?php echo $datos_parametro['nivel']; ?>" />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <label class="col-sm-3 control-label" for="valor_1">Valor Principal *:</label>
+                        <div class="col-sm-8">
+                            <input placeholder="Coloque el valor que lo identifica" id="valor_1" name="valor_1" value="<?php echo $datos_parametro['valor_1']; ?>" />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <label class="col-sm-3 control-label" for="valores">Valores Secundarios :</label>
+                        <div class="col-sm-4">
+                            <input placeholder="Segundo Valor" id="valor_2" name="valor_2" value="<?php echo $datos_parametro['valor_2']; ?>" />
+                        </div>
+                        <div class="col-sm-4">
+                            <input placeholder="Tercer Nombre" id="valor_3" name="valor_3" value="<?php echo $datos_parametro['valor_3']; ?>" />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <label class="col-sm-3 control-label" for="valores">Valores Terciarios :</label>
+                        <div class="col-sm-4">
+                            <input placeholder="Cuarto Valor" id="valor_2" name="valor_4" value="<?php echo $datos_parametro['valor_4']; ?>" />
+                        </div>
+                        <div class="col-sm-4">
+                            <input placeholder="Quinto Nombre" id="valor_3" name="valor_5" value="<?php echo $datos_parametro['valor_5']; ?>" />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <label class="col-sm-3 control-label" for="descripcion">Descripci&oacute;n :</label>
+                        <div class="col-sm-8">
+                            <input placeholder="Descripci&oacute;n " id="descripcion" name="descripcion" value="<?php echo $datos_parametro['descripcion']; ?>" />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <label class="col-sm-3 control-label" for="observacion">Observaciones :</label>
+                        <div class="col-sm-8">
+                            <input placeholder="Coloque alguna observaci&oacute;n" id="observacion" name="observacion" value="<?php echo $datos_parametro['observacion']; ?>" />
+                        </div>
+                    </div>
+                </div>
+            <!--</form>-->
+        </div>
+        <div class="row">
+            <div class="col-sm-1">
+            </div>
+            <div class="col-sm-1">
+                <button style="margin-top: 15px;" id="sendButton" type="button">Grabar</button>
+            </div>
+            <div class="col-sm-1">
+                <button style="margin-top: 15px;" id="cancelButton" type="button">Cancelar</button>
+            </div>
+        </div>
+        </form>
+    </div>

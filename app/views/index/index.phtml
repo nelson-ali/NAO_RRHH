@@ -1,0 +1,296 @@
+<div class="content-header">
+    <div class="header-section">
+        <h1>
+            <i class="gi gi-dashboard"></i>P&aacute;gina de Inicio<br>
+            <small>Bienvenid@: <?php echo $nombres; ?></small>
+        </h1>
+    </div>
+</div>
+<?php if ($modalidad == 1) { ?>
+    <!--<div class="row" id="divDashbordAdministrador">
+        <div class="col-sm-12 col-md-4 col-lg-4">
+            <div class="widget">
+                <div class="widget-simple">
+                    <a href="/relaborales"
+                       class="aWidgetRelab widget-icon pull-left themed-background animation-fadeIn">
+                        <i class="fa fa-users"></i>
+                    </a>
+                    <h3 class="widget-content text-right animation-pullDown"
+                        ondblclick="location.href = '/relaborales';">
+                        Plazo Indefinido: <strong><?php echo $permanentes; ?></strong><br/>
+                        <small>Personas</small>
+                    </h3>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-12 col-md-4 col-lg-4">
+            <div class="widget">
+                <div class="widget-simple">
+                    <a href="/relaborales" class="widget-icon pull-left themed-background-amethyst  animation-fadeIn">
+                        <i class="fa fa-users"></i>
+                    </a>
+                    <h3 class="widget-content text-right animation-pullDown"
+                        ondblclick="location.href = '/relaborales';">
+                        Plazo Fijo: <strong><?php echo $eventuales; ?></strong><br/>
+                        <small>Personas</small>
+                    </h3>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-12 col-md-4 col-lg-4">
+            <div class="widget">
+                <div class="widget-simple">
+                    <a href="/relaborales" class="widget-icon pull-left themed-background-fire animation-fadeIn">
+                        <i class="fa fa-users"></i>
+                    </a>
+                    <h3 class="widget-content text-right animation-pullDown"
+                        ondblclick="location.href = '/relaborales';">
+                        Consultor&iacute;a: <strong><?php echo $consultores; ?></strong><br/>
+                        <small>Personas</small>
+                    </h3>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-12 col-md-4 col-lg-4">
+            <div class="widget">
+                <div class="widget-simple">
+                    <a href="/relaborales" class="widget-icon pull-left themed-background-night animation-fadeIn">
+                        <i class="fa fa-users"></i>
+                    </a>
+                    <h3 class="widget-content text-right animation-pullDown"
+                        ondblclick="location.href = '/relaborales';">
+                        Total: <strong><?php echo $total_personal; ?></strong><br/>
+                        <small>Personas</small>
+                    </h3>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-12 col-md-4 col-lg-4">
+            <div class="widget">
+                <div class="widget-simple">
+                    <a href="/procesoscontrataciones"
+                       class="widget-icon pull-left themed-background-spring animation-fadeIn">
+                        <i class="fa fa-cogs"></i>
+                    </a>
+                    <h3 class="widget-content text-right animation-pullDown"
+                        ondblclick="location.href = '/procesoscontrataciones';">
+                        En Ejecuci&oacute;n: <strong><?php echo $procesos_pendientes; ?></strong><br/>
+                        <small>Procesos</small>
+                    </h3>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-12 col-md-4 col-lg-4">
+            <div class="widget">
+                <div class="widget-simple">
+                    <a href="/procesoscontrataciones"
+                       class="widget-icon pull-left themed-background-flatie animation-fadeIn">
+                        <i class="fa fa-cogs"></i>
+                    </a>
+                    <h3 class="widget-content text-right animation-pullDown"
+                        ondblclick="location.href = '/procesoscontrataciones';">
+                        Concluidos: <strong><?php echo $procesos_concluidos; ?></strong><br/>
+                        <small>Procesos</small>
+                    </h3>
+                </div>
+            </div>
+        </div>
+    </div>-->
+    <div class="row" id="divCalendariosIndex">
+        <div class="col-sm-12 col-md-12 col-lg-12">
+            <div class="block">
+                <div class="block-title">
+                    <div class="block-options pull-right">
+                        <!--<a id="btnExportarExcelCalendarioCumples" class="btn btn-alt btn-sm btn-default"
+                           title="Exportar Calendario a Excel" data-toggle="tooltip" href="javascript:void(0)"
+                           data-original-title="Exportar">
+                            <i class="fi fi-xls text-success"></i>
+                        </a>-->
+                        <a id="btnImprimirCalendarioCumples" class="btn btn-alt btn-sm btn-default"
+                           title="Imprimir Calendario de Cumplea&ntilde;os" data-toggle="tooltip"
+                           href="javascript:void(0)"
+                           data-original-title="Imprimir">
+                            <i class="fa fa-print"></i>
+                        </a>
+                    </div>
+                    <h2><strong>Calendario</strong> Cumplea&ntilde;os</h2>
+                </div>
+                <div id="divCalendarioActividades"></div>
+            </div>
+        </div>
+    </div>
+
+    <!--<div class="row">
+        <div class="col-sm-6 animation-stretchRight">
+            <div class="widget">
+                <div id="divEncuestaPrimeraPregunta" style="width: 100%; height: 400px;">Encuesta</div>
+                <label id="lblPregunta1">Pregunta 1: Considerando un monto aproximado de Bs 300 por persona, prefiere usted que el monto econÃ³mico del Fondo Social sea destinado en esta navidad a:</label>
+            </div>
+        </div>
+        <div class="col-sm-6 animation-stretchRight">
+            <div class="widget">
+                <div id="divEncuestaSegundaPregunta" style="width: 100%; height: 400px;">Encuesta</div>
+                <label id="lblPregunta2">Pregunta 2: En reconocimiento a la labor desempeÃ±ada por los jÃ³venes estudiantes participantes del programa â€œTrabajo con alturaâ€� en las lÃ­neas en funcionamiento de nuestra Empresa, considera usted la posibilidad de entregar un canaston equivalente a un monto aproximado de Bs.80?</label>
+            </div>
+        </div>
+    </div>-->
+
+<?php } else {
+    header('Location: /misrelaborales');
+    ?>
+    <div style="display: none;" class="row" id="divDashbordConsulta">
+        <div class="col-sm-6 col-lg-3">
+            <div class="widget">
+                <div class="widget-simple">
+                    <label class="col-md-4 control-label" for="lstgestiones">Gesti&oacute;n</label>
+                    <select id="lstGestion" name="lstGestion" class="form-control"></select>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6 col-lg-3">
+            <div class="widget">
+                <div class="widget-simple">
+                    <a href="/misrelaborales" class="widget-icon pull-left themed-background animation-fadeIn">
+                        <i class="fa fa-users"></i>
+                    </a>
+                    <h3 class="widget-content text-right animation-pullDown"
+                        ondblclick="location.href = '/misrelaborales';">
+                        AntigÃ¼edad Laboral <strong><?php
+                            foreach ($antiguedad as $ant) {
+                                echo "</br><small>" . $ant->condiciones . "</br>";
+                                $fechaIng = $ant->fecha_ing != "" ? date("d-m-Y", strtotime($ant->fecha_ing)) : "";
+                                $fechaUlt = $ant->fecha_ult != "" ? date("d-m-Y", strtotime($ant->fecha_ult)) : "";
+                                echo "Periodo: " . $fechaIng . " al " . $fechaUlt . "</br>";
+                                echo "Tiempo: " . $ant->antiguedad . " meses" . "</small>";
+                            }
+                            ?></strong><br/>
+                    </h3>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6 col-lg-3">
+            <div class="widget">
+                <div class="widget-simple">
+                    <a href="/misboletasexcepciones"
+                       class="widget-icon pull-left themed-background-night animation-fadeIn">
+                        <i class="fa fa-users"></i>
+                    </a>
+                    <h3 class="widget-content text-right animation-pullDown"
+                        ondblclick="location.href = '/misboletasexcepciones';">
+                        Boletas registradas: <strong><?php echo $boletasExcepcionesRegistradas; ?></strong><br/>
+                        <small>Boletas en Elaboraci&oacute;n, Elaboradas o Enviadas</small>
+                    </h3>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6 col-lg-3">
+            <div class="widget">
+                <div class="widget-simple">
+                    <a href="/misideas" class="widget-icon pull-left themed-background-spring animation-fadeIn">
+                        <i class="fa fa-lightbulb-o"></i>
+                    </a>
+                    <h3 class="widget-content text-right animation-pullDown" ondblclick="location.href = '/misideas';">
+                        Ideas registradas: <strong><?php echo $ideasPublicadas; ?></strong><br/>
+                        <small>Ideas de negocio publicadas</small>
+                    </h3>
+                </div>
+            </div>
+        </div>
+    </div>
+    <input type="hidden" id="hdnIdPersona" value="<?php echo $id_persona; ?>">
+    <div style="display: none;" class="row">
+        <div class="col-sm-12 animation-stretchRight">
+            <div class="widget">
+                <div id="container" style="min-width: 400px; height: 400px; margin: 0 auto"></div>
+            </div>
+        </div>
+    </div>
+<?php } ?>
+<input type="hidden" id="hdnModalidad" value="<?php echo $modalidad; ?>">
+<input type="hidden" id="hdnGestion" value="<?php echo $gestion; ?>">
+<div style="display: none;" class="modal fade bs-example-modal-md" id="popupInformacionPersona" tabindex="-1"
+     role="dialog"
+     aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-md">
+        <div class="modal-content">
+            <form class="form-horizontal" id="formInformacionPersona" data-toggle="validator"
+                  onsubmit="return false;"/>
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span
+                        class="sr-only">Cerrar</span></button>
+                <h4 class="modal-title"><i class="gi gi-birthday_cake text-danger"></i> Datos Cumplea&ntilde;er@</h4>
+            </div>
+            <div class="modal-body" id="divCuerpoTarjeta">
+                <div class="row">
+                    <div class="col-md-12" id="divLogoAndHeader">
+                        <div class="col-md-3" style="text-align: left;">
+                            <a href="#">
+                                <img style="height: 100px;width: 90px;" alt="Empresa Estatal de Transporte por Cable 'Mi Telef&eacute;rico'" src="/images/logoVB.jpg">
+                            </a>
+                        </div>
+                        <div class="col-md-9" form-group>
+                            <h2 style="text-align: center;">Â¡Feliz Cumplea&ntilde;os!</h2>
+                            <h5 style="text-align: justify;">"Disfruta el d&iacute;a de hoy, no lo desaproveches por nada, porque un d&iacute;a productivo equivale a una ayer de felicidad intensa y un ma&ntilde;ana de notables esperanzas."</h5>
+                        </div>
+                    </div>
+                    <div class="col-md-9">
+                        <div class="col-md-12 div-informacion-persona" id="divNombres">
+                            <label class="col-md-4 control-label" for="lblNombres">Nombres:</label>
+                            <div class="col-md-8" form-group>
+                                <p class="form-control-static" id="pNombres"></p>
+                            </div>
+                        </div>
+                        <div class="col-md-12 div-informacion-persona" id="divGestionGeneracionMarcaciones">
+                            <label class="col-md-4 control-label" for="lblCI">C. I.:</label>
+                            <div class="col-md-8" form-group>
+                                <p class="form-control-static" id="pCI"></p>
+                            </div>
+                        </div>
+                        <div class="col-md-12 div-informacion-persona" id="divCargo">
+                            <label class="col-md-4 control-label" for="lblCargo">Cargo:</label>
+                            <div class="col-md-8" form-group>
+                                <p class="form-control-static" id="pCargo"></p>
+                            </div>
+                        </div>
+                        <div class="col-md-12 div-informacion-persona" id="divGerenciaAdministrativa">
+                            <label class="col-md-4 control-label" for="lblGerenciaAdministrativa">Gerencia:</label>
+                            <div class="col-md-8" form-group>
+                                <p class="form-control-static" id="pGerenciaAdministrativa"></p>
+                            </div>
+                        </div>
+                        <div class="col-md-12 div-informacion-persona" id="divDepartamentoAdministrativo">
+                            <label class="col-md-4 control-label"
+                                   for="lblDepartamentoAdministrativo">Departamento:</label>
+                            <div class="col-md-8" form-group>
+                                <p class="form-control-static" id="pDepartamentoAdministrativo"></p>
+                            </div>
+                        </div>
+                        <div class="col-md-12 div-informacion-persona" id="divFechaCumple">
+                            <label class="col-md-4 control-label"
+                                   for="lblFechaCumple">Fecha:</label>
+                            <div class="col-md-8" form-group>
+                                <p class="form-control-static" id="pFechaCumple"></p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <a href="#" id="aFotoPerfil"><img style="width: 130px;height: 150px" id="imgFotoPerfil"
+                                                          class="img-rounded pull-right img-perfil"></a>
+                    </div>
+                    <!--<div class="col-md-3">&nbsp;</div>-->
+                    <div class="col-md-12">
+                        <h5>Atentamente,<br>Unidad de Talento Humanos<br>Direcci&oacute;n Administrativa Financiera</h5>
+                        <h6 style="text-align: justify">Recordar a todos ustedes la obligatoriedad de la actualizaci&oacute;n de su Declaraci&oacute;n Jurada, en el marco de lo dispuesto en Reglamento de Control y Seguimiento de la
+                            Declaraci&oacute;n Jurada de Bienes y Rentas aprobado mediante Resoluci&oacute;n Administrativa NÂº 011/2015 de fecha 6 de febrero de 2015.</h6>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" id="btnCerrarInformacionPersona" class="btn btn-danger"
+                        data-dismiss="modal"><i class="fa fa-times-circle"></i></i> Cerrar
+                </button>
+            </div>
+            </form>
+        </div>
+    </div>
+</div>

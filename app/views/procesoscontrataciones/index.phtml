@@ -1,0 +1,823 @@
+<script type="text/javascript">
+
+    $(document).ready(function () {
+
+//function cargar(){
+        /*
+         primera grilla
+         */
+        cargar();
+        function cargar() {
+            var source =
+            {
+                datatype: "json",
+                datafields: [
+                    {name: 'nro', type: 'number'},
+                    {name: 'id', type: 'number'},
+                    {name: 'denominacion', type: 'string'},
+                    {name: 'codigo_convocatoria', type: 'string'},
+                    {name: 'normativamod_id', type: 'number'},
+                    {name: 'fecha_publ', type: 'date'},
+                    {name: 'fecha_recep', type: 'date'},
+                    {name: 'fecha_concl', type: 'date'},
+                    {name: 'tipo', type: 'string'},
+                ],
+                url: '/procesoscontrataciones/list',
+                cache: false
+            };
+            var dataAdapter = new $.jqx.dataAdapter(source);
+            var theme = prepareSimulator("grid");
+            $("#jqxgrid").jqxGrid(
+                {
+                    width: '100%',
+                    theme: 'oasis',
+                    source: dataAdapter,
+                    sortable: true,
+                    altRows: true,
+                    pageable: true,
+                    height: 300,
+                    pagerMode: 'advanced',
+                    showfilterrow: true,
+                    filterable: true,
+                    keyboardnavigation: false,
+                    columns: [
+                        {
+                            text: '#', sortable: false, filterable: false, editable: false,
+                            groupable: false, draggable: false, resizable: false,
+                            datafield: '', columntype: 'number', width: '5%',
+                            cellsrenderer: function (row, column, value) {
+                                return "<div style='margin:4px;'>" + (value + 1) + "</div>";
+                            }
+                        },
+                        {
+                            text: 'Denominación',
+                            datafield: 'denominacion',
+                            filtertype: 'input',
+                            width: '35%',
+                            align: 'center'
+                        },
+                        {
+                            text: 'Codigo Convocatoria',
+                            datafield: 'codigo_convocatoria',
+                            filtertype: 'input',
+                            width: '15%',
+                            align: 'center'
+                        },
+                        {
+                            text: 'Fecha Publicación',
+                            datafield: 'fecha_publ',
+                            filtertype: 'range',
+                            width: '15%',
+                            cellsalign: 'center',
+                            cellsformat: 'dd-MM-yyyy',
+                            align: 'center'
+                        },
+                        {
+                            text: 'Fecha Recepeción',
+                            datafield: 'fecha_recep',
+                            filtertype: 'range',
+                            width: '12%',
+                            cellsalign: 'center',
+                            cellsformat: 'dd-MM-yyyy',
+                            align: 'center'
+                        },
+                        {
+                            text: 'Fecha Conclusión',
+                            datafield: 'fecha_concl',
+                            filtertype: 'range',
+                            width: '12%',
+                            cellsalign: 'center',
+                            cellsformat: 'dd-MM-yyyy',
+                            align: 'center'
+                        },
+                        {
+                            text: 'Tipo',
+                            datafield: 'tipo',
+                            filtertype: 'input',
+                            width: '6%',
+                            cellsalign: 'center',
+                            align: 'center'
+                        }
+                    ]
+                });
+
+
+            $("#jqxgrid").bind('rowselect', function (event) {
+                var dataRecord = $("#jqxgrid").jqxGrid('getrowdata', event.args.rowindex);
+                $("#id").val(dataRecord.id);
+                $("#titulo_convocatoria").text(dataRecord.codigo_convocatoria);
+            });
+// segunda grilla
+// 
+            var dataFields = [
+                {name: 'id', type: 'number'},
+                {name: 'unidad_administrativa', type: 'string'},
+                {name: 'proceso_contratacion_id', type: 'number'},
+                {name: 'codigo', type: 'string'},
+                {name: 'cargo', type: 'string'},
+                {name: 'sueldo', type: 'number'},
+                {name: 'estado', type: 'number'}
+            ];
+
+            var sourceSeg =
+            {
+                datafields: dataFields,
+                datatype: "json",
+                url: '/procesoscontrataciones/listseguimiento',
+                async: false
+            };
+
+            var dataAdapter = new $.jqx.dataAdapter(sourceSeg);
+            dataAdapter.dataBind();
+
+            $("#jqxgrid").on('rowselect', function (event) {
+                var id = event.args.row.id;
+                var records = new Array();
+                var length = dataAdapter.records.length;
+                for (var i = 0; i < length; i++) {
+                    var record = dataAdapter.records[i];
+                    if (record.proceso_contratacion_id == id) {
+                        records[records.length] = record;
+                    }
+                }
+
+                var dataSource = {
+                    datafields: dataFields,
+                    localdata: records
+                }
+                var adapter = new $.jqx.dataAdapter(dataSource);
+
+                // update data source.
+                $("#jqxgridSeg").jqxGrid({source: adapter});
+            });
+            var theme = prepareSimulator("grid");
+            $("#jqxgridSeg").jqxGrid(
+                {
+                    width: '100%',
+                    source: dataAdapter,
+                    theme: 'oasis',
+                    sortable: true,
+                    altRows: true,
+                    pageable: true,
+                    pagerMode: 'advanced',
+                    showfilterrow: true,
+                    filterable: true,
+                       height: 300,
+                    keyboardnavigation: false,
+                    columns: [
+                        {
+                            text: '#', sortable: false, filterable: false, editable: false,
+                            groupable: false, draggable: false, resizable: false,
+                            datafield: '', columntype: 'number', width: '5%',
+                            cellsrenderer: function (row, column, value) {
+                                return "<div style='margin:4px;'>" + (value + 1) + "</div>";
+                            }
+                        },
+                        {
+                            text: 'Unidad Administrativa',
+                            datafield: 'unidad_administrativa',
+                            filtertype: 'input',
+                            width: '35%'
+                        },
+                        {text: 'Item o Codigo', datafield: 'codigo', filtertype: 'input', width: '8%', align: 'center'},
+                        {text: 'Cargo', datafield: 'cargo', filtertype: 'input', width: '35%', align: 'center'},
+                        {text: 'Sueldo Bs.', datafield: 'sueldo', filtertype: 'number', width: '8%', align: 'center'},
+                        {text: 'Estado', datafield: 'estado', filtertype: 'input', width: '9%', align: 'center'},
+                    ]
+                });
+
+
+// fin segunda grilla
+
+        }
+
+// $("#jqxgrid").jqxGrid('selectrow',0);
+        /* */
+
+        $("#delete").click(function () {
+
+            if ($("#id").val() != "") {
+                bootbox.confirm("<strong>¡Mensaje!</strong> Esta seguro de eliminar el registro?. Todo los seguientos a los cargos se eliminaran.", function (result) {
+                    if (result == true) {
+                        var v = $.ajax({
+                            url: '/procesoscontrataciones/delete/',
+                            type: 'POST',
+                            datatype: 'json',
+                            data: {id: $("#id").val()},
+                            success: function (data) {
+                                cargar(); //alert('Guardado Correctamente');
+                            }, //mostramos el error
+                            error: function () {
+                                alert('Se ha producido un error Inesperado');
+                            }
+                        });
+                    }
+                });
+            } else {
+                bootbox.alert("<strong>¡Mensaje!</strong> Seleccionar un registro para eliminar.");
+            }
+
+        });
+
+        $("#seguimiento").click(function () {
+
+            var rowindex = $("#jqxgridSeg").jqxGrid("getselectedrowindex");
+            if (rowindex > -1) {
+                var dataRecord = $("#jqxgridSeg").jqxGrid('getrowdata', rowindex);
+                $("#seguimiento_id").val(dataRecord.id);
+                var v = $.ajax({
+                    url: '/procesoscontrataciones/getSeguimiento/',
+                    type: 'POST',
+                    datatype: 'json',
+                    data: {id: dataRecord.id},
+                    success: function (data) {
+                        datos = JSON.parse(data);
+                        $("#id_seguimiento").val(datos.id_seguimiento);
+                        $("#codigo_convocatoria_s").text(datos.codigo_convocatoria);
+                        $("#cargo_s").text(dataRecord.cargo);
+                        $("#item_s").text(dataRecord.codigo);
+                        $("#denominacion_s").text(datos.denominacion);
+                        $("#usuario_sol").val(datos.usuario_sol);
+                        $("#cert_presupuestaria").val(datos.cert_presupuestaria);
+                        $("#seguimiento_estado_id").val(datos.seguimiento_estado_id);
+                        $("#organigrama_id").val(datos.organigrama_id);
+                        $('#organigrama_id').trigger("chosen:updated");
+                        $("#fecha_apr_mae").val(datos.fecha_apr_mae);
+                        $("#fecha_sol").val(datos.fecha_sol);
+                        $("#fecha_cert_pre").val(datos.fecha_cert_pre);
+
+
+                        $("#tituloCargo").text('Seguimiento al Cargo: ' + dataRecord.cargo);
+                        $("#tituloConvocatoria").text('Codigo Proceso: ' + datos.codigo_convocatoria);
+                        $("#tituloItem").text('Item o Codigo: ' + dataRecord.codigo);
+                        $("#tituloSueldo").text('Sueldo Bs.: ' + dataRecord.sueldo);
+                    },
+                    error: function () {
+                        alert('Se ha producido un error Inesperado');
+                    }
+                });
+                lista_comision(dataRecord.id);
+                lista_criterios(dataRecord.id);
+                lista_adjudicados(dataRecord.id);
+                $('#myModal').modal('show');
+            }
+            else {
+                bootbox.alert("<strong>¡Mensaje!</strong> Seleccionar un registro para realizar seguimiento.");
+            }
+        });
+
+        $("#postulantes").click(function () {
+            var rowindex = $("#jqxgridSeg").jqxGrid("getselectedrowindex");
+            if (rowindex > -1) {
+                var dataRecord = $("#jqxgridSeg").jqxGrid('getrowdata', rowindex);
+                var proceso_contratacion_id = $("#jqxgridSeg").jqxGrid('getrowdata', rowindex);
+                var seguimiento_id = dataRecord.id;
+                document.location.href = "/procesoscontrataciones/verpostulantes/" + seguimiento_id;
+            }
+            else {
+                bootbox.alert("<strong>¡Mensaje!</strong> Seleccionar un registro para realizar seguimiento.");
+            }
+        });
+
+        /*************Scrip para seguimiengo***********************************/
+
+        $("#guardar_hito").click(function () {
+            if ($("#seguimiento_id").val() == "") {
+                alert("INFO: En la tabla PROCESOS CONTRATACION debe seleccionar el boton seguimiento, para cargar datos.")
+            } else {
+                var id_seguimiento = $("#seguimiento_id").val();
+                var organigrama_id = $("#organigrama_id").val();
+                var usuario_sol = $("#usuario_sol").val();
+                var cert_presupuestaria = $("#cert_presupuestaria").val();
+                var seguimiento_estado_id = $("#seguimiento_estado_id").val();
+                var fecha_sol = $('#fecha_sol').val();
+                var fecha_cert_pre = $('#fecha_cert_pre').val();
+                var fecha_apr_mae = $('#fecha_apr_mae').val();
+                //alert(fecha_sol);
+                var v = $.ajax({
+                    url: '/procesoscontrataciones/editSeguimiento/',
+                    type: 'POST',
+                    datatype: 'json',
+                    data: {
+                        id: id_seguimiento,
+                        organigrama_id: organigrama_id,
+                        usuario_sol: usuario_sol,
+                        cert_presupuestaria: cert_presupuestaria,
+                        seguimiento_estado_id: seguimiento_estado_id,
+                        fecha_sol: fecha_sol,
+                        fecha_cert_pre: fecha_cert_pre,
+                        fecha_apr_mae: fecha_apr_mae
+                    },
+                    success: function (data) {
+                        alert(data);
+                    }, //mostramos el error
+                    error: function () {
+                        alert('Se ha producido un error Inesperado');
+                    }
+
+                });
+            }
+        });
+
+        /**************/
+
+        /*
+         Comision de calificacion
+         */
+
+        $("#add_comision").click(function () {
+
+            $('#myModalComision').modal('show');
+
+        });
+
+        $("#testForm_comision #organigrama_id").change(function () {
+            //alert($(this).val());
+            var id = $(this).val();
+            if (id != '') {
+                $("#depende_id").load('/cargos/listPersonal/' + id);
+            }
+
+        });
+
+        $("#SaveComision").click(function () {
+            var nombre = $("#depende_id option:selected").attr("nombre");
+            var cargo = $("#depende_id option:selected").attr("cargo");
+
+            var v = $.ajax({
+                url: '/procesoscontrataciones/saveComision/',
+                type: 'POST',
+                datatype: 'json',
+                data: {id_seguimiento: $("#seguimiento_id").val(), nombre: nombre, cargo: cargo},
+                success: function (data) {
+                    alert(data);
+                }, //mostramos el error
+                error: function () {
+                    alert('Se ha producido un error Inesperado');
+                }
+            });
+
+            lista_comision($("#seguimiento_id").val());
+            $('#myModalComision').modal('hide');
+
+        });
+
+        function lista_comision(id_seg) {
+            //alert(id_seg);
+            var v = $.ajax({
+                url: '/procesoscontrataciones/listComision/',
+                type: 'POST',
+                datatype: 'json',
+                complete: function () {
+                    $(".delete_comision").click(function () {
+                        var id_comision = $(this).attr("comision");
+                        var nombre = $(this).attr("nombre");
+                        bootbox.confirm("<strong>¡Mensaje!</strong> Esta seguro de eliminar a:" + nombre, function (result) {
+                            if (result == true) {
+                                var v = $.ajax({
+                                    url: '/procesoscontrataciones/deleteComision/',
+                                    type: 'POST',
+                                    datatype: 'json',
+                                    data: {id: id_comision},
+                                    success: function (data) {
+                                        alert(data);
+                                        lista_comision($("#seguimiento_id").val());
+                                    }, //mostramos el error
+                                    error: function () {
+                                        alert('Se ha producido un error Inesperado');
+                                    }
+                                });
+                            }
+                        });
+                    });
+                },
+                data: {id_seguimiento: id_seg},
+                success: function (data) {
+                    $("#li_comision").html(data);
+                }, //mostramos el error
+                error: function () {
+                    alert('Se ha producido un error Inesperado');
+                }
+
+            });
+        }
+
+        /***********Criterios de calificacion****************/
+        function lista_criterios(id_seg) {
+
+            var v = $.ajax({
+                url: '/procesoscontrataciones/getPerfilCargo/',
+                type: 'POST',
+                datatype: 'text',
+                data: {id_seguimiento: id_seg},
+                success: function (data) {
+                    //datos = JSON.parse(data);//alert(datos);
+                    $("#text_formacion_academica").html(data);
+
+
+                }, //mostramos el error
+                error: function () {
+                    alert('Se ha producido un error Inesperado');
+                }
+
+            });
+
+        }
+
+        /**********Lista de adjudicados***************/
+        function lista_adjudicados(id_seg) {
+            //alert(id_seg);
+            var v = $.ajax({
+                url: '/procesoscontrataciones/listAdjudicado/',
+                type: 'POST',
+                datatype: 'json',
+                complete: function () {
+                    $(".delete_adjudicado").click(function () {
+                        var id_adjudicado = $(this).attr("adjudicado");
+                        var nombre = $(this).attr("nombre");
+                        bootbox.confirm("<strong>¡Mensaje!</strong> Esta seguro de eliminar a:" + nombre, function (result) {
+                            if (result == true) {
+                                var v = $.ajax({
+                                    url: '/procesoscontrataciones/deleteAdjudicado/',
+                                    type: 'POST',
+                                    datatype: 'json',
+                                    data: {id: id_adjudicado},
+                                    success: function (data) {
+                                        alert(data);
+                                        lista_adjudicados($("#seguimiento_id").val());
+                                    }, //mostramos el error
+                                    error: function () {
+                                        alert('Se ha producido un error Inesperado');
+                                    }
+                                });
+                            }
+                        });
+                    });
+                },
+                data: {id_seguimiento: id_seg},
+                success: function (data) {
+                    $("#li_adjudicados").html(data);
+                }, //mostramos el error
+                error: function () {
+                    alert('Se ha producido un error Inesperado');
+                }
+
+            });
+        }
+
+
+        $("#add_adjudicado").click(function () {
+            $('#myModalAdjudicado').modal('show');
+        });
+
+        $("#Save_adjudicado").click(function () {
+            //alert($("#seguimiento_id").val());
+            var v = $.ajax({
+                url: '/procesoscontrataciones/saveAdjudicado/',
+                type: 'POST',
+                datatype: 'json',
+                data: {id_seguimiento: $("#seguimiento_id").val(), nombre: $("#nombre").val(), ci: $("#ci").val()},
+                success: function (data) {
+                    alert(data);
+                }, //mostramos el error
+                error: function () {
+                    alert('Se ha producido un error Inesperado');
+                }
+            });
+            $('#myModalAdjudicado').modal('hide');
+            lista_adjudicados($("#seguimiento_id").val());              // }
+        });
+        /*************************************************/
+
+        $("#edit").click(function () {
+            if ($("#id").val() != '') {
+                document.location.href = "/procesoscontrataciones/edit/" + $("#id").val();
+            } else {
+                bootbox.alert("<strong>¡Mensaje!</strong> Seleccionar un registro para editar.");
+            }
+
+        });
+
+        $('#filtrar').click(function () {
+            if ($("#id").val() != "") {
+                //Añadimos la imagen de carga en el contenedor
+                $('#cargando').html('<div class="alert alert-success">Filtrando postulantes <img src="images/cargando.gif"/></div>');
+                var v = $.ajax({
+                    url: '/procesoscontrataciones/filtrarPostulantes/',
+                    type: 'POST',
+                    datatype: 'json',
+                    data: {id: $("#id").val()},
+                    success: function (data) {
+                        $('#cargando').fadeIn(1000).html("");
+                        bootbox.alert(data);
+                    }, //mostramos el error
+                    error: function () {
+                        alert('Se ha producido un error Inesperado');
+                    }
+                });
+            } else {
+                bootbox.alert("<strong>¡Mensaje!</strong> Seleccionar un registro para eliminar.");
+            }
+
+        });
+
+
+    });
+</script>
+
+
+<div class="row">
+    <div class="col-lg-12">
+        <h3>Procesos de Contratación</h3>
+        <?php echo $this->flashSession->output() ?>
+        <div class="form-group form-actions">
+            <div class="col-xs-12">
+                <a href="/procesoscontrataciones/add/" class="btn btn-sm btn-primary" id="add"><i
+                        class="fa fa-plus fa-fw"></i>Adicionar</a>
+                <button class="btn btn-sm btn-warning" type="button" id="edit"><i class="fa fa-pencil fa-fw"></i> Editar
+                </button>
+                <button class="btn btn-sm btn-danger" type="button" id="delete"><i class="fa fa-trash-o fa-fw"></i>
+                    Eliminar
+                </button>
+                <button class="btn btn-sm btn-primary" type="button" id="filtrar"><i class="fa fa-file-text fa-fw"></i>
+                    Filtrar Postulantes
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row" id="cargando"></div>
+<div class="row">
+    <div class="col-lg-12">
+        <div id="jqxgrid" style="height: 300px; width: 100%;"></div>
+    </div>
+</div>
+
+
+<div class="row">
+    <div class="col-lg-12">
+        <h3>Seguimiento a la Convocatoria ===> <span id="titulo_convocatoria"></span></h3>
+
+        <div class="col-xs-12">
+            <button class="btn btn-sm btn-primary" type="button" id="seguimiento"><i class="fa fa-plus fa-fw"></i>Seguimiento
+            </button>
+            <button class="btn btn-sm btn-warning" type="button" id="postulantes"><i class="fa fa-file-text fa-fw"></i>Ver
+                Postulantes
+            </button>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-12">
+        <div id="jqxgridSeg" style="height: 350px; width: 100%;"></div>
+    </div>
+</div>
+
+
+<input id="id" name="id" type="hidden"/>
+<input id="seguimiento_id" name="seguimiento_id" type="hidden"/>
+
+
+<!-- Inicio modal seguimiento -->
+
+<div class="modal fade bs-example-modal-lg" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <form class="form-horizontal" id="testForm" data-toggle="validator"/>
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span
+                        class="sr-only">Close</span></button>
+                <!-- <h4 class="modal-title" id="tituloCargo">Editar</h4>
+                <h4 class="modal-title" id="tituloItem">Editar</h4> -->
+                <div class="row">
+                    <div class="col-lg-12">
+                        <h5 class="modal-title" id="tituloCargo"></h5>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-4">
+                        <h5 class="modal-title" id="tituloConvocatoria"></h5>
+                    </div>
+                    <div class="col-lg-4">
+                        <h5 class="modal-title" id="tituloItem"></h5>
+                    </div>
+                    <div class="col-lg-4">
+                        <h5 class="modal-title" id="tituloSueldo"></h5>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-body">
+                <div class="tabbable">
+                    <ul class="nav nav-tabs">
+                        <li class="active"><a href="#tab1" data-toggle="tab">Hitos</a></li>
+                        <li><a href="#tab2" data-toggle="tab">Comision de Calificación</a></li>
+                        <li><a href="#tab3" data-toggle="tab">Criterios de Calificación</a></li>
+                        <!-- <li><a href="#tab4" data-toggle="tab">Personas Calificadas</a></li> -->
+                        <!-- <li><a href="#tab5" data-toggle="tab">Personas Aprobadas</a></li> -->
+                    </ul>
+                    <div class="tab-content">
+
+
+                        <div class="tab-pane active" id="tab1">
+                            <form class="form-horizontal" id="testForm">
+                                <input type="hidden" name="id_seguimiento" id="id_seguimiento">
+
+                                <div class="form-group">
+                                    <label class="col-lg-3 control-label">Codigo Convocatoria</label>
+
+                                    <div class="col-lg-3" id="codigo_convocatoria_s"></div>
+                                    <label class="col-lg-3 control-label">Item / Codigo Cargo</label>
+
+                                    <div class="col-lg-3" id="item_s"></div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-lg-3 control-label">Cargo</label>
+
+                                    <div class="col-lg-3" id="cargo_s"></div>
+                                    <label class="col-lg-3 control-label">Tipo Contratación</label>
+
+                                    <div class="col-lg-3" id="denominacion_s"></div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-lg-3 control-label">Unidad Solicitante</label>
+
+                                    <div class="col-lg-9">
+                                        <?php echo $organigrama_id; ?>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-lg-3 control-label">Responsable Solicitud</label>
+
+                                    <div class="col-lg-3">
+                                        <input type="text" class="form-control" id="usuario_sol" name="usuario_sol">
+                                    </div>
+                                    <label class="col-lg-3 control-label">Fecha Solicitud</label>
+
+                                    <div class="col-lg-3">
+                                        <input type="text" id="fecha_sol" name="fecha_sol" value=""
+                                               class="form-control input-datepicker-close" data-date-format="dd-mm-yyyy"
+                                               placeholder="dd-mm-yyyy"/>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-lg-3 control-label">Certificación Presuspuestaria</label>
+
+                                    <div class="col-lg-3">
+                                        <input type="text" class="form-control" id="cert_presupuestaria"
+                                               name="cert_presupuestaria">
+                                    </div>
+                                    <label class="col-lg-3 control-label">Fecha Cert. Presupuestaria</label>
+
+                                    <div class="col-lg-3">
+                                        <input type="text" id="fecha_cert_pre" name="fecha_cert_pre" value=""
+                                               class="form-control input-datepicker-close" data-date-format="dd-mm-yyyy"
+                                               placeholder="dd-mm-yyyy"/>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-lg-3 control-label">Estado</label>
+
+                                    <div class="col-lg-3">
+                                        <?php echo $seguimientoestado; ?>
+                                    </div>
+                                    <label class="col-lg-3 control-label">Fechar Aprobacion MAE</label>
+
+                                    <div class="col-lg-3">
+                                        <input type="text" id="fecha_apr_mae" name="fecha_apr_mae" value=""
+                                               class="form-control input-datepicker-close" data-date-format="dd-mm-yyyy"
+                                               placeholder="dd-mm-yyyy"/>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-lg-12" align="center">
+                                        <button type="button" id="guardar_hito" class="btn btn-primary">Guardar</button>
+                                    </div>
+                                </div>
+
+                            </form>
+                        </div>
+
+
+                        <div class="tab-pane" id="tab2">
+                            <div class="form-group">
+                                <button class="btn btn-xs btn-primary" type="button" id="add_comision"><i
+                                        class="fa fa-plus-circle"> Adicionar</i></button>
+                                <ul id="li_comision" class="list-group">
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="tab-pane" id="tab3">
+                            <table class="table table-vcenter table-striped tabla1">
+                                <thead>
+                                <tr>
+                                    <td>FORMACIÓN ACADEMICA</td>
+                                    <td>EXPERIENCIA GENERAL</td>
+                                    <td>EXPERIENCIA PROFESIONAL</td>
+                                    <td>EXPERIENCAI RELACIONADO AL CARGO</td>
+                                </tr>
+                                </thead>
+                                <tbody id="text_formacion_academica">
+
+                                </tbody>
+
+
+                            </table>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+            </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- end  modal -->
+
+<!-- Modal Comision-->
+<div class="modal fade" id="myModalComision" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form class="form-horizontal" id="testForm_comision" data-toggle="validator"/>
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span
+                        class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="titulo">ADICIONAR COMISION DE CALIFICACION</h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label class="col-md-3 control-label">Organigrama</label>
+
+                    <div class="col-md-9">
+                        <?php echo $organigrama_id; ?>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-3 control-label">Depende de</label>
+
+                    <div class="col-md-9">
+                        <select name="depende_id" id="depende_id" class="form-control">
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                <button type="button" class="btn btn-primary" id="SaveComision">Guardar</button>
+            </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!-- end  modal -->
+
+<!-- Modal Adjudicado-->
+<div class="modal fade" id="myModalAdjudicado" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form class="form-horizontal" id="testForm_comision" data-toggle="validator"/>
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span
+                        class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="titulo">ADICIONAR PERSONA QUE CUMPLE CON LOS REQUISITOS DEL CARGO</h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label class="col-md-3 control-label">Nombre Completo</label>
+
+                    <div class="col-md-9">
+                        <input id="nombre" name="nombre" type="text" class="form-control"
+                               placeholder="Ej: Nombres y Apellidos"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-3 control-label">Nro Documento Identidad:</label>
+
+                    <div class="col-md-9">
+                        <input id="ci" name="ci" type="text" class="form-control" placeholder="Ej: 12345678 L.P."/>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                <button type="button" class="btn btn-primary" id="Save_adjudicado">Guardar</button>
+            </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!-- end  modal -->
+<style type="text/css">
+    .datepicker {
+        z-index: 1151 !important;
+    }
+</style>

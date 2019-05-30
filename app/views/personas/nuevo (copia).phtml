@@ -1,0 +1,408 @@
+<?php
+
+use Phalcon\Tag; ?>
+<div class="row">
+    <div class="col-sm-12">
+        <div class="panel">
+            <div class="panel-heading">
+                <h4>Registro de personas</h4>
+                <div class="options">
+                    <ul class="nav nav-tabs">
+                        <li class="active"><a data-toggle="tab" href="#domshortcuttiles"><i class="fa fa-users"></i></a></li>
+                        <li><a data-toggle="tab" href="#codeshortcuttiles"><i class="fa fa-code"></i></a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="panel-body">        
+                <div class="tab-content">
+                    <div id="domshortcuttiles" class="tab-pane active">
+                        <div class="row">
+                            <div class="panel panel-info">
+
+                                <div class="panel-body">
+                                    <div class="alert alert-info">
+                                        <p>Llene correctamente los datos del formulario, los campos con (<span class="text-danger">*</span>) son obligatorios.</p>
+                                    </div>
+                                    <div class="row ">
+                                        <div class="col-md-12">
+                                            <?php echo $this->flashSession->output(); ?>        
+                                        </div>
+                                    </div>
+                                    <form action="" method="post" id="wizard" class="form-horizontal">
+                                        <fieldset title="Paso 1">
+                                            <legend>Datos Personales</legend>
+                                            <div class="row">
+                                                <div class="col-md-6">                   
+                                                    <div class="form-group">
+                                                        <label class="col-md-4 control-label" for="val_p_nombre">Nombre(s)<span class="text-danger">*</span></label>
+
+                                                        <div class="col-md-8">
+                                                            <div class="input-group col-md-12 ">
+                                                                <input type="text" id="p_nombre" name="p_nombre" class="form-control" title="Campo requerido"placeholder="Primer nombre" required="" />                                                                                
+                                                            </div>  
+                                                        </div>  
+                                                    </div>  
+                                                    <div class="form-group">
+                                                        <label class="col-md-4 control-label" for="val_p_nombre"><span class="text-danger"></span></label>
+                                                        <div class="col-md-8">
+                                                            <div class="input-group col-md-12">
+                                                                <input type="text" id="s_nombre" name="s_nombre" class="form-control" placeholder="segundo nombre" />
+
+                                                            </div>  
+                                                        </div>  
+                                                    </div>  
+                                                    <div class="form-group ">
+                                                        <label class="col-md-4 control-label" for="val_p_nombre"><span class="text-danger"></span></label>
+                                                        <div class="col-md-8">
+                                                            <div class="input-group col-md-12">
+                                                                <input type="text" id="t_nombre" name="t_nombre" class="form-control" placeholder="tercer nombre" />
+
+                                                            </div>  
+                                                        </div>  
+                                                    </div>  
+                                                    <div class="form-group">
+                                                        <label class="col-md-4 control-label" for="val_username">Apellido(s)<span class="text-danger">*</span></label>
+                                                        <div class="col-md-8 ">
+                                                            <div class="input-group col-md-12">
+                                                                <input type="text" id="p_apellido" name="p_apellido" class="form-control" required="" title="campo requerido" placeholder="primer apellido" />                                        
+                                                            </div>  
+                                                        </div>  
+                                                    </div>  
+
+                                                    <div class="form-group ">
+                                                        <label class="col-md-4 control-label" for="val_username"></label>
+                                                        <div class="col-md-8">
+                                                            <div class="input-group col-md-12">
+                                                                <input type="text" id="s_apellido" name="s_apellido" class="form-control" placeholder="segundo apellido" />
+                                                            </div>  
+                                                        </div>  
+                                                    </div>  
+                                                    <div class="form-group ">
+                                                        <label class="col-md-4 control-label" for="val_username">Sexo<span class="text-danger">*</span></label>
+
+                                                        <div class="col-md-8">
+                                                            <div class="input-group ">
+                                                                <?php
+                                                                echo Tag::selectStatic(array('sexo',
+                                                                    array('M' => 'Hombre', 'F' => 'Mujer'),
+                                                                    "class" => 'form-control',
+                                                                    'useEmpty' => true,
+                                                                    'emptyText' => '[Escoja sexo]',
+                                                                    'emptyValue' => '',
+                                                                    'required' => 'required',
+                                                                    'title' => 'Campo requerido'
+                                                                ));
+                                                                ?>                                         
+                                                            </div>  
+                                                        </div>  
+                                                    </div>  
+                                                    <div class="form-group">
+                                                        <label class="col-md-4 control-label" for="val_username">Estado Civil<span class="text-danger">*</span></label>                    
+
+                                                        <div class="col-md-8">
+                                                            <div class="input-group col-md-12 ">
+                                                                <?php
+                                                                echo Tag::selectStatic(array('estado_civil',
+                                                                    array('SOLTERO(A)' => 'SOLTERO(A)', 'CASADO(A)' => 'CASADO(A)', 'VIUDO' => 'VIUDO'),
+                                                                    "class" => 'form-control',
+                                                                    'useEmpty' => true,
+                                                                    'emptyText' => '[Escoja estado]',
+                                                                    'emptyValue' => '',
+                                                                    'required' => 'required',
+                                                                    'title' => 'Campo requerido'
+                                                                ));
+                                                                ?>  
+                                                            </div>  
+                                                        </div>  
+                                                    </div>  
+                                                    <div class="form-group" style="display: none;" id="div_a_casada">
+                                                        <label class="col-md-4 control-label" for="val_username">Apellido Casada<span class="text-danger"></span></label>
+                                                        <div class="col-md-8">
+                                                            <div class="input-group col-md-12">
+                                                                <input type="text" id="a_casada" name="a_casada" class="form-control" placeholder="Apellido casada" />                                                                
+                                                            </div>  
+                                                        </div>  
+                                                    </div>
+                                                </div>  
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label class="col-md-4 control-label" for="val_username">Tipo doc<span class="text-danger">*</span></label>                                
+                                                        <div class="col-md-8">
+                                                            <div class="input-group">
+                                                                <?php
+                                                                echo Tag::select(array('tipo_doc',
+                                                                    tipodoc::find(),
+                                                                    "using" => array('codigo', "descripcion"),
+                                                                    "class" => 'form-control',
+                                                                    'useEmpty' => false,
+                                                                    'required' => 'required'
+                                                                ));
+                                                                ?> 
+                                                            </div>  
+                                                        </div>  
+                                                    </div>  
+                                                    <div class="form-group">
+                                                        <label class="col-md-4 control-label" for="val_username">Nro de documento<span class="text-danger">*</span></label>                   
+                                                        <div class="col-md-5">
+                                                            <div class="input-group col-md-12">
+                                                                <input type="text"  id="ci" name="ci"  title="Campo requerido" class="form-control col-md-6 required" placeholder="4021564" />                                                                                  
+                                                            </div>  
+                                                        </div>  
+                                                        <div class="col-md-3">
+                                                            <div class="input-group col-md-12">                              
+                                                                <?php
+                                                                echo Tag::selectStatic(array('expd',
+                                                                    array(
+                                                                        'LP' => 'LP',
+                                                                        'OR' => 'OR',
+                                                                        'CBA' => 'CBA',
+                                                                        'TRJ' => 'TRJ',
+                                                                        'PND' => 'PDO',
+                                                                        'SC' => 'SC',
+                                                                        'BNI' => 'BN',
+                                                                        'PTS' => 'PT',
+                                                                        'SUC' => 'SUC'),
+                                                                    "class" => 'form-control',
+                                                                    'useEmpty' => false,
+                                                                    'emptyText' => '[Lugar Expedicion]',
+                                                                    'emptyValue' => '',
+                                                                    'required' => 'required',
+                                                                    'title' => 'Campo requerido'
+                                                                ));
+                                                                ?>
+                                                            </div>  
+                                                        </div>  
+                                                    </div> 
+                                                    <div class="form-group">
+                                                        <label class="col-md-4 control-label" for="val_nacionalidad">Fecha de Caducidad<span class="text-danger">*</span></label>
+                                                        <div class="col-md-6">
+                                                            <input type="text" id="f_caducidad" name="f_caducidad"  value="<?php echo date("d-m-Y") ?>" class="form-control input-datepicker-close" data-date-format="dd-mm-yyyy" placeholder="La Paz" />
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="col-md-4 control-label" for="val_nacionalidad">Nacionalidad<span class="text-danger">*</span></label>
+                                                        <div class="col-md-6">
+                                                            <div class="input-group col-md-12">
+                                                                <?php
+                                                                echo Tag::select(array('nacionalidad',
+                                                                    nacionalidad::find(),
+                                                                    "using" => array('nacionalidad', "nacionalidad"),
+                                                                    "class" => 'form-control',
+                                                                    'useEmpty' => false,
+                                                                    'required' => 'required'
+                                                                ));
+                                                                ?> 
+                                                            </div> 
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="form-group">
+                                                        <label class="col-md-4 control-label" for="val_username">Lugar de nacimiento<span class="text-danger">*</span></label>
+                                                        <div class="col-md-6">
+                                                            <input type="text" id="l_nacimiento" name="l_nacimiento" class="form-control" placeholder="La Paz" />
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="col-md-4 control-label" for="val_username">fecha de nacimiento<span class="text-danger">*</span></label>
+                                                        <div class="col-md-6">
+                                                            <input type="text" name="fecha_nacimiento"  id="fecha_nacimiento" value="<?php echo date('d-m-Y', strtotime('-18year')); ?>" placeholder="mm-dd-yyyy" data-date-format="dd-mm-yyyy" class="form-control input-datepicker-close" >                                          
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="col-md-4 control-label" for="val_username">Grupo sanguineo<span class="text-danger">*</span></label>
+                                                        <div class="col-md-6">
+                                                            <?php
+                                                            echo Tag::select(array('grupo',
+                                                                gruposanguineo::find(),
+                                                                "using" => array('grupo', "grupo"),
+                                                                "class" => 'form-control',
+                                                                'useEmpty' => false,
+                                                                'required' => 'required'
+                                                            ));
+                                                            ?> 
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                        </fieldset>
+                                        <fieldset title="Paso 2">
+                                            <legend>Datos de contacto</legend>
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="form-group ">
+                                                        <label class="col-md-4 control-label" for="val_direccion">Direcci&oacute;n<span class="text-danger">*</span></label>                                
+                                                        <div class="col-md-8">
+                                                            <div class="input-group ">
+                                                                <input type="text" id="s_apellido" name="direccion" class="form-control" placeholder="Calle, # , zona" />
+                                                                <span class="input-group-addon"><i class="gi gi-home"></i></span>                                                                      
+                                                            </div>  
+                                                        </div>  
+                                                    </div>  
+
+                                                    <div class="form-group ">
+                                                        <label class="col-md-4 control-label" for="val_telefono">Telefono:<span class="text-danger">*</span></label>
+                                                        <div class="col-md-8">
+                                                            <div class="input-group ">
+                                                                <input type="text" id="telefono" name="telefono" class="form-control" placeholder="2-2213344" />
+                                                                <span class="input-group-addon"><i class="gi gi-phone_alt"></i></span>                                  
+                                                            </div>  
+                                                        </div>  
+                                                    </div>  
+
+                                                    <div class="form-group ">
+                                                        <label class="col-md-4 control-label" for="val_celular">Celular<span class="text-danger">*</span></label>
+
+                                                        <div class="col-md-8">
+                                                            <div class="input-group ">
+                                                                <input type="text" id="celular" name="celular" class="form-control" placeholder="777554433" />
+                                                                <span class="input-group-addon"><i class="gi gi-iphone"></i></span>                                  
+                                                            </div>  
+                                                        </div> 
+                                                    </div> 
+                                                    <div class="form-group">
+                                                        <label class="col-md-4 control-label" for="val_username">Email personal<span class="text-danger">*</span></label>
+                                                        <div class="col-md-8">
+                                                            <div class="input-group col-md-12 ">
+                                                                <input type="text" id="email" name="email" class="form-control email" placeholder="example@correo.com" />
+                                                                <span class="input-group-addon"><i class="fa fa-envelope-o"></i></span>                                  
+                                                            </div>  
+                                                        </div>  
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="col-md-4 control-label" for="val_username">Telefono de Emergencia<span class="text-danger">*</span></label>
+                                                        <div class="col-md-8">
+                                                            <div class="input-group col-md-12 ">
+                                                                <input type="text" id="t_emergencia" name="t_emergencia" class="form-control email" placeholder="2-3532245" />
+                                                                <span class="input-group-addon"><i class="fa fa-envelope-o"></i></span>                                  
+                                                            </div>  
+                                                        </div>  
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="col-md-4 control-label" for="val_username">Persona de Emergencia<span class="text-danger">*</span></label>
+                                                        <div class="col-md-8">
+                                                            <div class="input-group col-md-12 ">
+                                                                <input type="text" id="p_emergencia" name="p_emergencia" class="form-control email" placeholder="j perez" />
+                                                                <span class="input-group-addon"><i class="fa fa-envelope-o"></i></span>                                  
+                                                            </div>  
+                                                        </div>  
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="col-md-4 control-label" for="val_username">Relaci&oacute;n de Parentesco<span class="text-danger">*</span></label>
+                                                        <div class="col-md-8">
+                                                            <div class="input-group col-md-12 ">
+                                                                <input type="text" id="r_parentesco" name="r_parentesco" class="form-control email" placeholder="Primo, hermano, padre." />
+                                                                <span class="input-group-addon"><i class="fa fa-envelope-o"></i></span>                                  
+                                                            </div>  
+                                                        </div>  
+                                                    </div>
+                                                </div> 
+                                                <!-- derecha -->
+                                                <div class="col-md-6">
+
+                                                    <div class="form-group ">
+                                                        <label class="col-md-4 control-label" for="val_telefono">Telefono Inst:<span class="text-danger">*</span></label>
+                                                        <div class="col-md-8">
+                                                            <div class="input-group ">
+                                                                <input type="text" id="telefono_i" name="telefono_i" class="form-control" placeholder="279300" value="2179300" />
+                                                                <span class="input-group-addon"><i class="gi gi-phone_alts"></i></span>                                  
+                                                            </div>  
+                                                        </div>  
+                                                    </div>  
+                                                    <div class="form-group ">
+                                                        <label class="col-md-4 control-label" for="val_telefono">Interno:<span class="text-danger">*</span></label>
+                                                        <div class="col-md-8">
+                                                            <div class="input-group ">
+                                                                <input type="text" id="telefono" name="interno" class="form-control" placeholder="111" />
+                                                                <span class="input-group-addon"><i class="gi gi-earphone"></i></span>                                  
+                                                            </div>  
+                                                        </div>  
+                                                    </div>  
+
+                                                    <div class="form-group ">
+                                                        <label class="col-md-4 control-label" for="val_celular">Celular Coorp.<span class="text-danger">*</span></label>
+
+                                                        <div class="col-md-8">
+                                                            <div class="input-group ">
+                                                                <input type="text" id="celular" name="celular_i" class="form-control" placeholder="777554433" />
+                                                                <span class="input-group-addon"><i class="gi gi-iphone"></i></span>                                  
+                                                            </div>  
+                                                        </div>  
+                                                    </div>  
+                                                    <div class="form-group">
+                                                        <label class="col-md-4 control-label" for="val_username">Email Institucional<span class="text-danger">*</span></label>                    
+
+                                                        <div class="col-md-8">
+                                                            <div class="input-group col-md-12 ">
+                                                                <input type="text" id="email_i" name="email_i" class="form-control email" value="@viasbolivia.gob.bo" placeholder="example@viasbolivia.gob.bo" />
+                                                                <span class="input-group-addon"><i class="fa fa-envelope-o"></i></span>                                  
+                                                            </div>  
+                                                        </div>  
+                                                    </div>  
+
+                                                </div>        
+                                            </div>
+                                        </fieldset>
+                                        <fieldset title="Paso 3">
+                                            <legend>Otros datos</legend>
+                                            <div class="row">
+
+                                                <div class="col-md-6">
+                                                    <div class="form-group ">
+                                                        <label class="col-md-4 control-label" for="val_direccion">NIT</label>                                
+                                                        <div class="col-md-8">
+                                                            <div class="input-group ">
+                                                                <input type="text" id="nit" name="nit" class="form-control" placeholder="4021530010" />
+                                                                <span class="input-group-addon"><i class="gi gi-home"></i></span>                                                                      
+                                                            </div>  
+                                                        </div>  
+                                                    </div>  
+
+                                                    <div class="form-group">
+                                                        <label class="col-md-4 control-label" for="val_username">Funcionario SIGMA</label>                    
+
+                                                        <div class="col-md-8">
+                                                            <div class="input-group col-md-12 ">
+                                                                <input type="text" id="sigma" name="sigma" class="form-control " placeholder="" />
+                                                                <span class="input-group-addon"><i class="fa fa-envelope-o"></i></span>                                  
+                                                            </div>  
+                                                        </div>  
+                                                    </div>  
+                                                    <div class="form-group">
+                                                        <label class="col-md-4 control-label" for="val_username">Libreta Militar</label>                    
+
+                                                        <div class="col-md-8">
+                                                            <div class="input-group col-md-12 ">
+                                                                <input type="text" id="libreta" name="libreta" class="form-control " placeholder="" />
+                                                                <span class="input-group-addon"><i class="fa fa-envelope-o"></i></span>                                  
+                                                            </div>  
+                                                        </div>  
+                                                    </div>  
+                                                    <div class="form-group">
+                                                        <label class="col-md-4 control-label" for="val_reg_profecional">Registro Prof.</label>                    
+
+                                                        <div class="col-md-8">
+                                                            <div class="input-group col-md-12 ">
+                                                                <input type="text" id="reg_profesional" name="reg_profesional" class="form-control " placeholder="" />
+                                                                <span class="input-group-addon"><i class="fa fa-envelope-o"></i></span>                                  
+                                                            </div>  
+                                                        </div>  
+                                                    </div>  
+
+                                                </div> 
+                                            </div> 
+                                        </fieldset>
+                                        <input type="submit" name="submit" class="finish btn-success btn" title="Registrar persona" value="Registrar" />
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+

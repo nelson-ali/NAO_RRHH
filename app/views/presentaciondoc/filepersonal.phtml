@@ -1,0 +1,730 @@
+<?php
+$nom_completo = $datos_personal['p_nombre'].' '.$datos_personal['s_nombre'].' '.$datos_personal['p_apellido'].' '.$datos_personal['s_apellido'];
+$doc_i = $datos_personal['ci'].$datos_personal['expd'];
+if ($datos_personal['genero'] == 'M'){
+    $sexo = 'masculino';
+} else if($datos_personal['genero'] == F){
+    $sexo = 'femenino';
+}
+$sum_faltantes = 0;
+for ($i = 0; $i < count($lista_doc);  $i++){
+    $contador[$i] = 0;
+    $faltantes[$i] = 0;
+    foreach ($doc_x_persona as $docs){
+        if ($docs['grupoarchivos'] == $lista_doc[$i]['grupoarchivos']){
+            $contador[$i]++;
+            if ($docs['doc_presentado_id'] == ''){
+                $faltantes[$i]++;
+            }
+        }
+    }
+    $sum_faltantes = $sum_faltantes + $faltantes[$i];
+}
+//echo $sum_faltantes;
+//echo '<br><br><br><br><br><br><br>';
+echo '<input id="num_grupo" name="num_grupo" value="'.count($lista_doc).'" hidden="hidden">';
+echo '<input id="direccion" name="direccion" value="" hidden="hidden">';
+echo '<input id="persona_id" name="direccion" value="'.$datos_personal['id'].'" hidden="hidden">';
+?>
+<script type="text/javascript">
+    //FormsWizard.init();
+function utf8_encode(argString) {
+  //  discuss at: http://phpjs.org/functions/utf8_encode/
+  // original by: Webtoolkit.info (http://www.webtoolkit.info/)
+  // improved by: Kevin van Zonneveld (http://kevin.vanzonneveld.net)
+  // improved by: sowberry
+  // improved by: Jack
+  // improved by: Yves Sucaet
+  // improved by: kirilloid
+  // bugfixed by: Onno Marsman
+  // bugfixed by: Onno Marsman
+  // bugfixed by: Ulrich
+  // bugfixed by: Rafal Kukawski
+  // bugfixed by: kirilloid
+  //   example 1: utf8_encode('Kevin van Zonneveld');
+  //   returns 1: 'Kevin van Zonneveld'
+  if (argString === null || typeof argString === 'undefined') {
+    return '';
+  }
+  var string = (argString + ''); // .replace(/\r\n/g, "\n").replace(/\r/g, "\n");
+  var utftext = '',
+    start, end, stringl = 0;
+    start = end = 0;
+    stringl = string.length;
+  for (var n = 0; n < stringl; n++) {
+    var c1 = string.charCodeAt(n);
+    var enc = null;
+    if (c1 < 128) {
+      end++;
+    } else if (c1 > 127 && c1 < 2048) {
+      enc = String.fromCharCode(
+        (c1 >> 6) | 192, (c1 & 63) | 128
+      );
+    } else if ((c1 & 0xF800) != 0xD800) {
+      enc = String.fromCharCode(
+        (c1 >> 12) | 224, ((c1 >> 6) & 63) | 128, (c1 & 63) | 128
+      );
+    } else { // surrogate pairs
+      if ((c1 & 0xFC00) != 0xD800) {
+        throw new RangeError('Unmatched trail surrogate at ' + n);
+      }
+      var c2 = string.charCodeAt(++n);
+      if ((c2 & 0xFC00) != 0xDC00) {
+        throw new RangeError('Unmatched lead surrogate at ' + (n - 1));
+      }
+      c1 = ((c1 & 0x3FF) << 10) + (c2 & 0x3FF) + 0x10000;
+      enc = String.fromCharCode(
+        (c1 >> 18) | 240, ((c1 >> 12) & 63) | 128, ((c1 >> 6) & 63) | 128, (c1 & 63) | 128
+      );
+    }
+    if (enc !== null) {
+      if (end > start) {
+        utftext += string.slice(start, end);
+      }
+      utftext += enc;
+      start = end = n + 1;
+    }
+  }
+  if (end > start) {
+    utftext += string.slice(start, stringl);
+  }
+  return utftext;
+};
+$(document).ready(function () {
+    
+    var hasta = $("#num_grupo").val();
+    var bool_grupo = new Array();
+    for (var i = 0; i < hasta; i++ ){
+        bool_grupo[i] = 1;
+        var div_val = '#data_'+i;
+        //var but_val = '#btn_dat_'+i;
+        $(div_val).hide();
+    }
+    $("a").click(function (){
+        if ($(this).attr('data_inline')){
+            var i = $(this).attr('data_inline');
+            div_val = '#data_'+i;
+            if (bool_grupo[i] == 0){
+                $(div_val).hide();
+                bool_grupo[i] = 1;
+            } else if (bool_grupo[i] == 1){
+                $(div_val).show();
+                bool_grupo[i] = 0;
+            }
+        }
+    });
+    $("b").click(function (){
+        var ci_d = $(this).attr('ci');
+        var codigo_d = $(this).attr('codigo');
+        var rellaboral_d = $(this).attr('rellaboral_id');
+        var direccion = "/presentaciondoc/subir/"+codigo_d+"/"+ci_d+"/"+rellaboral_d+"/";
+        $("#direccion").val(direccion);
+        var aux = $(this).attr('href');
+        var aux1 = aux.split('#mr_');//alert(aux1[1]+'|'+$("#id_"+aux1[1]).val());
+        if ($("#data_"+aux1[1]).val()== 1){
+            $("#gr_"+aux1[1]).removeAttr('disabled');
+        }
+        //alert (ci_d+'_'+codigo_d+'_'+rellaboral_d+'.pdf');
+    });
+    $("c").click(function (){
+        var comp = $(this).attr('valor');
+        //alert(comp);
+        var campo_1 = '#first_'+comp;
+        var campo_2 = '#second_'+comp;
+        var btn_1 = '#next'+comp;
+        $(campo_1).show();
+        $(campo_2).hide();
+        $(btn_1).removeAttr('disabled');
+        $(this).attr('disabled',"true");
+    });
+    $("d").click(function (){
+        var comp = $(this).attr('valor');
+        //alert(comp);
+        var campo_1 = '#first_'+comp;
+        var campo_2 = '#second_'+comp;
+        var btn_1 = '#back'+comp;
+        if ($("#f_emi_"+comp).val() == ''){
+            $("#f_emi_"+comp).focus();
+            alert ('Debe ingresar la fecha de emisión');
+            return false;
+        }
+        if ($("#f_pres_"+comp).val() == ''){
+            $("#f_pres_"+comp).focus();
+            alert ('Debe ingresar la fecha de presentación');
+            return false;
+        }
+        var aux = $("#aux"+comp).val();
+        if (aux > 0){
+            for (i = 1; i<=aux; i++){
+                if ($("#campo"+i+comp).val()==''){
+                    $("#campo"+i+comp).focus();
+                    alert('Debe ingresar el dato del campo: '+$("#campo"+i+comp).attr('lbl'));
+                    return false;
+                } else if ($("#campo"+i+comp).attr('tipo')=='numeric'){
+                    if (isNaN($("#campo"+i+comp).val())){
+                        $("#campo"+i+comp).focus();
+                        alert('Debe ingresar un número en el campo: '+$("#campo"+i+comp).attr('lbl'));
+                        return false;
+                    }
+                } 
+            }
+        }
+        $(campo_1).hide();
+        $(campo_2).show();
+        $(btn_1).removeAttr('disabled');
+        $(this).attr('disabled',"true");
+    });
+    $("e").click(function (){
+        var comp = $(this).attr('valor');
+        //alert(comp);
+        var campo_1 = '#first_'+comp;
+        var campo_2 = '#second_'+comp;
+        if ($("#f_emi_"+comp).val() == ''){
+            $("#f_emi_"+comp).focus();
+            alert ('Debe ingresar la fecha de emisión');
+            return false;
+        }
+        if ($("#f_pres_"+comp).val() == ''){
+            $("#f_pres_"+comp).focus();
+            alert ('Debe ingresar la fecha de presentación');
+            return false;
+        }
+        var aux = $("#aux"+comp).val();
+        if (aux > 0){
+            for (i = 1; i<=aux; i++){
+                if ($("#campo"+i+comp).val()==''){
+                    $("#campo"+i+comp).focus();
+                    alert('Debe ingresar el dato del campo: '+$("#campo"+i+comp).attr('lbl'));
+                    return false;
+                } else if ($("#campo"+i+comp).attr('tipo')=='numeric'){
+                    if (isNaN($("#campo"+i+comp).val())){
+                        $("#campo"+i+comp).focus();
+                        alert('Debe ingresar un número en el campo: '+$("#campo"+i+comp).attr('lbl'));
+                        return false;
+                    }
+                } 
+            }
+        }
+        var id = $("#id_"+comp).val();
+        var f_emi = $("#f_emi_"+comp).val();
+        var elem = f_emi.split('-');
+        var gestion_emi = elem[2];
+        var mes_emi = elem[1];
+        var dia_emi = elem[0];
+        var tipodocumento_id = $("#td_"+comp).val();
+        var rellaboral_id = $("#rl_"+comp).val();
+        var fecha_pres = $("#f_pres_"+comp).val();
+        var tamanio = $("#tamanio_"+comp).val();
+        var tipo = $("#tipo_"+comp).val();
+        if ($("#campo1"+comp).val()){
+            if ($("#campo1"+comp).attr('tipo')=='date'){
+                var campo_aux_d1 = $("#campo1"+comp).val();
+                var campo_aux_v1 = '';
+            } else {
+                var campo_aux_d1 = '';
+                var campo_aux_v1 = $("#campo1"+comp).val();
+            }
+        } else {
+            var campo_aux_d1 = '';
+            var campo_aux_v1 = '';
+        }
+        if ($("#campo2"+comp).val()){
+            if ($("#campo2"+comp).attr('tipo')=='date'){
+                var campo_aux_d2 = $("#campo2"+comp).val();
+                var campo_aux_v2 = '';
+            } else {
+                var campo_aux_d2 = '';
+                var campo_aux_v2 = $("#campo2"+comp).val();
+            }
+        } else {
+            var campo_aux_d2 = '';
+            var campo_aux_v2 = '';
+        }
+        if ($("#campo3"+comp).val()){
+            if ($("#campo3"+comp).attr('tipo')=='date'){
+                var campo_aux_d3 = $("#campo3"+comp).val();
+                var campo_aux_v3 = '';
+            } else {
+                var campo_aux_d3 = '';
+                var campo_aux_v3 = $("#campo3"+comp).val();
+            }
+        } else {
+            var campo_aux_d3 = '';
+            var campo_aux_v3 = '';
+        }
+        if ($("#obs_"+comp).val()){
+            var observacion = $("#obs_"+comp).val();
+        } else {
+            var observacion = '';
+        }
+        var nombre = $("#nom_"+comp).val();//alert(tipo);
+        var v=$.ajax({
+            url:'/presentaciondoc/save/',
+            type:'POST',
+            datatype: 'jason',
+            data:{id: id, gestion_emi: gestion_emi, mes_emi: mes_emi, dia_emi: dia_emi,
+                  tipodocumento_id: tipodocumento_id, rellaboral_id: rellaboral_id,
+                  fecha_pres: fecha_pres, campo_aux_d1: campo_aux_d1, campo_aux_v1: campo_aux_v1,
+                  campo_aux_d2: campo_aux_d2, campo_aux_v2: campo_aux_v2, campo_aux_d3: campo_aux_d3, 
+                  campo_aux_v3: campo_aux_v3, observacion: observacion, nombre: nombre, tamanio:tamanio, tipo:tipo},
+            success: function(data) {// alert(data);
+                var res = jQuery.parseJSON(data);
+                alert (res.msm);
+                location.reload();
+            },
+            error: function() {
+                alert('Se ha producido un error Inesperado');
+            }
+        });
+        $(this).attr('disabled',"true");
+        //$("#page-content").load('/presentaciondoc/filepersonal/'+$("#persona_id").val()+"/");
+        
+        /*$(campo_1).hide();
+        $(campo_2).show();
+        $(btn_1).removeAttr('disabled');*/
+        
+    });
+    var bdp = 0;
+    $("#data_personal").show();
+    $("#btn_dat_per").click(function (){
+        if (bdp == 0){
+            $("#data_personal").hide();
+            bdp = 1;
+        } else if (bdp == 1){
+            $("#data_personal").show();
+            bdp = 0;
+        }
+    });
+    var bdc = 1;
+    $("#data_contactos").hide();
+    $("#btn_dat_con").click(function (){
+        if (bdp == 0){
+            $("#data_contactos").hide();
+            bdp = 1;
+        } else {
+            $("#data_contactos").show();
+            bdp = 0;
+        }
+    });
+    
+        $("form").dropzone({
+            url: $(this).attr("action"),
+            paramName: "file",
+            maxFilesize: 1,
+            addRemoveLinks: true,
+            uploadMultiple: false,
+            maxFiles: 1,
+            //acceptedFiles: 'image/*',
+            removedfile: function(file) {
+                /*for (var aux in file){
+                    alert (file);
+                }*/
+                var direction = this.options.url;
+                direction = direction.replace('subir','eliminar');
+                //alert (direction);
+                var complemento = direction.split('/');
+                if ($("#data_"+complemento[6]).val()==0){
+                    $.ajax({
+                        type: 'POST',
+                        url: direction,
+                        success: function(data){
+                            var boton = '#gr_'+data;
+                            $(boton).attr('disabled','true');
+                        }
+                    });
+                }
+                var _ref;
+                return (_ref = file.previewElement) != null ? _ref.parentNode.removeChild(file.previewElement) : void 0;
+            },
+            success: function(file,data) {
+                var res = jQuery.parseJSON(data);//alert(res.size+'|'+res.type+'|'+res.param);
+                var boton = '#gr_'+res.param;
+                $(boton).removeAttr('disabled');
+                $("#tamanio_"+res.param).val(res.size);
+                $("#tipo_"+res.param).val('application/pdf');
+                alert('se subirá el archivo: '+file.name);
+                /*$("#subir_foto").hide();
+                $("#recortar_foto").load('/personal/cargarcrop/');
+                $("#recortar_foto").show();
+                $("#cambio_foto").show();*/
+            }
+        });
+});
+</script>
+<style>     
+    .green {
+        color: black\9;
+        background-color: #b6ff00\9;
+    }
+    .yellow {
+        color: black\9;
+        background-color: yellow\9;
+    }
+    .red {
+        color: black\9;
+        background-color: #e83636\9;
+    }
+    .green:not(.jqx-grid-cell-hover):not(.jqx-grid-cell-selected), .jqx-widget .green:not(.jqx-grid-cell-hover):not(.jqx-grid-cell-selected) {
+        color: black;
+        background-color: #b6ff00;
+    }
+    .yellow:not(.jqx-grid-cell-hover):not(.jqx-grid-cell-selected), .jqx-widget .yellow:not(.jqx-grid-cell-hover):not(.jqx-grid-cell-selected) {
+        color: black;
+        background-color: yellow;
+    }
+    .red:not(.jqx-grid-cell-hover):not(.jqx-grid-cell-selected), .jqx-widget .red:not(.jqx-grid-cell-hover):not(.jqx-grid-cell-selected) {
+        color: black;
+        background-color: #e83636;
+    }
+    .datepicker{
+        z-index:1151;
+    }
+</style>
+<h2 style="padding-top: 0px; width: 100%;"><b>File de Personal.</b></h2>
+<div class="block" id="contenedor_principal">
+    <div class="block-title">
+        <?php
+        if ($sum_faltantes == count($doc_x_persona)){
+            echo '<h2 class="red"><strong>Archivo.</strong></h2>';
+        } elseif ($sum_faltantes == count($doc_x_persona)) {
+            echo '<h2 class="yellow"><strong>Archivo.</strong></h2>';
+        } elseif ($sum_faltantes == 0) {
+            echo '<h2 class="green"><strong>Archivo.</strong></h2>';
+        }
+        ?>
+    </div>
+    <div class="block" id="datos_personales">
+        <div class="block-title">
+            <div class="block-options pull-right">
+                <a class="btn btn-alt btn-xs btn-default" title="" id="btn_dat_per" data-toggle="tooltip" href="javascript:void(0)" data-original-title="Contraer/Expandir">
+                    <i class="caret"></i>
+                </a>
+            </div>
+            <h3><strong>Datos Personales.</strong></h3>
+        </div>
+        <div class="block-content" id="data_personal">
+            <div class="row">
+                <div class="col-xs-6">
+                    <div class="form-group">
+                        <div class="row">
+                            <label class="col-xs-4 control-label">Nombres y Apellidos:</label>
+                            <div class="col-xs-8">
+                                <p class="form-control-static"><?php echo $nom_completo; ?></p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <label class="col-xs-4 control-label">Documento de Identidad:</label>
+                            <div class="col-xs-8">
+                                <p class="form-control-static"><?php echo $doc_i; ?></p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <label class="col-xs-4 control-label">Nacionalidad:</label>
+                            <div class="col-xs-8">
+                                <p class="form-control-static"><?php echo $datos_personal['nacionalidad']; ?></p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <label class="col-xs-4 control-label">Ciudad de Nacimiento:</label>
+                            <div class="col-xs-8">
+                                <p class="form-control-static"><?php echo $datos_personal['lugar_nac']; ?></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-6">
+                    <div class="form-group">
+                        <div class="row">
+                            <label class="col-xs-4 control-label">Fecha Nacimiento:</label>
+                            <div class="col-xs-8">
+                                <p class="form-control-static"><?php echo $datos_personal['fecha_nac']; ?></p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <label class="col-xs-4 control-label">Estado Civil:</label>
+                            <div class="col-xs-8">
+                                <p class="form-control-static"><?php echo $datos_personal['e_civil']; ?></p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <label class="col-xs-4 control-label">Grupo Sangu&iacute;neo:</label>
+                            <div class="col-xs-8">
+                                <p class="form-control-static"><?php echo $datos_personal['grupo_sanguineo']; ?></p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <label class="col-xs-4 control-label">Sexo:</label>
+                            <div class="col-xs-8">
+                                <p class="form-control-static"><?php echo $sexo; ?></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--<div class="block" id="datos_contacto">
+        <div class="block-title">
+            <div class="block-options pull-right">
+                <a class="btn btn-alt btn-xs btn-default" title="" id="btn_dat_con" data-toggle="tooltip" href="javascript:void(0)" data-original-title="Contraer/Expandir">
+                    <i class="caret"></i>
+                </a>
+            </div>
+            <h3><strong>Datos de Contacto.</strong></h3>
+        </div>
+        <div class="block-content" id="data_contactos">
+            <div class="row">
+                <div class="col-xs-6">
+                    <div class="form-group">
+                        <div class="row">
+                            <label class="col-xs-4 control-label">Nombres y Apellidos:</label>
+                            <div class="col-xs-8">
+                                <p class="form-control-static">Username</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <label class="col-xs-4 control-label">Documento de Identidad:</label>
+                            <div class="col-xs-8">
+                                <p class="form-control-static">CI...</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <label class="col-xs-4 control-label">Nacionalidad:</label>
+                            <div class="col-xs-8">
+                                <p class="form-control-static">Gentilicio...</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <label class="col-xs-4 control-label">Ciudad de Nacimiento:</label>
+                            <div class="col-xs-8">
+                                <p class="form-control-static">Ciudad</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-6">
+                    <div class="form-group">
+                        <div class="row">
+                            <label class="col-xs-4 control-label">Fecha Nacimiento:</label>
+                            <div class="col-xs-8">
+                                <p class="form-control-static">dd-mm-yyyy</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <label class="col-xs-4 control-label">Estado Civil:</label>
+                            <div class="col-xs-8">
+                                <p class="form-control-static">Civil</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <label class="col-xs-4 control-label">Grupo Sangu&iacute;neo:</label>
+                            <div class="col-xs-8">
+                                <p class="form-control-static">Sangre</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <label class="col-xs-4 control-label">Sexo:</label>
+                            <div class="col-xs-8">
+                                <p class="form-control-static">M o F</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>-->
+    
+    <?php
+    for($i = 0; $i < count($lista_doc); $i++){
+        echo '<div class="block" id="datos_'.$i.'">';
+            echo '<div class="block-title">';
+                echo '<div class="block-options pull-right ">';
+                    echo '<a class="btn btn-alt btn-xs btn-default" data_inline = "'.$i.'" title="" id="btn_dat_'.$i.'" data-toggle="tooltip" href="javascript:void(0)" data-original-title="Contraer/Expandir">';
+                        echo '<i class="caret"></i>';
+                    echo '</a>';
+                echo '</div>';
+                if ($faltantes[$i] == $contador[$i]){
+                echo '<h3 class="red"><strong>'.$lista_doc[$i]['grupoarchivos'].'</strong></h3>';
+                } elseif ($faltantes[$i] < $contador[$i]) {
+                echo '<h3 class="yellow"><strong>'.$lista_doc[$i]['grupoarchivos'].'</strong></h3>';
+                } elseif ($faltantes[$i] == 0) {
+                echo '<h3 class="green"><strong>'.$lista_doc[$i]['grupoarchivos'].'</strong></h3>';
+                }
+            echo '</div>';
+            echo '<div class="block-content" id="data_'.$i.'">';
+                echo '<div class="row">';
+                    echo '<div class="col-xs-12">';
+                        echo '<div class="form-group">';
+                        foreach ($doc_x_persona as $docs){
+                            if ($docs['grupoarchivos'] == $lista_doc[$i]['grupoarchivos']){
+                           // echo '<input id="id_'.$i.'_'.$docs['tipo_doc_id'].'" value="0" hidden="hidden">';
+                            echo '<input id="td_'.$i.'_'.$docs['tipo_doc_id'].'" value="'.$docs['tipo_doc_id'].'" hidden="hidden">';
+                            echo '<input id="rl_'.$i.'_'.$docs['tipo_doc_id'].'" value="'.$docs['rellaboral_id'].'" hidden="hidden">';
+                            echo '<input id="nom_'.$i.'_'.$docs['tipo_doc_id'].'" value="'.$docs['codigo'].'_'.$datos_personal['ci'].'_'.$docs['rellaboral_id'].'.pdf" hidden="hidden">';
+                            echo '<input id="tamanio_'.$i.'_'.$docs['tipo_doc_id'].'" value="'.$docs['tamanio'].'" hidden="hidden">';
+                            echo '<input id="tipo_'.$i.'_'.$docs['tipo_doc_id'].'" value="'.$docs['tipo'].'" hidden="hidden">';
+                            echo '<div class="row">';
+                                echo '<label class="col-xs-4 control-label">'.$docs['tipo_documento'].' : </label>';
+                                echo '<div class="col-xs-4">';
+                                if ($docs['doc_presentado_id'] == ''){
+                                    echo '<p class="form-control-static red">SIN DOCUMENTO.</p>';
+                                    echo '<input id="data_'.$i.'_'.$docs['tipo_doc_id'].'" value="0" hidden="hidden">';
+                                    echo '<input id="id_'.$i.'_'.$docs['tipo_doc_id'].'" value="0" hidden="hidden">';
+                                    $fecha_emi[$i][$docs['tipo_doc_id']] = '';
+                                    $fecha_pres[$i][$docs['tipo_doc_id']] = '';
+                                    $f_1 = '';
+                                    $f_2 = '';
+                                    $f_3 = '';
+                                } else {
+                                    echo '<p class="form-control-static green"><a target="blank" href="/presentaciondoc/mostrar/'.$docs['doc_presentado_id'].'/'.$datos_personal['ci'].'/">'.$docs['nombre'].'</a></p>';
+                                    echo '<input id="data_'.$i.'_'.$docs['tipo_doc_id'].'" value="1" hidden="hidden">';
+                                    echo '<input id="id_'.$i.'_'.$docs['tipo_doc_id'].'" value="'.$docs['doc_presentado_id'].'" hidden="hidden">';
+                                    $fecha_emi[$i][$docs['tipo_doc_id']] = date('d-m-Y',  strtotime($docs['fecha_emi']));
+                                    $fecha_pres[$i][$docs['tipo_doc_id']] = date('d-m-Y',  strtotime($docs['fecha_pres']));
+                                    $f_1 = date('d-m-Y',  strtotime($docs['campo_aux_d1']));
+                                    $f_2 = date('d-m-Y',  strtotime($docs['campo_aux_d2']));
+                                    $f_3 = date('d-m-Y',  strtotime($docs['campo_aux_d3']));
+                                }
+                                echo '</div>';
+                                echo '<div class="col-xs-4">';
+                                    echo '<b class="btn btn-primary" data-toggle="modal" href="#mr_'.$i.'_'.$docs['tipo_doc_id'].'" ci="'.$datos_personal['ci'].'" codigo="'.$docs['codigo'].'" rellaboral_id="'.$docs['rellaboral_id'].'">Subir Archivo.</b>';
+                                    echo '<div id="mr_'.$i.'_'.$docs['tipo_doc_id'].'" class="modal" aria-hidden="true" role="dialog" tabindex="-1" style="display: none;">';
+                                        echo '<div class="modal-dialog">';
+                                            echo '<div class="modal-content">';
+                                                echo '<div class="modal-header">';
+                                                    echo '<button class="close" aria-hidden="true" data-dismiss="modal" type="button">×</button>';
+                                                    echo '<h3 class="modal-title">Subir Documento: '.$docs['tipo_documento'].'</h3>';
+                                                echo '</div>';
+                                                echo '<div  id="subir_foto">';//echo $docs['fecha_pres'].'|'.date('d-m-Y',  strtotime($docs['fecha_pres']));
+                                                    //echo '<div class="col-xs-offset-0">';
+                                                        echo '<div id="first_'.$i.'_'.$docs['tipo_doc_id'].'">';
+                                                            echo '<div class="form-group">';
+                                                                echo '<label class="col-md-4 control-label" for="example-username">Fecha Emisi&oacute;n</label>';
+                                                                echo '<div class="col-md-8">';
+                                                                    echo '<input type="text" id="f_emi_'.$i.'_'.$docs['tipo_doc_id'].'" class="form-control input-datepicker-close" data-date-format="dd-mm-yyyy" placeholder="dd-mm-yyyy" readonly="true" value="'.$fecha_emi[$i][$docs['tipo_doc_id']].'">';
+                                                                echo '</div>';
+                                                            echo '</div>';
+                                                            echo '<div class="form-group">';
+                                                                echo '<label class="col-md-4 control-label" for="example-username">Fecha Presentaci&oacute;n</label>';
+                                                                echo '<div class="col-md-8">';
+                                                                    echo '<input type="text" id="f_pres_'.$i.'_'.$docs['tipo_doc_id'].'" class="form-control input-datepicker-close" data-date-format="dd-mm-yyyy" placeholder="dd-mm-yyyy" readonly="true" value="'.$fecha_pres[$i][$docs['tipo_doc_id']].'">';
+                                                                echo '</div>';
+                                                            echo '</div>';
+                                                        if ($docs['campo_a']==''){
+                                                            echo '<input id="aux'.$i.'_'.$docs['tipo_doc_id'].'" value="0" hidden="hidden">';
+                                                        } elseif ($docs['campo_b']=='') {
+                                                            echo '<input id="aux'.$i.'_'.$docs['tipo_doc_id'].'" value="1" hidden="hidden">';
+                                                            echo '<div class="form-group">';
+                                                                echo '<label class="col-md-4 control-label" for="example-username">'.$docs['campo_a'].'</label>';
+                                                            if ($docs['tipo_a'] == 'date'){
+                                                                echo '<div class="col-md-8">';
+                                                                    echo '<input lbl="'.$docs['campo_a'].'" tipo="'.$docs['tipo_a'].'" type="text" id="campo1'.$i.'_'.$docs['tipo_doc_id'].'" class="form-control input-datepicker-close" data-date-format="dd-mm-yyyy" placeholder="dd-mm-yyyy" readonly="true" value="'.$f_1.'">';
+                                                                echo '</div>';
+                                                            } else {
+                                                                echo '<div class="col-md-8">';
+                                                                    echo '<input lbl="'.$docs['campo_a'].'" tipo="'.$docs['tipo_a'].'" type="text" id="campo1'.$i.'_'.$docs['tipo_doc_id'].'" value="'.$docs['campo_aux_v1'].'">';
+                                                                echo '</div>';
+                                                            }
+                                                            echo '</div>';
+                                                        } elseif ($docs['campo_c']=='') {
+                                                            echo '<input id="aux'.$i.'_'.$docs['tipo_doc_id'].'" value="2" hidden="hidden">';
+                                                            echo '<div class="form-group">';
+                                                                echo '<label class="col-md-4 control-label" for="example-username">'.$docs['campo_a'].'</label>';
+                                                            if ($docs['tipo_a'] == 'date'){
+                                                                echo '<div class="col-md-8">';
+                                                                    echo '<input lbl="'.$docs['campo_a'].'" tipo="'.$docs['tipo_a'].'" type="text" id="campo1'.$i.'_'.$docs['tipo_doc_id'].'" class="form-control input-datepicker-close" data-date-format="dd-mm-yyyy" placeholder="dd-mm-yyyy" readonly="true" value="'.$f_1.'">';
+                                                                echo '</div>';
+                                                            } else {
+                                                                echo '<div class="col-md-8">';
+                                                                    echo '<input lbl="'.$docs['campo_a'].'" tipo="'.$docs['tipo_a'].'" type="text" id="campo1'.$i.'_'.$docs['tipo_doc_id'].'"  value="'.$docs['campo_aux_v1'].'">';
+                                                                echo '</div>';
+                                                            }
+                                                            echo '</div>';
+                                                            echo '<div class="form-group">';
+                                                                echo '<label class="col-md-4 control-label" for="example-username">'.$docs['campo_b'].'</label>';
+                                                            if ($docs['tipo_b'] == 'date'){
+                                                                echo '<div class="col-md-8">';
+                                                                    echo '<input lbl="'.$docs['campo_b'].'" tipo="'.$docs['tipo_b'].'" type="text" id="campo2'.$i.'_'.$docs['tipo_doc_id'].'" class="form-control input-datepicker-close" data-date-format="dd-mm-yyyy" placeholder="dd-mm-yyyy" readonly="true" value="'.$f_2.'">';
+                                                                echo '</div>';
+                                                            } else {
+                                                                echo '<div class="col-md-8">';
+                                                                    echo '<input lbl="'.$docs['campo_b'].'" tipo="'.$docs['tipo_b'].'" type="text" id="campo2'.$i.'_'.$docs['tipo_doc_id'].'"  value="'.$docs['campo_aux_v2'].'">';
+                                                                echo '</div>';
+                                                            }
+                                                            echo '</div>';
+                                                        } else {
+                                                            echo '<input id="aux'.$i.'_'.$docs['tipo_doc_id'].'" value="3" hidden="hidden">';
+                                                            echo '<div class="form-group">';
+                                                                echo '<label class="col-md-4 control-label" for="example-username">'.$docs['campo_a'].'</label>';
+                                                            if ($docs['tipo_a'] == 'date'){
+                                                                echo '<div class="col-md-8">';
+                                                                    echo '<input lbl="'.$docs['campo_a'].'" tipo="'.$docs['tipo_a'].'" type="text" id="campo1'.$i.'_'.$docs['tipo_doc_id'].'" class="form-control input-datepicker-close" data-date-format="dd-mm-yyyy" placeholder="dd-mm-yyyy" readonly="true" value="'.$f_1.'">';
+                                                                echo '</div>';
+                                                            } else {
+                                                                echo '<div class="col-md-8">';
+                                                                    echo '<input lbl="'.$docs['campo_a'].'" tipo="'.$docs['tipo_a'].'" type="text" id="campo1'.$i.'_'.$docs['tipo_doc_id'].'"  value="'.$docs['campo_aux_v1'].'">';
+                                                                echo '</div>';
+                                                            }
+                                                            echo '</div>';
+                                                            echo '<div class="form-group">';
+                                                                echo '<label class="col-md-4 control-label" for="example-username">'.$docs['campo_b'].'</label>';
+                                                            if ($docs['tipo_b'] == 'date'){
+                                                                echo '<div class="col-md-8">';
+                                                                    echo '<input lbl="'.$docs['campo_b'].'" tipo="'.$docs['tipo_b'].'" type="text" id="campo2'.$i.'_'.$docs['tipo_doc_id'].'" class="form-control input-datepicker-close" data-date-format="dd-mm-yyyy" placeholder="dd-mm-yyyy" readonly="true" value="'.$f_2.'">';
+                                                                echo '</div>';
+                                                            } else {
+                                                                echo '<div class="col-md-8">';
+                                                                    echo '<input lbl="'.$docs['campo_b'].'" tipo="'.$docs['tipo_b'].'" type="text" id="campo2'.$i.'_'.$docs['tipo_doc_id'].'"  value="'.$docs['campo_aux_v2'].'">';
+                                                                echo '</div>';
+                                                            }
+                                                            echo '</div>';
+                                                            echo '<div class="form-group">';
+                                                                echo '<label class="col-md-4 control-label" for="example-username">'.$docs['campo_c'].'</label>';
+                                                            if ($docs['tipo_c'] == 'date'){
+                                                                echo '<div class="col-md-8">';
+                                                                    echo '<input lbl="'.$docs['campo_c'].'" tipo="'.$docs['tipo_c'].'" type="text" id="campo3'.$i.'_'.$docs['tipo_doc_id'].'" class="form-control input-datepicker-close" data-date-format="dd-mm-yyyy" placeholder="dd-mm-yyyy" readonly="true" value="'.$f_3.'">';
+                                                                echo '</div>';
+                                                            } else {
+                                                                echo '<div class="col-md-8">';
+                                                                    echo '<input lbl="'.$docs['campo_c'].'" tipo="'.$docs['tipo_c'].'" type="text" id="campo3'.$i.'_'.$docs['tipo_doc_id'].'" value="'.$docs['campo_aux_v3'].'" >';
+                                                                echo '</div>';
+                                                            }
+                                                            echo '</div>';
+                                                        }
+                                                            echo '<div class="form-group">';
+                                                                echo '<label class="col-md-4 control-label" for="example-username">Observaciones</label>';
+                                                                echo '<div class="col-md-8">';
+                                                                    echo '<input type="text" id="obs_'.$i.'_'.$docs['tipo_doc_id'].'" value="'.$docs['observacion'].'">';
+                                                                echo '</div>';
+                                                            echo '</div>';
+                                                        echo '</div>';
+                                                        echo '<div id="second_'.$i.'_'.$docs['tipo_doc_id'].'" hidden>';
+                                                            echo '<form action="/presentaciondoc/subir/'.$docs['codigo'].'/'.$datos_personal['ci'].'/'.$docs['rellaboral_id'].'/'.$i.'_'.$docs['tipo_doc_id'].'/" class="dropzone" id="myAwesomeDropzone"></form>';
+                                                        echo '</div>';
+                                                        echo '<div>';
+                                                            echo '<div class="col-md-8 col-md-offset-4">';
+                                                                echo '<c valor="'.$i.'_'.$docs['tipo_doc_id'].'" class="btn btn-sm btn-warning" id="back'.$i.'_'.$docs['tipo_doc_id'].'" disabled="true">Atr&aacute;s</c>';
+                                                                echo '<d valor="'.$i.'_'.$docs['tipo_doc_id'].'" class="btn btn-sm btn-primary" id="next'.$i.'_'.$docs['tipo_doc_id'].'">Siguiente</d>';
+                                                            echo '</div>';
+                                                        echo '</div>';
+                                                    //echo '</div>';
+                                                echo '</div>';
+                                                echo '<div class="modal-footer">';
+                                                    echo '<button class="btn btn-sm btn-default" data-dismiss="modal" id="cerrar" type="button">Cerrar</button>';
+                                                    echo '<e valor="'.$i.'_'.$docs['tipo_doc_id'].'"class="btn btn-sm btn-success" id="gr_'.$i.'_'.$docs['tipo_doc_id'].'" type="button" disabled="true">Grabar.</e>';
+                                                echo '</div>';
+                                            echo '</div>';
+                                        echo '</div>';
+                                    echo '</div>';
+                                echo '</div>';
+                            echo '</div>';
+                            }
+                        }
+                        echo '</div>';
+                    echo '</div>';
+                echo '</div>';
+            echo '</div>';
+        echo '</div>';
+    }
+    ?>
+</div>

@@ -1,0 +1,103 @@
+
+
+<div id="login-container" class="animation-fadeIn">
+    <div class="login-title text-center">
+        <h1><i class=""></i> <strong>SSPA</strong><br /><small>Sistema de Seguimiento a Procesos Administrativos</small></h1>
+    </div>
+    <div class="block remove-margin">
+        <?php
+        if (isset($_POST['username'])) {
+            $user = $_POST['username'];
+        } else {
+            $user = '';
+        }
+        ?>
+        <form action="" method="post" id="form-login" class="form-horizontal form-bordered form-control-borderless" />
+        <?php $this->flashSession->output(); ?> 
+        <div class="form-group">
+            <div class="col-xs-12">
+                <div class="input-group">
+                    <span class="input-group-addon"><i class="gi gi-user"></i></span>
+                    <input type="text" id="login-email" name="username" value="<?php echo $user ?>" class="form-control input-lg" placeholder="Usuario" />
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-xs-12">
+                <div class="input-group">
+                    <span class="input-group-addon"><i class="gi gi-lock"></i></span>
+                    <input type="password" id="login-password" name="password" class="form-control input-lg" placeholder="Contraseña" />
+                </div>
+            </div>
+        </div>
+        <div class="form-group form-actions">
+            <div class="col-xs-4">
+                <label class="switch switch-primary" data-toggle="tooltip" title="Remember Me?">
+                    <input type="checkbox" id="login-remember-me" name="login-remember-me" checked="" />
+                    <span></span>
+                </label>
+            </div>
+            <div class="col-xs-8 text-right">
+                <button type="submit" class="btn btn-sm btn-primary"><i class="fa fa-angle-right"></i> Ingresar</button>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-xs-12">
+                <p class="text-center remove-margin"><small>Copyright (c) 2016 - IMCM</small> <a href="javascript:void(0)" id="link-login"/><small> | Contactar al Autor</small></a></p>
+            </div>
+        </div>
+        </form>
+        <form action="login.php" method="post" id="form-register" class="form-horizontal form-bordered form-control-borderless display-none" onsubmit="return false;" />
+
+        <div class="form-group">
+            <div class="col-xs-12">
+                <div class="input-group">
+                    <span class="input-group-addon"><i class="gi gi-envelope"></i></span>
+                    <input type="text" id="register-email" name="register-email" class="form-control input-lg" placeholder="Email" />
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-xs-12">
+                <div class="input-group">
+                    <span class="input-group-addon"><i class="gi gi-text_bigger"></i></span>
+                    <textarea class="form-control input-lg" ></textarea>                   
+                </div>
+            </div>
+        </div>
+        <div class="form-group form-actions">
+            <div class="col-xs-6">
+                <a href="#modal-terms" data-toggle="modal" class="register-terms">Terms</a>
+                <label class="switch switch-primary" data-toggle="tooltip" title="Agree to the terms">
+                    <input type="checkbox" id="register-terms" name="register-terms" />
+                    <span></span>
+                </label>
+            </div>
+            <div class="col-xs-6 text-right">
+                <button type="submit" class="btn btn-sm btn-success"><i class="fa fa-plus"></i> Enviar</button>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-xs-12">
+                <p class="text-center remove-margin"><small>Tienes cuenta?</small> <a href="javascript:void(0)" id="link-register"><small>Login!</small></a></p>
+            </div>
+        </div>
+        </form>
+    </div>
+</div>
+<div id="modal-terms" class="modal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">Terms &amp; Conditions</h4>
+            </div>
+            <div class="modal-body">
+                <h4>Title</h4>
+                <p>Donec lacinia venenatis metus at bibendum? In hac habitasse platea dictumst. Proin ac nibh rutrum lectus rhoncus eleifend. Sed porttitor pretium venenatis. Suspendisse potenti. Aliquam quis ligula elit. Aliquam at orci ac neque semper dictum. Sed tincidunt scelerisque ligula, et facilisis nulla hendrerit non. Suspendisse potenti. Pellentesque non accumsan orci. Praesent at lacinia dolor. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+            </div>
+        </div>
+    </div>
+</div>
+

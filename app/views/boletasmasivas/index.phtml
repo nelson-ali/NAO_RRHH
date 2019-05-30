@@ -1,0 +1,658 @@
+<style>
+    .activeDay {
+        background-color: #ff0000 !important;
+    }
+
+    .clockpicker-popover {
+        z-index: 999999;
+    }
+</style>
+<h2 style="padding-top: 0px; width: 100%;"><b>Registro Masivo de Boletas</h2>
+<!--<h3 style="padding-top: 0px; width: 100%;">(Permisos, Comisiones, Licencias, Tolerancias y Horarios de Lactancia)</b></h3>-->
+<div id='divTabControlMarcaciones'>
+    <ul>
+        <li id="liList">Listado</li>
+        <li id="liTurnAndExcept">Calendario</li>
+    </ul>
+    <br>
+    <div style="height: 690px" class="row section" id="divList">
+        <div class="col-md-10">
+            <!-- Input Grid Block -->
+            <div class="block">
+                <!-- Input Grid Title -->
+                <div class="block-title">
+                    <div id='jqxWidget'>
+                        <div class="col-md-1"><br><label id="lblGestion">Gesti&oacute;n:</label></div>
+                        <div class="col-md-2" id="divGestionGen">
+                            <select id="lstGestion" class="form-control">
+                                <option value="">Seleccionar..</option>
+                            </select>
+                            <span class="help-block" id="helpErrorGestionGen"></span>
+                        </div>
+                        <!--<button class="btn btn-sm btn-primary" type="button" id="btnBuscarPorGestion" accesskey="i">
+                            <i class="fa fa-search"></i>
+                            Buscar
+                        </button>-->
+                        <br>
+                        <div id="divGridRelaborales"></div>
+                    </div>
+                </div>
+                <!-- END Input Grid Title -->
+
+            </div>
+            <!-- END Input Grid Block -->
+        </div>
+        <div class="col-md-2">
+            <!-- Input Grid Block -->
+            <div class="block">
+                <!-- Input Grid Title -->
+                <div class="block-title">
+                    <h2>Mostrar</h2>
+                    <br>
+                    <!--<input type="checkbox" id="chkAllCols"> Todas / Ninguna-->
+
+                    <!--<div id="hintWrapper">
+                        <div id="hintSection" class="hint">
+                        </div>
+                    </div>-->
+                </div>
+                <div id="jqxlistbox"></div>
+
+
+                <!-- END Input Grid Title -->
+            </div>
+            <!-- END Input Grid Block -->
+        </div>
+    </div>
+    <div style="height:2500px;display: none" class="section" id="divTurnAndMarc">
+        <form class="navbar-form" id="form" onsubmit="return false;">
+            <div id="tabFichaPersonalTurnAndExcept">
+                <ul margin-left: 30px;
+                ">
+                <li>Relaci&oacute;n Laboral</li>
+                <li>Datos Personales</li>
+                <li>Contacto Personal</li>
+                <li>Contacto Institucional</li>
+                </ul>
+                <div style="display: none;height: 250px;" class="form-horizontal col-sm-12">
+                    <br>
+
+                    <div class="widget">
+                        <div class="widget-simple themed-background-default">
+                            <a href="#" id="aFotoPerfilTurnAndExceptRelaboral">
+                                <img id="imgFotoPerfilTurnAndExceptRelaboral" class="img-rounded pull-right img-perfil">
+                            </a>
+                            <h4 class="widget-content">
+                                <div class="col-sm-5">
+                                    <dl class="dl-horizontal" STYLE="color: white;font-size: 13px;">
+                                        <dt class="dtNombresTurnAndExcept">Nombres:</dt>
+                                        <dd class="ddNombresTurnAndExcept"></dd>
+                                        <dt class="dtCIAndNumComplementoExpdTurnAndExcept">CI:</dt>
+                                        <dd class="ddCIAndNumComplementoExpdTurnAndExcept"></dd>
+                                        <dt id="dtCargoTurnAndExcept">Cargo:</dt>
+                                        <dd id="ddCargoTurnAndExcept"></dd>
+                                        <dt id="dtProcesoTurnAndExcept">Proceso:</dt>
+                                        <dd id="ddProcesoTurnAndExcept"></dd>
+                                        <dt id="dtFinanciamientoTurnAndExcept">Financiamiento:</dt>
+                                        <dd id="ddFinanciamientoTurnAndExcept"></dd>
+                                        <dt id="dtGerenciaTurnAndExcept">Gerencia:</dt>
+                                        <dd id="ddGerenciaTurnAndExcept"></dd>
+                                        <dt id="dtDepartamentoTurnAndExcept">Departamento:</dt>
+                                        <dd id="ddDepartamentoTurnAndExcept"></dd>
+                                    </dl>
+                                </div>
+                                <div class="col-sm-5">
+                                    <dl class="dl-horizontal" STYLE="color: white;font-size: 13px;">
+                                        <dt id="dtUbicacionTurnAndExcept">Ubicaci&oacute;n:</dt>
+                                        <dd id="ddUbicacionTurnAndExcept"></dd>
+                                        <dt id="dtItemTurnAndExcept">&Iacute;tem:</dt>
+                                        <dd id="ddItemTurnAndExcept"></dd>
+                                        <dt id="dtNivelSalarialTurnAndExcept">Nivel Salarial:</dt>
+                                        <dd id="ddNivelSalarialTurnAndExcept"></dd>
+                                        <dt id="dtHaberTurnAndExcept">Haber:</dt>
+                                        <dd id="ddHaberTurnAndExcept"></dd>
+                                        <dt id="dtFechaIngTurnAndExcept">Fecha Ingreso:</dt>
+                                        <dd id="ddFechaIngTurnAndExcept"></dd>
+                                        <dt id="dtFechaIniTurnAndExcept">Fecha Inicio:</dt>
+                                        <dd id="ddFechaIniTurnAndExcept"></dd>
+                                        <dt id="dtFechaIncorTurnAndExcept">Fecha Incorporaci&oacute;n:</dt>
+                                        <dd id="ddFechaIncorTurnAndExcept"></dd>
+                                        <dt id="dtFechaFinTurnAndExcept">Fecha Finalizaci&oacute;n:</dt>
+                                        <dd id="ddFechaFinTurnAndExcept"></dd>
+                                        <dt id="dtEstadoDescripcionTurnAndExcept">Estado:</dt>
+                                        <dd id="ddEstadoDescripcionTurnAndExcept"></dd>
+                                        <dt id="dtFechaBajaTurnAndExcept">Fecha Baja:</dt>
+                                        <dd id="ddFechaBajaTurnAndExcept"></dd>
+                                        <dt id="dtMotivoBajaTurnAndExcept">Motivo Baja:</dt>
+                                        <dd id="ddMotivoBajaTurnAndExcept"></dd>
+                                        <dt id="dtObservacionTurnAndExcept">Observaciones:</dt>
+                                        <dd id="ddObservacionTurnAndExcept"></dd>
+                                    </dl>
+                                </div>
+                            </h4>
+                        </div>
+                    </div>
+                </div>
+                <div style="display: none" class="form-horizontal col-sm-12">
+                    <br>
+
+                    <div class="widget">
+                        <div class="widget-simple themed-background-default">
+                            <a href="#" id="aFotoPerfilTurnAndExcept">
+                                <img id="imgFotoPerfilTurnAndExcept" class="img-rounded pull-right img-perfil">
+                            </a>
+                            <h4 class="widget-content">
+                                <div>
+                                    <dl class="dl-horizontal" STYLE="color: white;font-size: 13px;">
+                                        <dt id="dtNombresTurnAndExcept">Nombres y Apellidos:</dt>
+                                        <dd id="ddNombresTurnAndExcept"></dd>
+                                        <dt id="dtTipoDeDocumentoTurnAndExcept"></dt>
+                                        <dd id="ddNumeroDeDocumentoTurnAndExcept"></dd>
+                                        <dt id="dtNacionalidadTurnAndExcept">Nacionalidad:</dt>
+                                        <dd id="ddNacionalidadTurnAndExcept"></dd>
+                                        <dt id="dtLugarDeNacimientoTurnAndExcept">Lugar de Nacimiento:</dt>
+                                        <dd id="ddLugarDeNacimientoTurnAndExcept"></dd>
+                                        <dt id="dtFechaDeNacimientoTurnAndExcept">Fecha de Nacimiento:</dt>
+                                        <dd id="ddFechaDeNacimientoTurnAndExcept"></dd>
+                                    </dl>
+                                </div>
+                            </h4>
+                        </div>
+                    </div>
+                </div>
+                <div style="display: none" class="form-horizontal col-sm-12">
+                    <br>
+
+                    <div class="widget">
+                        <div class="widget-simple themed-background-default">
+                            <a href="#" id="aFotoPerfilContactoPerTurnAndExcept"><img
+                                    id="imgFotoPerfilContactoPerTurnAndExcept"
+                                    class="img-rounded pull-right img-perfil"></a>
+                            <h4 class="widget-content">
+                                <div>
+                                    <dl class="dl-horizontal" STYLE="color: white;font-size: 13px;">
+                                        <dt id="dtDireccionTurnAndExcept">Direcci&oacute;n:</dt>
+                                        <dd id="ddDireccionTurnAndExcept"></dd>
+                                        <dt id="dtTelefonoFijoTurnAndExcept">Tel&eacute;fono Fijo:</dt>
+                                        <dd id="ddTelefonoFijoTurnAndExcept"></dd>
+                                        <dt id="dtCelularPerTurnAndExcept">Celular Personal:</dt>
+                                        <dd id="ddCelularPerTurnAndExcept"></dd>
+                                        <dt id="dtEmailPerTurnAndExcept">E-Mail Personal:</dt>
+                                        <dd id="ddEmailPerTurnAndExcept"></dd>
+                                        <dt id="dtAuxiliar1TurnAndExcept">&nbsp;</dt>
+                                        <dd id="ddAuxiliar1TurnAndExcept">&nbsp;</dd>
+                                    </dl>
+                                </div>
+                            </h4>
+                        </div>
+                    </div>
+                </div>
+                <div style="display: none" class="form-horizontal col-sm-12">
+                    <br>
+
+                    <div class="widget">
+                        <div class="widget-simple themed-background-default">
+                            <a href="#" id="aFotoPerfilContactoInstTurnAndExcept"><img
+                                    id="imgFotoPerfilContactoInstTurnAndExcept"
+                                    class="img-rounded pull-right img-perfil"></a>
+                            <h4 class="widget-content">
+                                <div>
+                                    <dl class="dl-horizontal" STYLE="color: white;font-size: 13px;">
+                                        <dt id="dtTelefonoInstTurnAndExcept">Tel&eacute;fono Inst.:</dt>
+                                        <dd id="ddTelefonoInstTurnAndExcept"></dd>
+                                        <dt id="dtCelularInstTurnAndExcept">Celular Corporativo:</dt>
+                                        <dd id="ddCelularInstTurnAndExcept"></dd>
+                                        <dt id="dtTelefonoFaxTurnAndExcept">Fax:</dt>
+                                        <dd id="ddTelefonoFaxTurnAndExcept"></dd>
+                                        <dt id="dtInternoInstTurnAndExcept">N&uacute;mero Interno:</dt>
+                                        <dd id="ddInternoInstTurnAndExcept"></dd>
+                                        <dt id="dtEmailInstTurnAndExcept">E-Mail Institucional:</dt>
+                                        <dd id="ddEmailInstTurnAndExcept"></dd>
+                                    </dl>
+                                </div>
+                            </h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <br>
+            <!-- Contenido referente al calendario laboral y gestión de horarios -->
+            <div id="page-content">
+                <!-- FullCalendar Content -->
+                <div class="block block-alt-noborder full">
+                    <div class="block-title">
+                        <div class="block-options pull-right">
+                            <a id="btnImprimirCalendarioLaboralAndExcept" class="btn btn-alt btn-sm btn-default"
+                               title="Imprimir Todo" data-toggle="tooltip" href="javascript:void(0)"
+                               data-original-title="Imprimir">
+                                <i class="fa fa-print"></i>
+                            </a>
+                        </div>
+                        <h2>
+                            <strong><span id="spanPrefijoCalendarioLaboral"></span></strong>
+                            Calendario de Turnos Laborales
+                            <span id="spanSufijoCalendarioLaboral"></span>
+                        </h2>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div id="calendar"></div>
+                        </div>
+                        <div class="col-md-12" id="divCalendarioDetalles">
+                            <div class="block block-alt-noborder full">
+                                <div class="block-title">
+                                    <div class="block-options pull-right">
+                                        <a id="btnImprimirCalendarioDetalle" class="btn btn-alt btn-sm btn-default"
+                                           title="Imprimir Calendario Detalle" data-toggle="tooltip"
+                                           href="javascript:void(0)"
+                                           data-original-title="Imprimir">
+                                            <i class="fa fa-print"></i>
+                                        </a>
+                                    </div>
+                                    <h2><strong>Calendario</strong> Detalle</h2>
+                                </div>
+                                <div>
+                                    <div id="divGridCalendario"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="divGrupoBotonesTurnAndExcept" class="btn-group">
+                        <button id="btnCancelarTurnAndExcept" class="btnCancelarTurnAndExcept btn btn-warning"
+                                type="button"><i class="fa fa-repeat"></i> Cancelar / Volver a Listado Principal
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <!-- END FullCalendar Block -->
+            <!-- END FullCalendar Content -->
+        </form>
+    </div>
+</div>
+<!--</form></div>-->
+<div style="display: none;" class="modal fade bs-example-modal-lg" id="popupDescripcionHorario" tabindex="-1"
+     role="dialog"
+     aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <form class="form-horizontal" id="testForm_perfil" data-toggle="validator" onsubmit="return false;"/>
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span
+                        class="sr-only">Cerrar</span></button>
+                <h4 class="modal-title" id="tituloModal">Horario</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                DATOS DEL HORARIO SELECCIONADO
+                            </div>
+                            <div class="panel-body form-horizontal">
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label" for="txtNombreHorario">Nombre Horario:</label>
+
+                                    <div class="col-md-6" form-group>
+                                        <input type="text" id="txtNombreHorario" class="form-control" readonly>
+                                    </div>
+                                </div>
+                                <div class="form-group" id="divNombreAlternativoHorario">
+                                    <label class="col-sm-3 control-label" for="txtNombreAlternativoHorario">Nombre
+                                        Alternativo:</label>
+
+                                    <div class="col-md-6" form-group>
+                                        <textarea id="txtNombreAlternativoHorario" class="form-control"
+                                                  readonly></textarea>
+                                    </div>
+                                </div>
+                                <div class="form-group" id="divColorHorario">
+                                    <label class="col-sm-3 control-label" for="txtColorHorario">Color:</label>
+
+                                    <div class="col-md-6" form-group>
+                                        <input type="text" id="txtColorHorario" value="#FFFFFF" class="form-control"
+                                               readonly>
+                                    </div>
+                                </div>
+                                <fieldset>
+                                    <legend><i class="fa fa-angle-right"></i> Horario Entrada / Salida</legend>
+                                    <div class="form-group">
+                                        <div class="div-calendario-laboral" id="divHoraEntHorario">
+                                            <label class="col-sm-2 control-label"
+                                                   for="txtHoraEntHorario">Entrada:</label>
+
+                                            <div class="col-md-2" form-group>
+                                                <input id="txtHoraEntHorario" name="txtHoraEntHorario"
+                                                       placeholder="Hora de entrada." class="form-control" type="text"
+                                                       readonly>
+                                            </div>
+                                        </div>
+                                        <div class="div-calendario-laboral" id="divHoraSalHorario">
+                                            <label class="col-sm-2 control-label"
+                                                   for="txtHoraSalHorario">Salida:</label>
+
+                                            <div class="col-md-2" form-group>
+                                                <input id="txtHoraSalHorario" name="txtHoraSalHorario"
+                                                       class="form-control" type="text" readonly>
+                                            </div>
+                                        </div>
+                                        <label class="col-sm-2 control-label" for="txtHorasLaborales">Horas
+                                            Laborales:</label>
+
+                                        <div class="col-md-2">
+                                            <input id="txtHorasLaborales" name="txtHorasLaborales"
+                                                   placeholder="Horas Laborales." type="text" class="form-control"
+                                                   readonly>
+                                        </div>
+                                    </div>
+                                </fieldset>
+                                <fieldset>
+                                    <legend><i class="fa fa-angle-right"></i> Rango Control Marcaciones</legend>
+                                    <div class="form-group">
+                                        <div class="div-calendario-laboral" id="divHoraInicioRangoEnt">
+                                            <label class="col-sm-3 control-label" for="txtHoraInicioRangoEnt">Inicio
+                                                Entrada:</label>
+
+                                            <div class="col-md-3">
+                                                <input id="txtHoraInicioRangoEnt" name="txtHoraInicioRangoEnt"
+                                                       placeholder="Hora de entrada." class="form-control" type="text"
+                                                       readonly>
+                                            </div>
+                                        </div>
+                                        <div class="div-calendario-laboral" id="divHoraFinalizacionRangoEnt">
+                                            <label class="col-sm-3 control-label" for="txtHoraFinalizacionRangoEnt">Finalizaci&oacute;n
+                                                Entrada:</label>
+
+                                            <div class="col-md-3">
+                                                <input id="txtHoraFinalizacionRangoEnt"
+                                                       name="txtHoraFinalizacionRangoEnt" class="form-control"
+                                                       type="text" readonly>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="div-calendario-laboral" id="divHoraInicioRangoSal">
+                                            <label class="col-sm-3 control-label" for="txtHoraInicioRangoSal">Inicio
+                                                Salida:</label>
+
+                                            <div class="col-md-3">
+                                                <input id="txtHoraInicioRangoSal" name="txtHoraInicioRangoSal"
+                                                       placeholder="Hora de inicio de salida." class="form-control"
+                                                       type="text" readonly>
+                                            </div>
+
+                                        </div>
+                                        <div class="div-calendario-laboral" id="divHoraFinalizacionRangoSal">
+                                            <label class="col-sm-3 control-label" for="txtHoraFinalizacionRangoSal">Fin
+                                                Salida:</label>
+
+                                            <div class="col-md-3">
+                                                <input id="txtHoraFinalizacionRangoSal"
+                                                       name="txtHoraFinalizacionRangoSal"
+                                                       placeholder="Hora de finalizaci&oacute;n de salida."
+                                                       class="form-control" type="text" readonly>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </fieldset>
+                                <fieldset>
+                                    <legend><i class="fa fa-angle-right"></i> Rango Fechas</legend>
+                                    <div class="form-group">
+                                        <div class="div-calendario-laboral" id="divHorarioFechaIni">
+                                            <label class="col-sm-3 control-label" for="txtHorarioFechaIni">Fecha
+                                                Inicio:</label>
+
+                                            <div class="col-md-3">
+                                                <input id="txtHorarioFechaIni" name="txtHorarioFechaIni"
+                                                       class="form-control input-datepicker" placeholder="Desde"
+                                                       data-date-format="dd-mm-yyyy" type="text">
+                                            </div>
+                                        </div>
+                                        <div class="div-calendario-laboral" id="divHorarioFechaFin">
+                                            <label class="col-sm-3 control-label" for="txtHorarioFechaFin">Fecha
+                                                Fin:</label>
+
+                                            <div class="col-md-3">
+                                                <input id="txtHorarioFechaFin" name="txtHorarioFechaFin"
+                                                       class="form-control input-datepicker" placeholder="Hasta"
+                                                       data-date-format="dd-mm-yyyy" type="text">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </fieldset>
+                                <fieldset>
+                                    <legend><i class="fa fa-angle-right"></i> Observaciones</legend>
+                                    <div class="form-group div-move-relab" id="divObservacion">
+                                        <label class="col-md-3 control-label"
+                                               for="txtObservacion">Observaciones:</label>
+
+                                        <div class="col-md-6">
+                                            <textarea id="txtObservacion" name="txtObservacion" class="form-control"
+                                                      placeholder="Observaciones.." readonly></textarea>
+                                        </div>
+                                    </div>
+                                </fieldset>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" id="btnCerrarHorario" class="btn btn-primary" data-dismiss="modal"><i
+                        class="fa fa-compress"></i>Cerrar
+                </button>
+                <button type="button" id="btnGuardarModificacionHorario" class="btn btn-primary"><i
+                        class="fa fa-pencil"></i>Guardar Modificaci&oacute;n de Fechas
+                </button>
+                <button type="button" id="btnDescartarHorario" class="btn btn-primary"><i class="gi gi-bin"></i>Descartar
+                </button>
+            </div>
+            </form>
+        </div>
+    </div>
+</div>
+<div style="display: none;" class="modal fade bs-example-modal-lg" id="popupFormularioRegistroMasivo"
+     tabindex="-1" role="dialog"
+     aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <form class="form-horizontal" id="formGestionMesGeneracionMarcaciones" data-toggle="validator"
+                  onsubmit="return false;"/>
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span
+                        class="sr-only">Cerrar</span></button>
+                <h4 class="modal-title" id="h4ModalGestionMesGeneracionMarcaciones">Formulario de Registro Masivo de
+                    Boletas <label id="lblCantidadPersonasSeleccionadas"></label></h4>
+            </div>
+            <div class="modal-body">
+                <div id="divProgressBar" class="col-md-12 bars-container">
+                    <div class="progress progress-striped active">
+                        <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="0"
+                             aria-valuemin="0" aria-valuemax="100" style="width: 0%;">0%
+                        </div>
+                    </div>
+                </div>
+                <h6><b>NOTA: </b>Los datos precedidos de asterisco son requerido de manera obligatoria <span
+                        style="font-size:18px;" class="text-danger"><b>*</b></span>.</h6>
+                <div class="row">
+                    <div class="form-horizontal col-md-12">
+                        <div class="form-group  div-boletas-masivas" id="divExcepcion">
+                            <label class="col-md-2 control-label" for="lstExcepcion"><i
+                                    class="iExcepcion fa fa-question-circle" id="iExcepcion"></i> Tipo <span
+                                    class="text-danger">*</span>:</label>
+                            <div class="col-md-8">
+                                <select id="lstExcepcion" class="form-control" style="  width:100%">
+                                    <option value="">Seleccionar..</option>
+                                </select>
+                                <span class="help-block" id="helpErrorExcepcion"></span>
+                            </div>
+                        </div>
+                        <div class="row input-daterange">
+                            <div class="div-boletas-masivas" id="divFechaIni">
+                                <label class="col-md-2 control-label" for="txtFechaIni">Fecha Inicio <span
+                                        class="text-danger">*</span>:</label>
+
+                                <div class="col-md-3">
+                                    <input type="text" id="txtFechaIni" name="txtFechaIni"
+                                           class="form-control input-datepicker-close" placeholder="dd-mm-yyyy"
+                                           data-date-format="dd-mm-yyyy" type="text">
+                                    <span class="help-block" id="helpErrorFechaIni"></span>
+                                </div>
+                            </div>
+                            <div class="div-boletas-masivas" id="divFechaFin">
+                                <label class="col-md-2 control-label" for="txtFechaFin">Fecha Final <span
+                                        class="text-danger">*</span>:</label>
+
+                                <div class="col-md-3">
+                                    <input type="text" id="txtFechaFin" name="txtFechaFin"
+                                           class="form-control  input-datepicker-close" placeholder="dd-mm-yyy"
+                                           data-date-format="dd-mm-yyyy" type="text">
+                                    <span class="help-block" id="helpErrorFechaFin"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row" id="divHorarios">
+                            <div class="div-boletas-masivas" id="divHoraIni">
+                                <label class="col-md-2 control-label" for="txtHoraIni">Hora Inicio <span
+                                        class="text-danger">*</span>:</label>
+
+                                <div class="col-md-3">
+                                    <div class="input-group clockpicker">
+                                        <input type="text" id="txtHoraIni"
+                                               class="form-control hora-ini-control-excepcion">
+                        <span class="input-group-btn" id="spanHoraIni">
+                        <a id="aHoraIni" class="btn btn-success"><i class="fa fa-clock-o"></i></a>
+                        </span>
+                                    </div>
+                                    <span class="help-block" id="helpErrorHoraIni"></span>
+                                </div>
+                            </div>
+                            <div class="div-boletas-masivas" id="divHoraFin">
+                                <label class="col-md-2 control-label" for="txtHoraFin">Hora Final <span
+                                        class="text-danger">*</span>:</label>
+
+                                <div class="col-md-3">
+                                    <div class="input-group clockpicker">
+                                        <input type="text" id="txtHoraFin"
+                                               class="form-control hora-fin-control-excepcion">
+                        <span class="input-group-btn" id="spanHoraFin">
+                        <a id="aHoraFin" class="btn btn-success"><i class="fa fa-clock-o"></i></a>
+                        </span>
+                                    </div>
+                                    <span class="help-block" id="helpErrorHoraFin"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group div-boletas-masivas" id="divJustificacionRegistroMasivo">
+                            <label class="col-md-2 control-label" for="txtJustificacionRegistroMasivo">Justificaci&oacute;n <span
+                                    class="text-danger">*</span>:</label>
+
+                            <div class="col-md-8">
+                            <textarea id="txtJustificacionRegistroMasivo" name="txtJustificacionRegistroMasivo"
+                                      class="form-control"
+                                      placeholder="Justificaci&oacute;n.."></textarea>
+                                <span class="help-block" id="helpErrorJustificacionRegistroMasivo"></span>
+                            </div>
+
+                        </div>
+                        <div class="form-group div-boletas-masivas" id="divDestino">
+                            <label class="col-md-2 control-label" for="txtDestino">Lugar <span
+                                    class="text-danger">*</span>:</label>
+
+                            <div class="col-md-8">
+                        <textarea id="txtDestino" name="txtDestino" class="form-control"
+                                  placeholder="Lugar.."></textarea>
+                                <span class="help-block" id="helpErrorDestino"></span>
+                            </div>
+                        </div>
+                        <div id="divCompensacion">
+                            <legend><i class="fa fa-angle-right"></i> Compensaci&oacute;n</legend>
+                            <div class="row">
+                                <div class="div-boletas-masivas" id="divCompensacionTurno">
+                                    <label class="col-sm-2 control-label" for="lstCompensacionTurno">Turno <span
+                                            class="text-danger">*</span>:</label>
+
+                                    <div class="col-md-3">
+                                        <select id="lstCompensacionTurno" class="form-control">
+                                            <option value="">Seleccionar..</option>
+                                        </select>
+                                        <span class="help-block" id="helpErrorCompensacionTurno"></span>
+                                    </div>
+                                </div>
+                                <div class="div-boletas-masivas" id="divCompensacionEntradaSalida">
+                                    <label class="col-md-2 control-label" for="lstCompensacionEntradaSalida">Marcaci&oacute;n
+                                        *:</label>
+
+                                    <div class="col-md-3">
+                                        <select id="lstCompensacionEntradaSalida" class="form-control">
+                                            <option value="">Seleccionar..</option>
+                                        </select>
+                                        <span class="help-block" id="helpErrorCompensacionEntradaSalida"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group div-boletas-masivas" id="divObservacionRegistroMasivo">
+                            <label class="col-md-2 control-label" for="txtObservacionRegistroMasivo"
+                                   id="lblObservacionRegistroMasivo">Observaciones:</label>
+
+                            <div class="col-md-8">
+                        <textarea id="txtObservacionRegistroMasivo" name="txtObservacionRegistroMasivo"
+                                  class="form-control"
+                                  placeholder="Observaciones.."></textarea>
+                            </div>
+                            <span class="help-block" id="helpErrorObservacionRegistroMasivo"></span>
+                        </div>
+                        <div class="col-md-12 div-boletas-masivas" id="divErrores">
+                            <div class="block">
+                                <div class="block-title">
+                                    <h2>
+                                        <i class="text-danger fa fa-exclamation-triangle"></i> <strong>Errores</strong> por Cruce de
+                                        Horarios, Frecuencia de Uso y/o G&eacute;nero
+                                    </h2>
+                                </div>
+                                <div id="divGrillaErrores" class="block-content"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-warning" type="button" id="btnCerrarFormularioRegistroMasivo"
+                        data-dismiss="modal"><i class="fa fa-compress"></i> Cerrar
+                </button>
+                <button type="button" id="btnAplicarRegistroMasivo" class="btn btn-success"><i
+                        class="fa fa-thumbs-o-up"></i> Aplicar
+                </button>
+            </div>
+            </form>
+        </div>
+    </div>
+</div>
+<div style="display: none;" id="divModalDetalleExcepcion" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="h4Title">Detalle</h4>
+            </div>
+            <div class="modal-body" id="divModalBody"></div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="divMsjeNotificacionError">
+    <div id="divMsjePorError">
+    </div>
+</div>
+<div id="divMsjeNotificacionWarning">
+    <div id="divMsjePorWarning">
+    </div>
+</div>
+<div id="divMsjeNotificacionSuccess">
+    <div id="divMsjePorSuccess">
+    </div>
+</div>

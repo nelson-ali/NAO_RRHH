@@ -1,0 +1,337 @@
+<script type="text/javascript">
+$(document).ready(function () {
+		var source =
+		{
+			datatype: "json",
+			datafields: [
+				{ name: 'id',type: 'number'},
+				{ name: 'tipo_resolucion',type: 'string'},
+				//{ name: 'numero_res',type: 'number'},
+				{ name: 'fecha_emi',type:'date',format: 'dd-MM-yyyy'},
+				{ name: 'fecha_apr',type:'date',format: 'dd-MM-yyyy'},
+				{ name: 'fecha_fin',type:'date',format: 'dd-MM-yyyy'},
+				{ name: 'activo',type:'number'},
+				{ name: 'activo_descripcion',type:'string'},
+				{ name: 'uso_string',type:'string'},
+				{ name: 'uso',type:'number'}
+			],
+			url: '/resoluciones/list',
+			cache: false
+		};
+		var dataAdapter = new $.jqx.dataAdapter(source);
+		cargar();	
+		function cargar(){
+			$("#divGrillaResoluciones").jqxGrid(
+			{
+                width: '100%',
+                source: dataAdapter,
+                sortable: true,
+                altRows: true,
+                columnsresize: true,
+                pageable: true,
+                pagerMode: 'advanced',
+                showfilterrow: true,
+                filterable: true,
+                autorowheight: true,
+                autoshowfiltericon: false,
+                virtualmode: true,
+                showtoolbar: true,
+                rendergridrows: function (obj) {
+                    return obj.data;
+                },
+                enablebrowserselection: true,
+                rendertoolbar: function (toolbar) {
+                    var me = this;
+                    var container = $("<div></div>");
+                    toolbar.append(container);
+                    container.append("<button title='Nuevo registro' id='addnewrowbutton' class='btn btn-sm btn-primary' type='button'><i class='fa fa-plus-square fa-2x text-primary' title='Nuevo Registro'/></i></button>");
+                    container.append("<button title='Modificar registro' id='updaterowbutton'  class='btn btn-sm btn-primary' type='button' ><i class='fa fa-pencil-square fa-2x text-info' title='Modificar registro'/></button>");
+                    container.append("<button title='Dar de baja al registro' id='deleterowbutton' class='btn btn-sm btn-primary' type='button'><i class='fa fa-minus-square fa-2x text-danger' title='Dar de baja al registro'/></i></button>");
+                    container.append("<button title='Refrescar Grilla' id='refreshbutton' class='btn btn-sm btn-primary' type='button'><i class='fa fa-repeat fa-2x text-default' title='Refrescar grilla'/></i></button>");
+                    container.append("<button title='Desagrupar' id='cleargroupsrowbutton' class='btn btn-sm btn-primary' type='button'><i class='fa fa-chain-broken fa-2x text-default' title='Desagrupar'/></i></button>");
+                    container.append("<button title='Desfiltrar' id='clearfiltersrowbutton' class='btn btn-sm btn-primary' type='button'><i class='gi gi-sorting fa-2x text-default' title='Desfiltrar'/></i></button>");
+
+                    $("#addnewrowbutton").jqxButton();
+                    $("#updaterowbutton").jqxButton();
+                    $("#deleterowbutton").jqxButton();
+                    $("#refreshbutton").jqxButton();
+                    $("#cleargroupsrowbutton").jqxButton();
+                    $("#clearfiltersrowbutton").jqxButton();
+
+                    $("#uso").off();
+                    $("#uso").on("change",function(){
+                        if($("#uso").val() >= 1 && $("#uso").val() <= 3){
+                            $("#activo_id").show();
+                        }else{
+                            $("#activo_id").hide();
+                        }
+                    });
+
+                    $("#addnewrowbutton").off();
+                    $("#addnewrowbutton").on('click', function () {
+                        $("#titulo").text("Adicionar");
+                        $("#id").val("");
+                        $("#tipo_resolucion").val("");
+                        $("#uso").val('0');
+                        $("#activo").val('0');
+                        $("#fecha_emi").val("");
+                        $("#fecha_apr").val("");
+                        $("#fecha_fin").val("");
+                        $('#myModal').modal('show');
+                        $('#myModal').on('shown.bs.modal', function () {
+                            $("#activo_id").hide();
+                            $("#tipo_resolucion").focus();
+                        });
+
+                    });
+                    $("#updaterowbutton").off();
+                    $("#updaterowbutton").on("click",function(){
+                        var selectedrowindex = $("#divGrillaResoluciones").jqxGrid('getselectedrowindex');
+                        if (selectedrowindex >= 0) {
+                            var dataRecord = $("#divGrillaResoluciones").jqxGrid('getrowdata', selectedrowindex);
+                            if (dataRecord != undefined) {
+                                $("#titulo").text("Editar");
+                                $("#id").val(dataRecord.id);
+                                $("#tipo_resolucion").val(dataRecord.tipo_resolucion);
+                                $("#uso").val(dataRecord.uso);
+                                $("#activo").val(dataRecord.activo);
+                                if (dataRecord.uso>=1 && dataRecord.uso<=3) {$("#activo_id").show();
+                                }else{
+                                    $("#activo_id").hide();
+                                }
+                                var fe = $.jqx.dataFormat.formatdate(dataRecord.fecha_emi, 'dd-MM-yyyy');
+                                var fa = $.jqx.dataFormat.formatdate(dataRecord.fecha_apr, 'dd-MM-yyyy');
+                                var ff = $.jqx.dataFormat.formatdate(dataRecord.fecha_fin, 'dd-MM-yyyy');
+                                $("#fecha_emi").val(fe);
+                                $("#fecha_apr").val(fa);
+                                $("#fecha_fin").val(ff);
+                                $('#myModal').modal('show');
+                            }else{
+                                var msje = "Error al seleccionar el cargo.";
+                                $("#divMsjePorWarning").html("");
+                                $("#divMsjePorWarning").append(msje);
+                                $("#divMsjeNotificacionWarning").jqxNotification("open");
+                            }
+                        } else {
+                            var msje = "Debe seleccionar un registro necesariamente.";
+                            $("#divMsjePorError").html("");
+                            $("#divMsjePorError").append(msje);
+                            $("#divMsjeNotificacionError").jqxNotification("open");
+                        }
+                    });
+                    $("#deleterowbutton").off();
+                    $("#deleterowbutton").on('click', function () {
+                        var selectedrowindex = $("#divGrillaResoluciones").jqxGrid('getselectedrowindex');
+                        if (selectedrowindex >= 0) {
+                            var dataRecord = $("#divGrillaResoluciones").jqxGrid('getrowdata', selectedrowindex);
+                            if (dataRecord != undefined) {
+                                if($("#id").val()!=""){
+                                    bootbox.confirm("<strong>¡Mensaje!</strong> Esta seguro de eliminar el registro.", function(result) {
+                                        if (result==true) {
+                                            var v=$.ajax({
+                                                url:'/resoluciones/delete/',
+                                                type:'POST',
+                                                datatype: 'json',
+                                                data:{id:$("#id").val()},
+                                                success: function(data) { cargar(); //alert('Guardado Correctamente');
+                                                }, //mostramos el error
+                                                error: function() { alert('Se ha producido un error Inesperado'); }
+                                            });
+                                        }
+                                    });
+                                }else{
+                                    bootbox.alert("<strong>¡Mensaje!</strong> Seleccionar un registro para eliminar.");
+                                }
+                            }else{
+                                var msje = "Error al seleccionar el cargo.";
+                                $("#divMsjePorWarning").html("");
+                                $("#divMsjePorWarning").append(msje);
+                                $("#divMsjeNotificacionWarning").jqxNotification("open");
+                            }
+                        } else {
+                            var msje = "Debe seleccionar un registro necesariamente.";
+                            $("#divMsjePorError").html("");
+                            $("#divMsjePorError").append(msje);
+                            $("#divMsjeNotificacionError").jqxNotification("open");
+                        }
+                    });
+                    /**
+                     * Refrescar la grilla
+                     */
+                    $("#refreshbutton").on('click', function () {
+                        $("#divGrillaResoluciones").jqxGrid("updatebounddata");
+                    });
+                    /**
+                     * Desagrupar
+                     */
+                    $("#cleargroupsrowbutton").off();
+                    $("#cleargroupsrowbutton").on('click', function () {
+                        $("#divGrillaResoluciones").jqxGrid('cleargroups');
+                    });
+                    /**
+                     * Desfiltrar
+                     */
+                    $("#clearfiltersrowbutton").off();
+                    $("#clearfiltersrowbutton").on('click', function () {
+                        $("#divGrillaResoluciones").jqxGrid('clearfilters');
+                    });
+                },
+				columns: [
+                    {
+                        text: 'Nro.',
+                        sortable: false,
+                        filterable: false,
+                        editable: false,
+                        groupable: false,
+                        draggable: false,
+                        resizable: false,
+                        columntype: 'number',
+                        pinned: true,
+                        width: 50,
+                        cellsalign: 'center',
+                        align: 'center',
+                        cellsrenderer: rownumberrenderer
+                    },
+				{ text: 'Resolucion', datafield: 'tipo_resolucion', filtertype: 'input',width: '35%' },
+				{ text: 'Activo', datafield: 'activo_descripcion', filtertype: 'input', align: 'center', cellsalign:'center', width: '5%' },
+				{ text: 'Fecha Emision', datafield: 'fecha_emi', filtertype: 'range', width: '10%', cellsalign: 'center', cellsformat: 'dd-MM-yyyy',align:'center'},
+				{ text: 'Fecha Aprobación', datafield: 'fecha_apr', filtertype: 'range', width: '10%', cellsalign: 'center', cellsformat: 'dd-MM-yyyy',align:'center'},
+				{ text: 'Fecha Finalizacion', datafield: 'fecha_fin', filtertype: 'range', width: '10%', cellsalign: 'center', cellsformat: 'dd-MM-yyyy',align:'center'},
+				{ text: 'Uso Especifico', datafield: 'uso_string',filtertype: 'input', width: '20%' },
+				]
+			});
+
+            }
+
+
+$('#testForm').validate({
+	rules: {
+		fecha_apr: {
+			required: true
+		},
+		fecha_emi: {
+			required: true
+		},
+		tipo_resolucion: {
+			required: true
+		}
+		// ,
+		// numero_res: {
+		// 	required: true
+		// }
+	},
+	highlight: function (element) {
+		$(element).closest('.control-group').removeClass('success').addClass('error');
+	},
+	success: function (element) {
+        //element.text('OK!').addClass('valid').closest('.control-group').removeClass('error').addClass('success');
+        element.addClass('valid').closest('.control-group').removeClass('error').addClass('success');
+    },
+    submitHandler: function (form) {
+            // form validates so do the ajax
+            var fecha_apr = $('#fecha_apr').val();
+            var fecha_emi = $('#fecha_emi').val();
+            var v=$.ajax({
+            	url:'/resoluciones/save/',
+            	type:'POST',
+            	datatype: 'json',
+            	data:{id:$("#id").val(),tipo_resolucion:$("#tipo_resolucion").val(),uso:$("#uso").val(),activo:$("#activo").val(),fecha_apr:fecha_apr,fecha_emi:fecha_emi},
+						success: function(data) { cargar(); //alert(data); 
+												}, //mostramos el error
+												error: function() { alert('Se ha producido un error Inesperado'); }
+											});
+            $('#myModal').modal('hide');
+            return false; // ajax used, block the normal submit
+        }
+    });		
+            
+	});
+var rownumberrenderer = function (row, columnfield, value, defaulthtml, columnproperties, rowdata) {
+    var nro = row + 1;
+    return "<div align='center'>" + nro + "</div>";
+}
+</script>
+
+<div class="row">
+	<div class="col-lg-12">
+		<h1>Gesti&oacute;n Resoluciones</h1>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-lg-12">
+		<div class="panel panel-default">
+			<div class="panel-body">
+				<div class="table-responsive">
+					<div id="divGrillaResoluciones"></div>
+				</div>
+			</div>
+		</div>
+		
+	</div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<form class="form-horizontal" id="testForm" data-toggle="validator"/>
+			<div class="modal-header bg-success">
+				<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+				<h4 class="modal-title" id="titulo">Editar</h4>
+			</div>
+			<div class="modal-body">
+				<input id="id" name="id" type="hidden" />
+				<div class="form-group">
+					<label class="col-md-3 control-label">Resolución</label>
+					<div class="col-md-9">
+						<input id="tipo_resolucion" name="tipo_resolucion" type="text" class="form-control"/>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-md-3 control-label">Fecha Emisión</label>
+					<div class="col-md-9">
+						<input type="text" id="fecha_emi" name="fecha_emi"  class="form-control input-datepicker-close" data-date-format="dd-mm-yyyy" placeholder="dd-mm-yyyy" />
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-md-3 control-label">Fecha Aprobación</label>
+					<div class="col-md-9">
+						<input type="text" id="fecha_apr" name="fecha_apr" class="form-control input-datepicker-close" data-date-format="dd-mm-yyyy" placeholder="dd-mm-yyyy" />
+					</div>
+				</div>
+                <div class="form-group">
+                    <label class="col-md-3 control-label">Fecha Finalización</label>
+                    <div class="col-md-9">
+                        <input type="text" id="fecha_fin" name="fecha_fin" class="form-control input-datepicker-close" data-date-format="dd-mm-yyyy" placeholder="dd-mm-yyyy" />
+                    </div>
+                </div>
+				<div class="form-group">
+					<label class="col-md-3 control-label">Uso</label>
+					<div class="col-md-9">
+						<?php echo $uso ?>
+					</div>
+				</div>
+				<div class="form-group" id="activo_id">
+					<label class="col-md-3 control-label">Activo</label>
+					<div class="col-md-9">
+						<?php echo $activo ?>
+					</div>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+				<button type="submit" class="btn btn-primary" id="Save">Guardar</button>
+			</div>
+		</form>
+	</div>
+</div>
+</div>
+<!-- end  modal -->
+
+<style type="text/css">
+	.datepicker{
+		z-index:1151 !important;
+	}
+</style>
+

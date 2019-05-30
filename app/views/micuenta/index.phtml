@@ -1,0 +1,72 @@
+<style xmlns="http://www.w3.org/1999/html">
+    .activeDay {
+        background-color: #ff0000 !important;
+    }
+</style>
+<div style="min-height: 1020px;" id="page-content">
+    <!-- Forms General Header -->
+    <div class="content-header">
+        <div class="header-section">
+            <h1>
+                <i class="gi gi-notes_2"></i>Mi Cuenta<br>
+                <small> Modificaci&oacute;n de Contrase&ntilde;a</small>
+            </h1>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-2"></div>
+        <div class="col-md-8">
+            <div class="block">
+                <h6><strong>Nota:</strong> Se recomienda que la nueva Contrase&ntilde;a sea segura.</h6>
+                <div class="password-container">
+                    <p>
+                        <label>Actual:</label>
+                        <input id="txtPassword" class="strong-password" type="password"/>
+                        <span class="help-block" id="helpErrorPassword"></span>
+                    </p>
+
+                    <p>
+                        <label>
+                            Nueva:</label>
+                        <input id="txtPasswordA" class="strong-password" type="password"/>
+                        <span class="help-block" id="helpErrorPasswordA"></span>
+                    </p>
+
+                    <p>
+                        <label>
+                            Confirmaci&oacute;n:</label>
+                        <input id="txtPasswordB" class="strong-password" type="password"/>
+                        <span class="help-block" id="helpErrorPasswordB"></span>
+                    </p>
+
+                    <div class="strength-indicator">
+                        <div class="meter">
+                        </div>
+                        Las contraseñas seguras contienen 8-16 caracteres , no incluyen palabras o nombres comunes,
+                        y combinar letras mayúsculas , min&uacute;sculas , n&uacute;meros y s&iacute;mbolos
+                    </div>
+                </div>
+                <br>
+
+                <div class="form-group form-actions">
+                    <button type="submit" class="submit-button btn btn-sm btn-info" id="btnModificarPassword"><i
+                            class="fa fa-lock"></i> Guardar
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-2"></div>
+    </div>
+</div>
+<div id="divMsjeNotificacionError">
+    <div id="divMsjePorError">
+    </div>
+</div>
+<div id="divMsjeNotificacionWarning">
+    <div id="divMsjePorWarning">
+    </div>
+</div>
+<div id="divMsjeNotificacionSuccess">
+    <div id="divMsjePorSuccess">
+    </div>
+</div>

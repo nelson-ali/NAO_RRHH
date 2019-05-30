@@ -1,0 +1,19 @@
+<?php use Phalcon\Tag;?>
+<section class="panel">
+     <div class="panel-body progress-panel">
+        <div class="task-progress">
+            <h1>Oficinas</h1>            
+        </div>
+        <div class="task-option">
+            <?php echo Tag::linkTo(array("/modalidad/new", " + Nuevo", 'class' => 'btn btn-xs btn-default')); ?>            
+        </div>
+    </div>
+    <table class="table">
+        <?php foreach ($oficinas as $o): ?>
+            <tr>
+                <td><?php echo $o->id ?></td>
+                <td><?php echo $o->oficina ?></td>
+            </tr>
+        <?php endforeach; ?>
+    </table>
+</section>

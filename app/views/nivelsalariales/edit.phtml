@@ -1,0 +1,32 @@
+<h1>Editar Nivel Salarial</h1>
+<form method="post" action="">
+	<input type="hidden" name="id" value="<?php echo $nivelsalarial->id ?>">
+	<div>
+		<label>Resolución:</label>
+		<?php echo $resolucion ?>
+	</div>
+	<div>
+		<label>Categoria</label>
+		<input type="text" name="categoria" value="<?php echo $nivelsalarial->categoria ?>">	
+	</div>
+	<div>
+		<label>Clase</label>
+		<input type="text" name="clase" value="<?php echo $nivelsalarial->clase ?>">	
+	</div>
+	<div>
+		<label>Nivel Salarial</label>
+		<input type="text" name="nivel" value="<?php echo $nivelsalarial->nivel ?>">	
+	</div>
+	<div>
+		<label>Denominacion Cargo</label>
+		<input type="text" name="denominacion" value="<?php echo $nivelsalarial->denominacion ?>">	
+	</div>
+	<div>
+		<label>Sueldo</label>
+		<input type="text" name="sueldo" value="<?php echo $nivelsalarial->sueldo ?>">	
+	</div>
+	<div>
+		<button>Guardar</button>
+		<a href="../">Cancelar</a>
+	</div>
+</form>
