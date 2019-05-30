@@ -2,14 +2,27 @@
 
 /*
 *   Oasis - Sistema de Gestión para Recursos Humanos
-*   Empresa Estatal de Transporte por Cable "Mi Teleférico"
-*   Versión:  1.0.0
+*   Vias Bolivia "Mi Teleférico"
+*   Versión:  2.0.0
 *   Usuario Creador: Lic. Javier Loza
-*   Fecha Creación:  01-04-2015
+ *  modificaido por fernando tarifa
+*   Fecha Creación:  11-05-2019
+ * 20-05-2019   modificacion conexio sql    Carla Blanco
 */
 
+//require_once '/../../app/libs/Db/Adapter/Pdo/Sqlsrv.php';
+//require_once "Phalcon/Db/Dialect/Sqlsrv.php";
+//require_once "Phalcon/Db/Result/PdoSqlsrv.php";
 use Phalcon\Db\Adapter\Pdo\Sqlsrv as MssqlAdapter;
 use Phalcon\Db\Dialect\Sqlsrv as MssqlDialect;
+
+//define ("DB_MSSQL_HOST", '192.168.1.15');
+//define ("DB_MSSQL_PORT", '1433');
+//define ("DB_MSSQL_USER", 'sa');
+//define ("DB_MSSQL_PASSWD", 'S1stemas');
+//define ("DB_MSSQL_NAME", 'BiometricoK30');
+//define ("DB_MSSQL_SCHEMA", 'dbo');
+//define ("DB_MSSQL_CHARSET", 'utf8');
 
 class MarcacionesController extends ControllerBase
 {
@@ -395,35 +408,19 @@ class MarcacionesController extends ControllerBase
      */
     function conexionMSql()
     {
-//$MSQLSERVER = "192.168.1.15";
-        //$MSQLUSER = "sa";
-        //$MSQLPSW = "Sistemas";
-        //$MSSQLDB = "BiometricoK30";
-        echo "2.Test SQL Server: ";
-        $connectionOptions = array(
-            "Database" => DB_MSSQL_NAME,
-            "Uid" => DB_MSSQL_USER,
-            "PWD" => DB_MSSQL_PASSWD
-        );
-        //Establishes the connection
-        $conn = sqlsrv_connect(DB_MSSQL_HOST, $connectionOptions);
-        if($conn)
-            echo "PASS" . PHP_EOL;
 
-        else
-            echo "Fail" . PHP_EOL;
-
-        /* Array asociativo con la información de la conexion */
-        // $connectionInfo = array("UID" => $MSQLUSER, "PWD" => $MSQLPSW, "Database" => $MSSQLDB);
+        $serverName = "192.168.131.241";
+        $connectionInfo = array("Database"=>"BiometricoK30", "UId"=>"sa", "PWD"=>"S1stemas", "CharacterSet"=>"UTF-8");
 
         /* Nos conectamos mediante la autenticación de SQL Server . */
-        //$conn = sqlsrv_connect($MSQLSERVER, $connectionInfo);
-        /*if ($conn === false) {
+        $conn = sqlsrv_connect($serverName, $connectionInfo);
+        if ($conn === false) {
             die ("Falla en la conexion...");
             die(print_r(sqlsrv_errors(), true));
-        }*/
+        }
         //var_dump($conn);
         return $conn;
+
     }
 
     function pruebaAction()
@@ -435,7 +432,7 @@ class MarcacionesController extends ControllerBase
         $stmt = $dbh->prepare($sql);
         if ($stmt->execute()) {
             while ($result = $stmt->fetch()) {
-		echo '<p>nRO---->'.$result['BADGENUMBER'];
+                echo '<p>nRO---->'.$result['BADGENUMBER'];
 //                 echo var_dump ($result);
 
             }
@@ -673,14 +670,15 @@ class MarcacionesController extends ControllerBase
                 //echo "-->".$sql;
                 $arrFechaIni = explode("-", $fechaIni);
                 $arrFechaFin = explode("-", $fechaFin);
-                $fechaIni = $arrFechaIni[2] . "/" . $arrFechaIni[1] . "/" . $arrFechaIni[0];
-                $fechaFin = $arrFechaFin[2] . "/" . $arrFechaFin[1] . "/" . $arrFechaFin[0];
+                $fechaIni = $arrFechaIni[2] . "-" . $arrFechaIni[1] . "-" . $arrFechaIni[0];
+                $fechaFin = $arrFechaFin[2] . "-" . $arrFechaFin[1] . "-" . $arrFechaFin[0];
                 $sql .= "WHERE (c.CHECKTIME BETWEEN '" . $fechaIni . " 00:00:00' AND '" . $fechaFin . " 23:59:59' ";
                 $sql .= "OR CAST(c.CHECKTIME AS DATE) BETWEEN CAST('" . $fechaIni . "' AS DATE) AND CAST('" . $fechaFin . "' AS DATE)) ";
                 if ($ci != "" && $ci != NULL) {
                     $sql .= "AND (u.BADGENUMBER LIKE CAST('%$ci%' AS VARCHAR(24)) OR u.SSN LIKE CAST('%$ci%' AS VARCHAR(24))) ";
                 }
             }
+
             //echo $sql;
             $stmt = $dbh->prepare($sql);
             if ($stmt->execute()) {
@@ -797,9 +795,9 @@ class MarcacionesController extends ControllerBase
                 $arrFechaFin = explode("-", $this->sumarDiasFecha($fechaFin, 1));
                 //$arrFechaIni = explode("-", $fechaIni);
                 //$arrFechaFin = explode("-", $fechaFin);
-                $fechaIni = $arrFechaIni[2] . "/" . $arrFechaIni[1] . "/" . $arrFechaIni[0];
-                $fechaFin = $arrFechaFin[2] . "/" . $arrFechaFin[1] . "/" . $arrFechaFin[0];
-                $sql .= "AND c.CHECKTIME BETWEEN '" . $fechaIni . " 00:00:00' AND '" . $fechaFin . " 23:59:59' ";
+                $fechaIni = $arrFechaIni[2] . "-" . $arrFechaIni[1] . "-" . $arrFechaIni[0];
+                $fechaFin = $arrFechaFin[2] . "-" . $arrFechaFin[1] . "-" . $arrFechaFin[0];
+                $sql = $sql."AND c.CHECKTIME BETWEEN '" . $fechaIni . " 00:00:00' AND '" . $fechaFin . " 23:59:59' ";
             }
             //echo "->>>".$sql;
             $stmt = $dbh->prepare($sql);
@@ -866,14 +864,14 @@ class MarcacionesController extends ControllerBase
                 /**
                  * Consulta de un procedimiento almacenado en sistemas operativos Windows
                  */
-                $sql = "[SP_RPT_MARCACIONES_BIOMETRICOS]0,'" . $ci . "',0,'" . $fechaIni . "','" . $fechaFin . "'";
+                $sql = "[]0,'" . $ci . "',0,'" . $fechaIni . "','" . $fechaFin . "'";
             } else {
                 /**
                  * Consulta completa en sistemas Linux
                  */
                 $sql = "SELECT d.DEPTNAME AS UBICACION,u.NAME AS NOMBRES,CASE WHEN u.SSN IS NOT NULL THEN u.SSN ELSE u.BADGENUMBER END AS CI,
                         u.TITLE AS CARGO,CONVERT(VARCHAR(10),c.CHECKTIME,103) AS MARCACION_FECHA,CONVERT(VARCHAR(10),c.CHECKTIME,108) AS MARCACION_HORA,
-                        m.sn AS CODIGO_MAQUINA, m.MachineAlias AS ESTACION FROM dbo.USERINFO u
+                        c.sn AS CODIGO_MAQUINA,m.MachineAlias AS ESTACION FROM dbo.USERINFO u 
                         INNER JOIN dbo.CHECKINOUT c ON u.USERID = c.USERID
                         INNER JOIN dbo.DEPARTMENTS d ON d.DEPTID = u.DEFAULTDEPTID
                         INNER JOIN dbo.Machines m ON m.ID = c.SENSORID
@@ -882,8 +880,8 @@ class MarcacionesController extends ControllerBase
                 $arrFechaFin = explode("-", $this->sumarDiasFecha($fechaFin, 1));
                 //$arrFechaIni = explode("-", $fechaIni);
                 //$arrFechaFin = explode("-", $fechaFin);
-                $fechaIni = $arrFechaIni[2] . "/" . $arrFechaIni[1] . "/" . $arrFechaIni[0];
-                $fechaFin = $arrFechaFin[2] . "/" . $arrFechaFin[1] . "/" . $arrFechaFin[0];
+                $fechaIni = $arrFechaIni[2] . "-" . $arrFechaIni[1] . "-" . $arrFechaIni[0];
+                $fechaFin = $arrFechaFin[2] . "-" . $arrFechaFin[1] . "-" . $arrFechaFin[0];
                 $sql .= "AND c.CHECKTIME BETWEEN '" . $fechaIni . " 00:00:00' AND '" . $fechaFin . " 23:59:59' ";
             }
             //echo "->>>".$sql;
@@ -3376,4 +3374,4 @@ class MarcacionesController extends ControllerBase
             #endregion Proceso de generación del documento PDF
         }
     }
-} 
+}

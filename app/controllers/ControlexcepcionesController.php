@@ -4186,7 +4186,7 @@ class ControlexcepcionesController extends ControllerBase
         $cantidadSolicitada = 0;
         $cantidadAdmitida = 0;
         $cantidadUnidades = 0;
-        $fechaInicioOperacionesMiTeleferico = "23-04-2014";
+        $fechaInicioOperacionesMiTeleferico = "01-01-2018";
         $gestionA = 0;
         $mesA = 0;
         $gestionB = 0;

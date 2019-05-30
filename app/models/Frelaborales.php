@@ -292,7 +292,8 @@ class Frelaborales extends \Phalcon\Mvc\Model
      */
     public function getAllInGestion($idPersona = 0, $gestion = 0, $where = '', $group = '', $offset = 0, $limit = 0)
     {
-        $sql = "SELECT * FROM f_relaborales_ultima_movilidad_por_gestion($idPersona, $gestion, '$where', '$group', $offset, $limit)";
+        $sql = "SELECT * FROM f_relaborales_ultima_movilidad_por_gestion($idPersona)";
+        //$sql = "SELECT * FROM f_relaborales_ultima_movilidad_por_gestion($idPersona, $gestion, '$where', '$group', $offset, $limit)";
         /*if ($where != '') $sql .= $where;
         if ($group != '') $sql .= $group;*/
         //echo "<p>------->".$sql;
@@ -355,10 +356,12 @@ class Frelaborales extends \Phalcon\Mvc\Model
      * @param string $group
      * @return Resultset
      */
+
+
     public function getPaged($idPersonaConsulta = 0, $opcion = 0, $gestion = 0, $idPersona = 0, $where = '', $group = '', $offset = 0, $limit = 0)
     {
         if ($gestion >= 0) {
-            $sql = "SELECT * FROM f_relaborales_ultima_movilidad_mas_nuevos_por_gestion($idPersonaConsulta, $opcion,$gestion,$idPersona";
+            $sql = "SELECT * FROM f_relaborales_ultima_movilidad_mas_nuevos_por_gestion($idPersonaConsulta,$opcion,$gestion,$idPersona";
             $sql .= ",'$where','$group',$offset,$limit)";
             //echo "<p>----->".$sql;
             $this->_db = new Frelaborales();

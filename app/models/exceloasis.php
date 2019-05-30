@@ -113,8 +113,8 @@ class exceloasis extends PHPExcel
         // Add a drawing to the worksheet
         $objDrawing = new PHPExcel_Worksheet_Drawing();
         $objDrawing->setName('Logo');
-        $objDrawing->setDescription('Logo Vias Bolivia');
-        $objDrawing->setPath('./images/logoVB.jpg');
+        $objDrawing->setDescription('Logo Mi Teleferico');
+        $objDrawing->setPath('./images/logoMT.jpg');
         $objDrawing->setCoordinates($this->ultimaLetraCabeceraTabla . '1');
         $objDrawing->setOffsetX(5);
         $objDrawing->setHeight(50);
@@ -790,8 +790,8 @@ class exceloasis extends PHPExcel
         // Add a drawing to the worksheet
         $objDrawing = new PHPExcel_Worksheet_Drawing();
         $objDrawing->setName('Logo');
-        $objDrawing->setDescription('Logo Vias Bolivia');
-        $objDrawing->setPath('./images/logoVB.jpg');
+        $objDrawing->setDescription('Logo Mi Teleferico');
+        $objDrawing->setPath('./images/logoMT.jpg');
         $objDrawing->setCoordinates($ultimaLetra . '1');
         $objDrawing->setOffsetX(5);
         $objDrawing->setHeight(50);

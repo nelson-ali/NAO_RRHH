@@ -537,7 +537,7 @@ class CargosController extends ControllerBase
             #region Proceso de generación del documento Excel
             $excel->debug = 0;
             $excel->title_rpt = utf8_decode('Reporte de Cargos');
-            $excel->header_title_empresa_rpt = utf8_decode('Vias Bolivia');
+            $excel->header_title_empresa_rpt = utf8_decode('Empresa Estatal de Transporte por Cable "Mi Teleférico"');
             $alignSelecteds = $excel->DefineAligns($generalConfigForAllColumns, $columns, $agruparPor);
             $colSelecteds = $excel->DefineCols($generalConfigForAllColumns, $columns, $agruparPor);
             $colTitleSelecteds = $excel->DefineTitleCols($generalConfigForAllColumns, $columns, $agruparPor);
@@ -998,7 +998,7 @@ class CargosController extends ControllerBase
             #region Proceso de generación del documento PDF
             $pdf->debug = 0;
             $pdf->title_rpt = utf8_decode('Reporte de Cargos');
-            $pdf->header_title_empresa_rpt = utf8_decode('Vias Bolivia');
+            $pdf->header_title_empresa_rpt = utf8_decode('Empresa Estatal de Transporte por Cable "Mi Teleférico"');
             $alignSelecteds = $pdf->DefineAligns($generalConfigForAllColumns, $columns, $agruparPor);
             $colSelecteds = $pdf->DefineCols($generalConfigForAllColumns, $columns, $agruparPor);
             $colTitleSelecteds = $pdf->DefineTitleCols($generalConfigForAllColumns, $columns, $agruparPor);
@@ -1418,7 +1418,7 @@ class CargosController extends ControllerBase
             #region Proceso de generación del documento PDF
             $pdf->debug = 0;
             $pdf->title_rpt = utf8_decode('Reporte de Cargos');
-            $pdf->header_title_empresa_rpt = utf8_decode('Vias Bolivia');
+            $pdf->header_title_empresa_rpt = utf8_decode('Empresa Estatal de Transporte por Cable "Mi Teleférico"');
             $alignSelecteds = $pdf->DefineAligns($generalConfigForAllColumns, $columns, $agruparPor);
             $colSelecteds = $pdf->DefineCols($generalConfigForAllColumns, $columns, $agruparPor);
             $colTitleSelecteds = $pdf->DefineTitleCols($generalConfigForAllColumns, $columns, $agruparPor);

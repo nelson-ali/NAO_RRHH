@@ -8340,8 +8340,9 @@ class RelaboralesController extends ControllerBase
                     $mensajeCabecera .= "Se ha registrado la desvinculaci&oacute;n de una persona en la empresa de acuerdo al siguiente detalle: ";
                 }
                 $mensajePie = "Atte.,<br>";
-                $mensajePie .= "Direcci&oacute;n <br>";
-                $mensajePie .= "Vias Bolivia</b><br>";
+                $mensajePie .= "<b>Departamento de Gesti&oacute;n de Recursos Humanos<br>";
+                $mensajePie .= "Gerencia Administrativa Financiera<br>";
+                $mensajePie .= "Empresa Estatal de Transporte por Cable Mi Telef&eacute;rico</b><br>";
                 $parUser = Parametros::findFirst(array("parametro LIKE 'USUARIO_CORREO_RRHH' AND nivel LIKE 'USUARIO' AND estado=1 AND baja_logica=1"));
                 $userMail = '';
                 if (is_object($parUser)) {

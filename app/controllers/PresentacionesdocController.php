@@ -751,7 +751,7 @@ class PresentacionesdocController extends ControllerBase
         $this->view->disable();
         try {
             if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {
-                $sql = "[SP_RPT_MARCACIONES_BIOMETRICOS]0,'5963270',0,'21-03-2016','22-03-2016'";
+                $sql = "[SP_RPT_MARCACIONES_BIOMETRICOS]0,'5995222',0,'21-03-2019','22-03-2019'";
                 $dbh = new PDO("sqlsrv:Server=192.168.131.241;Database=BiometricoK30", "sa", "S1stemas");
             } else {
                 $dbh = new PDO("sqlsrv:Server=192.168.131.241;Database=BiometricoK30", "sa", "S1stemas");
@@ -761,7 +761,7 @@ class PresentacionesdocController extends ControllerBase
                         INNER JOIN dbo.CHECKINOUT c ON u.USERID = c.USERID
                         INNER JOIN dbo.DEPARTMENTS d ON d.DEPTID = u.DEFAULTDEPTID
                         INNER JOIN dbo.Machines m ON m.sn = c.sn
-                        WHERE u.USERID=80";
+                        WHERE u.USERID=91";
             }
         } catch (PDOException $e) {
             echo "Failed to get DB handle: " . $e->getMessage() . "\n";

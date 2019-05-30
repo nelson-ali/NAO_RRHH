@@ -49,7 +49,7 @@ class PDF extends FPDF {
         $this->Cell(150, 5, 'Fecha: ' . date('d/m/Y'), 0, 0, 'L');
         $this->Cell(45, 5, 'Pag.' . $this->PageNo(), 0, 0, 'R');
         $this->Ln();
-        $this->Cell(195, 5, utf8_decode('Av. Mariscal Santa Cruz, Edif. Centro de Comunicaciones La Paz 5to Piso - Telefonos: (591)-(2)-2119999-2156600 - www.oopp.gob.bo'), 'T', 0, 'C');
+        $this->Cell(195, 5, utf8_decode('Av. Mariscal Santa Cruz, Edif. Centro de Comunicaciones La Paz 1to Piso - Telefonos: (591)-(2)-2118200 - www.viasbolivia.gob.bo'), 'T', 0, 'C');
     }
 
     function SetWidths($w) {

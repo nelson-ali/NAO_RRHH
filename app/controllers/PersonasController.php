@@ -1,6 +1,6 @@
 <?php
 
-/*use Phalcon\Mvc\Controller;*/
+use Phalcon\Mvc\Controller;
 use Phalcon\Mvc\View;
 
 class PersonasController extends ControllerBase
@@ -10,8 +10,6 @@ class PersonasController extends ControllerBase
     {
         parent::initialize();
     }
-
-    /* ivan */
 
     public function indexAction()
     {
@@ -119,7 +117,7 @@ class PersonasController extends ControllerBase
                             $this->flashSession->success("Registro agregado satisfactoriamente...!");
                             $this->response->redirect('/personas');
                         } else {
-                            $this->flashSession->error("Ocurrio un error, favor comuniquese con el administrador del sistema. xx");
+                            $this->flashSession->error("Ocurrio un error, favor comuniquese con el administrador del sistema.");
                         }
                     }else{
                         $objPer = Personas::findFirstById($objPersonasContactoAux->persona_id);
@@ -395,6 +393,7 @@ class PersonasController extends ControllerBase
                 'mensaje' => '',
                 'existe' => 0,
             );
+            //$resul = Personas::findFirst(array('ci="'.$_POST['ci'].'"','order' => 'id ASC'));
             $persona = Personas::findFirst("ci='$ci'");
             if ($persona) {
                 $result = array(
@@ -468,7 +467,6 @@ class PersonasController extends ControllerBase
         $this->view->setVar('datos_personal', $datos_personal);
     }
 
-    /* ivan */
 
     public function listajsonAction()
     {

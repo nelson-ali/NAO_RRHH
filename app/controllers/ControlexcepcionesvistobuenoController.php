@@ -1156,8 +1156,8 @@ class ControlexcepcionesvistobuenoController extends ControllerBaseOut
                     $mensajeCabecera .= "Se ha solicitado la <b>" . utf8_decode($operacionSolicitada) . "</b> de aplicaci&oacute;n de Excepci&oacute;n con el siguiente detalle: ";
                     $mensajePie = "Atte.,<br>";
                     $mensajePie .= "<b>Unidad de Administraci&oacute;n y Recursos Humanos<br>";
-                    $mensajePie .= "DAF<br>";
-                    $mensajePie .= "- VIAS BOLIVIA -</b><br>";
+                    $mensajePie .= "DIRECCION GENERAL DE ASUNTOS ADMINISTRATIVOS<br>";
+                    $mensajePie .= "- MINISTERIO DE ENERGIAS -</b><br>";
                     $nombreSolicitante = "";
                     $cargoSolicitante = "";
                     $departamentoSolicitante = "";
@@ -1521,11 +1521,11 @@ class ControlexcepcionesvistobuenoController extends ControllerBaseOut
                             $mail->Username = $userMail;
                             $mail->Password = $passMail;
                             $mail->From = $userMail;
-                            $mail->FromName = "Sistema de Recursos Humanos - VB";
+                            $mail->FromName = "Sistema de Recursos Humanos - MEN";
                             $mail->Subject = utf8_decode("Solicitud de " . $operacionSolicitada . " de Excepcion");
                             $mail->MsgHTML($cuerpo);
                             $mail->AddAddress($contactoDestinatarioPrincipal->e_mail_inst, $relaboralDestinatarioPrincipal->nombres);
-                            $mail->addCC($userMail, "SRRHH - VB");
+                            $mail->addCC($userMail, "SRRHH - MEN");
                             $mail->IsHTML(true);
                             $mail->smtpConnect([
                                 'ssl' => [
@@ -1547,11 +1547,11 @@ class ControlexcepcionesvistobuenoController extends ControllerBaseOut
                                 $mailCopia->Username = $userMail;
                                 $mailCopia->Password = $passMail;
                                 $mailCopia->From = $userMail;
-                                $mailCopia->FromName = "Sistema de Recursos Humanos - VB";
+                                $mailCopia->FromName = "Sistema de Recursos Humanos - MEN";
                                 $mailCopia->Subject = utf8_decode("Copia de Solicitud " . $operacionSolicitada . " de Excepción");
                                 $mailCopia->MsgHTML($cuerpoCopia);
                                 $mailCopia->AddAddress($contactoRemitente->e_mail_inst, $relaboralSolicitante->nombres);
-                                $mailCopia->addCC($userMail, "SRRHH - VB");
+                                $mailCopia->addCC($userMail, "SRRHH - MEN");
                                 /**
                                  * En caso de haberse seleccionado el envío al inmediato superior, se envía una copia
                                  */
@@ -1717,8 +1717,8 @@ class ControlexcepcionesvistobuenoController extends ControllerBaseOut
                     $mensajeCabecera .= "Se ha procesado un registro de excepci&oacute;n de acuerdo al siguiente detalle: ";
                     $mensajePie = "Atte.,<br>";
                     $mensajePie .= "<b>Unidad de Administraci&oacute;n y Recursos Humanos<br>";
-                    $mensajePie .= "DAF<br>";
-                    $mensajePie .= "- VIAS BOLIVIA -</b><br>";
+                    $mensajePie .= "DIRECCION GENERAL DE ASUNTOS ADMINISTRATIVOS<br>";
+                    $mensajePie .= "- MINISTERIO DE ENERGIAS -</b><br>";
                     $nombreSolicitante = "";
                     $cargoSolicitante = "";
                     $departamentoSolicitante = "";
@@ -1946,13 +1946,13 @@ class ControlexcepcionesvistobuenoController extends ControllerBaseOut
                             $mail->Username = $userMail;
                             $mail->Password = $passMail;
                             $mail->From = $userMail;
-                            $mail->FromName = "Sistema de Recursos Humanos - VB";
+                            $mail->FromName = "Sistema de Recursos Humanos - MEN";
                             $referenciaAccionRealizada = str_replace("&Oacute;", "Ó", $referenciaAccionRealizada);
                             $mail->Subject = utf8_decode($referenciaAccionRealizada);
                             $mail->MsgHTML($cuerpo);
                             $mail->AddAddress($contactoDestinatarioPrincipal->e_mail_inst, $relaboralDestinatarioPrincipal->nombres);
                             $mail->AddCC($contactoDestinatarioSecundario->e_mail_inst, $relaboralDestinatarioSecundario->nombres);
-                            $mail->AddCC($userMail, "SRRHH - VB");
+                            $mail->AddCC($userMail, "SRRHH - MEN");
                             $mail->IsHTML(true);
                             $mail->smtpConnect([
                                 'ssl' => [

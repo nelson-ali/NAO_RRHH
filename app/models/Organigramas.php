@@ -59,7 +59,6 @@ class Organigramas extends \Phalcon\Mvc\Model
      * @var string
      */
     public $nivel_estructural_id;
-    
 
     /**
      *

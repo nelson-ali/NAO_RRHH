@@ -6,7 +6,7 @@ require_once "Phalcon/Db/Result/PdoSqlsrv.php";
 use Phalcon\Db\Adapter\Pdo\Sqlsrv as MssqlAdapter;
 use Phalcon\Db\Dialect\Sqlsrv as MssqlDialect;
 
-define ("TEST_DB_MSSQL_HOST", '192.168.131.241,1433');
+define ("TEST_DB_MSSQL_HOST", '192.168.1.15,1433');
 define ("TEST_DB_MSSQL_USER", 'sa');
 define ("TEST_DB_MSSQL_PASSWD", 'S1stemas');
 define ("TEST_DB_MSSQL_NAME", 'BiometricoK30');

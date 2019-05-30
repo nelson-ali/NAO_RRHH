@@ -138,7 +138,7 @@ class pdfoasis extends fpdf
     {
         $this->Image('../public/images/escudo.jpg', 10, 6, 20, 0);
         $x_segunda_imagen = $this->pageWidth - 25;
-        $this->Image('../public/images/logoVB.jpg', $x_segunda_imagen, 6, 15, 0);
+        $this->Image('../public/images/logoMT.jpg', $x_segunda_imagen, 6, 15, 0);
         $this->SetFont('Arial', 'B', 10);
         $west = $this->GetStringWidth($this->header_title_estado_rpt) + 6;
         $wemp = $this->GetStringWidth($this->header_title_empresa_rpt) + 6;

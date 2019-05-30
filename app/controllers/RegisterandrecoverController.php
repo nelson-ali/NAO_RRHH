@@ -124,9 +124,9 @@ class RegisterandrecoverController extends ControllerBaseOut
                         $mensajeCabecera .= "Se le recomiendo hacer el cambio del mismo luego de ingresar al sistema.";
                         $mensajeCabecera = utf8_decode($mensajeCabecera);
                         $mensajePie = "Atte.,<br>";
-                        $mensajePie .= "<b>Unidad de Talento Humanos<br>";
-                        $mensajePie .= "Direcci&oacute;n Administrativa Financiera<br>";
-                        $mensajePie .= "Vias Bolivia</b><br>";
+                        $mensajePie .= "<b>Departamento de Gesti&oacute;n de Recursos Humanos<br>";
+                        $mensajePie .= "Gerencia Administrativa Financiera<br>";
+                        $mensajePie .= "Empresa Estatal de Transporte por Cable Mi Telef&eacute;rico</b><br>";
                         $nombreSolicitante = "";
                         $cargoSolicitante = "";
                         $departamentoSolicitante = "";
@@ -441,9 +441,9 @@ class RegisterandrecoverController extends ControllerBaseOut
                         }
                         $mensajeCabecera = utf8_decode($mensajeCabecera);
                         $mensajePie = "Atte.,<br>";
-                        $mensajePie .= "<b>Unidad de Talento Humanos<br>";
-                        $mensajePie .= "Direcci&oacute;n Administrativa Financiera<br>";
-                        $mensajePie .= "Vias Bolivia</b><br>";
+                        $mensajePie .= "<b>Departamento de Gesti&oacute;n de Recursos Humanos<br>";
+                        $mensajePie .= "Gerencia Administrativa Financiera<br>";
+                        $mensajePie .= "Empresa Estatal de Transporte por Cable Mi Telef&eacute;rico</b><br>";
                         $nombreSolicitante = "";
                         $cargoSolicitante = "";
                         $departamentoSolicitante = "";

@@ -1,6 +1,6 @@
 <?php
 $DBHOST = "localhost";$DBUSER = "user_rrhh";$DBPSW = "pass_rrhh";$DBNAME = "bd_rrhh_publicado";
-$MSQLSERVER = "192.168.131.241";$MSQLUSER = "sa";$MSQLPSW = "Sistemas";$MSSQLDB = "BiometricoK30";
+$MSQLSERVER = "192.168.1.15";$MSQLUSER = "sa";$MSQLPSW = "Sistemas";$MSSQLDB = "BiometricoK30";
 //$db = Conexion();
 $dbms = ConexionMSql();
 ShowAllMarcaciones();
